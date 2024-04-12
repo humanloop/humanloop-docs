@@ -1,0 +1,8 @@
+instances:
+  - url: https://humanloop.docs.buildwithfern.com
+title: Humanloop
+navigation:
+  - api: API Reference
+colors:
+  accentPrimary: '#ffffff'
+  background: '#000000'
