@@ -139,6 +139,7 @@ navigation:
         layout:
           - page: SDKs
             path: ./pages/api-reference/sdks.md
+            slug: sdks
           - page: Errors
             path: ./pages/api-reference/errors.md
 colors:
