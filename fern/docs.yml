@@ -1,8 +1,181 @@
 instances:
   - url: https://humanloop.docs.buildwithfern.com
 title: Humanloop
+favicon: ./assets/favicon.svg
+tabs:
+  guides:
+    display-name: Guides
+    icon: light book-open
+  api:
+    display-name: API Reference
+    icon: light code
 navigation:
-  - api: API Reference
+  - tab: guides
+    layout:
+      - section: Getting Started
+        contents:
+          - page: Overview
+            path: ./pages/getting-started/overview.mdx
+          - page: Why Humanloop?
+            path: ./pages/getting-started/why-humanloop.mdx
+            slug: why-humanloop
+          - page: Quickstart Tutorial
+            path: ./pages/tbd.md
+            slug: quickstart
+      - section: Tutorials
+        contents:
+          - page: ChatGPT clone in Next.js
+            path: ./pages/tbd.md
+          - page: Create your first GPT-4 App
+            path: ./pages/tbd.md
+      - section: Guides
+        contents:
+          - section: Create a project
+            contents:
+              - page: From Playground
+                path: ./pages/tbd.md
+              - page: Using the SDK
+                path: ./pages/tbd.md
+          - section: Generate and log data
+            contents:
+              - page: Generate completions
+                path: ./pages/tbd.md
+              - page: Generate chat responses
+                path: ./pages/tbd.md
+              - page: Capture user feedback
+                path: ./pages/tbd.md
+              - page: Upload historic data
+                path: ./pages/tbd.md
+              - page: Use your own model
+                path: ./pages/tbd.md
+              - page: Chain multiple calls
+                path: ./pages/tbd.md
+          - section: Run an experiment
+            contents:
+              - page: Run an experiment
+                path: ./pages/tbd.md
+              - page: Run experiments managing your own model
+                path: ./pages/tbd.md
+          - page: Finetune a model
+            path: ./pages/tbd.md
+          - page: Manage API keys
+            path: ./pages/tbd.md
+          - page: Invite collaborators
+            path: ./pages/tbd.md
+          - page: Deploy to environments
+            path: ./pages/tbd.md
+          - section: Create and use Datasets
+            contents:
+              - page: Create a dataset
+                path: ./pages/tbd.md
+              - page: Batch generate
+                path: ./pages/tbd.md
+          - section: Evaluate your model
+            slug: evaluate
+            contents:
+              - page: Evaluate models online
+                slug: models-online
+                path: ./pages/tbd.md
+              - page: Evaluate models offline
+                slug: models-offline
+                path: ./pages/tbd.md
+              - page: Set up evaluations using API
+                slug: using-api
+                path: ./pages/tbd.md
+              - page: Use LLMs to evaluate logs
+                slug: logs
+                path: ./pages/tbd.md
+              - page: Self-hosted evaluations
+                slug: self-hosted
+                path: ./pages/tbd.md
+              - page: Evaluating externally generated logs
+                slug: externally-generated-logs
+                path: ./pages/guides/evaluate/externally-generated-logs.mdx
+              - page: Evaluating with human feedback
+                slug: human-feedback
+                path: ./pages/tbd.md
+          - section: Integrate Tools
+            contents:
+              - page: In the Editor
+                path: ./pages/tbd.md
+              - page: With the SDK
+                path: ./pages/tbd.md
+              - page: With the Snippet tool
+                path: ./pages/tbd.md
+              - page: Link a JSON Schema tool
+                path: ./pages/tbd.md
+                slug: json-schema
+              - page: Set up semantic search
+                path: ./pages/tbd.md
+                slug: semantic-search
+      - section: Examples
+        contents:
+          - page: Example Projects
+            path: ./pages/tbd.md
+      - section: Core entities
+        contents:
+          - page: Prompts
+            path: ./pages/tbd.md
+          - page: Tools
+            path: ./pages/tbd.md
+          - page: Datasets
+            path: ./pages/tbd.md
+          - page: Evaluators
+            path: ./pages/tbd.md
+          - page: Key Concepts
+            path: ./pages/tbd.md
+      - section: References
+        contents:
+          - page: Postman Workspace
+            path: ./pages/tbd.md
+          - page: Access Roles
+            path: ./pages/tbd.md
+          - page: .prompt files
+            path: ./pages/tbd.md
+  - tab: api
+    layout:
+      - api: Humanloop API
+        display-errors: true
+        layout:
+          - page: SDKs
+            path: ./pages/api-reference/sdks.md
+          - page: Errors
+            path: ./pages/api-reference/errors.md
 colors:
-  accentPrimary: '#ffffff'
-  background: '#000000'
+  accentPrimary:
+    light: "#1919E5"
+    dark: "#8A92FF"
+  background:
+    light: "#ffffff"
+    dark: "#18181B"
+logo:
+  light: ./assets/logo-light-mode.svg
+  dark: ./assets/logo-dark-mode.svg
+  href: https://humanloop.com
+  height: 22
+navbar-links:
+  - type: outlined
+    text: Sign in
+    href: https://app.humanloop.com/login
+  - type: filled
+    text: Book a demo
+    href: https://humanloop.com/demo
+layout:
+  content-width: 650px
+  page-width: 1424px
+  searchbar-placement: header
+  tabs-placement: header
+typography:
+  bodyFont:
+    name: InterHL
+    weight: 100 900
+    path: ./assets/Inter-roman.var.woff2
+  headingsFont:
+    name: Neue Haas Grotesk Display Pro
+    paths:
+      - path: ./assets/NHaasGroteskDP-55Rg.woff2
+        weight: 100 900
+      - path: ./assets/NHaasGroteskDP-56RgIt.woff2
+        weight: 100 900
+        style: italic
+css: ./assets/styles.css
