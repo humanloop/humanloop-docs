@@ -134,14 +134,16 @@ navigation:
             path: ./pages/tbd.md
   - tab: api
     layout:
-      - api: Humanloop API
-        display-errors: true
-        layout:
+      - section: Introduction
+        contents: 
           - page: SDKs
             path: ./pages/api-reference/sdks.md
             slug: sdks
           - page: Errors
             path: ./pages/api-reference/errors.md
+      - api: Humanloop API
+        display-errors: true
+        
 colors:
   accentPrimary:
     light: "#1919E5"
