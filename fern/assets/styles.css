@@ -1,6 +1,13 @@
 .fern-sidebar-link,
 .fern-search-bar,
-.fern-button {
+.fern-button,
+.playground-endpoint > div:first-child,
+.rounded-xl,
+.rounded-lg,
+.rounded,
+.rounded-md,
+.rounded-sm,
+.after\:rounded-lg:after {
     border-radius: 5px !important;
 }
 
