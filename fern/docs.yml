@@ -2,18 +2,11 @@ instances:
   - url: https://humanloop.docs.buildwithfern.com
 title: Humanloop
 favicon: ./assets/favicon.svg
-tabs:
-  guides:
-    display-name: Guides
-    icon: light book-open
-  api:
-    display-name: API Reference
-    icon: light code
 versions:
   - display-name: v5
-    path: ./apis/v5/docs.yml
+    path: ./versions/v5.yml
   - display-name: v4
-    path: ./apis/v4/docs.yml
+    path: ./versions/v4.yml
 colors:
   accentPrimary:
     light: "#1919E5"
