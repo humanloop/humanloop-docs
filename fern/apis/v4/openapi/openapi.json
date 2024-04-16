@@ -5775,7 +5775,6 @@
                                 "type": "number"
                             }
                         ],
-                        "title": "Value",
                         "description": "The result value of the evaluation."
                     },
                     "error": {
