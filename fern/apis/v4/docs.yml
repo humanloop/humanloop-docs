@@ -126,6 +126,7 @@ navigation:
       - api: Humanloop API
         api-name: v4
         display-errors: true
+        summary: ./summary.md
         layout:
           - page: SDKs
             path: ../../pages/api-reference/sdks.md
