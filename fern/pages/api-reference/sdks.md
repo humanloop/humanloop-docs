@@ -1,9 +1,20 @@
 The Humanloop platform can be accessed through the API or through our Python and TypeScript SDKs.
 
-More code snippets are available in the SDK package pages on [PyPI](https://pypi.org/project/humanloop/) and [NPM](https://www.npmjs.com/package/humanloop).
+<Cards>
+  <Card
+    title="Python"
+    icon="fa-brands fa-python"
+    href="https://pypi.org/project/humanloop/"
+  />
+  <Card
+    title="Node/Typescript"
+    icon="fa-brands fa-node"
+    href="https://www.npmjs.com/package/humanloop"
+  />
+</Cards>
 
+### Usage Examples
 
-<Aside>
 <Tabs>
 <Tab title="Python SDK">
 
@@ -69,4 +80,3 @@ console.log(chatResponse)
 
 </Tab>
 </Tabs>
-</Aside>

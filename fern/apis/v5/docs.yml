@@ -123,13 +123,14 @@ navigation:
             path: ../../pages/tbd.md
   - tab: api
     layout:
-      - api: Humanloop API
-        api-name: v5
-        display-errors: true
-        summary: ./summary.md
-        layout:
+      - section: Introduction
+        contents: 
           - page: SDKs
             path: ../../pages/api-reference/sdks.md
             slug: sdks
           - page: Errors
             path: ../../pages/api-reference/errors.md
+      - api: Humanloop API
+        api-name: v5
+        display-errors: true
+        summary: ./summary.md
