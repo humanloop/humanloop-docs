@@ -1,12 +1,13 @@
 tabs:
-  guides:
+  docs:
     display-name: Guides
+    slug: docs
     icon: light book-open
   api:
     display-name: API Reference
     icon: light code
 navigation:
-  - tab: guides
+  - tab: docs
     layout:
       - section: Getting Started
         contents:
@@ -15,6 +16,149 @@ navigation:
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
             slug: why-humanloop
+          - page: Quickstart Tutorial
+            path: ../pages/getting-started/quickstart-tutorial.mdx
+            slug: quickstart
+      - section: Tutorials
+        contents:
+          - page: ChatGPT clone in Next.js
+            path: ../pages/tutorials/clone.mdx
+          - page: Create your first GPT-4 App
+            path: ../pages/tutorials/create-app.mdx
+      - section: Guides
+        contents:
+          - section: Create a project
+            slug: create-project
+            contents:
+              - page: Overview
+                path: ../pages/guides/create-project/create-project.mdx
+                slug: overview
+              - page: From Playground
+                path: ../pages/guides/create-project/from-playground.mdx
+              - page: Using the SDK
+                path: ../pages/guides/create-project/using-sdk.mdx
+          - section: Generate and log data
+            slug: generate
+            contents:
+              - page: Overview
+                path: ../pages/guides/generate/generate-and-log.mdx
+                slug: overview
+              - page: Generate completions
+                path: ../pages/guides/generate/generate-completions.mdx
+                slug: completions
+              - page: Generate chat responses
+                path: ../pages/guides/generate/generate-chat.mdx
+                slug: chat-responses
+              - page: Capture user feedback
+                path: ../pages/guides/generate/capture-feedback.mdx
+              - page: Upload historic data
+                path: ../pages/guides/generate/upload-data.mdx
+                slug: upload-data
+              - page: Use your own model
+                path: ../pages/guides/generate/use-model.mdx
+                slug: use-model
+              - page: Chain multiple calls
+                path: ../pages/guides/generate/chain-calls.mdx
+                slug: chain-calls
+          - section: Run an experiment
+            slug: run
+            contents:
+              - page: Overview
+                path: ../pages/guides/run/overview.mdx
+              - page: Run an experiment
+                path: ../pages/guides/run/run-experiment.mdx
+              - page: Run experiments managing your own model
+                path: ../pages/guides/run/run-with-model.mdx
+          - page: Fine-tune a model
+            path: ../pages/guides/fine-tune-model.mdx
+          - page: Manage API keys
+            path: ../pages/guides/manage-api-keys.mdx
+          - page: Invite collaborators
+            path: ../pages/guides/invite-collaborators.mdx
+          - page: Deploy to environments
+            path: ../pages/guides/deploy-to-environments.mdx
+          - section: Create and use Datasets
+            slug: create-datasets
+            contents:
+              - page: Overview
+                path: ../pages/guides/create-datasets/create-dataset.mdx
+                slug: overview
+              - page: Create a dataset
+                path: ../pages/guides/create-datasets/create-dataset.mdx
+                slug: create
+              - page: Batch generate
+                path: ../pages/guides/create-datasets/batch-generate.mdx
+          - section: Evaluate your model
+            slug: evaluate
+            contents:
+              - page: Overview
+                path: ../pages/guides/evaluate/overview.mdx
+              - page: Evaluate models online
+                slug: models-online
+                path: ../pages/guides/evaluate/evaluate-online.mdx
+              - page: Evaluate models offline
+                slug: models-offline
+                path: ../pages/guides/evaluate/evaluate-offline.mdx
+              - page: Set up evaluations using API
+                slug: using-api
+                path: ../pages/guides/evaluate/set-up-evaluations.mdx
+              - page: Use LLMs to evaluate logs
+                slug: logs
+                path: ../pages/guides/evaluate/use-llms.mdx
+              - page: Self-hosted evaluations
+                slug: self-hosted
+                path: ../pages/guides/evaluate/self-hosted-evaluations.mdx
+              - page: Evaluating externally generated logs
+                slug: externally-generated-logs
+                path: ../pages/guides/evaluate/externally-generated-logs.mdx
+              - page: Evaluating with human feedback
+                slug: human-feedback
+                path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
+          - section: Integrate Tools
+            slug: integrate
+            contents:
+              - page: Overview
+                path: ../pages/guides/integrate/overview.mdx
+              - page: In the Editor
+                path: ../pages/guides/integrate/in-editor.mdx
+                slug: editor
+              - page: With the SDK
+                path: ../pages/guides/integrate/with-sdk.mdx
+                slug: sdk
+              - page: With the Snippet tool
+                path: ../pages/guides/integrate/with-snippet.mdx
+              - page: Link a JSON Schema tool
+                path: ../pages/guides/integrate/link-json.mdx
+                slug: json-schema
+              - page: Set up semantic search
+                path: ../pages/guides/integrate/set-up-search.mdx
+                slug: semantic-search
+      - section: Examples
+        contents:
+          - page: Example Projects
+            path: ../pages/examples/example-projects.mdx
+      - section: Core entities
+        contents:
+          - page: Overview
+            path: ../pages/core-entities/overview.mdx
+          - page: Prompts
+            path: ../pages/core-entities/prompts.mdx
+          - page: Tools
+            path: ../pages/core-entities/tools.mdx
+          - page: Datasets
+            path: ../pages/core-entities/datasets.mdx
+          - page: Evaluators
+            path: ../pages/core-entities/evaluators.mdx
+          - page: Key Concepts
+            path: ../pages/core-entities/key-concepts.mdx
+      - section: References
+        contents:
+          - page: Postman Workspace
+            path: ../pages/references/postman-workspace.mdx
+          - page: Access Roles
+            path: ../pages/references/access-roles.mdx
+          - page: .prompt files
+            path: ../pages/references/prompt-files.mdx
   - tab: api
     layout:
       - section: Introduction

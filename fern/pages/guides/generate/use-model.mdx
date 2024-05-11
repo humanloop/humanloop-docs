@@ -1,0 +1,140 @@
+---
+subtitle: Integrating Humanloop and running an experiment when using your own models.
+---
+
+The `humanloop.complete()`and `humanloop.chat()` call encapsulates the LLM provider calls (for example `openai.Completions.create()`), the model-config selection and logging steps in a single unified interface. There may be scenarios that you wish to manage the LLM provider calls directly in your own code instead of relying on Humanloop.
+
+For example, you may be using an LLM provider that currently is not directly supported by Humanloop such as Hugging Face.
+
+To support using your own model provider, we provide additional `humanloop.log()` and `humanloop.projects.get_config()` methods in the SDK.
+
+In this guide, we walk through how to use these SDK methods to log data to Humanloop and run experiments.
+
+## Prerequisites
+
+You already have a project created - if not, please pause and first follow our [project creation](doc:create-a-project-from-the-playground) guides.
+
+## Install and Initialize the SDK
+
+First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
+
+<Steps>
+### Install the Humanloop Python SDK:
+   ```shell
+   $ pip install humanloop
+   ```
+### Start a Python interpreter:
+   ```shell
+   $ python
+   ```
+### Initialize the SDK with your Humanloop API key (get your API key from your API Keys page)
+   ```python
+   >>> from humanloop import Humanloop
+   >>> humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+   ```
+</Steps>
+
+## Log data to your project
+
+<Steps>
+### Set up your code to first get your model config from Humanloop, then call your LLM provider to get a completion (or chat response) and then log this,  alongside the inputs, config and output:
+
+```python
+from humanloop import Humanloop
+import openai
+
+# Initialize Humanloop with your API key
+humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+
+project_id = "<YOUR PROJECT ID>"
+
+config_response = humanloop.projects.get_config(id=project_id)
+config = config_response.body["config"]
+
+client = openai.OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key="<YOUR OPENAI API KEY>",
+)
+
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Say this is a test",
+        }
+    ],
+    model=config["model"],
+  	temperature=config["temperature"]
+)
+
+# Parse the output from the OpenAI response.
+output = chat_completion.choices[0].message.content
+
+# Log the inputs, outputs and model config to your project.
+log_response = humanloop.log(
+    project_id=project_id,
+    inputs={"question": "How should I think about competition for my startup?"},
+    output=output,
+    config=config
+)
+
+# Use this ID to associate feedback received later to this datapoint.
+data_id = log_response.body["id"]
+```
+
+### The process of capturing feedback then uses the returned `data_id` as before.  
+   See our [guide to recording feedback with the SDK](doc:generate-and-log-with-the-sdk).
+### You can also log immediate feedback alongside the input and outputs:
+
+```
+# Log the inputs, outputs and model config to your project.
+log_response = humanloop.log(
+    project_id=project_id,
+    inputs={"question": "How should I think about competition for my startup?"},
+    output=output,
+    config=config,
+    feedback={"type": "rating", "value": "good"}
+)
+```
+</Steps>
+
+<Tip title="Hugging Face Example">
+Note that you can also use a similar pattern for non-OpenAI LLM providers. For example, logging results from Hugging Face’s Inference API:
+ 
+```python
+import requests
+from humanloop import Humanloop
+ 
+# Initialize the SDK with your Humanloop API key
+humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+ 
+# Make a generation using the Hugging Face Inference API.
+response = requests.post(
+    "https://api-inference.huggingface.co/models/gpt2",
+    headers={"Authorization": f"Bearer {<YOUR HUGGING FACE API TOKEN>}"},
+    json={
+        "inputs": "Answer the following question like Paul Graham from YCombinator:\n"
+        "How should I think about competition for my startup?",
+        "parameters": {
+            "temperature": 0.2,
+            "return_full_text": False,  # Otherwise, Hugging Face will return the prompt as part of the generation.
+        },
+    },
+).json()
+
+# Parse the output from the Hugging Face response.
+output = response[0]["generated_text"]
+
+# Log the inputs, outputs and model config to your project.
+log_response = humanloop.log(
+    project=project_id,
+    inputs={"question": "How should I think about competition for my startup?"},
+    output=output,
+    model_config={
+        "model": "gpt2",
+        "prompt_template": "Answer the following question like Paul Graham from YCombinator:\n{{question}}",
+        "temperature": 0.2,
+    },
+)
+```
+</Tip>

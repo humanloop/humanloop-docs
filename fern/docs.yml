@@ -3,8 +3,8 @@ instances:
 title: Humanloop
 favicon: ./assets/favicon.svg
 versions:
-  - display-name: v5
-    path: ./versions/v5.yml
+  # - display-name: v5
+  #   path: ./versions/v5.yml
   - display-name: v4
     path: ./versions/v4.yml
 colors:
