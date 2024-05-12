@@ -1,0 +1,44 @@
+---
+subtitle: Humanloop's evaluation framework allows you to test and track the performance of models in a rigorous way.
+---
+A key part of successful prompt engineering and deployment for LLMs is a robust evaluation framework. In this section we provide guides for how to set up Humanloop's evaluation framework in your projects.
+
+The core entity in the Humanloop evaluation framework is an **evaluator** - a function you define which takes an LLM-generated log as an argument and returns an **evaluation**. The evaluation is typically either a boolean or a number, indicating how well the model performed according to criteria you determine based on your use case.
+
+## Types
+
+Currently, you can define your evaluators in two different ways:
+
+- **Python** - using our in-browser editor, define simple Python functions to act as evaluators
+- **LLM** - use language models to evaluate themselves! Our evaluator editor allows you to define a special-purpose prompt which passes data from the underlying log to a language model. This type of evaluation is particularly useful for more subjective evaluation such as verifying appropriate tone-of-voice or factuality given an input set of facts. 
+
+## Modes: Monitoring vs. testing
+
+Evaluation is useful for both testing new model configs as you develop them and for monitoring live deployments that are already in production. 
+
+To handle these different use cases, there are two distinct modes of evaluator - **online** and **offline**.
+
+### Online
+
+Online evaluators are for use on logs generated in your project, including live in production. Typically, they are used to monitor deployed model performance over time. 
+
+Online evaluators can be set to run automatically whenever logs are added to a project. The evaluator takes the `log` as an argument.
+
+### Offline
+
+Offline evaluators are for use with predefined test [**datasets**](../../core-entities/datasets) in order to evaluate models as you iterate in your prompt engineering workflow, or to test for regressions in a CI environment.
+
+A test dataset is a collection of **datapoints**, which are roughly analogous to unit tests or test cases in traditional programming. Each datapoint specifies inputs to your model and (optionally) some target data. 
+
+When you run an offline evaluation, Humanloop iterates through each datapoint in the dataset and triggers a fresh LLM generation using the inputs of the testcase and the model config being evaluated. For each test case, your evaluator function will be called, taking as arguments the freshly generated `log` and the `testcase` datapoint that gave rise to it. Typically, you would write your evaluator to perform some domain-specific logic to determine whether the model-generated `log` meets your desired criteria (as specified in the datapoint 'target').
+
+## Humanloop-hosted vs. self-hosted
+
+Conceptually, evaluation runs have two components: 
+
+1. Generation of logs from the datapoints
+2. Evaluating those logs.
+
+Using the Evaluations API, Humanloop offers the ability to generate logs either within the Humanloop runtime, or self-hosted. Similarly, evaluations of the logs can be performed in the Humanloop runtime (using evaluators that you can define in-app) or self-hosted (see our [guide on self-hosted evaluations](./self-hosted)). 
+
+In fact, it's possible to mix-and-match self-hosted and Humanloop-runtime generations and evaluations in any combination you wish. When creating an evaluation via the API, set the `hl_generated` flag to `False` to indicate that you are posting the logs from your own infrastructure (see our [guide on evaluating externally-generated logs](./externally-generated-logs)). Include an evaluator of type `External` to indicate that you will post evaluation results from your own infrastructure. You can include multiple evaluators on any run, and these can include any combination of `External` (i.e. self-hosted) and Humanloop-runtime evaluators.
