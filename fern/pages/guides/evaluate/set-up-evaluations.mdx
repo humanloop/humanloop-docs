@@ -40,7 +40,7 @@ We'll go through how to use the SDK in a Python script to set up a project, crea
 <Steps>
 ### Import Humanloop and set your [Humanloop](https://app.humanloop.com/account/api-keys) and [OpenAI API](https://platform.openai.com/account/api-keys) keys.
 
-```python Python
+```python
 from humanloop import Humanloop
 
 HUMANLOOP_API_KEY = "<YOUR HUMANLOOP KEY>"
@@ -194,7 +194,7 @@ In your Humanloop project you will now see an evaluator defined:
 <Steps>
 ### You can now launch an evaluation against the model config using the dataset and evaluator. In practise you can include more than one evaluator:
 
-```python Python
+```python
 # Finally trigger an evaluation
 evaluation = humanloop.evaluations.create(
     project_id=project_id,

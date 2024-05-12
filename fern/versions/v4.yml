@@ -139,8 +139,6 @@ navigation:
             path: ../pages/examples/example-projects.mdx
       - section: Core entities
         contents:
-          - page: Overview
-            path: ../pages/core-entities/overview.mdx
           - page: Prompts
             path: ../pages/core-entities/prompts.mdx
           - page: Tools

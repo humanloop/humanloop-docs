@@ -1,0 +1,56 @@
+---
+subtitle: Tools are functions that can extend your LLMs with access to external data sources and enabling them to take actions.
+---
+<img src="../../assets/images/d77fb52-Tools.png" />
+
+Tools are functions that can extend your LLMs with access to external data sources and enabling them to take actions.
+
+Humanloop Tools can be used in multiple ways:
+
+- within the Prompt template
+- provided to the LLM as something it can call (think [OpenAI Function calling](https://platform.openai.com/docs/guides/function-calling))
+- as part of a chain of LLM calls and other events, such as a Retrieval Tool in a RAG pipeline
+
+Some Tools are executable within Humanloop, and these offer the greatest utility and convenience. For example Google and Pinecone have pre-built integrations and so so Tools that use them can be automatically performed and inserted into the right place.
+
+### Tools in a Prompt template
+
+You can add a tool call in a prompt template and the result will be inserted into the prompt sent to the model.  This allows you to insert retreived information into your LLMs calls. 
+
+For example, if you have **`{{ google("population of india") }}`** in your template, this Google tool will get executed and replaced with the resulting text “**1.42 billion (2024)**” before the prompt is sent to the model. Additionally, if your template contains a Tool call that uses an input variable e.g. **`{{ google(query) }}`** this will take the value of the input supplied in the request, compute the output of the Google tool, and insert that result into the resulting prompt that is stnd to the model.
+
+<img src="../../assets/images/4974396-image.png" alt="Example of a Tool being used within a Prompt template. This example will mean that this Prompt needs two inputs to be supplied (`query`, and `top_k`)" />
+
+
+Example of a Tool being used within a Prompt template. This example will mean that this Prompt needs two inputs to be supplied (`query`, and `top_k`)
+
+### Tools as function calling
+
+Certain large language models support function calling. For these models you can supply the description of functions and model can choose to call one or many of them by providing the values to call it with. 
+
+<img src="../../assets/images/b8e1ce6-toolsimage.png" />
+
+<br />
+
+Tools all have a functional interface that can be supplied as the JSONSchema needed for function calling. Additionally, if the Tool is executable on Humanloop, the result of any tool will automatically be inserted into the response in the API and in the Editor.
+
+Tools for function calling can be defined inline in our Editor or centrally managed for an organization.
+
+## Tools within a chain
+
+You can call a Tool within a chain of events and post the result to Humanloop.
+
+In this way you benefit from being able to see the logs, and version your tool, enabling you to make any changes and 
+
+### Supported Tools
+
+### Third-party integrations
+
+- _Pinecone Search_ - Vector similarity search using Pinecone vector DB and OpenAI embeddings.
+- _Google Search_ - API for searching Google: [https://serpapi.com/](https://serpapi.com/).
+- _GET API_ - Send a GET request to an external API.
+
+### Humanloop tools
+
+- _Snippet_ - Create reusable key/value pairs for use in prompts.
+- _JSON Schema_ - JSON schema for tool calling that can be shared across model configs.

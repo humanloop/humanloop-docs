@@ -42,7 +42,7 @@ If you already have the Pinecone SDK installed, skip to the next section.
 
 Now we'll initialise a Pinecone index, which is where we'll store our vector embeddings. We will be using OpenAI's [ada model](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) to create vectors to save to Pinecone, which has an output dimension of 1536 that we need to specify upfront when creating the index: 
 
-```python Python
+```python
 import pinecone
 
 # Initialise the SDK
@@ -175,7 +175,7 @@ index.describe_index_stats()
 
 ### You can now try out the semantic search with a test question:
 
-```python python
+```python
 test_query = "What is the first law of Thermodynamics?"
 
 # create the query vector
