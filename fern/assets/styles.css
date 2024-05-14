@@ -52,7 +52,8 @@
 }
 
 .dark #fern-header .fern-button[href="https://humanloop.com/demo"] {
-    background-color: white !important;
+    background-color: #B3B3CC !important;
+    color: #18181B !important;
 }
 
 .dark #fern-header .fern-button[href="https://humanloop.com/demo"]:hover {
