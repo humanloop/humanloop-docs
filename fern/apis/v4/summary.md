@@ -16,4 +16,4 @@ npm i humanloop
 
 ---
 
-Guides and further details about key concepts can be found in [our docs](/docs/getting-started/overview).
+Guides and further details about key concepts can be found in [our docs](/docs/what-is-humanloop).

@@ -10,8 +10,10 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         contents:
           - page: Overview
+            slug: what-is-humanloop
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
@@ -20,65 +22,78 @@ navigation:
             path: ../pages/getting-started/quickstart-tutorial.mdx
             slug: quickstart
       - section: Tutorials
+        skip-slug: true
         contents:
           - page: ChatGPT clone in Next.js
+            slug: chatgpt-clone-in-nextjs
             path: ../pages/tutorials/clone.mdx
           - page: Create your first GPT-4 App
             path: ../pages/tutorials/create-app.mdx
       - section: Guides
+        skip-slug: true
         contents:
           - section: Create a project
-            slug: create-project
+            skip-slug: true
             contents:
               - page: Overview
+                slug: projects-2
                 path: ../pages/guides/create-project/create-project.mdx
                 slug: overview
               - page: From Playground
                 path: ../pages/guides/create-project/from-playground.mdx
+                slug: create-a-project-from-the-playground
               - page: Using the SDK
                 path: ../pages/guides/create-project/using-sdk.mdx
+                slug: create-a-project-with-the-sdk
           - section: Generate and log data
-            slug: generate
+            skip-slug: true
             contents:
               - page: Overview
                 path: ../pages/guides/generate/generate-and-log.mdx
-                slug: overview
+                slug: generate-and-log-with-the-sdk
               - page: Generate completions
                 path: ../pages/guides/generate/generate-completions.mdx
-                slug: completions
+                slug: completion-using-the-sdk
               - page: Generate chat responses
                 path: ../pages/guides/generate/generate-chat.mdx
-                slug: chat-responses
+                slug: chat-using-the-sdk
               - page: Capture user feedback
+                slug: capture-user-feedback-using-the-sdk
                 path: ../pages/guides/generate/capture-feedback.mdx
               - page: Upload historic data
                 path: ../pages/guides/generate/upload-data.mdx
-                slug: upload-data
+                slug: upload-historic-data
               - page: Use your own model
                 path: ../pages/guides/generate/use-model.mdx
-                slug: use-model
+                slug: use-your-own-model-provider
               - page: Chain multiple calls
                 path: ../pages/guides/generate/chain-calls.mdx
-                slug: chain-calls
+                slug: logging-session-traces
           - section: Run an experiment
-            slug: run
+            skip-slug: true
             contents:
               - page: Overview
+                slug: run-an-experiment
                 path: ../pages/guides/run/overview.mdx
               - page: Run an experiment
+                slug: experiments-from-the-app
                 path: ../pages/guides/run/run-experiment.mdx
               - page: Run experiments managing your own model
+                slug: run-an-experiment-with-your-own-model-provider
                 path: ../pages/guides/run/run-with-model.mdx
           - page: Fine-tune a model
+            slug: finetune-a-model
             path: ../pages/guides/fine-tune-model.mdx
           - page: Manage API keys
+            slug: create-and-revoke-api-keys
             path: ../pages/guides/manage-api-keys.mdx
           - page: Invite collaborators
             path: ../pages/guides/invite-collaborators.mdx
           - page: Deploy to environments
+            slug: deploy-to-an-environment
             path: ../pages/guides/deploy-to-environments.mdx
           - section: Create and use Datasets
-            slug: create-datasets
+            skip-slug: true
             contents:
               - page: Overview
                 path: ../pages/guides/create-datasets/create-dataset.mdx
@@ -89,74 +104,84 @@ navigation:
               - page: Batch generate
                 path: ../pages/guides/create-datasets/batch-generate.mdx
           - section: Evaluate your model
-            slug: evaluate
+            skip-slug: true
             contents:
               - page: Overview
+                slug: evaluate-your-model
                 path: ../pages/guides/evaluate/overview.mdx
               - page: Evaluate models online
-                slug: models-online
+                slug: evaluate-models-online
                 path: ../pages/guides/evaluate/evaluate-online.mdx
               - page: Evaluate models offline
-                slug: models-offline
+                slug: evaluate-models-offline
                 path: ../pages/guides/evaluate/evaluate-offline.mdx
               - page: Set up evaluations using API
-                slug: using-api
+                slug: evaluations-using-api
                 path: ../pages/guides/evaluate/set-up-evaluations.mdx
               - page: Use LLMs to evaluate logs
-                slug: logs
+                slug: use-llms-to-evaluate-logs
                 path: ../pages/guides/evaluate/use-llms.mdx
               - page: Self-hosted evaluations
-                slug: self-hosted
+                slug: self-hosted-evaluations
                 path: ../pages/guides/evaluate/self-hosted-evaluations.mdx
               - page: Evaluating externally generated logs
-                slug: externally-generated-logs
+                slug: evaluating-externally-generated-logs
                 path: ../pages/guides/evaluate/externally-generated-logs.mdx
               - page: Evaluating with human feedback
-                slug: human-feedback
+                slug: evaluating-with-human-feedback
                 path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
           - section: Integrate Tools
-            slug: integrate
+            skip-slug: true
             contents:
               - page: Overview
+                slug: integrate-tools
                 path: ../pages/guides/integrate/overview.mdx
               - page: In the Editor
                 path: ../pages/guides/integrate/in-editor.mdx
-                slug: editor
+                slug: create-a-tool-in-the-editor
               - page: With the SDK
                 path: ../pages/guides/integrate/with-sdk.mdx
-                slug: sdk
+                slug: create-a-tool-with-the-sdk
               - page: With the Snippet tool
+                slug: in-your-prompts
                 path: ../pages/guides/integrate/with-snippet.mdx
               - page: Link a JSON Schema tool
                 path: ../pages/guides/integrate/link-json.mdx
+                slug: link-a-jsonschema-tool
                 slug: json-schema
               - page: Set up semantic search
                 path: ../pages/guides/integrate/set-up-search.mdx
-                slug: semantic-search
+                slug: set-up-semantic-search
       - section: Examples
+        skip-slug: true
         contents:
           - page: Example Projects
+            slug: examples
             path: ../pages/examples/example-projects.mdx
       - section: Core entities
+        skip-slug: true
         contents:
           - page: Prompts
             path: ../pages/core-entities/prompts.mdx
           - page: Tools
             path: ../pages/core-entities/tools.mdx
           - page: Datasets
+            slug: datasets-2
             path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
+            slug: evaluators-1
             path: ../pages/core-entities/evaluators.mdx
           - page: Key Concepts
             path: ../pages/core-entities/key-concepts.mdx
       - section: References
+        skip-slug: true
         contents:
           - page: Postman Workspace
             path: ../pages/references/postman-workspace.mdx
           - page: Access Roles
             path: ../pages/references/access-roles.mdx
           - page: .prompt files
-            slug: prompt-files
+            slug: prompt-file-format
             path: ../pages/references/prompt-files.mdx
   - tab: api
     layout:
