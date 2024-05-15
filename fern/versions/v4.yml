@@ -30,6 +30,10 @@ navigation:
             path: ../pages/tutorials/clone.mdx
           - page: Create your first GPT-4 App
             path: ../pages/tutorials/create-app.mdx
+          - page: Debug a LangChain Agent
+            slug: debug-a-langchain-agent
+            hidden: true
+            path: ../pages/tutorials/debug-a-langchain-agent.mdx
       - section: Guides
         skip-slug: true
         contents:
