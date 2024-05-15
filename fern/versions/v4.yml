@@ -96,7 +96,7 @@ navigation:
             skip-slug: true
             contents:
               - page: Overview
-                path: ../pages/guides/create-datasets/create-dataset.mdx
+                path: ../pages/guides/create-datasets/create-and-use.mdx
                 slug: overview
               - page: Create a dataset
                 path: ../pages/guides/create-datasets/create-dataset.mdx
