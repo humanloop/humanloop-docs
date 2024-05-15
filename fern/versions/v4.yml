@@ -5,6 +5,7 @@ tabs:
     icon: light book-open
   api:
     display-name: API Reference
+    slug: reference
     icon: light code
 navigation:
   - tab: docs
@@ -184,6 +185,7 @@ navigation:
   - tab: api
     layout:
       - section: Introduction
+        skip-slug: true
         contents: 
           - page: SDKs
             path: ../pages/api-reference/sdks.md
@@ -191,6 +193,7 @@ navigation:
           - page: Errors
             path: ../pages/api-reference/errors.md
       - api: Humanloop API
+        skip-slug: true
         api-name: v4
         display-errors: true
         summary: ../apis/v4/summary.md
