@@ -38,7 +38,6 @@ navigation:
               - page: Overview
                 slug: projects-2
                 path: ../pages/guides/create-project/create-project.mdx
-                slug: overview
               - page: From Playground
                 path: ../pages/guides/create-project/from-playground.mdx
                 slug: create-a-project-from-the-playground
@@ -148,7 +147,6 @@ navigation:
               - page: Link a JSON Schema tool
                 path: ../pages/guides/integrate/link-json.mdx
                 slug: link-a-jsonschema-tool
-                slug: json-schema
               - page: Set up semantic search
                 path: ../pages/guides/integrate/set-up-search.mdx
                 slug: set-up-semantic-search
