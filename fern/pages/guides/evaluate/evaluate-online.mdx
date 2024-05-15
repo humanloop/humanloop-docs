@@ -1,0 +1,80 @@
+---
+subtitle: In this guide, we will demonstrate how to create and use online evaluators to observe the performance of your models.
+---
+## Create an online evaluator
+
+### Prerequisites
+
+- You need to have access to evaluations.
+- You also need to have a project created - if not, please first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
+- Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
+
+To set up an online Python evaluator:
+
+<Steps>
+### Go to the **Evaluations** page in one of your projects and select the **Evaluators** tab
+### Select **+ New Evaluator** and choose **Code Evaluator** in the dialog
+
+<img src="../../../assets/images/29c3a3f-image.png" alt="Selecting the type of a new evaluator" />
+
+
+### From the library of presets on the left-hand side, we'll choose **Valid JSON** for this guide. You'll see a pre-populated evaluator with Python code that checks the output of our model is valid JSON grammar.
+
+<img src="../../../assets/images/4235b31-image.png" alt="The evaluator editor after selecting **Valid JSON** preset" />
+
+
+### In the debug console at the bottom of the dialog, click **Random logs from project**. The console will be populated with five datapoints from your project.
+
+<img src="../../../assets/images/7330b9d-image.png" alt="The debug console (you can resize this area to make it easier to view the logs)" />
+
+### Click the **Run** button at the far right of one of the log rows. After a moment, you'll see the **Result** column populated with a `True` or `False`. 
+
+<img src="../../../assets/images/c3d9b08-image.png" alt="The **Valid JSON** evaluator returned `True` for this particular log, indicating the text output by the model was grammatically correct JSON." />
+
+
+### Explore the `log` dictionary in the table to help understand what is available on the Python object passed into the evaluator.
+### Click **Create** on the left side of the page.
+</Steps>
+
+## Activate an evaluator for a project
+
+<Steps>
+### On the new **Valid JSON ** evaluator in the Evaluations tab, toggle the switch to **on** - the evaluator is now activated for the current project.
+
+<img src="../../../assets/images/71c34c5-image.png" alt="Activating the new evaluator to run automatically on your project." />
+
+### Go to the **Editor**, and generate some fresh logs with your model. 
+### Over in the **Logs** tab you'll see the new logs. The **Valid JSON** evaluator runs automatically on these new logs, and the results are displayed in the table.
+
+<img src="../../../assets/images/4a7ddd7-image.png" alt="The **Logs** table includes a column for each activated evaluator in your project. Each activated evaluator runs on any new logs in the project." />
+</Steps>
+
+## Track the performance of models
+
+### Prerequisites
+
+- A Humanloop project with a reasonable amount of data.
+- An Evaluator activated in that project.
+
+To track the performance of different model configs in your project:
+
+<Steps>
+### Go to the **Dashboard** tab.
+### In the table of model configs at the bottom, choose a subset of the project's model configs.
+### Use the graph controls at the top of the page to select the date range and time granularity of interest.
+### Review the relative performance of the model configs for each activated Evaluator shown in the graphs.
+</Steps>
+
+<img src="../../../assets/images/da76734-image.png" />
+
+## Note: Available Modules
+
+The following Python modules are available to be imported in your code evaluators:
+
+- `math`
+- `random`
+- `datetime`
+- `json` (useful for validating JSON grammar as per the example above)
+- `jsonschema` (useful for more fine-grained validation of JSON output - see the in-app example)
+- `sqlglot` (useful for validating SQL query grammar)
+- `requests` (useful to make further LLM calls as part of your evaluation - see the in-app example for a suggestion of how to get started).

@@ -1,0 +1,28 @@
+Everyone invited to the organization can access all projects currently (controlling project access coming soon).
+
+A user can be one of the following rolws:
+
+**Admin:**The highest level of control. They can manage, modify, and oversee the organization's settings and have full functionality across all projects.
+
+**Developer:**(Enterprise tier only) Can deploy prompts, manage environments, create and add API keys, but lacks the ability to access billing or invite others.
+
+**Member:**(Enterprise tier only) The basic level of access. Can create and save prompts, run evaluations, but not deploy. Can not see any org-wide API keys.
+
+## RBACs summary
+
+Here is the full breakdown of roles and access:
+
+| Action                         | Member | Developer | Admin |
+| :----------------------------- | :----- | :-------- | :---- |
+| Create and manage Prompts      | ✔️     | ✔️        | ✔️    |
+| Inspect logs and feedback      | ✔️     | ✔️        | ✔️    |
+| Create and manage evaluators   | ✔️     | ✔️        | ✔️    |
+| Run evaluations                | ✔️     | ✔️        | ✔️    |
+| Create and manage datasets     | ✔️     | ✔️        | ✔️    |
+| Create and manage API keys     |        | ✔️        | ✔️    |
+| Manage prompt deployments      |        | ✔️        | ✔️    |
+| Create and manage environments |        | ✔️        | ✔️    |
+| Send invites                   |        |           | ✔️    |
+| Set user roles                 |        |           | ✔️    |
+| Manage billing                 |        |           | ✔️    |
+| Change organization settings   |        |           | ✔️    |

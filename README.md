@@ -13,7 +13,7 @@ fern check
 ```
 ## Updating your Docs
 
-To update your docs, simply merge your PR to main. To see a preview of your docs, run 
+To update your docs, simply merge your PR to main. To see a preview of your docs, run: 
 
 ```sh
 npm install -g fern-api # only required once

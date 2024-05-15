@@ -52,7 +52,7 @@ navigation:
                 path: ../pages/tbd.md
               - page: Run experiments managing your own model
                 path: ../pages/tbd.md
-          - page: Finetune a model
+          - page: Fine-tune a model
             path: ../pages/tbd.md
           - page: Manage API keys
             path: ../pages/tbd.md

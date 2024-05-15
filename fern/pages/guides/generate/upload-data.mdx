@@ -1,0 +1,78 @@
+---
+subtitle: Uploading historic model inputs and generations to an existing Humanloop project.
+---
+The Humanloop Python SDK allows you to upload your historic model data to an existing Humanloop project. This can be used to warm-start your project. The data can be considered for feedback and review alongside your new user generated data.
+
+## Prerequisites
+
+1. You already have a project created - if not, please pause and first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
+
+## Install and initialize the SDK
+<Tip>
+The SDK requires Python 3.8 or greater.
+</Tip>
+
+First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
+
+1. Install the Humanloop Python SDK:
+   ```shell
+   $ pip install humanloop
+   ```
+2. Start a Python interpreter:
+   ```shell
+   $ python
+   ```
+3. Test your installation by running:
+   ```python
+   >>> from humanloop import Humanloop
+   ```
+
+## Log historic data
+
+Grab your API key from your [Settings page](https://app.humanloop.com/account/api-keys).
+
+1. Set up your code to first load up your historic data and then log this to Humanloop, explicitly passing details of the model config (if available) alongside the inputs and output:
+
+   ```python
+   from humanloop import Humanloop
+   import openai
+
+   # Initialize Humanloop with your API key
+   humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+
+   # NB: Add code here to load your existing model data before logging it to Humanloop
+
+   # Log the inputs, outputs and model config to your project - this log call can take batches of data.
+   log_response = humanloop.log(
+       project="<YOUR UNIQUE PROJECT NAME>",
+       inputs={"question": "How should I think about competition for my startup?"},
+       output=output,
+       config={
+           "model": "gpt-4",
+           "prompt_template": "Answer the following question like Paul Graham from YCombinator: {{question}}",
+           "temperature": 0.2,
+       },
+     	source="sdk",
+   )
+
+   # Use the datapoint IDs to associate feedback received later to this datapoint.
+   data_id = log_response.body["id"]
+   ```
+2. The process of capturing feedback then uses the returned `log_id` as before.  
+   See our [guide to recording feedback with the SDK](./overview).
+3. You can also log immediate feedback alongside the input and outputs:
+   ```python
+   # Log the inputs, outputs and model config to your project.
+   log_response = humanloop.log(
+       project="<YOUR UNIQUE PROJECT NAME>",
+       inputs={"question": "How should I think about competition for my startup?"},
+       output=output,
+       config={
+           "model": "gpt-4",
+           "prompt_template": "Answer the following question like Paul Graham from YCombinator: {{question}}",
+           "temperature": 0.2,
+       },
+     	source="sdk",
+       feedback={"type": "rating", "value": "good"}
+   )
+   ```

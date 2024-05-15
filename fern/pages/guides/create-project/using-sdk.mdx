@@ -1,0 +1,66 @@
+---
+subtitle: How to set up a project in Humanloop using the Python SDK.
+---
+
+The Humanloop Python SDK allows you to programmatically set up Humanloop projects with [model configs](/docs/key-concepts#model-config) and a [feedback schema](/docs/key-concepts#feedback).
+
+## Prerequisites
+
+1. A Humanloop account. If you don't have one, you can create an account now by going to the [Sign up page](https://app.humanloop.com/signup).
+
+## Install and Initialize the SDK
+
+First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
+
+1. Install the Humanloop Python SDK:
+   ```shell
+   $ pip install humanloop
+   ```
+2. Start a Python interpreter:
+   ```shell
+   $ python
+   ```
+3. Initialize the SDK with your Humanloop API key (get your API key from your [Organisation Settings page](https://app.humanloop.com/account/api-keys))
+   ```python
+   >>> from humanloop import Humanloop
+   >>> humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+   ```
+
+## Create a project
+
+Continue in the same Python interpreter (where you have run `humanloop = Humanloop(...)`).
+
+1. Create the project
+
+   ```python
+   project_response = humanloop.projects.create(name="{{your-organization}}-sdk-tutorial")
+   project_id = project_response.body["id"]
+   ```
+2. Add your own feedback types and values  
+   By default your project has a feedback type `rating` with labels `good` and `bad`.
+   ```python
+   humanloop.projects.update_feedback_types(
+       id=project_id,
+       body=[{
+           "type": "action", 
+           "class": "multi_select", 
+           "values": [
+             {"value": "copied"}, {"value": "saved"}
+           ],
+       }]
+   )
+   ```
+3. Register your model config
+   ```python
+   humanloop.model_configs.register(
+       project="{{your-organization}}-sdk-tutorial",
+       model="gpt-3.5-turbo",
+       prompt_template="Write a snappy introduction about {{topic}}:",
+       temperature=0.8,
+   )
+   ```
+
+You now have a project in Humanloop that contains your model config with feedback types set up.  
+You can view your project and invite team members by going to the **Project** page.
+
+With the project now set up, you can start to log generations from your models by following the [guide to logging generations using the SDK](/docs/generate-and-log-with-the-sdk).
