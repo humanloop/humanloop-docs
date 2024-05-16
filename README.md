@@ -1,4 +1,4 @@
-# HumanLoop Fern Configuration
+# Humanloop Fern Configuration
 
 This repository contains your Fern Configuration: 
   - [OpenAPI spec](./openapi.yml)
