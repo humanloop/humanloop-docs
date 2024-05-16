@@ -37,11 +37,14 @@ typography:
     weight: 100 900
     path: ./assets/Inter-roman.var.woff2
   headingsFont:
-    name: Neue Haas Grotesk Display Pro
-    paths:
-      - path: ./assets/NHaasGroteskDP-55Rg.woff2
-        weight: 100 900
-      - path: ./assets/NHaasGroteskDP-56RgIt.woff2
-        weight: 100 900
-        style: italic
+    name: InterHL
+    weight: 100 900
+    path: ./assets/Inter-roman.var.woff2
+    # name: Neue Haas Grotesk Display Pro
+    # paths:
+    #   - path: ./assets/NHaasGroteskDP-55Rg.woff2
+    #     weight: "500"
+    #   - path: ./assets/NHaasGroteskDP-56RgIt.woff2
+    #     weight: "500"
+    #     style: italic
 css: ./assets/styles.css

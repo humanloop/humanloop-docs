@@ -8,59 +8,76 @@
 .rounded-md,
 .rounded-sm,
 .after\:rounded-lg:after {
-    border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 .fern-button {
-    transition-duration: 0s !important;
+  transition-duration: 0s !important;
 }
 
 .fern-button.outlined:hover {
-    box-shadow: #71717A 0px 0px 0px 1px inset !important;
+  box-shadow: #71717a 0px 0px 0px 1px inset !important;
 }
 
 .dark .fern-button.outlined:hover {
-    box-shadow: #C0C0D5 0px 0px 0px 1px inset !important;
+  box-shadow: #c0c0d5 0px 0px 0px 1px inset !important;
 }
 
 #fern-header .fern-button[href="https://app.humanloop.com/login"],
-#fern-header .fern-button[href="https://humanloop.com/demo"] {
-    font-weight: 600 !important;
-    padding: 8px 12px !important;
-    height: 36px;
+#fern-header .fern-button[href="https://humanloop.com/demo"]
+{
+  font-weight: 600 !important;
+  padding: 8px 12px !important;
+  height: 36px;
 }
 
-#fern-header .fern-button[href="https://app.humanloop.com/login"] {
-    color: #3F3F46 !important;
+#fern-header .fern-button[href="https://app.humanloop.com/login"]
+{
+  color: #3f3f46 !important;
 }
 
-.dark #fern-header .fern-button[href="https://app.humanloop.com/login"] {
-    color: #B3B3CC !important;
+.dark #fern-header .fern-button[href="https://app.humanloop.com/login"]
+{
+  color: #b3b3cc !important;
 }
 
-#fern-header .fern-button[href="https://humanloop.com/demo"] {
-    background-color: #18181B !important;
-    box-shadow: rgba(24, 24, 27, 0.05) 0px 4px 8px 0px, rgba(24, 24, 27, 0.15) 0px 1px 2px 0px !important;
+#fern-header .fern-button[href="https://humanloop.com/demo"]
+{
+  background-color: #18181b !important;
+  box-shadow: rgba(24, 24, 27, 0.05) 0px 4px 8px 0px,
+    rgba(24, 24, 27, 0.15) 0px 1px 2px 0px !important;
 }
 
-#fern-header .fern-button[href="https://humanloop.com/demo"] svg {
-    display: none;
+#fern-header .fern-button[href="https://humanloop.com/demo"] svg
+{
+  display: none;
 }
 
-#fern-header .fern-button[href="https://humanloop.com/demo"]:hover {
-    background-color: #1919E5 !important;
+#fern-header .fern-button[href="https://humanloop.com/demo"]:hover
+{
+  background-color: #1919e5 !important;
 }
 
-.dark #fern-header .fern-button[href="https://humanloop.com/demo"] {
-    background-color: #B3B3CC !important;
-    color: #18181B !important;
+.dark #fern-header .fern-button[href="https://humanloop.com/demo"]
+{
+  background-color: #b3b3cc !important;
+  color: #18181b !important;
 }
 
-.dark #fern-header .fern-button[href="https://humanloop.com/demo"]:hover {
-    background-color: #8A92FF !important;
+.dark #fern-header .fern-button[href="https://humanloop.com/demo"]:hover
+{
+  background-color: #8a92ff !important;
 }
 
 #fern-header .fern-button-group .fern-button:last-child {
-    width: 36px;
-    height: 36px;
+  width: 36px;
+  height: 36px;
+}
+
+.fern-card {
+  border-width: 0;
+}
+
+h1 {
+  font-weight: 500;
 }
