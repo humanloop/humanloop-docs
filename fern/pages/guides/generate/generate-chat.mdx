@@ -9,29 +9,32 @@ The Humanloop Python SDK allows you to easily replace your `openai.ChatCompletio
 1. You already have a project created - if not, please pause and first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
 
 <Info>
-This guide assumes you're using an OpenAI model. If you want to use other providers or your own model please also look at our [guide to using your own model](/docs/use-your-own-model-provider).
+  This guide assumes you're using an OpenAI model. If you want to use other
+  providers or your own model please also look at our [guide to using your own
+  model](/docs/use-your-own-model-provider).
 </Info>
 
 ## Install and initialize the SDK
 
-<Info>
-The SDK requires Python 3.8 or greater.
-</Info>
+<Info>The SDK requires Python 3.8 or greater.</Info>
 
 First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
 1. Install the Humanloop Python SDK:
+
    <Tip>
-   We recommend pinning your installed Humanloop SDK to a specific version as our API is still currently evolving.
+We recommend pinning your installed Humanloop SDK to a specific version as our API is still currently evolving.
 
    You will be kept informed of the changes as we make them, and we do support older versions to accommodate a transition period.
+
    </Tip>
-   ```shell
-   $ pip install humanloop
-   ```
+```shell
+pip install humanloop
+```
+
 2. Start a Python interpreter:
    ```shell
-   $ python
+   python
    ```
 3. Test your installation by running:
    ```python
@@ -41,7 +44,7 @@ First you need to install and initialize the SDK. If you have already done this,
 ## Activate a model
 
 1. Log in to Humanloop and navigate to the **Models** tab of your project.
-2. Ensure that the default environment is in green at the top of the dashboard, the default environment is mapped to your active deployment. If there is no active deployment set, then use the dropdown button for the default environment and select the **Change deployment** option to select one of your existing model configs to use to generate. You also need to confirm the model you config you have deployed is a Chat model. This can be confirmed by clicking on the config in the table and viewing the Endpoint, making sure it says **Chat**.  
+2. Ensure that the default environment is in green at the top of the dashboard, the default environment is mapped to your active deployment. If there is no active deployment set, then use the dropdown button for the default environment and select the **Change deployment** option to select one of your existing model configs to use to generate. You also need to confirm the model you config you have deployed is a Chat model. This can be confirmed by clicking on the config in the table and viewing the Endpoint, making sure it says **Chat**.
    <img src="../../../assets/images/d7e0083-image.png" />
 
 ## Use the SDK to call your model
@@ -63,7 +66,7 @@ chat_response = humanloop.chat_deployed(
   	messages=[
     	  {"role": "user", "content": "How should I think about competition for my startup?"}
     ]
-) 
+)
 
 # A single call to chat may return multiple outputs.
 data_id = chat_response.body["data"][0]["id"]
@@ -75,4 +78,4 @@ print(chat_response.body["provider_responses"])
 
 Navigate to your project's **Logs** tab in the browser to see the recorded inputs, messages and responses of your chat.
 
-🎉  Now that you have chat messages flowing through your project you can start to log your end user feedback to evaluate and improve your models.
+🎉 Now that you have chat messages flowing through your project you can start to log your end user feedback to evaluate and improve your models.

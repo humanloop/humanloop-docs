@@ -14,11 +14,11 @@ First you need to install and initialize the SDK. If you have already done this,
 
 1. Install the Humanloop Python SDK:
    ```shell
-   $ pip install humanloop
+   pip install humanloop
    ```
 2. Start a Python interpreter:
    ```shell
-   $ python
+   python
    ```
 3. Initialize the SDK with your Humanloop API key (get your API key from your [Organisation Settings page](https://app.humanloop.com/account/api-keys))
    ```python
@@ -36,14 +36,15 @@ Continue in the same Python interpreter (where you have run `humanloop = Humanlo
    project_response = humanloop.projects.create(name="{{your-organization}}-sdk-tutorial")
    project_id = project_response.body["id"]
    ```
+
 2. Add your own feedback types and values  
    By default your project has a feedback type `rating` with labels `good` and `bad`.
    ```python
    humanloop.projects.update_feedback_types(
        id=project_id,
        body=[{
-           "type": "action", 
-           "class": "multi_select", 
+           "type": "action",
+           "class": "multi_select",
            "values": [
              {"value": "copied"}, {"value": "saved"}
            ],

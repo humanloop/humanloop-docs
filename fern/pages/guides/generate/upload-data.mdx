@@ -1,6 +1,7 @@
 ---
 subtitle: Uploading historic model inputs and generations to an existing Humanloop project.
 ---
+
 The Humanloop Python SDK allows you to upload your historic model data to an existing Humanloop project. This can be used to warm-start your project. The data can be considered for feedback and review alongside your new user generated data.
 
 ## Prerequisites
@@ -8,19 +9,18 @@ The Humanloop Python SDK allows you to upload your historic model data to an exi
 1. You already have a project created - if not, please pause and first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
 
 ## Install and initialize the SDK
-<Tip>
-The SDK requires Python 3.8 or greater.
-</Tip>
+
+<Tip>The SDK requires Python 3.8 or greater.</Tip>
 
 First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
 1. Install the Humanloop Python SDK:
    ```shell
-   $ pip install humanloop
+   pip install humanloop
    ```
 2. Start a Python interpreter:
    ```shell
-   $ python
+   python
    ```
 3. Test your installation by running:
    ```python
@@ -58,6 +58,7 @@ Grab your API key from your [Settings page](https://app.humanloop.com/account/ap
    # Use the datapoint IDs to associate feedback received later to this datapoint.
    data_id = log_response.body["id"]
    ```
+
 2. The process of capturing feedback then uses the returned `log_id` as before.  
    See our [guide to recording feedback with the SDK](./overview).
 3. You can also log immediate feedback alongside the input and outputs:

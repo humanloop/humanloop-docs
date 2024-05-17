@@ -81,3 +81,16 @@
 h1 {
   font-weight: 500;
 }
+
+.prose h1 {
+  font-size: 1.875rem;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-weight: 600;
+}
