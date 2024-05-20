@@ -21,11 +21,11 @@ First you need to install and initialize the SDK. If you have already done this,
 <Steps>
 ### Install the Humanloop Python SDK:
    ```shell
-   $ pip install humanloop
+   pip install humanloop
    ```
 ### Start a Python interpreter:
    ```shell
-   $ python
+   python
    ```
 ### Initialize the SDK with your Humanloop API key (get your API key from your API Keys page)
    ```python
@@ -82,8 +82,10 @@ log_response = humanloop.log(
 data_id = log_response.body["id"]
 ```
 
-### The process of capturing feedback then uses the returned `data_id` as before.  
-   See our [guide to recording feedback with the SDK](/docs/guides/generate-and-log-with-the-sdk).
+### The process of capturing feedback then uses the returned `data_id` as before.
+
+See our [guide to recording feedback with the SDK](/docs/guides/generate-and-log-with-the-sdk).
+
 ### You can also log immediate feedback alongside the input and outputs:
 
 ```
@@ -96,6 +98,7 @@ log_response = humanloop.log(
     feedback={"type": "rating", "value": "good"}
 )
 ```
+
 </Steps>
 
 <Tip title="Hugging Face Example">
@@ -123,18 +126,22 @@ response = requests.post(
 ).json()
 
 # Parse the output from the Hugging Face response.
+
 output = response[0]["generated_text"]
 
 # Log the inputs, outputs and model config to your project.
+
 log_response = humanloop.log(
-    project=project_id,
-    inputs={"question": "How should I think about competition for my startup?"},
-    output=output,
-    model_config={
-        "model": "gpt2",
-        "prompt_template": "Answer the following question like Paul Graham from YCombinator:\n{{question}}",
-        "temperature": 0.2,
-    },
+project=project_id,
+inputs={"question": "How should I think about competition for my startup?"},
+output=output,
+model_config={
+"model": "gpt2",
+"prompt_template": "Answer the following question like Paul Graham from YCombinator:\n{{question}}",
+"temperature": 0.2,
+},
 )
+
 ```
 </Tip>
+```

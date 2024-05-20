@@ -1,12 +1,15 @@
 ---
 subtitle: In this guide, we'll walk through an example of using our API to create testsets and trigger an evaluation.
 ---
+
 ## Prerequisites:
 
 - You need to have access to the beta preview of evaluations.
 
 <Info title="API Options">
-This guide uses our [Python SDK](/reference/sdks). All of the endpoints used are available in our [Typescript SDK](/reference/sdks) and directly [via the API](/reference/humanloop-api).
+  This guide uses our [Python SDK](/reference/sdks). All of the endpoints used
+  are available in our [Typescript SDK](/reference/sdks) and directly [via the
+  API](/reference/humanloop-api).
 </Info>
 
 ### Install and initialize the SDK
@@ -14,21 +17,14 @@ This guide uses our [Python SDK](/reference/sdks). All of the endpoints used are
 First you need to install and initialize the SDK, which requires **Python 3.8 or greater.** If you have already set this up, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
 <Steps>
-### Install the Humanloop Python SDK:
-   <Tip> 
-   We recommend pinning your installed Humanloop SDK to a specific version so that changes don't cause issues.
-   </Tip>
-   ```shell
-   $ pip install humanloop
-   ```
-### Start a Python interpreter:
-   ```shell
-   $ python
-   ```
-### Test your installation by running:
-   ```python
-   >>> from humanloop import Humanloop
-   ```
+  ### Install the Humanloop Python SDK:
+  <Tip>
+    We recommend pinning your installed Humanloop SDK to a specific version so
+    that changes don't cause issues.
+  </Tip>
+  ```shell pip install humanloop ``` ### Start a Python interpreter: ```shell
+  python ``` ### Test your installation by running: ```python >>> from humanloop
+  import Humanloop ```
 </Steps>
 
 ## Create evaluation
@@ -111,22 +107,23 @@ You can see from the `output` field in the response that the model has done a go
 
 ```json
 {
-    "id": "data_aVUA2QZPHaQTnhoOCG7yS",
-    "model_config_id": "config_RbbfjXOkEnzYK6PS8cS96",
-    "messages": [
-        {
-            "role": "system",
-            "content": "Extract the name of the feature or issue the customer is describing. Possible features are only: evaluations, experiments, fine-tuning \nWrite your response in json format as follows: \n {\"feature\": \"feature requested\", \"issue\": \"description of issue\"}",
-        },
-        {
-            "role": "user",
-            "content": "Hi Humanloop support team, I'm having trouble understanding how to use the evaluations feature in your software. Can you provide a step-by-step guide or any resources to help me get started?",
-        }
-    ],
-    "output": "{\"feature\": \"evaluations\", \"issue\": \"trouble understanding how to use the evaluations feature\"}",
-		"finish_reason": "stop"
+  "id": "data_aVUA2QZPHaQTnhoOCG7yS",
+  "model_config_id": "config_RbbfjXOkEnzYK6PS8cS96",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Extract the name of the feature or issue the customer is describing. Possible features are only: evaluations, experiments, fine-tuning \nWrite your response in json format as follows: \n {\"feature\": \"feature requested\", \"issue\": \"description of issue\"}"
+    },
+    {
+      "role": "user",
+      "content": "Hi Humanloop support team, I'm having trouble understanding how to use the evaluations feature in your software. Can you provide a step-by-step guide or any resources to help me get started?"
+    }
+  ],
+  "output": "{\"feature\": \"evaluations\", \"issue\": \"trouble understanding how to use the evaluations feature\"}",
+  "finish_reason": "stop"
 }
 ```
+
 </Steps>
 
 ### Create an evaluator
@@ -144,7 +141,7 @@ from json import JSONDecodeError
 
 def check_feature_json(datapoint, testcase):
     expected_feature = testcase["target"]["feature"]
-    
+
     try:
         # The model is expected to produce valid JSON output but it could fail to do so.
         output = json.loads(datapoint["output"])
