@@ -20,32 +20,39 @@ The Humanloop Python SDK allows you to easily replace your `openai.ChatCompletio
 
 First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
-1. Install the Humanloop Python SDK:
+1.  Install the Humanloop Python SDK:
 
-   <Tip>
-We recommend pinning your installed Humanloop SDK to a specific version as our API is still currently evolving.
+          <Tip>
 
-   You will be kept informed of the changes as we make them, and we do support older versions to accommodate a transition period.
+    We recommend pinning your installed Humanloop SDK to a specific version as our API is still currently evolving.
 
-   </Tip>
-```shell
-pip install humanloop
-```
+    You will be kept informed of the changes as we make them, and we do support older versions to accommodate a transition period.
 
-2. Start a Python interpreter:
-   ```shell
-   python
-   ```
-3. Test your installation by running:
-   ```python
-   >>> from humanloop import Humanloop
-   ```
+          </Tip>
+
+    ```shell
+    pip install humanloop
+    ```
+
+2.  Start a Python interpreter:
+    ```shell
+    python
+    ```
+3.  Test your installation by running:
+    ```python
+    from humanloop import Humanloop
+    ```
 
 ## Activate a model
 
 1. Log in to Humanloop and navigate to the **Models** tab of your project.
-2. Ensure that the default environment is in green at the top of the dashboard, the default environment is mapped to your active deployment. If there is no active deployment set, then use the dropdown button for the default environment and select the **Change deployment** option to select one of your existing model configs to use to generate. You also need to confirm the model you config you have deployed is a Chat model. This can be confirmed by clicking on the config in the table and viewing the Endpoint, making sure it says **Chat**.
-   <img src="../../../assets/images/d7e0083-image.png" />
+2. Ensure that the default environment is in green at the top of the dashboard.
+   The default environment is mapped to your active deployment.
+   If there is no active deployment set, then use the dropdown button for the default environment and select the **Change deployment** option to select one of your existing model configs to use to generate. You also need to confirm the model you config you have deployed is a Chat model. This can be confirmed by clicking on the config in the table and viewing the Endpoint, making sure it says **Chat**.
+
+{" "}
+
+<img src="../../../assets/images/d7e0083-image.png" />
 
 ## Use the SDK to call your model
 

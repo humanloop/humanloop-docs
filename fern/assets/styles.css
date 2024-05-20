@@ -74,8 +74,10 @@
   height: 36px;
 }
 
+/* JAB customization. TODO: clean up. */
+
 .fern-card {
-  border-width: 0;
+  border-width: 1;
 }
 
 h1 {
@@ -88,9 +90,17 @@ h1 {
 
 .prose h1,
 .prose h2,
-.prose h3,
 .prose h4,
 .prose h5,
 .prose h6 {
   font-weight: 600;
+}
+
+.prose h2,
+.prose h3 {
+  font-weight: 500;
+}
+
+figure.fern-card {
+  border-width: 0;
 }
