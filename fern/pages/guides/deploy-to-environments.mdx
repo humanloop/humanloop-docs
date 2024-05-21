@@ -4,20 +4,27 @@ subtitle: In this guide we will demonstrate how to create and use environments.
 
 Environments enable you to deploy model configurations and experiments, making them accessible via API, while also maintaining a streamlined production workflow. These environments are created at the organizational level and can be utilized on a per-project basis. For detailed information on environments, please refer to our [Changelog](/reference/changelog).
 
-<Warning> Only Enterprise customers can create more than one environment </Warning>
+<Warning>
+  {" "}
+  Only Enterprise customers can create more than one environment{" "}
+</Warning>
 
 ## Create an environment
 
 <Steps>
 ### Go to your Organization's [Environments](https://app.humanloop.com/account/environments) page.
+
 ### Click the **+ Environment** button to open the new environment dialog.
+
 ### Assign a custom name to the environment.
+
 ### Click **Create**.
+
 </Steps>
 
 <img src="../../assets/images/cb0f398-image.png" />
 
-***
+---
 
 ## Deploying to an environment
 
@@ -37,27 +44,30 @@ To deploy a model config to an environment:
 <img src="../../assets/images/1b04c4c-image.png" />
 
 ### Click the **Change deployment** button.
+
 ### From the model configs or experiments within that project click on the one that you wish to deploy to the target environment.
 
 <img src="../../assets/images/a4a5484-image.png" />
 
-
 ### Click the **Deploy** button.
-### Ensure the environment then shows the selected deployment. 
+
+### Ensure the environment then shows the selected deployment.
 
 </Steps>
 
-***
+---
 
 ## Calling the model in the environment
 
 ### Prerequisites
 
-- You have already deployed either a chat or completion model config - if not, please follow the steps in either the [Generate chat responses](/docs/chat-using-the-sdk) or [Generate completions](/docs/completion-using-the-sdk) guides. 
-- You have multiple environments, with a model config deployed in a non-default environment. See the [Deploying to an environment](#deploying-to-an-environment) section above. 
+- You have already deployed either a chat or completion model config - if not, please follow the steps in either the [Generate chat responses](/docs/chat-using-the-sdk) or [Generate completions](/docs/completion-using-the-sdk) guides.
+- You have multiple environments, with a model config deployed in a non-default environment. See the [Deploying to an environment](#deploying-to-an-environment) section above.
 
-<Info> 
-The following steps are assuming you're using an OpenAI model and that you're calling a `chat` workflow. The steps needed to target a specific environment for a `completion` workflow are similar.
+<Info>
+  The following steps are assuming you're using an OpenAI model and that you're
+  calling a `chat` workflow. The steps needed to target a specific environment
+  for a `completion` workflow are similar.
 </Info>
 
 <Steps>
@@ -94,8 +104,8 @@ print(response.body["data"][0]["output"])
 
 ## Updating the default environment
 
-<Warning> 
-Only Enterprise customers can update their default environment
+<Warning>
+  Only Enterprise customers can update their default environment
 </Warning>
 
 ### Prerequisites
@@ -105,11 +115,13 @@ Only Enterprise customers can update their default environment
 Every organization will have a default environment. This can be updated by the following:
 
 <Steps>
-### Go to your Organization's [Environment](https://app.humanloop.com/account/environments) page.
-### Click on the dropdown menu of an environment that is not already the default environment.
-### Click the **Make default** option.
-### A dialog will open asking you if you are certain this is a change you want to make. If so, click the **Make default** button. 
-### Verify the default tag has moved to the environment you selected. 
+  ### Go to your Organization's
+  [Environment](https://app.humanloop.com/account/environments) page. ### Click
+  on the dropdown menu of an environment that is not already the default
+  environment. ### Click the **Make default** option. ### A dialog will open
+  asking you if you are certain this is a change you want to make. If so, click
+  the **Make default** button. ### Verify the default tag has moved to the
+  environment you selected.
 </Steps>
 
 <img src="../../assets/images/962074b-image.png" />
