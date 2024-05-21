@@ -61,3 +61,4 @@ typography:
     #     weight: "500"
     #     style: italic
 css: ./assets/styles.css
+js: ./assets/scripts.js
