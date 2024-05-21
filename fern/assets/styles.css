@@ -104,3 +104,7 @@ h1 {
 figure.fern-card {
   border-width: 0;
 }
+
+img {
+  border-radius: 8px;
+}
