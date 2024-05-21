@@ -3,14 +3,19 @@
 This repository contains your Fern Configuration:
 
 - [OpenAPI spec](./openapi.yml)
-- [Generators config](./fern/generators.yml)
+<!-- - [Generators config](./fern/generators.yml) -->
+
+## Setup
+
+```sh
+npm install -g fern-api # only required once
+```
 
 ## Validating your API Definition
 
 To validate your API, run:
 
 ```sh
-npm install -g fern-api # only required once
 fern check
 ```
 
@@ -19,19 +24,20 @@ fern check
 To see a preview of your docs as you write them, run:
 
 ```sh
-npm install -g fern-api # only required once
 fern docs dev
 ```
 
-## Updating your Docs
-
-To update your docs, simply merge your PR to main. To see a preview of your docs, run:
+To see a exact preview fully rendered, run:
 
 ```sh
-npm install -g fern-api # only required once
-fern docs dev
+fern generate --docs --preview
 ```
+
+and you'll get a preview URL.
 
 ## Deploying your Docs
 
-Commit your changes and push to main. Your docs will be automatically deployed to Vercel.
+```sh
+npm install -g fern-api # only required once
+fern docs
+```
