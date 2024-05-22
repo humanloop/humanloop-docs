@@ -11,11 +11,11 @@ instances:
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
 versions:
+  - display-name: v4.0
+    path: ./versions/v4.yml
   - display-name: v5.0
     path: ./versions/v5.yml
     availability: beta
-  - display-name: v4.0
-    path: ./versions/v4.yml
 
 colors:
   accentPrimary:
