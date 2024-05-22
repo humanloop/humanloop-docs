@@ -1,5 +1,7 @@
 The Humanloop API allows you to interact with Humanloop from your product or service.
 
+<!-- <snippet peace-lily> -->
+
 You can do this through HTTP requests from any language or via our official Python or TypeScript SDK.
 
 To install the official [Python SDK](https://pypi.org/project/humanloop/), run the following command:

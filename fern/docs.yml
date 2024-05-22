@@ -1,5 +1,7 @@
 instances:
   - url: https://humanloop.docs.buildwithfern.com
+    custom-domain:
+      - fern.humanloop.com/docs
     edit-this-page:
       github:
         owner: humanloop
@@ -8,9 +10,9 @@ instances:
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
 versions:
-  - display-name: v5.0
-    path: ./versions/v5.yml
-    availability: beta
+  # - display-name: v5.0
+  #   path: ./versions/v5.yml
+  #   availability: beta
   - display-name: v4.0
     path: ./versions/v4.yml
 
@@ -41,7 +43,7 @@ footer-links:
 layout:
   content-width: 704px
   page-width: 1408px
-  sidebar-width: 288px
+  sidebar-width: 280px
   searchbar-placement: header
   tabs-placement: header
 typography:

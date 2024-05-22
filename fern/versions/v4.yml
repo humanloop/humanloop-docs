@@ -190,7 +190,7 @@ navigation:
     layout:
       - section: Introduction
         skip-slug: true
-        contents: 
+        contents:
           - page: SDKs
             path: ../pages/api-reference/sdks.md
             slug: sdks
