@@ -104,3 +104,22 @@ h1 {
 figure.fern-card {
   border-width: 0;
 }
+
+img {
+  border-radius: 8px;
+}
+
+/* Make the version dropdown less ugly */
+/* Have to select on aria-haspopup="menu" */
+
+#fern-header button[aria-haspopup="menu"] {
+  margin-left: 38px;
+  background-color: var(--color-background);
+  color: rgba(var(--body-text), var(--tw-text-opacity));
+}
+#fern-header
+  button[aria-haspopup="menu"]:hover
+  #fern-header
+  button[aria-haspopup="menu"]:active {
+  background-color: var(--grayscale-a3);
+}

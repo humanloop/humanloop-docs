@@ -1,21 +1,43 @@
 # Humanloop Fern Configuration
 
-This repository contains your Fern Configuration: 
-  - [OpenAPI spec](./openapi.yml)
-  - [Generators config](./fern/generators.yml)
+This repository contains your Fern Configuration:
+
+- [OpenAPI spec](./openapi.yml)
+<!-- - [Generators config](./fern/generators.yml) -->
+
+## Setup
+
+```sh
+npm install -g fern-api # only required once
+```
 
 ## Validating your API Definition
 
-To validate your API, run: 
+To validate your API, run:
+
 ```sh
-npm install -g fern-api # only required once
 fern check
 ```
-## Updating your Docs
 
-To update your docs, simply merge your PR to main. To see a preview of your docs, run: 
+## Changing docs
+
+To see a preview of your docs as you write them, run:
+
+```sh
+fern docs dev
+```
+
+To see a exact preview fully rendered, run:
+
+```sh
+fern generate --docs --preview
+```
+
+and you'll get a preview URL.
+
+## Deploying your Docs
 
 ```sh
 npm install -g fern-api # only required once
-fern generate --docs --preview
+fern docs
 ```

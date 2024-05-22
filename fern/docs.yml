@@ -1,12 +1,22 @@
 instances:
-  - url: https://humanloop.docs.buildwithfern.com
-title: Humanloop
+  - url: https://humanloop.docs.buildwithfern.com/docs
+    custom-domain:
+      - fern.humanloop.com/docs
+      - humanloop.com/docs
+    edit-this-page:
+      github:
+        owner: humanloop
+        repo: humanloop-docs
+        branch: main
+title: Humanloop Docs
 favicon: ./assets/favicon.svg
 versions:
-  # - display-name: v5
-  #   path: ./versions/v5.yml
-  - display-name: v4
+  - display-name: v4.0
     path: ./versions/v4.yml
+  - display-name: v5.0
+    path: ./versions/v5.yml
+    availability: beta
+
 colors:
   accentPrimary:
     light: "#1919E5"
@@ -26,9 +36,15 @@ navbar-links:
   - type: filled
     text: Book a demo
     href: https://humanloop.com/demo
+footer-links:
+  github: https://github.com/humanloop
+  x: https://x.com/humanloop
+  linkedin: https://linkedin.com/company/humanloop
+  website: https://humanloop.com
 layout:
-  content-width: 650px
-  page-width: 1424px
+  content-width: 704px
+  page-width: 1408px
+  sidebar-width: 288px
   searchbar-placement: header
   tabs-placement: header
 typography:
@@ -48,3 +64,4 @@ typography:
     #     weight: "500"
     #     style: italic
 css: ./assets/styles.css
+js: ./assets/scripts.js
