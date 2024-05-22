@@ -4969,6 +4969,7 @@ components:
           type: string
           title: Feedback type
           description: The type of feedback to update.
+          example: rating
         values:
           items:
             $ref: "#/components/schemas/FeedbackLabelRequest"
