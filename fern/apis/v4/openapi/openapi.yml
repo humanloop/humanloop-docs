@@ -37,22 +37,53 @@ servers:
 paths:
   /completion:
     post:
+      x-fern-examples:
+        - name: claude3
+          request:
+            model_config:
+              model: "claude3"
+            project: "example_project"
+            inputs:
+              text: "Make the following English text to French: 'Hello, how are you?'"
+          response:
+            body:
+              data:
+                - id: "data_1"
+                  index: 0
+                  output: "Bonjour, comment ça va ?"
+                  raw_output: "Bonjour, comment ça va ?"
+                  inputs:
+                    text: "Make the following English text to French: 'Hello, how are you?'"
+                  model_config_id: "sadfdsaf"
+                  finish_reason: "somethign"
+              provider_responses: [{}]
+              provider_request: {}
+          code-samples:
+            - sdk: typescript
+              code: |
+                import { UserClient } from "...";
+                client.users.get("user-1234")
+
+        - request:
+            model_config:
+              model: "gpt-3.5-turbo"
+            project: "second"
+            inputs:
+              text: "1 Translate the following English text to French: 'Hello, how are you?'"
+          # response:
+          #   body:
+          #     name: Foo
+          #     ssn: 4567
       tags:
         - Completions
       summary: Create
-      description: Create a 11 completion by providing details of the model configuration in the request.
+      description: Create a completion by providing details of the model configuration in the request.
       operationId: Completions_create
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/CompletionRequest"
-              example:
-                model_config:
-                  model: "gpt-4o"
-                project: "example_project"
-                inputs:
-                  text: "Translate the following English text to French: 'Hello, how are you?'"
         required: true
       responses:
         "200":
