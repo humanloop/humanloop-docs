@@ -28,6 +28,96 @@
           },
           "required": true
         },
+        "x-fern-examples": [
+          {
+            "name": "Example 1",
+            "request": {
+              "model_config": {
+                "model": "gpt-4o",
+                "endpoint": "complete",
+                "prompt_template": "write a limerick about {{topic}}"
+              },
+              "inputs": {
+                "topic": "AI"
+              },
+              "project": "limerick"
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_eJgRt5K1zivoFgHVlRnFv",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": "jordan@humanloop.com",
+                "data": [
+                  {
+                    "id": "data_hdsujCtCep4W5L7XwYpnn",
+                    "index": 0,
+                    "output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "raw_output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "inputs": {
+                      "topic": "AI"
+                    },
+                    "finish_reason": "stop",
+                    "model_config_id": "prv_AkObw2O2rquayfWHyJbqw",
+                    "tool_results": []
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 14,
+                  "generation_tokens": 36,
+                  "total_tokens": 50
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9SY6mNMWrL5gxtyL7xUOTIYZOjguD",
+                    "choices": [
+                      {
+                        "finish_reason": "stop",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": null
+                        }
+                      }
+                    ],
+                    "created": 1716591324,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_3196d36131",
+                    "usage": {
+                      "completion_tokens": 36,
+                      "prompt_tokens": 14,
+                      "total_tokens": 50
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "write a limerick about AI",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 0.7,
+                  "top_p": 1,
+                  "presence_penalty": 0,
+                  "frequency_penalty": 0,
+                  "user": "jordan@humanloop.com"
+                },
+                "session_id": null
+              }
+            }
+          }
+        ],
+
         "responses": {
           "200": {
             "description": "Successful Response",
