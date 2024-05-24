@@ -1,7 +1,12 @@
 instances:
+
   - url: https://humanloop.docs.buildwithfern.com
     custom-domain:
       - fern.humanloop.com/docs
+  - url: https://humanloop.docs.buildwithfern.com/docs
+    custom-domain:
+      - fern.humanloop.com/docs
+      - humanloop.com/docs
     edit-this-page:
       github:
         owner: humanloop
@@ -10,12 +15,11 @@ instances:
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
 versions:
-  # - display-name: v5.0
-  #   path: ./versions/v5.yml
-  #   availability: beta
   - display-name: v4.0
     path: ./versions/v4.yml
-
+  - display-name: v5.0
+    path: ./versions/v5.yml
+    availability: beta
 colors:
   accentPrimary:
     light: "#1919E5"
