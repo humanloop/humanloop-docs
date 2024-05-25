@@ -1,0 +1,40 @@
+{
+  "paths": {
+    "/completion": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "GPT-4o",
+            "request": {
+              "model_config": {
+                "model": "gpt-4o",
+                "prompt_template": "Testing"
+              }
+            },
+            "response": {
+              "body": {
+                "data": [],
+                "provider_responses": []
+              }
+            }
+          },
+          {
+            "name": "GPT-4 Turbo",
+            "request": {
+              "model_config": {
+                "model": "gpt-4-turbo",
+                "prompt_template": "Testing"
+              }
+            },
+            "response": {
+              "body": {
+                "data": [],
+                "provider_responses": []
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
