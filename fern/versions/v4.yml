@@ -161,8 +161,10 @@ navigation:
         skip-slug: true
         contents:
           - page: Prompts
+            slug: prompts
             path: ../pages/core-entities/prompts.mdx
           - page: Tools
+            slug: tools
             path: ../pages/core-entities/tools.mdx
           - page: Datasets
             slug: datasets

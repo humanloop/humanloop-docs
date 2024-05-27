@@ -51,8 +51,8 @@ The variables are surrounded by `{{ and }}` like this:
 
 ## Log
 
-All [Prompts](./prompts.mdx),
-[Tools](./tools.mdx) and [Evaluators](./evaluators.mdx) produce Logs. A Log containsthe `inputs` and the `output`s and tracks which version of Prompt/Tool/Evaluator was used.
+All [Prompts](./prompts),
+[Tools](./tools) and [Evaluators](./evaluators) produce Logs. A Log containsthe `inputs` and the `output`s and tracks which version of Prompt/Tool/Evaluator was used.
 
 For the example of a Prompt above, the Log would have one `input` called ‘topic’ and the `output` will be the completion.
 
@@ -60,7 +60,7 @@ For the example of a Prompt above, the Log would have one `input` called ‘topi
 
 ## Datapoint
 
-A datapoint is an input-output pair that is used to evaluate the performance of a model. It is different to a Log in that it is not tied to any specific version of a Prompt (or Tool or Evaluator), and that the target is an arbitrary object that can be used to evaluate the output of the model. See [Datasets](./datasets.mdx) for more information.
+A datapoint is an input-output pair that is used to evaluate the performance of a model. It is different to a Log in that it is not tied to any specific version of a Prompt (or Tool or Evaluator), and that the target is an arbitrary object that can be used to evaluate the output of the model. See [Datasets](./datasets) for more information.
 
 ## Feedback
 
