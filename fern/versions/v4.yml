@@ -1,7 +1,7 @@
 tabs:
   docs:
     display-name: Guides
-    slug: docs
+    slug: guides
     icon: light book-open
   api:
     display-name: API Reference
@@ -37,18 +37,18 @@ navigation:
       - section: Guides
         skip-slug: true
         contents:
-          - section: Create a project
+          - section: Create a Prompt
             skip-slug: true
             contents:
               - page: Overview
-                slug: projects-2
-                path: ../pages/guides/create-project/create-project.mdx
-              - page: From Playground
-                path: ../pages/guides/create-project/from-playground.mdx
-                slug: create-a-project-from-the-playground
+                slug: create-a-prompt
+                path: ../pages/guides/create-prompt/create-prompt.mdx
+              - page: Using the UI
+                path: ../pages/guides/create-prompt/from-ui.mdx
+                slug: create-a-prompt-in-the-ui
               - page: Using the SDK
-                path: ../pages/guides/create-project/using-sdk.mdx
-                slug: create-a-project-with-the-sdk
+                path: ../pages/guides/create-prompt/using-sdk.mdx
+                slug: create-a-prompt-with-the-sdk
           - section: Generate and log data
             skip-slug: true
             contents:

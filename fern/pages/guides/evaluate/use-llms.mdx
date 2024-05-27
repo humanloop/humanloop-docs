@@ -1,6 +1,7 @@
 ---
 subtitle: In this guide, we will set up an LLM evaluator to check for PII (Personally Identifiable Information) in logs.
 ---
+
 As well as using Python code to evaluate logs, you can also create special-purpose prompts for LLMs to evaluate logs too.
 
 In this guide, we'll show how to set up LLM evaluations.
@@ -8,7 +9,7 @@ In this guide, we'll show how to set up LLM evaluations.
 ### Prerequisites
 
 - You need to have access to evaluations.
-- You also need to have a project created - if not, please first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
+- You also need to have a project created - if not, please first follow our [project creation](./create-a-prompt-in-the-ui) guides.
 - Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
 
 ### Set up an LLM evaluator
@@ -24,26 +25,36 @@ In this guide, we'll show how to set up LLM evaluations.
 
 ### Set the evaluator to **Online** mode, and toggle **Auto-run** to on. This will make the PII checker run on all new logs in the project.
 
-<img src="../../../assets/images/be52778-image.png" alt="The  **PII check** evaluator." />
+<img
+  src="../../../assets/images/be52778-image.png"
+  alt="The  **PII check** evaluator."
+/>
 
 ### Click **Create** in the bottom left of the page.
+
 ### Go to Editor and try generating a couple of logs, some containing PII and some without.
-### Go to the Logs table to review these logs. 
 
-<img src="../../../assets/images/4bc4503-image.png" alt="The logs table, showing that the **PII check** evaluator ran on the latest logs." />
+### Go to the Logs table to review these logs.
 
+<img
+  src="../../../assets/images/4bc4503-image.png"
+  alt="The logs table, showing that the **PII check** evaluator ran on the latest logs."
+/>
 
 ### Click one of the logs to see more details in the drawer. In our example below, you can see that the the log did contain PII, and the **PII check** evaluator has correctly identified this and flagged it with **False**.
 
 <img src="../../../assets/images/e2a1554-image.png" />
 
 ### Click **View session** at the top of log drawer to inspect in more detail the LLM evaluator's generation itself.
+
 ### Select the **PII check** entry in the session trace. In the **Completed Prompt** tab of the log, you'll see the full input and output of the LLM evaluator generation.
 
-<img src="../../../assets/images/7b5713b-image.png" alt="The LLM evaluator produced an explanation reasoning why the underlying log did contain PII, and terminated with a final verdict of 'False'." />
+<img
+  src="../../../assets/images/7b5713b-image.png"
+  alt="The LLM evaluator produced an explanation reasoning why the underlying log did contain PII, and terminated with a final verdict of 'False'."
+/>
 
 </Steps>
-
 
 ### Available variables
 

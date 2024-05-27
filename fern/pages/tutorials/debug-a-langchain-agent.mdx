@@ -1,20 +1,22 @@
---- 
+---
 subtitle: In this tutorial you'll learn how to leverage Humanloop for debugging and improving an agent orchestrated by LangChain.
 ---
 
 At the end of this tutorial you'll have created a [LangChain agent](https://python.langchain.com/en/latest/modules/agents.html) to answer questions that require knowledge lookup and calculations, and used Humanloop to understand and improve the agent.
 
 ## Prerequisites
+
 - A Humanloop account - signup [here](https://app.humanloop.com/signup).
 - Python installed - you can download and install Python by following the steps on the Python download page.
 
 <Warning title="Beta Feature">
-This feature is still under development and subject to change as we get feedback from early users.
+  This feature is still under development and subject to change as we get
+  feedback from early users.
 </Warning>
 
 # Create an Agent
 
-We'll begin with using the popular open source [LangChain](https://python.langchain.com/en/latest/index.html) project to prototype an agent. We'll be using a Humanloop fork of the repository while this feature is still under development in beta. 
+We'll begin with using the popular open source [LangChain](https://python.langchain.com/en/latest/index.html) project to prototype an agent. We'll be using a Humanloop fork of the repository while this feature is still under development in beta.
 
 ## Install LangChain fork
 
@@ -26,7 +28,7 @@ pip install git+https://github.com/humanloop/langchain.git@humanloop-tracer
 
 ## Use LangChain
 
-We'll now create a simple agent in LangChain for answering complex questions that has access to [tools](https://python.langchain.com/en/latest/modules/agents/tools.html) for searching [Google](https://python.langchain.com/en/latest/modules/agents/tools/examples/google_serper.html), [Wikipedia](https://python.langchain.com/en/latest/modules/agents/tools/examples/wikipedia.html) and running calculations in Python. We'll use an OpenAI [LLMChain](https://python.langchain.com/en/latest/modules/chains/generic/llm_chain.html) as the core of the agent to reason about what tools to call and how to combine the intermediary results to answer our questions. 
+We'll now create a simple agent in LangChain for answering complex questions that has access to [tools](https://python.langchain.com/en/latest/modules/agents/tools.html) for searching [Google](https://python.langchain.com/en/latest/modules/agents/tools/examples/google_serper.html), [Wikipedia](https://python.langchain.com/en/latest/modules/agents/tools/examples/wikipedia.html) and running calculations in Python. We'll use an OpenAI [LLMChain](https://python.langchain.com/en/latest/modules/chains/generic/llm_chain.html) as the core of the agent to reason about what tools to call and how to combine the intermediary results to answer our questions.
 
 ### Set up environment
 
@@ -92,7 +94,7 @@ tools = [
 agent = initialize_agent(tools=tools, llm=llm)
 ```
 
-Next, we call the agent with a test question that requires knowledge lookup and calculation and print the result. 
+Next, we call the agent with a test question that requires knowledge lookup and calculation and print the result.
 
 ```python
 response = agent("Is Berlin or Munich closer to London as the crow flies?")
@@ -111,10 +113,10 @@ Now we turn our attention to using Humanloop to better understand what the agent
 
 ## Configure Humanloop
 
-First, we need to configure LangChain to turn on the Humanloop tracer. This can be achieved by just setting a couple of env variables, so requires no code changes. You'll need a Humanloop API key from your [account settings](https://app.humanloop.com/account/api-keys).  In your terminal run:
+First, we need to configure LangChain to turn on the Humanloop tracer. This can be achieved by just setting a couple of env variables, so requires no code changes. You'll need a Humanloop API key from your [account settings](https://app.humanloop.com/account/api-keys). In your terminal run:
 
 ```shell
-export HUMANLOOP_API_KEY="<YOUR HUMANLOOP API KEY>"  
+export HUMANLOOP_API_KEY="<YOUR HUMANLOOP API KEY>"
 export HUMANLOOP_TRACING="true"
 # optionally you can also name your chain
 export HUMANLOOP_APP_NAME="QA Agent"
@@ -145,15 +147,18 @@ Go to QA agent tutorials trace:
 https://app.humanloop.com/projects/pr_JdRf6lVn8ijNnVUiULbvH/sessions/sesh_2uzhmSPXrXEmkjiaLRuo2
 ```
 
-Click on this link to view the resulting trace on Humanloop. If this is the first time you have run this particular agent with Humanloop enabled, a Humanloop [project](/docs/key-concepts#projects) is automatically created. Subsequent runs of the agent will add additional entries to your sessions table.
+Click on this link to view the resulting trace on Humanloop. If this is the first time you have run this particular agent with Humanloop enabled, a Humanloop [project](./key-concepts#projects) is automatically created. Subsequent runs of the agent will add additional entries to your sessions table.
 
-<img src="../../assets/images/1678892-Screenshot_2023-05-25_at_23.00.14.png" alt="An expandable tree view of your agent trace." />
+<img
+  src="../../assets/images/1678892-Screenshot_2023-05-25_at_23.00.14.png"
+  alt="An expandable tree view of your agent trace."
+/>
 
 ## Interact in Editor
 
 To begin to understand where the agent may have gone wrong, we can drill into the trace and use the Humanloop `Editor` interface to iterate on variations of the prompt, model parameters and inputs:
 
-1. Click on the final `LLMChain` step in the trace and select the `Completed Prompt` tab at the top of the datapoint drawer. 
+1. Click on the final `LLMChain` step in the trace and select the `Completed Prompt` tab at the top of the datapoint drawer.
    1. From this view it's clear that the result provided by Google SerpAPI for the query _distance between Munich and London_ is truncated and does not include the necessary information to answer the question in terms of how the crow flies. In the next steps we'll correct this and see if it helps.
 
 ![](../../assets/images/5d64652-Screenshot_2023-05-25_at_23.06.43.png)
@@ -171,11 +176,9 @@ The driving time is approx. 11h 55min.
 
 <img src="../../assets/images/3e37ec8-Screenshot_2023-05-25_at_23.47.58.png" />
 
-
 5. Now we can adjust the parameters of the model in Editor to try to correct this behaviour. Select the `Parameters` tab on the left hand side. Change the base model from `text-davinci-003` to the more powerful `gpt-4` and re-run the test cases by selecting the `>Run all` button bottom right (or using the keyboard shortcut `Command + Enter`). The model now uses the updated information and provides the correct answer:
 
 <img src="../../assets/images/5097abc-Screenshot_2023-05-25_at_23.49.50.png" />
-
 
 ## Update the Agent
 

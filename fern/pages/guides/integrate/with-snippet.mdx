@@ -4,18 +4,19 @@ For example, you may have some common persona descriptions that you found to be 
 
 Instead of needing to copy and paste between your editor sessions and keep track of which projects you edited, you can instead inject the text into your prompt using the Snippet tool.
 
-***
+---
 
 ## Create and use a Snippet Tool
 
 ### Prerequisites
 
 - A Humanloop account - you can create one by going to our sign up page.
-- Be on a paid plan - your organization has been upgraded from the Free tier. 
-- You already have a project created - if not, please pause and first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
+- Be on a paid plan - your organization has been upgraded from the Free tier.
+- You already have a Prompt — if not, please first follow our [Prompt creation](./create-a-prompt) guide.
 
 <Warning title="Paid feature">
-The Snippet tool is not available for the Free tier. Please contact us if you wish to learn more about our [Enterprise plan](https://humanloop.com/pricing)
+  The Snippet tool is not available for the Free tier. Please contact us if you
+  wish to learn more about our [Enterprise plan](https://humanloop.com/pricing)
 </Warning>
 
 To create and use a snippet tool, follow the following steps:
@@ -25,21 +26,26 @@ To create and use a snippet tool, follow the following steps:
 
 <img src="../../../assets/images/9f27d70-image.png" />
 
-### Name the tool `assistant-personalities` and give it a description `Useful assistant personalities`. 
+### Name the tool `assistant-personalities` and give it a description `Useful assistant personalities`.
+
 ### In the initial box add `helpful-assistant` and give it a value of `You are a helpful assistant. You like to tell jokes and if anyone asks your name is Sam.`
-### Let's add another key-value pair, so press the **Add a key/value pair** button and add a new key of `grumpy-assistant` and give it a value of `You are a grumpy assistant. You rarely try to help people and if anyone asks your name is Freddy.`. 
+
+### Let's add another key-value pair, so press the **Add a key/value pair** button and add a new key of `grumpy-assistant` and give it a value of `You are a grumpy assistant. You rarely try to help people and if anyone asks your name is Freddy.`.
 
 <img src="../../../assets/images/a353b45-image.png" />
 
-### Press **Create Tool**. Now your Snippets are set up, you can use it to populate strings in your prompt templates across your projects. 
-### Navigate to the **Editor** of your previously created project. 
+### Press **Create Tool**. Now your Snippets are set up, you can use it to populate strings in your prompt templates across your projects.
+
+### Navigate to the **Editor** of your previously created project.
+
 ### In the Chat Templates section, delete the default assistants' string, and add `{{ assistant-personalities(key) }}`.
 
 <Note title="**Tool syntax: {{ <tool-name>(key) }}**">
 Double curly bracket syntax is used to call a tool in the editor.  Inside the curly brackets you put the tool name, e.g. `{{ <tool-name>(key) }}`.
 </Note>
 
-### Enter the key `helpful-assistant`. The tool requires an input value to be provided for the key. When adding the tool an inputs field will appear in the top right of the editor where you can specify your `key`. 
+### Enter the key `helpful-assistant`. The tool requires an input value to be provided for the key. When adding the tool an inputs field will appear in the top right of the editor where you can specify your `key`.
+
 ### Press the **Run** button in the editor to start the chat with the LLM. You can see the response of the LLM, as well as, see the key you previously defined add in the Chat on the right.
 
 <img src="../../../assets/images/fb6db8f-image.png" />
@@ -47,12 +53,16 @@ Double curly bracket syntax is used to call a tool in the editor.  Inside the cu
 ### Change the key to `grumpy-assistant`.
 
 <Warning title="The snippet will only render (or update) in the preview after running the chat">
-If you want to see the corresponding snippet to the key you either need to first run the conversation to fetch the string and see it in the preview.
+  If you want to see the corresponding snippet to the key you either need to
+  first run the conversation to fetch the string and see it in the preview.
 </Warning>
 
-### Ask the LLM, `I'm a customer and need help solving this issue. Can you help?'`. You should see a grumpy response from "Freddy" now. 
-### If you have a specific key you would like to hardcode in the prompt, you can define it using the literal key value: `{{ <your-tool-name>("key") }}`, so in this case it would be `{{ assistant-personalities("grumpy-assistant") }}`.  Delete the `grumpy-assistant` field and add it into your chat template. 
-### If you're happy with you're grumpy assistant, **Save** your model config. 
+### Ask the LLM, `I'm a customer and need help solving this issue. Can you help?'`. You should see a grumpy response from "Freddy" now.
+
+### If you have a specific key you would like to hardcode in the prompt, you can define it using the literal key value: `{{ <your-tool-name>("key") }}`, so in this case it would be `{{ assistant-personalities("grumpy-assistant") }}`. Delete the `grumpy-assistant` field and add it into your chat template.
+
+### If you're happy with you're grumpy assistant, **Save** your model config.
+
 </Steps>
 
 <img src="../../../assets/images/c6def6f-image.png" />
@@ -60,5 +70,8 @@ If you want to see the corresponding snippet to the key you either need to first
 The Snippet tool is particularly useful because you can define passages of text once in a Snippet tool and reuse them across multiple prompts, without needing to copy/paste them and manually keep them all in sync. Editing the values in your tool allows the changes to automatically propagate to the model configs when you update them, as long as the key is the same.
 
 <Warning title="Changing a snippet value can change a model configs behaviour">
-Since the values for a Snippet are saved on the tool, not the model config, changing the values (or keys) defined in your Snippet tools could affect the relative model config behaviour. This could be exactly what you intend, however caution should still be used make sure the changes are expected.
+  Since the values for a Snippet are saved on the tool, not the model config,
+  changing the values (or keys) defined in your Snippet tools could affect the
+  relative model config behaviour. This could be exactly what you intend,
+  however caution should still be used make sure the changes are expected.
 </Warning>
