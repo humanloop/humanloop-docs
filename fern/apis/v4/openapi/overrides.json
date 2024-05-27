@@ -1,5 +1,345 @@
 {
   "paths": {
+    "/chat": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Simple",
+            "request": {
+              "project": "persona",
+              "model_config": {
+                "model": "gpt-4o",
+                "max_tokens": 200,
+                "chat_template": [
+                  {
+                    "role": "system",
+                    "content": "You are {{person}}. Answer any questions as this person. Do not break character."
+                  }
+                ]
+              },
+              "messages": [
+                {
+                  "role": "user",
+                  "content": "What really happened at Roswell?"
+                }
+              ],
+              "inputs": {
+                "person": "Trump"
+              }
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_3usCu3dAkgrXTlufrvPs7",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": null,
+                "data": [
+                  {
+                    "id": "data_fIfEb1SoKZooqeFbi9IFs",
+                    "index": 0,
+                    "output": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                    "raw_output": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                    "inputs": {
+                      "person": "Trump"
+                    },
+                    "finish_reason": "stop",
+                    "model_config_id": "prv_Wu6zx1lAWJRqOyL8nWuZk",
+                    "tool_results": [],
+                    "messages": [
+                      {
+                        "content": "You are Trump. Answer any questions as this person. Do not break character.",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "system",
+                        "tool_calls": null,
+                        "tool_call": null
+                      },
+                      {
+                        "content": "What really happened at Roswell?",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "user",
+                        "tool_calls": null,
+                        "tool_call": null
+                      }
+                    ],
+                    "tool_call": null,
+                    "tool_calls": null,
+                    "output_message": {
+                      "content": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                      "name": null,
+                      "tool_call_id": null,
+                      "role": "assistant",
+                      "tool_calls": null,
+                      "tool_call": null
+                    }
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 34,
+                  "generation_tokens": 125,
+                  "total_tokens": 159
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9TbTAC1WFnAlRNY3yzVGGPQbLOXFY",
+                    "choices": [
+                      {
+                        "finish_reason": "stop",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": null
+                        }
+                      }
+                    ],
+                    "created": 1716842572,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_43dfabdef1",
+                    "usage": {
+                      "completion_tokens": 125,
+                      "prompt_tokens": 34,
+                      "total_tokens": 159
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "You are Trump. Answer any questions as this person. Do not break character.",
+                      "role": "system"
+                    },
+                    {
+                      "content": "What really happened at Roswell?",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 1,
+                  "top_p": 1,
+                  "presence_penalty": 0,
+                  "frequency_penalty": 0,
+                  "max_tokens": 200
+                },
+                "session_id": null,
+                "tool_choice": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/chat-deployed": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "ai-assistant-with-tools",
+            "request": {
+              "project": "ai-assistant",
+              "inputs": {
+                "persona": "helpful but will *always* tell a joke first before calling tools"
+              },
+              "messages": [
+                { "role": "user", "content": "What is the weather in SF?" }
+              ]
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_TfhDgggIsPi3cgmhq2yeA",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": null,
+                "data": [
+                  {
+                    "id": "data_lwWadasRw0vT4XDarZuNQ",
+                    "index": 0,
+                    "output": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                    "raw_output": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                    "inputs": {
+                      "persona": "helpful but will *always* tell a joke first before calling tools"
+                    },
+                    "finish_reason": "tool_call",
+                    "model_config_id": "prv_rlwVnPhRsiMKfnTusferP",
+                    "tool_results": [],
+                    "messages": [
+                      {
+                        "content": "You are a helpful assistant with persona helpful but will *always* tell a joke first before calling tools. \nUse tools to respond to user's queries.\n",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "system",
+                        "tool_calls": null,
+                        "tool_call": null
+                      },
+                      {
+                        "content": "What is the weather in SF?",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "user",
+                        "tool_calls": null,
+                        "tool_call": null
+                      }
+                    ],
+                    "tool_call": {
+                      "name": "get_current_weather",
+                      "arguments": "{\"location\":\"San Francisco, CA\"}"
+                    },
+                    "tool_calls": [
+                      {
+                        "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                        "type": "function",
+                        "function": {
+                          "name": "get_current_weather",
+                          "arguments": "{\"location\":\"San Francisco, CA\"}"
+                        }
+                      }
+                    ],
+                    "output_message": {
+                      "content": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                      "name": null,
+                      "tool_call_id": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                          "type": "function",
+                          "function": {
+                            "name": "get_current_weather",
+                            "arguments": "{\"location\":\"San Francisco, CA\"}"
+                          }
+                        }
+                      ],
+                      "tool_call": null
+                    }
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 137,
+                  "generation_tokens": 46,
+                  "total_tokens": 183
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9TbcxkvnK9Q0VTCO89GGPsgWiI7LY",
+                    "choices": [
+                      {
+                        "finish_reason": "tool_calls",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": [
+                            {
+                              "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                              "function": {
+                                "arguments": "{\"location\":\"San Francisco, CA\"}",
+                                "name": "get_current_weather"
+                              },
+                              "type": "function"
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "created": 1716843179,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_43dfabdef1",
+                    "usage": {
+                      "completion_tokens": 46,
+                      "prompt_tokens": 137,
+                      "total_tokens": 183
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "You are a helpful assistant with persona helpful but will *always* tell a joke first before calling tools. \nUse tools to respond to user's queries.\n",
+                      "role": "system"
+                    },
+                    {
+                      "content": "What is the weather in SF?",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 0.7,
+                  "top_p": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "tools": [
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "get_current_weather",
+                        "description": "Get the current weather in a given location",
+                        "parameters": {
+                          "type": "object",
+                          "properties": {
+                            "location": {
+                              "type": "string",
+                              "name": "Location",
+                              "description": "The city and state, e.g. San Francisco, CA"
+                            },
+                            "unit": {
+                              "type": "string",
+                              "name": "Unit",
+                              "enum": ["celsius", "fahrenheit"]
+                            }
+                          },
+                          "required": ["location"]
+                        }
+                      }
+                    },
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "get_stock_price",
+                        "description": "Get current stock price",
+                        "parameters": {
+                          "type": "object",
+                          "properties": {
+                            "ticker_symbol": {
+                              "type": "string",
+                              "name": "Ticker Symbol",
+                              "description": "Ticker symbol of the stock"
+                            }
+                          },
+                          "required": []
+                        }
+                      }
+                    }
+                  ],
+                  "tool_choice": "auto"
+                },
+                "session_id": null,
+                "tool_choice": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/chat-experiment": {
+      "post": {}
+    },
+    "/chat-model-config": {
+      "post": {}
+    },
     "/completion": {
       "post": {
         "x-fern-examples": [
@@ -188,18 +528,6 @@
       "post": {}
     },
     "/completion-model-config": {
-      "post": {}
-    },
-    "/chat": {
-      "post": {}
-    },
-    "/chat-deployed": {
-      "post": {}
-    },
-    "/chat-experiment": {
-      "post": {}
-    },
-    "/chat-model-config": {
       "post": {}
     },
     "/logs": {
