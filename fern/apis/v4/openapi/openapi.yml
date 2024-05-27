@@ -631,177 +631,6 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /projects/{project_id}/experiments:
-    get:
-      tags:
-        - Experiments
-      summary: "List "
-      description: Get an array of experiments associated to your project.
-      operationId: Experiments_list
-      parameters:
-        - description: String ID of project. Starts with `pr_`.
-          required: true
-          schema:
-            type: string
-            title: Project ID
-            description: String ID of project. Starts with `pr_`.
-          name: project_id
-          in: path
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/ExperimentResponse"
-                type: array
-                title: Response Experiments List
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-    post:
-      tags:
-        - Experiments
-      summary: Create
-      description: |-
-        Create an experiment for your project.
-
-        You can optionally specify IDs of your project's model configs to include
-        in the experiment, along with a set of labels to consider as positive feedback
-        and whether the experiment should be set as active.
-      operationId: Experiments_create
-      parameters:
-        - description: String ID of project. Starts with `pr_`.
-          required: true
-          schema:
-            type: string
-            title: Project ID
-            description: String ID of project. Starts with `pr_`.
-          name: project_id
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateExperimentRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExperimentResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /experiments/{experiment_id}:
-    delete:
-      tags:
-        - Experiments
-      summary: Delete
-      description: Delete the experiment with the specified ID.
-      operationId: Experiments_delete
-      parameters:
-        - description: String ID of experiment. Starts with `exp_`.
-          required: true
-          schema:
-            type: string
-            title: Experiment ID
-            description: String ID of experiment. Starts with `exp_`.
-          name: experiment_id
-          in: path
-      responses:
-        "204":
-          description: Successful Response
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-    patch:
-      tags:
-        - Experiments
-      summary: Update
-      description: |-
-        Update your experiment, including registering and de-registering
-        model configs.
-      operationId: Experiments_update
-      parameters:
-        - description: String ID of experiment. Starts with `exp_`.
-          required: true
-          schema:
-            type: string
-            title: Experiment ID
-            description: String ID of experiment. Starts with `exp_`.
-          name: experiment_id
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateExperimentRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExperimentResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /experiments/{experiment_id}/model-config:
-    get:
-      tags:
-        - Experiments
-      summary: Sample
-      description: Samples a model config from the experiment's active model configs.
-      operationId: Experiments_sample
-      parameters:
-        - description: String ID of experiment. Starts with `exp_`.
-          required: true
-          schema:
-            type: string
-            title: Experiment ID
-            description: String ID of experiment. Starts with `exp_`.
-          name: experiment_id
-          in: path
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetModelConfigResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /evaluations/{id}:
     get:
       tags:
@@ -1362,6 +1191,215 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
+  /projects/{project_id}/experiments:
+    get:
+      tags:
+        - Experiments
+      summary: "List "
+      description: Get an array of experiments associated to your project.
+      operationId: Experiments_list
+      parameters:
+        - description: String ID of project. Starts with `pr_`.
+          required: true
+          schema:
+            type: string
+            title: Project ID
+            description: String ID of project. Starts with `pr_`.
+          name: project_id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ExperimentResponse"
+                type: array
+                title: Response Experiments List
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+    post:
+      tags:
+        - Experiments
+      summary: Create
+      description: |-
+        Create an experiment for your project.
+
+        You can optionally specify IDs of your project's model configs to include
+        in the experiment, along with a set of labels to consider as positive feedback
+        and whether the experiment should be set as active.
+      operationId: Experiments_create
+      parameters:
+        - description: String ID of project. Starts with `pr_`.
+          required: true
+          schema:
+            type: string
+            title: Project ID
+            description: String ID of project. Starts with `pr_`.
+          name: project_id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateExperimentRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /experiments/{experiment_id}:
+    delete:
+      tags:
+        - Experiments
+      summary: Delete
+      description: Delete the experiment with the specified ID.
+      operationId: Experiments_delete
+      parameters:
+        - description: String ID of experiment. Starts with `exp_`.
+          required: true
+          schema:
+            type: string
+            title: Experiment ID
+            description: String ID of experiment. Starts with `exp_`.
+          name: experiment_id
+          in: path
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+    patch:
+      tags:
+        - Experiments
+      summary: Update
+      description: |-
+        Update your experiment, including registering and de-registering
+        model configs.
+      operationId: Experiments_update
+      parameters:
+        - description: String ID of experiment. Starts with `exp_`.
+          required: true
+          schema:
+            type: string
+            title: Experiment ID
+            description: String ID of experiment. Starts with `exp_`.
+          name: experiment_id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateExperimentRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /experiments/{experiment_id}/model-config:
+    get:
+      tags:
+        - Experiments
+      summary: Sample
+      description: Samples a model config from the experiment's active model configs.
+      operationId: Experiments_sample
+      parameters:
+        - description: String ID of experiment. Starts with `exp_`.
+          required: true
+          schema:
+            type: string
+            title: Experiment ID
+            description: String ID of experiment. Starts with `exp_`.
+          name: experiment_id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetModelConfigResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /feedback:
+    post:
+      tags:
+        - Feedback
+      summary: Feedback
+      description: Submit an array of feedback for existing `data_ids`
+      operationId: Feedback_feedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - items:
+                    $ref: "#/components/schemas/FeedbackRequest"
+                  type: array
+                - $ref: "#/components/schemas/FeedbackRequest"
+              title: Feedback Request
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - items:
+                      $ref: "#/components/schemas/FeedbackResponse"
+                    type: array
+                  - $ref: "#/components/schemas/FeedbackResponse"
+                title: Response Feedback Feedback
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
   /logs:
     get:
       tags:
@@ -1629,44 +1667,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LogResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /feedback:
-    post:
-      tags:
-        - Feedback
-      summary: Feedback
-      description: Submit an array of feedback for existing `data_ids`
-      operationId: Feedback_feedback
-      requestBody:
-        content:
-          application/json:
-            schema:
-              anyOf:
-                - items:
-                    $ref: "#/components/schemas/FeedbackRequest"
-                  type: array
-                - $ref: "#/components/schemas/FeedbackRequest"
-              title: Feedback Request
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - items:
-                      $ref: "#/components/schemas/FeedbackResponse"
-                    type: array
-                  - $ref: "#/components/schemas/FeedbackResponse"
-                title: Response Feedback Feedback
         "422":
           description: Validation Error
           content:
