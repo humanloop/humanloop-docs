@@ -179,15 +179,15 @@ navigation:
       - section: References
         skip-slug: true
         contents:
-          - page: Postman Workspace
-            path: ../pages/references/postman-workspace.mdx
+          - page: Supported Models
+            path: ../pages/references/models.mdx
           - page: Access Roles
             path: ../pages/references/access-roles.mdx
-          - page: Supported providers
-            path: ../pages/references/supported-models.mdx
           - page: .prompt files
             slug: prompt-file-format
             path: ../pages/references/prompt-files.mdx
+          - page: Postman Workspace
+            path: ../pages/references/postman-workspace.mdx
   - tab: api
     layout:
       - section: Introduction
