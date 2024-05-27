@@ -157,7 +157,7 @@ navigation:
                 path: ../pages/guides/integrate/set-up-search.mdx
                 slug: set-up-semantic-search
 
-      - section: Core entities
+      - section: Core concepts
         skip-slug: true
         contents:
           - page: Prompts
@@ -165,10 +165,10 @@ navigation:
           - page: Tools
             path: ../pages/core-entities/tools.mdx
           - page: Datasets
-            slug: datasets-2
+            slug: datasets
             path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
-            slug: evaluators-1
+            slug: evaluators
             path: ../pages/core-entities/evaluators.mdx
           - page: Key Concepts
             path: ../pages/core-entities/key-concepts.mdx

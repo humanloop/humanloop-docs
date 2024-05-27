@@ -1,10 +1,9 @@
 ## Projects
 
 <Warning>
-  Projects are now '[Prompts](./prompts.mdx)' (and we've added
-  '[Tools](./tools.mdx)' and '[Evaluators](./evaluators.mdx)' special types).
-  The V4 API still refers to projects however as the main way to interact with
-  your Prompts.
+  Projects are now [Prompts](./prompts) (and we've added [Tools](./tools) and
+  [Evaluators](./evaluators) special types). The V4 API still refers to projects
+  however as the main way to interact with your Prompts.
 </Warning>
 
 A project groups together the data, prompts and models that are all achieving the same task to be done using the large language model.
@@ -50,16 +49,18 @@ The variables are surrounded by `{{ and }}` like this:
   alt="The input name is ‘topic’ and the value will be inserted into the prompt at runtime."
 />
 
+## Log
+
+All [Prompts](./prompts.mdx),
+[Tools](./tools.mdx) and [Evaluators](./evaluators.mdx) produce Logs. A Log containsthe `inputs` and the `output`s and tracks which version of Prompt/Tool/Evaluator was used.
+
+For the example of a Prompt above, the Log would have one `input` called ‘topic’ and the `output` will be the completion.
+
+<img src="../../assets/images/log.png" alt="An example Log " />
+
 ## Datapoint
 
-This is a generation from the model. It contains the `inputs` and the `output` and tracks which model config was used.
-
-In the above example, the prompt template has one `input` called ‘topic’ and the `output` will be the completion. Each time this model is called it will create a datapoint with the actual values.
-
-<img
-  src="../../assets/images/04be08f-Screenshot_2022-10-07_at_12.01.48.png"
-  alt="An example datapoint for the limerick example prompt template above."
-/>
+A datapoint is an input-output pair that is used to evaluate the performance of a model. It is different to a Log in that it is not tied to any specific version of a Prompt (or Tool or Evaluator), and that the target is an arbitrary object that can be used to evaluate the output of the model. See [Datasets](./datasets.mdx) for more information.
 
 ## Feedback
 
