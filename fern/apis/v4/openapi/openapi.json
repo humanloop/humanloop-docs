@@ -16,7 +16,7 @@
       "post": {
         "tags": ["Completions"],
         "summary": "Create",
-        "description": "Create a completion by providing details of the model configuration in the request.",
+        "description": "Original: Create a completion by providing details of the model configuration in the request.",
         "operationId": "Completions_create",
         "requestBody": {
           "content": {
