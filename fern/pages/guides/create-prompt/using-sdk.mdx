@@ -1,12 +1,10 @@
 ---
-subtitle: How to set up a project in Humanloop using the Python SDK.
+subtitle: How to create your Prompts in Humanloop using the Python SDK.
 ---
 
-The Humanloop Python SDK allows you to programmatically set up Humanloop projects with [model configs](./key-concepts#model-config) and a [feedback schema](./key-concepts#feedback).
+The Humanloop Python SDK allows you to programmatically set up and version your [Prompts](./prompts) in Humanloop, and log generations from your models. This guide will show you how to create a Prompt using the SDK.
 
-## Prerequisites
-
-1. A Humanloop account. If you don't have one, you can create an account now by going to the [Sign up page](https://app.humanloop.com/signup).
+<Markdown src="../../../../snippets/prereq-have-account.mdx" />
 
 ## Install and Initialize the SDK
 
@@ -26,14 +24,16 @@ First you need to install and initialize the SDK. If you have already done this,
    humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
    ```
 
-## Create a project
+## Create a Prompt
+
+<Warning>Note: that Prompts are still called `projects` in the SDK.</Warning>
 
 Continue in the same Python interpreter (where you have run `humanloop = Humanloop(...)`).
 
 1. Create the project
 
    ```python
-   project_response = humanloop.projects.create(name="{{your-organization}}-sdk-tutorial")
+   project_response = humanloop.projects.create(name="sdk-tutorial")
    project_id = project_response.body["id"]
    ```
 
@@ -54,7 +54,7 @@ Continue in the same Python interpreter (where you have run `humanloop = Humanlo
 3. Register your model config
    ```python
    humanloop.model_configs.register(
-       project="{{your-organization}}-sdk-tutorial",
+       project="sdk-tutorial",
        model="gpt-3.5-turbo",
        prompt_template="Write a snappy introduction about {{topic}}:",
        temperature=0.8,

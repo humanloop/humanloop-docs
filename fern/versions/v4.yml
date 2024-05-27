@@ -25,11 +25,12 @@ navigation:
       - section: Tutorials
         skip-slug: true
         contents:
-          - page: ChatGPT clone in Next.js
-            slug: chatgpt-clone-in-nextjs
-            path: ../pages/tutorials/clone.mdx
           - page: Create your first GPT-4 App
             path: ../pages/tutorials/create-app.mdx
+          - page: ChatGPT clone with streaming
+            slug: chatgpt-clone-in-nextjs
+            path: ../pages/tutorials/clone.mdx
+
           - page: Debug a LangChain Agent
             slug: debug-a-langchain-agent
             hidden: true
@@ -155,12 +156,7 @@ navigation:
               - page: Set up semantic search
                 path: ../pages/guides/integrate/set-up-search.mdx
                 slug: set-up-semantic-search
-      - section: Examples
-        skip-slug: true
-        contents:
-          - page: Example Projects
-            slug: examples
-            path: ../pages/examples/example-projects.mdx
+
       - section: Core entities
         skip-slug: true
         contents:
@@ -176,6 +172,12 @@ navigation:
             path: ../pages/core-entities/evaluators.mdx
           - page: Key Concepts
             path: ../pages/core-entities/key-concepts.mdx
+      - section: Examples
+        skip-slug: true
+        contents:
+          - page: Example Projects
+            slug: examples
+            path: ../pages/examples/example-projects.mdx
       - section: References
         skip-slug: true
         contents:
