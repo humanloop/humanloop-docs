@@ -183,6 +183,8 @@ navigation:
             path: ../pages/references/postman-workspace.mdx
           - page: Access Roles
             path: ../pages/references/access-roles.mdx
+          - page: Supported providers
+            path: ../pages/references/supported-models.mdx
           - page: .prompt files
             slug: prompt-file-format
             path: ../pages/references/prompt-files.mdx
