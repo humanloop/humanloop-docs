@@ -38,19 +38,10 @@ navigation:
       - section: Guides
         skip-slug: true
         contents:
-          - section: Create a Prompt
-            skip-slug: true
-            contents:
-              - page: Overview
-                slug: create-a-prompt
-                path: ../pages/guides/create-prompt/create-prompt.mdx
-              - page: Using the UI
-                path: ../pages/guides/create-prompt/from-ui.mdx
-                slug: create-a-prompt-in-the-ui
-              - page: Using the SDK
-                path: ../pages/guides/create-prompt/using-sdk.mdx
-                slug: create-a-prompt-with-the-sdk
-          - section: Generate and log data
+          - page: Create a Prompt
+            slug: create-prompt
+            path: ../pages/guides/create-prompt.mdx
+          - section: Generate and Logging
             skip-slug: true
             contents:
               - page: Overview
@@ -165,6 +156,8 @@ navigation:
             path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
             path: ../pages/core-entities/evaluators.mdx
+          - page: Logs
+            path: ../pages/core-entities/logs.mdx
           - page: Environments
             path: ../pages/core-entities/environments.mdx
           - page: Key Concepts

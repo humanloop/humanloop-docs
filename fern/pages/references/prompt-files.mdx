@@ -1,6 +1,7 @@
 ---
 subtitle: Our file format for serialising prompts to store alongside your source code.
 ---
+
 Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code.
 
 ## Format
@@ -31,10 +32,13 @@ top_p: 1.0
 provider: anthropic
 endpoint: complete
 ---
-Human: Write a limerick about {{topic}}.
+Autocomplete the sentence.
 
-Assistant:
-```
+Context: {{context}}
+
+{{sentence}}
+
+````
 </CodeBlocks>
 
 ### Multi-modality and Images
@@ -129,3 +133,4 @@ tools: [
   Cloudy with a chance of meatballs.
 </tool>
 ```
+````
