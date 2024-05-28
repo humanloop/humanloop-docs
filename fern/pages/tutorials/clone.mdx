@@ -183,7 +183,7 @@ In this code, we're calling `humanloop.chatDeployed`. This function is used to t
 
 When we receive a response from Humanloop, we strip out just the text of the chat response and send this back to the client via a `Response` object (see [Next.js - Route Handler docs](https://nextjs.org/docs/app/building-your-application/routing/router-handlers)). The Humanloop SDK response contains much more data besides the raw text, which you can inspect by logging to the console.
 
-For the above to work, you'll need to ensure that you have a `.env.local` file at the root of your project directory with your Humanloop API key. You can generate a Humanloop API key by clicking your name in the top right of the Playground and selecting [API keys.](https://app.humanloop.com/account/api-keys) This environment variable will only be available on the Next.js server, not on the client (see [Next.js - Environment Variables](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables)).
+For the above to work, you'll need to ensure that you have a `.env.local` file at the root of your project directory with your Humanloop API key. You can generate a Humanloop API key by clicking your name in the bottom left and selecting [API keys.](https://app.humanloop.com/account/api-keys) This environment variable will only be available on the Next.js server, not on the client (see [Next.js - Environment Variables](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables)).
 
 ```text .env.local
 HUMANLOOP_API_KEY=...

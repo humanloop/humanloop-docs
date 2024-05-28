@@ -99,7 +99,9 @@ for datapoint in datapoints:
     logs.append((log, datapoint))
 ```
 
-### Evaluate the logs using your own evaluation logic and post the results back to Humanloop. In this example, we use an extremely simple evaluation function for clarity.
+### Evaluate the logs using your own evaluation logic and post the results back to Humanloop
+
+In this example, we use an extremely simple evaluation function for clarity.
 
 ```python
 for log, datapoint in logs:
@@ -121,7 +123,7 @@ for log, datapoint in logs:
     )
 ```
 
-### Mark the evaluation run as completed.
+### Mark the evaluation run as completed
 
 ```python
 humanloop.evaluations.update_status(id=evaluation_run.id, status="completed")
@@ -129,7 +131,7 @@ humanloop.evaluations.update_status(id=evaluation_run.id, status="completed")
 
 </Steps>
 
-### Review the results
+## Review the results
 
 After running this script with the appropriate resource IDs (project, dataset, model config), you should see the results in the Humanloop app, right alongside any other evaluations you have performed using the Humanloop runtime.
 

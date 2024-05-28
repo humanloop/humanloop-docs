@@ -72,7 +72,9 @@ In order to access the `feature` field more easily in our evaluator, we'll modif
   alt="The original log was an LLM generation which outputted a JSON value. The conversion process has placed this into the `output` field of the testcase target."
 />
 
-### Modify the datapoint if you need to make refinements. You can provide an arbitrary JSON object as the target.
+### Modify the datapoint if you need to make refinements
+
+You can provide an arbitrary JSON object as the target.
 
 <img
   src="../../../assets/images/963addc-image.png"
@@ -81,7 +83,7 @@ In order to access the `feature` field more easily in our evaluator, we'll modif
 
 </Steps>
 
-### Create an offline evaluator
+## Create an offline evaluator
 
 Having set up a dataset, we'll now create the evaluator. As with online evaluators, it's a Python function but for offline mode, it also takes a `testcase` parameter alongside the generated log.
 

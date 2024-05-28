@@ -50,7 +50,9 @@ humanloop = Humanloop(
 
 ```
 
-### Create a project and register your first model config - we'll use OpenAI's GPT-4 for extracting product feature names from customer queries in this example. The first model config created against the project is automatically deployed:
+### Create a project and register your first model config
+
+We'll use OpenAI's GPT-4 for extracting product feature names from customer queries in this example. The first model config created against the project is automatically deployed:
 
 ```python
 
@@ -126,7 +128,7 @@ You can see from the `output` field in the response that the model has done a go
 
 </Steps>
 
-### Create an evaluator
+## Create an evaluator
 
 Now that you have a project with a model config and a dataset defined, you can create an evaluator that will determine the success criteria for a log generated from the model using the target defined in the test datapoint.
 
@@ -160,7 +162,9 @@ print(f"Test case result: {check_feature_json(datapoint, data[0])}")
 Test case result: True
 ```
 
-### Submit this evaluator to Humanloop so it can be used for future evaluations triggered via the UI or the API:
+### Submit this evaluator to Humanloop
+
+This means it can be used for future evaluations triggered via the UI or the API:
 
 ```python
 import inspect
@@ -189,7 +193,10 @@ In your Humanloop project you will now see an evaluator defined:
 ### Launch an evaluation
 
 <Steps>
-### You can now launch an evaluation against the model config using the dataset and evaluator. In practise you can include more than one evaluator:
+
+### Launch an evaluation
+
+You can now low against the model config using the dataset and evaluator. In practice you can include more than one evaluator:
 
 ```python
 # Finally trigger an evaluation
