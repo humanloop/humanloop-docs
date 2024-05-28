@@ -35,13 +35,22 @@ This guide assumes you're are using an OpenAI model. If you want to use other pr
 In order to log data for your experiment without using `humanloop.complete_deployed()` or `humanloop.chat_deployed()`, you must first determine which model config to use for your LLM provider calls. This is where the `humanloop.experiments.get_model_config()` function comes in.
 
 <Steps>
-### Go to your project dashboard and set the experiment as the active deployment. To do so, find the **default** environment in the Deployments bar.  Click the dropdown menu from the default environment and from those options select  **Change deployment**. In the dialog that opens select the experiment you created.
+
+### Go to your Prompt dashboard
+
+### Set the experiment as the active deployment.
+
+To do so, find the **default** environment in the Deployments bar. Click the dropdown menu from the default environment and from those options select **Change deployment**. In the dialog that opens select the experiment you created.
 
 <img src="../../../assets/images/420db16-image.png" />
 
-### Copy your `project_id` from the URL, `https://app.humanloop.com/projects/<project_id>/dashboard`. The project ID starts with `pr_`.
+### Copy your `project_id`
 
-### Alter your existing logging code to now first sample a model_config from your experiment to use when making your call to OpenAI:
+From the URL, `https://app.humanloop.com/projects/<project_id>/dashboard`. The project ID starts with `pr_`.
+
+### Alter your existing logging code
+
+To now first sample a model_config from your experiment to use when making your call to OpenAI:
 
 ```python
 from humanloop import Humanloop

@@ -79,13 +79,13 @@ navigation:
             contents:
               - page: Overview
                 slug: run-an-experiment
-                path: ../pages/guides/run/overview.mdx
+                path: ../pages/guides/experiments/overview.mdx
               - page: Run an experiment
                 slug: experiments-from-the-app
-                path: ../pages/guides/run/run-experiment.mdx
+                path: ../pages/guides/experiments/run-experiment.mdx
               - page: Run experiments managing your own model
                 slug: run-an-experiment-with-your-own-model-provider
-                path: ../pages/guides/run/run-with-model.mdx
+                path: ../pages/guides/experiments/run-with-model.mdx
           - page: Fine-tune a model
             slug: finetune-a-model
             path: ../pages/guides/fine-tune-model.mdx
