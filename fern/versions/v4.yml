@@ -38,19 +38,10 @@ navigation:
       - section: Guides
         skip-slug: true
         contents:
-          - section: Create a Prompt
-            skip-slug: true
-            contents:
-              - page: Overview
-                slug: create-a-prompt
-                path: ../pages/guides/create-prompt/create-prompt.mdx
-              - page: Using the UI
-                path: ../pages/guides/create-prompt/from-ui.mdx
-                slug: create-a-prompt-in-the-ui
-              - page: Using the SDK
-                path: ../pages/guides/create-prompt/using-sdk.mdx
-                slug: create-a-prompt-with-the-sdk
-          - section: Generate and log data
+          - page: Create a Prompt
+            slug: create-prompt
+            path: ../pages/guides/create-prompt.mdx
+          - section: Generate and Logging
             skip-slug: true
             contents:
               - page: Overview
@@ -79,13 +70,13 @@ navigation:
             contents:
               - page: Overview
                 slug: run-an-experiment
-                path: ../pages/guides/run/overview.mdx
+                path: ../pages/guides/experiments/overview.mdx
               - page: Run an experiment
                 slug: experiments-from-the-app
-                path: ../pages/guides/run/run-experiment.mdx
+                path: ../pages/guides/experiments/run-experiment.mdx
               - page: Run experiments managing your own model
                 slug: run-an-experiment-with-your-own-model-provider
-                path: ../pages/guides/run/run-with-model.mdx
+                path: ../pages/guides/experiments/run-with-model.mdx
           - page: Fine-tune a model
             slug: finetune-a-model
             path: ../pages/guides/fine-tune-model.mdx
@@ -135,43 +126,40 @@ navigation:
               - page: Evaluating with human feedback
                 slug: evaluating-with-human-feedback
                 path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
-          - section: Integrate Tools
+          - section: Tools
             skip-slug: true
             contents:
-              - page: Overview
-                slug: integrate-tools
-                path: ../pages/guides/integrate/overview.mdx
               - page: In the Editor
-                path: ../pages/guides/integrate/in-editor.mdx
+                path: ../pages/guides/tools/in-editor.mdx
                 slug: create-a-tool-in-the-editor
               - page: With the SDK
-                path: ../pages/guides/integrate/with-sdk.mdx
+                path: ../pages/guides/tools/with-sdk.mdx
                 slug: create-a-tool-with-the-sdk
-              - page: With the Snippet tool
-                slug: in-your-prompts
-                path: ../pages/guides/integrate/with-snippet.mdx
               - page: Link a JSON Schema tool
-                path: ../pages/guides/integrate/link-json.mdx
+                path: ../pages/guides/tools/link-json.mdx
                 slug: link-a-jsonschema-tool
-              - page: Set up semantic search
-                path: ../pages/guides/integrate/set-up-search.mdx
+              - page: Reusable Snippet Tool
+                slug: in-your-prompts
+                path: ../pages/guides/tools/with-snippet.mdx
+              - page: Set up semantic search (RAG)
+                path: ../pages/guides/tools/set-up-search.mdx
                 slug: set-up-semantic-search
 
       - section: Core concepts
         skip-slug: true
         contents:
           - page: Prompts
-            slug: prompts
             path: ../pages/core-entities/prompts.mdx
           - page: Tools
-            slug: tools
             path: ../pages/core-entities/tools.mdx
           - page: Datasets
-            slug: datasets
             path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
-            slug: evaluators
             path: ../pages/core-entities/evaluators.mdx
+          - page: Logs
+            path: ../pages/core-entities/logs.mdx
+          - page: Environments
+            path: ../pages/core-entities/environments.mdx
           - page: Key Concepts
             path: ../pages/core-entities/key-concepts.mdx
       - section: Examples

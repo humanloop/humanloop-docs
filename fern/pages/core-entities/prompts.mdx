@@ -4,15 +4,30 @@ subtitle: Prompts define how an large language model behaves.
 
 <img src="../../assets/images/1763dbe-Prompts.png" />
 
-Large language models take in natural language, code, images and other data types as inputs and output text. Defining the inputs to the model is essentially how you “program” the model to do a task.
+A Prompt on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
 
-A Prompt on Humanloop encapsulates the instructions and other configurations for how it should do a specific task. Prompts consist of a template such as `Write a song about {{topic}}` as well as the model and the parameters that define how it behaves.
+- the template such as `Write a song about {{topic}}`
+- the model e.g. `gpt-4o`
+- all the paramaters that define how the model should behave such as `temperature`, `max_tokens`, `top_p` etc.
+- any tools available to the model
 
-Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value to variable will need to be supplied at query time.
+Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value to variable will need to be supplied when you call the Prompt to create a generation.
 
-This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different instructions, models and evaluate any changes. The configuration is stored in the Prompt and the query time data are stored in Logs, which can then be re-used in Datasets.
+This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes. The Prompt stores the configuration and the query time data are stored in [Logs](./logs), which can then be re-used in Datasets.
 
-A Prompt can be serialized as a Promptfile.
+<Warning>
+  FYI: Prompts have recently been renamed from 'Projects'. The Project's "Model
+  Configs" are now just each version of a Prompt. Some of the documentation and
+  APIs may still refer to Projects and Model Configs.
+</Warning>
+
+<Callout>
+  Note that we use a capitalized "[Prompt](./prompts)" to refer to the entity in
+  Humanloop, and a lowercase "prompt" to refer to the general concept of input
+  to the model.
+</Callout>
+
+<Frame caption="An example Prompt, serialized as a Promptfile">
 
 ```jsx
 ---
@@ -27,20 +42,74 @@ endpoint: chat
 </system>
 ```
 
-You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: extractive summary, title creator, outline generator etc.
+</Frame>
 
-A Prompt file can have multiple versions as you try out different models, params or templates, but they should all be doing the same task, and in general should be swappable with one-another.
+## Versioning
+
+A Prompt file will have multiple versions as you try out different models, params or templates, but they should all be doing the same task, and in general should be swappable with one-another.
 
 By versioning your Prompts, you can track how adjustments to the template or parameters influence the LLM's responses. This is crucial for iterative development, as you can pinpoint which versions produce the most relevant or accurate outputs for your specific use case.
 
-Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output
+### When to create a new Prompt
 
-```java JavaScript
+You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: extractive summary, title creator, outline generator etc.
 
+We've seen people find it useful to also create a Prompt called 'Playground' where they can free form experiment without concern of breaking anything or making a mess of their other Prompts.
+
+## Using Prompts
+
+Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output.
+
+```javascript TypeScript
 const chatResponse = await humanloop.chatDeployed({
-  "project": "song writer",
-  "inputs" : {
-	  "topic": "debugging compiler errors"
-	 },
-})
+  project: "song writer",
+  inputs: {
+    topic: "debugging compiler errors",
+  },
+});
+```
+
+Your can also use Prompts without proxying all requests through Humanloop.
+
+# Serialization (`.prompt` file)
+
+Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](./prompt-file-format) reference for more details.
+
+## Format
+
+The .prompt file is heavily inspired by [MDX](https://mdxjs.com/), with model and hyperparameters specified in a YAML header alongside a JSX-inspired format for your Chat Template.
+
+### Basic examples
+
+<CodeBlocks>
+```jsx Chat
+---
+model: gpt-4
+temperature: 1.0
+max_tokens: -1
+provider: openai
+endpoint: chat
+---
+<system>
+  You are a friendly assistant.
+</system>
+```
+```jsx Completion
+---
+model: claude-2
+temperature: 0.7
+max_tokens: 256
+top_p: 1.0
+provider: anthropic
+endpoint: complete
+---
+Autocomplete the sentence.
+
+Context: {{context}}
+
+{{sentence}}
+
+```
+
+</CodeBlocks>
 ```

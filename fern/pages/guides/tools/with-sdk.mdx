@@ -1,9 +1,10 @@
---- 
+---
 subtitle: In this guide we will demonstrate how to take advantage of OpenAI function calling in our Python SDK
 ---
+
 The Humanloop SDK provides an easy way for you to integrate the functionality of [OpenAI function calling](https://platform.openai.com/docs/guides/function-calling/function-calling), which we refer to as JSON Schema tools, into your existing projects. Tools follow the same universal [JSON Schema syntax](https://json-schema.org/) definition as OpenAI function calling. In this guide, we'll walk you through the process of using tools with the Humanloop SDK via the chat endpoint.
 
-***
+---
 
 # Creating a Tool
 
@@ -13,14 +14,13 @@ The Humanloop SDK provides an easy way for you to integrate the functionality of
 - Python installed - you can download and install Python by following the steps on the [Python download page](https://www.python.org/downloads/).
 
 <Note title="Using other model providers">
-This guide assumes you're using OpenAI with the `gpt-4` model. Only specific models from OpenAI are supported for function calling.
+  This guide assumes you're using OpenAI with the `gpt-4` model. Only specific
+  models from OpenAI are supported for function calling.
 </Note>
 
 ## Install and initialize the SDK
 
-<Warning>
-The SDK requires Python 3.8 or greater.
-</Warning>
+<Warning>The SDK requires Python 3.8 or greater.</Warning>
 
 <Steps>
 ### **Import the Humanloop SDK**: If you haven't done so already, you'll need to install and import the Humanloop SDK into your Python environment. You can do this using pip:
@@ -29,7 +29,7 @@ The SDK requires Python 3.8 or greater.
 pip install humanloop
 ```
 
-_Note, this guide was built with `Humanloop==0.5.18`_. 
+_Note, this guide was built with `Humanloop==0.5.18`_.
 
 Then import the SDK in your script:
 
@@ -45,7 +45,7 @@ from humanloop import Humanloop
 hl = Humanloop(api_key="<YOUR_HUMANLOOP_API_KEY>")
 ```
 
-### **Create a chat with the tool**: We'll start with the general chat endpoint format. 
+### **Create a chat with the tool**: We'll start with the general chat endpoint format.
 
 ```python
 from humanloop import Humanloop
@@ -56,9 +56,9 @@ hl = Humanloop(api_key="<YOUR_HUMANLOOP_API_KEY>")
 def run_conversation():
     # Step 1: send the conversation and available functions to GPT
     messages = [{"role": "user", "content": "What's the weather like in Boston?"}]
-		
+
     # TODO - Add tools definition here
-    
+
     response = hl.chat(
         project="Assistant",
         model_config={"model": "gpt-4", "max_tokens": 100},
@@ -67,7 +67,7 @@ def run_conversation():
     response = response.body["data"][0]
 ```
 
-### **Define the tool**: Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example. 
+### **Define the tool**: Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example.
 
 ```python
 from humanloop import Humanloop
@@ -126,11 +126,13 @@ def run_conversation():
 
     # Add the output messge from the previous chat to the messages
     messages.append(output_message)
-    
+
     # TODO - Add assistant response logic
 ```
 
-### **Check assistant response**: The code above will make the call to OpenAI with the tool but it does nothing to handle the assistant response. When responding with a tool response the response should have a `tool_calls` field. Fetch that value and pass it to your own function. An example of this can be seen below. Replace the `TODO - Add assistant handling logic` in your code from above with the following. Multiple tool calls can be returned with the latest OpenAI models `gpt-4-1106-preview` and `gpt-3.5-turbo-1106`, so below we loop through the tool_calls and populate the response accordingly.
+### **Check assistant response**
+
+The code above will make the call to OpenAI with the tool but it does nothing to handle the assistant response. When responding with a tool response the response should have a `tool_calls` field. Fetch that value and pass it to your own function. An example of this can be seen below. Replace the `TODO - Add assistant handling logic` in your code from above with the following. Multiple tool calls can be returned with the latest OpenAI models `gpt-4-1106-preview` and `gpt-3.5-turbo-1106`, so below we loop through the tool_calls and populate the response accordingly.
 
 ```python
 		# Step 2: check if GPT wanted to call a tool
@@ -148,11 +150,13 @@ def run_conversation():
             function_response = function_to_call(
                 location=function_args.get("location"),
                 unit=function_args.get("unit"),
-				
+
         # TODO - return the tool response back to OpenAI
 ```
 
-### **Return the tool response**: We can then return the tool response to OpenAI. This can be done by formatting OpenAI tool message into the relative `assistant` message seen below along with a `tool` message with the function name and function response. 
+### **Return the tool response**
+
+We can then return the tool response to OpenAI. This can be done by formatting OpenAI tool message into the relative `assistant` message seen below along with a `tool` message with the function name and function response.
 
 ```python
 		# Step 2: check if GPT wanted to call a tool
@@ -193,7 +197,9 @@ def run_conversation():
         return second_response
 ```
 
-### **Review assistant response**: The assistant should respond with a message that incorporates the parameters you provided, for example: `The current weather in Boston is 22 degrees and cloudy.` The above can be run by adding the python handling logic at the both of your file:
+### **Review assistant response**
+
+The assistant should respond with a message that incorporates the parameters you provided, for example: `The current weather in Boston is 22 degrees and cloudy.` The above can be run by adding the python handling logic at the both of your file:
 
 ```python
 if __name__ == "__main__":
@@ -311,4 +317,5 @@ if __name__ == "__main__":
 
 
 ```
+
 </Steps>
