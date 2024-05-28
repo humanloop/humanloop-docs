@@ -135,43 +135,38 @@ navigation:
               - page: Evaluating with human feedback
                 slug: evaluating-with-human-feedback
                 path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
-          - section: Integrate Tools
+          - section: Tool Calling
             skip-slug: true
             contents:
-              - page: Overview
-                slug: integrate-tools
-                path: ../pages/guides/integrate/overview.mdx
               - page: In the Editor
-                path: ../pages/guides/integrate/in-editor.mdx
+                path: ../pages/guides/tools/in-editor.mdx
                 slug: create-a-tool-in-the-editor
               - page: With the SDK
-                path: ../pages/guides/integrate/with-sdk.mdx
+                path: ../pages/guides/tools/with-sdk.mdx
                 slug: create-a-tool-with-the-sdk
               - page: With the Snippet tool
                 slug: in-your-prompts
-                path: ../pages/guides/integrate/with-snippet.mdx
+                path: ../pages/guides/tools/with-snippet.mdx
               - page: Link a JSON Schema tool
-                path: ../pages/guides/integrate/link-json.mdx
+                path: ../pages/guides/tools/link-json.mdx
                 slug: link-a-jsonschema-tool
               - page: Set up semantic search
-                path: ../pages/guides/integrate/set-up-search.mdx
+                path: ../pages/guides/tools/set-up-search.mdx
                 slug: set-up-semantic-search
 
       - section: Core concepts
         skip-slug: true
         contents:
           - page: Prompts
-            slug: prompts
             path: ../pages/core-entities/prompts.mdx
           - page: Tools
-            slug: tools
             path: ../pages/core-entities/tools.mdx
           - page: Datasets
-            slug: datasets
             path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
-            slug: evaluators
             path: ../pages/core-entities/evaluators.mdx
+          - page: Environments
+            path: ../pages/core-entities/environments.mdx
           - page: Key Concepts
             path: ../pages/core-entities/key-concepts.mdx
       - section: Examples
