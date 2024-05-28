@@ -3966,7 +3966,7 @@ components:
             - type: boolean
             - type: integer
             - type: number
-          title: Value
+          title: Evaluation Result
           description: The result value of the evaluation.
         error:
           type: string
