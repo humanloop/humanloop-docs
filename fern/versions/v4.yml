@@ -135,7 +135,7 @@ navigation:
               - page: Evaluating with human feedback
                 slug: evaluating-with-human-feedback
                 path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
-          - section: Tool Calling
+          - section: Tools
             skip-slug: true
             contents:
               - page: In the Editor
@@ -144,13 +144,13 @@ navigation:
               - page: With the SDK
                 path: ../pages/guides/tools/with-sdk.mdx
                 slug: create-a-tool-with-the-sdk
-              - page: With the Snippet tool
-                slug: in-your-prompts
-                path: ../pages/guides/tools/with-snippet.mdx
               - page: Link a JSON Schema tool
                 path: ../pages/guides/tools/link-json.mdx
                 slug: link-a-jsonschema-tool
-              - page: Set up semantic search
+              - page: Reusable Snippet Tool
+                slug: in-your-prompts
+                path: ../pages/guides/tools/with-snippet.mdx
+              - page: Set up semantic search (RAG)
                 path: ../pages/guides/tools/set-up-search.mdx
                 slug: set-up-semantic-search
 

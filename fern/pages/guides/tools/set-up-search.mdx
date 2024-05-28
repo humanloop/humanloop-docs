@@ -227,32 +227,48 @@ You should see semantically similar questions retrieved with the corresponding s
 You're now ready to configure a Pinecone tool in Humanloop:
 
 <Steps>
-  ### Log on to Humanloop and navigate to the **Tools** tab available beside
-  **Playground** at the top right. ### Under **Add a new tool**, select the
-  **Pinecone Search** card. ### You need to configure both the Pinecone and
-  OpenAI related values. These should be the same values you used when setting
-  up your Pinecone index in the previous sections. All these values are editable
-  later. 1. **For Pinecone:** populate values for `Name` (use _quora_search_),
-  `pinecone_key`, `pinecone_environment`, `pinecone_index` (note: we named our
-  index `humanloop-demo`). The name will be used to create the signature for the
-  tool that you will use in your prompt templates in the next section. 2. **For
-  OpenAI: **populate the `openai_key` and `openai_model` (note: we used the
-  `text-embedding-ada-002` model above) ### Save the tool by selecting **Create
-  Tool.**
+
+### Create a New Tools
+
+From the Humanloop dashboard or the sidebar, click 'New File' and select Tool.
+
+### Select Pinecone Search
+
+Select the **Pinecone Search** option
+
+### Configure Pinecone and OpenAI
+
+These should be the same values you used when setting
+up your Pinecone index in the previous sections. All these values are editable
+later.
+
+1. **For Pinecone:** populate values for `Name` (use _quora_search_),
+   `pinecone_key`, `pinecone_environment`, `pinecone_index` (note: we named our
+   index `humanloop-demo`). The name will be used to create the signature for the
+   tool that you will use in your prompt templates in the next section.
+2. **For OpenAI**: populate the `openai_key` and `openai_model` (note: we used the
+   `text-embedding-ada-002` model above)
+
+### Save the tool
+
+By selecting **Save.**
+
 </Steps>
 
 An active tool for _quora_search_ will now appear on the tools tab and you're ready to use it within a prompt template.
 
 <img src="../../../assets/images/d9e5075-image.png" />
 
-## Enhance your prompt template
+## Enhance your Prompt template
 
 Now that we have a Pinecone tool configured we can use this to pull relevant context into your prompts.
 
 This is an effective way to enrich your LLM applications with knowledge from your own internal documents and also help fix hallucinations.
 
 <Steps>
-### Select **Playground** in the top right of the screen and toggle to **Completion** mode.
+
+### Navigate to the Editor of your Prompt
+
 ### Copy and paste the following text into the **Prompt template** box:
 
 ```text

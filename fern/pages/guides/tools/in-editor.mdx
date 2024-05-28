@@ -1,5 +1,5 @@
 ---
-subtitle: In this guide we will demonstrate how to take advantage of OpenAI function calling in our Editor.
+subtitle: How to use Tool Calling to have your Prompts interact with external functions.
 ---
 
 Humanloop's Editor supports the usage of [OpenAI function calling](https://platform.openai.com/docs/guides/function-calling/function-calling), which we refer to as JSON Schema tools. JSON Schema tools follow the universal [JSON Schema syntax](https://json-schema.org/) definition, similar to OpenAI function calling. You can define inline JSON Schema tools as part of your model configuration in the editor. These tools allow you to define a structure for OpenAI to follow when responding. In this guide, we'll walk through the process of using tools in the editor to interact with `gpt-4`.
@@ -13,18 +13,7 @@ Humanloop's Editor supports the usage of [OpenAI function calling](https://platf
 - A Humanloop account - you can create one by going to our sign up page.
 - You already have a project created - if not, please pause and first follow our [project creation](/docs/create-a-prompt-in-the-ui) guides.
 
-<Info title="Models supporting OpenAI Functions"> 
-The current OpenAI list of supported models is:
-
-- `gpt-4o`
-- `gpt-4`
-- `gpt-4-1106-preview`
-- `gpt-4-0613`
-- `gpt-3.5-turbo`
-- `gpt-3.5-turbo-1106`
-- `gpt-3.5-turbo-0613`
-
-</Info>
+<Markdown src="../../../snippets/tool-calling-models.mdx" />
 
 To create and use a tool follow the following steps:
 
@@ -52,7 +41,9 @@ It should be noted that a user can ask a non-weather related question such as '_
 
 </Tip>
 
-### **Check assistant response**: If correctly set up, the assistant should respond with a prompt to invoke the tool, including the name of the tool and the data it requires. For our `get_current_weather` tool, it might respond with the relevant tool name as well as the fields you requested, such as:
+### **Check assistant response**
+
+If correctly set up, the assistant should respond with a prompt to invoke the tool, including the name of the tool and the data it requires. For our `get_current_weather` tool, it might respond with the relevant tool name as well as the fields you requested, such as:
 
 ```
 get_current_weather
@@ -62,14 +53,22 @@ get_current_weather
 }
 ```
 
-### **Input tool parameters**: The response can be used locally or for prototyping you can pass in any relevant values. In the case of our `get_current_weather` tool, we might respond with parameters such as temperature (e.g., 22) and weather condition (e.g., sunny). To do this, in the tool response add the parameters in the in the format `{ "temperature": 22, "condition": "sunny" }`. To note, the response format is also flexible, inputting `22, sunny` likely also works and might help you iterate more quickly in your experimentation.
+### **Input tool parameters**
 
-### **Submit tool response**: After defining the parameters, click on the 'Run' button to send the Tool message to OpenAI.
+The response can be used locally or for prototyping you can pass in any relevant values. In the case of our `get_current_weather` tool, we might respond with parameters such as temperature (e.g., 22) and weather condition (e.g., sunny). To do this, in the tool response add the parameters in the in the format `{ "temperature": 22, "condition": "sunny" }`. To note, the response format is also flexible, inputting `22, sunny` likely also works and might help you iterate more quickly in your experimentation.
 
-### **Review assistant response**: The assistant should now respond using your parameters. For example, it might say: `The current weather in Boston is sunny with a temperature of 22 degrees.`
+### **Submit tool response**
+
+After defining the parameters, click on the 'Run' button to send the Tool message to OpenAI.
+
+### **Review assistant response**
+
+The assistant should now respond using your parameters. For example, it might say: `The current weather in Boston is sunny with a temperature of 22 degrees.`
 
 <img src="../../../assets/images/19c0604-image.png" />
 
-### **Save the model config** If you are happy with your tool, you can save the model config. The tool will be saved on that model config and can be used again in the future by loading the model config again in the editor or by calling the model config via our SDK.
+### **Save the model config**
+
+If you are happy with your tool, you can save the model config. The tool will be saved on that model config and can be used again in the future by loading the model config again in the editor or by calling the model config via our SDK.
 
 </Steps>
