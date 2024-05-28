@@ -1,19 +1,18 @@
 ---
-subtitle: Prompts define how an large language model behaves. 
+subtitle: Prompts define how an large language model behaves.
 ---
-<img src="../../assets/images/1763dbe-Prompts.png" />
 
-Prompts define how an large language model (LLM) behaves. 
+<img src="../../assets/images/1763dbe-Prompts.png" />
 
 Large language models take in natural language, code, images and other data types as inputs and output text. Defining the inputs to the model is essentially how you “program” the model to do a task.
 
 A Prompt on Humanloop encapsulates the instructions and other configurations for how it should do a specific task. Prompts consist of a template such as `Write a song about {{topic}}` as well as the model and the parameters that define how it behaves.
 
-Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value to variable will need to be supplied at query time.  
+Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value to variable will need to be supplied at query time.
 
 This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different instructions, models and evaluate any changes. The configuration is stored in the Prompt and the query time data are stored in Logs, which can then be re-used in Datasets.
 
-A Prompt can be serialized as a Promptfile. 
+A Prompt can be serialized as a Promptfile.
 
 ```jsx
 ---

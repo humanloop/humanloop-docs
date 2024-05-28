@@ -8,26 +8,29 @@ You can currently create datasets in Humanloop in three ways: from existing **lo
 
 Prerequisites:
 
-- A [project](/docs/projects-2) in Humanloop
-- Some [logged generations](/docs/generate-and-log-with-the-sdk) available in that project
+- A [project](./projects-2) in Humanloop
+- Some [logged generations](./generate-and-log-with-the-sdk) available in that project
 
-To create a dataset from existing logs: 
+To create a dataset from existing logs:
 
 <Steps>
 ### Go to the **Logs** tab in your project
 ### Select a subset of the logs in that project and choose **Add to dataset** from the menu in the top right of the page.
 
-<img src="../../../assets/images/48e2025-image.png" alt="Select some logs and then click **Add to Dataset**" />
-
+<img
+  src="../../../assets/images/48e2025-image.png"
+  alt="Select some logs and then click **Add to Dataset**"
+/>
 
 ### In the dialog box, provide a Name and Description for the new dataset. Alternatively, you can click **add to existing dataset** to append the selected to a dataset you already have.
+
 </Steps>
 
 ## Upload from CSV
 
 Prerequisites:
 
-- A [project](/docs/projects-2) in Humanloop
+- A [project](./projects-2) in Humanloop
 
 To create a dataset from a CSV file, we'll first create a CSV in Google Sheets and then upload it to a dataset in Humanloop.
 
@@ -36,19 +39,26 @@ To create a dataset from a CSV file, we'll first create a CSV in Google Sheets a
    - In our Google Sheets example below, we have a column called `user_query` which is an input to a prompt variable of that name. So in our model config, we'll need to include `{{ user_query }}` somewhere, and that placeholder will be populated with the value from the `user_query` input in the datapoint at generation-time.
    - You can include as many columns of prompt variables as you need for your model configs.
    - There is additionally a column called `target` which will populate the target of the datapoint. In this case, we use simple strings to define the target.
-   - Note: `messages` are harder to incorporate into a CSV file as they tend to be verbose and hard-to-read JSON. If you want a dataset with messages, consider using the API to upload, or convert from existing logs. 
+   - Note: `messages` are harder to incorporate into a CSV file as they tend to be verbose and hard-to-read JSON. If you want a dataset with messages, consider using the API to upload, or convert from existing logs.
 
-<img src="../../../assets/images/bc8679a-image.png" alt="A CSV file in Google Sheets defining a collection of 9 datapoints." />
-
+<img
+  src="../../../assets/images/bc8679a-image.png"
+  alt="A CSV file in Google Sheets defining a collection of 9 datapoints."
+/>
 
 ### Export the Google Sheet to CSV by choosing **File** → **Download** → **Comma-separated values (.csv)**
+
 ### In your Humanloop project, go to the **Datasets** tab and choose **New dataset**
-### In the dialog window, provide a name and optional description for the dataset. Then upload the CSV file from step 2 by drag-and-drop or using the file explorer. 
 
-<img src="../../../assets/images/57c9faf-image.png" alt="Uploading a CSV file to create a dataset." />
+### In the dialog window, provide a name and optional description for the dataset. Then upload the CSV file from step 2 by drag-and-drop or using the file explorer.
 
+<img
+  src="../../../assets/images/57c9faf-image.png"
+  alt="Uploading a CSV file to create a dataset."
+/>
 
-### Click **Upload Dataset from CSV** and you should see a new dataset appear in the datasets tab. You can explore it by clicking in. 
+### Click **Upload Dataset from CSV** and you should see a new dataset appear in the datasets tab. You can explore it by clicking in.
+
 ### Follow the link in the pop-up to inspect the dataset that was created in the upload. You'll see a column with the input key-value pairs for each datapoint, a messages column (in our case we didn't use messages, so they're all empty) and a target column with the expected model output.
 
 <img src="../../../assets/images/eb0613c-image.png" />
@@ -104,6 +114,7 @@ datapoints = humanloop.datasets.create_datapoint(
     body=data,
 )
 ```
+
 </Steps>
 
 On the datasets tab in your Humanloop project you will now see the dataset you just uploaded via the API.

@@ -8,7 +8,7 @@ If you are running your own infrastructure to generate logs, you can still lever
 2. Loop through the datapoints in your dataset and perform generations on your side
 3. Post the generated logs to the evaluation run
 
-This works with any evaluator - if you have configured a Humanloop-runtime evaluator, these will be automatically run on each log you post to the evaluation run; or, you can use self-hosted evaluators and post the results to the evaluation run yourself (see [Self-hosted evaluations](/docs/self-hosted-evaluations)).
+This works with any evaluator - if you have configured a Humanloop-runtime evaluator, these will be automatically run on each log you post to the evaluation run; or, you can use self-hosted evaluators and post the results to the evaluation run yourself (see [Self-hosted evaluations](./self-hosted-evaluations)).
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ PROJECT_ID = ... # Replace with the project ID
 
 ```python
 # Retrieve a dataset
-DATASET_ID = ... # Replace with the dataset ID you are using for evaluation. 
+DATASET_ID = ... # Replace with the dataset ID you are using for evaluation.
 								 # This must be a dataset in the project you are working in.
 datapoints = humanloop.datasets.list_datapoints(DATASET_ID).records
 ```
@@ -60,7 +60,7 @@ If you constructed this in Humanloop, retrieve by calling:
 config = humanloop.model_configs.get(id=CONFIG_ID)
 ```
 
-Alternatively, if your model config lives outside the Humanloop system, you can post it to Humanloop with the [register model config endpoint](/reference/model-configs/model-configs-register).
+Alternatively, if your model config lives outside the Humanloop system, you can post it to Humanloop with the [register model config endpoint](/docs/reference/model-configs/model-configs-register).
 
 Either way, you need the ID of the config.
 
@@ -97,7 +97,7 @@ evaluation_run = humanloop.evaluations.create(
 )
 ```
 
-By default, the status of the evaluation after creation is `pending`. Before sending the generation logs, set the status to `running`. 
+By default, the status of the evaluation after creation is `pending`. Before sending the generation logs, set the status to `running`.
 
 ```python
 humanloop.evaluations.update_status(id=evaluation_run.id, status="running")
@@ -125,18 +125,18 @@ for datapoint in datapoints:
     )
 ```
 
-#### Run the full script above. 
+#### Run the full script above.
 
-If everything goes well, you should now have posted a new evaluation run to Humanloop, and logged all the generations derived from the underlying datapoints. 
+If everything goes well, you should now have posted a new evaluation run to Humanloop, and logged all the generations derived from the underlying datapoints.
 
 The Humanloop evaluation runtime will now iterate through those logs and run the **Valid JSON** evaluator on each of them. To check progress:
 
-### Visit your project in the Humanloop app and go to the **Evaluations** tab. 
+### Visit your project in the Humanloop app and go to the **Evaluations** tab.
 
 You should see the run you recently created; click through to it and you'll see rows in the table showing the generations.
 
 <Frame>
-<img src="../../../assets/images/d16f62b-image.png" />
+  <img src="../../../assets/images/d16f62b-image.png" />
 </Frame>
 
 In this case, all the evaluations returned `False` because the string "Hello World!" wasn't valid JSON. Try logging something which is valid JSON to check that everything works as expected.
@@ -201,5 +201,7 @@ print(f"Completed evaluation run {evaluation_run.id}")
 ```
 
 <Info>
-It's also a good practice to wrap the above code in a try-except block and to mark the evaluation run as failed (using `update_status`) if an exception causes something to fail.
+  It's also a good practice to wrap the above code in a try-except block and to
+  mark the evaluation run as failed (using `update_status`) if an exception
+  causes something to fail.
 </Info>

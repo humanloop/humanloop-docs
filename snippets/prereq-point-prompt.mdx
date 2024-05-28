@@ -1,0 +1,1 @@
+- You already have a Prompt — if not, please first follow our [Prompt creation](./create-a-prompt) guide.

@@ -1,16 +1,21 @@
 ---
 subtitle: In this guide, we will walk through creating a testset and using it to run an offline evaluation.
 ---
+
 ## Create an offline evaluator
 
 ### Prerequisites
 
 - You need to have access to evaluations.
-- You also need to have a project created - if not, please first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
+- You also need to have a project created - if not, please first follow our [project creation](./create-a-prompt-in-the-ui) guides.
 - Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
 
-<Info> 
-You need logs in your project because we will use these a source of test datapoints for the dataset we will create. If you want to create arbitrary test datapoints from scratch, see our guide to doing this from the API. We will soon be updating the app to enable arbitrary test datapoint creation from your browser.
+<Info>
+  You need logs in your project because we will use these a source of test
+  datapoints for the dataset we will create. If you want to create arbitrary
+  test datapoints from scratch, see our guide to doing this from the API. We
+  will soon be updating the app to enable arbitrary test datapoint creation from
+  your browser.
 </Info>
 
 For this example, we're going to evaluate a model who's responsibility is to extract key information from a customer service request and return this information in JSON. In the image below, you can see the model config we've drafted on the left, and an example of it running against a customer query on the right.
@@ -26,44 +31,55 @@ We will create a dataset based on existing logs that are already in the project.
 ### Select the logs you would like to convert into test datapoints
 ### From the dropdown menu in the top right (see below), choose **Add to Dataset**
 
-<img src="../../../assets/images/e745699-image.png" alt="Creating test datapoints from a selection of existing project datapoints." />
-
+<img
+  src="../../../assets/images/e745699-image.png"
+  alt="Creating test datapoints from a selection of existing project datapoints."
+/>
 
 ### In the dialog box, give the new dataset a name and provide an optional description. Click **Create dataset**.
 
 <img src="../../../assets/images/8e3461f-image.png" />
 
-<Info> 
-You can add more datapoints to the same dataset later by clicking the 'add to existing dataset' button at the top.
+<Info>
+  You can add more datapoints to the same dataset later by clicking the 'add to
+  existing dataset' button at the top.
 </Info>
 
 ### Go to the **Datasets** tab.
+
 ### Click into the newly created dataset. One datapoint will be present for each log you selected in step 3
 
-<img src="../../../assets/images/861e590-image.png" alt="The newly created dataset, containing datapoints that were converted from existing logs in the project." />
+<img
+  src="../../../assets/images/861e590-image.png"
+  alt="The newly created dataset, containing datapoints that were converted from existing logs in the project."
+/>
 
-
-### Click on a datapoint to inspect its parameters. 
+### Click on a datapoint to inspect its parameters.
 
 <Tip> 
 A test datapoint contains inputs (the variables passed into your model config template), an optional sequence of messages (if used for a chat model) and a target representing the desired output.
 
 As we converted existing logs into datapoints, the target defaults to the output of the source log.
+
 </Tip>
 
-In our example, we created datapoints from existing logs. The default behaviour is that the original log's output becomes an output field in the target JSON. 
+In our example, we created datapoints from existing logs. The default behaviour is that the original log's output becomes an output field in the target JSON.
 
 In order to access the `feature` field more easily in our evaluator, we'll modify the datapoint targets to be a raw JSON with a feature key.
 
-<img src="../../../assets/images/4b6494f-image.png" alt="The original log was an LLM generation which outputted a JSON value. The conversion process has placed this into the `output` field of the testcase target." />
-
+<img
+  src="../../../assets/images/4b6494f-image.png"
+  alt="The original log was an LLM generation which outputted a JSON value. The conversion process has placed this into the `output` field of the testcase target."
+/>
 
 ### Modify the datapoint if you need to make refinements. You can provide an arbitrary JSON object as the target.
 
-<img src="../../../assets/images/963addc-image.png" alt="After editing, we have a clean JSON object recording the salient characteristics of the datapoint's expected output." />
+<img
+  src="../../../assets/images/963addc-image.png"
+  alt="After editing, we have a clean JSON object recording the salient characteristics of the datapoint's expected output."
+/>
 
 </Steps>
-
 
 ### Create an offline evaluator
 
@@ -98,11 +114,14 @@ def it_extracts_correct_feature(log, testcase):
 
 ### In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
 
-<img src="../../../assets/images/e3dd068-image.png" alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project." />
-
+<img
+  src="../../../assets/images/e3dd068-image.png"
+  alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
+/>
 
 ### Choose a model config from the dropdown menu.
-### Click the run button at the far right of one of the test datapoints. 
+
+### Click the run button at the far right of one of the test datapoints.
 
 A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
 
@@ -122,7 +141,8 @@ Now that you have an offline evaluator and a dataset, you can use them to evalua
 <img src="../../../assets/images/d08b4d8-image.png" />
 
 ### Click **Batch Generate**
-### A new evaluation is launched. Click on the card to inspect the results. 
+
+### A new evaluation is launched. Click on the card to inspect the results.
 
 A batch generation has now been triggered. This means that the model config you selected will be used to generate a log for each datapoint in the dataset. It may take some time for the evaluation to complete, depending on how many test datapoints are in your dataset and what model config you are using. Once all the logs have been generated, the evaluator will execute for each in turn.
 

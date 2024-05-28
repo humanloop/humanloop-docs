@@ -2,13 +2,12 @@
 subtitle: Getting up and running with Humanloop is quick and easy. This guide will run you through creating and managing your first Prompt in a few minutes.
 ---
 
-## Account Setup
-
-### Create a Humanloop Account
+<Accordion title="Account setup">
+#### Create a Humanloop Account
 
 If you haven’t already, create an account or log in to Humanloop
 
-### Add an OpenAI API Key
+#### Add an OpenAI API Key
 
 If you’re the first person in your organization, you’ll need to add an API key to a model provider.
 
@@ -16,8 +15,12 @@ If you’re the first person in your organization, you’ll need to add an API k
 2. In Humanloop [Organization Settings](https://app.humanloop.com/account/api-keys) set up OpenAI as a model provider.
 
 <Info>
-Using the Humanloop playground will use your OpenAI credits in the same way that the OpenAI playground does. Keep your API keys for Humanloop and the model providers private.
+  Using the Humanloop playground will use your OpenAI credits in the same way
+  that the OpenAI playground does. Keep your API keys for Humanloop and the
+  model providers private.
 </Info>
+
+</Accordion>
 
 ## Get Started
 
@@ -46,11 +49,11 @@ Add the following templated message to the chat template.
 You are a funny comedian. Write a joke about {{topic}}.
 ```
 
-This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt. 
+This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt.
 
-On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`. Add 
+On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`.
 
-1. Add a value for`topic` e.g. music, jogging, whatever
+1. Add a value for `topic` e.g. music, jogging, whatever
 2. Click **Run** in the bottom right of the page
 
 This will call OpenAI’s model return the assistant response. Feel free to try other values, the model is _very_ funny.
@@ -63,21 +66,20 @@ You now have a first version of your prompt that you can use.
 2. Put “initial version” in the commit message field
 3. Click **Commit**
 
-
 <img src="../../assets/images/ffeffce-Screenshot_2024-04-04_at_22.38.38.png" />
 
 ### View the logs
-
-<img src="../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
 
 Under the Prompt File click ‘Logs’ to view all the generations from this Prompt
 
 Click on a row to see the details of what version of the prompt generated it. From here you can give feedback to that generation, see performance metrics, open up this example in the Editor, or add this log to a dataset.
 
+<img src="../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
+
 </Steps>
 
 ## Next Steps
 
-Well done! You've now created your first Prompt. If you look around it might seem a bit empty at the moment. 
+Well done! You've now created your first Prompt. If you look around it might seem a bit empty at the moment.
 
-To find out more on how to get the most from Humanloop, including how to use your model in your app and improve it, we recommend following our guide: [ChatGPT clone in Next.js](/docs/chatgpt-clone-in-nextjs).
+To find out more on how to get the most from Humanloop, including how to use your model in your app and improve it, we recommend following our guide: [ChatGPT clone in Next.js](./chatgpt-clone-in-nextjs).

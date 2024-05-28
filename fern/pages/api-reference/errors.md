@@ -24,7 +24,7 @@ Your API key is incorrect or missing, or your user does not have the rights to a
 The requested resource could not be located.
 </Accordion>
 
-<Accordion title="422 Un-processable entity">
+<Accordion title="422 Unprocessable entity">
 Your request was properly formatted but contained invalid instructions or did not match the fields required by the endpoint.
 </Accordion>
 
@@ -47,7 +47,7 @@ The service is temporarily overloaded and you should try again.
 Our `/chat` and `/completion` endpoints act as a unified interface across all popular model providers. The error returned by these endpoints may be raised by the model provider's system. Details of the error are returned in the `detail` object of the response.
 
 ```json
-{    
+{
   "type": "unprocessable_entity_error",
   "message": "This model's maximum context length is 4097 tokens. However, you requested 10000012 tokens (12 in the messages, 10000000 in the completion). Please reduce the length of the messages or completion.",
   "code": 422,

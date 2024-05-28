@@ -8,9 +8,12 @@ At the end of this tutorial, you’ll have created your first GPT-4 app. You’l
 2. Use the Humanloop SDK to call Open AI GPT-4 and log your results
 3. Capture feedback from your end users to evaluate and improve your model.
 
-This tutorial picks up where the [Quick Start](/docs/quickstart) left off. If you’ve already followed the quick start you can skip to step 4.
+This tutorial picks up where the [Quick Start](./quickstart) left off. If you’ve already followed the quick start you can skip to step 4.
 
-<img src="../../assets/images/b517f71-Screenshot_2022-11-08_at_16.34.54.png" alt="In this tutorial, you'll build a simple GPT-4 app that can explain a topic in the style of different experts." />
+<img
+  src="../../assets/images/b517f71-Screenshot_2022-11-08_at_16.34.54.png"
+  alt="In this tutorial, you'll build a simple GPT-4 app that can explain a topic in the style of different experts."
+/>
 
 # Step 1: Open the Humanloop Playground
 
@@ -18,8 +21,9 @@ When you first [open the playground](https://app.humanloop.com/playground) you�
 
 If you don’t already have an OpenAI account, you’ll need to create one. Paste your key into the box in the Humanloop app.
 
-<Warning> 
-Using the Humanloop playground will use your OpenAI credits in the same way that the OpenAI playground does.
+<Warning>
+  Using the Humanloop playground will use your OpenAI credits in the same way
+  that the OpenAI playground does.
 </Warning>
 
 # Step 2: Create a prompt template
@@ -34,7 +38,7 @@ Copy the following text into the prompt box on the left-hand-side of the playgro
 Write a short article about {{topic}} as written by {{expert}}:
 ```
 
-This sentence is an example of a [prompt template](/docs/key-concepts#prompt-templates). It’s an instruction to GPT-4 but with slots for user input.  
+This sentence is an example of a [prompt template](./key-concepts#prompt-templates). It’s an instruction to GPT-4 but with slots for user input.  
 The slots are surrounded by two curly braces. On the right side of the page, you’ll now see three boxes with inputs for “expert” and “topic”.
 
 <img src="../../assets/images/f90f701-image.png" />
@@ -63,7 +67,10 @@ You now have a first prompt-template that you might want to use in an app. To cr
 
 Now that you’ve found a good prompt and settings, you’re ready to build the "Learn anything from anyone" app! We’ve written some code to get you started — follow the instructions below to download the code and run the app.
 
-<img src="../../assets/images/b517f71-Screenshot_2022-11-08_at_16.34.54.png" alt="When you run the app, this is what you should see." />
+<img
+  src="../../assets/images/b517f71-Screenshot_2022-11-08_at_16.34.54.png"
+  alt="When you run the app, this is what you should see."
+/>
 
 ## Setup
 
@@ -78,7 +85,7 @@ If you prefer not to use git, you can alternatively download the code using [thi
 In your terminal, navigate into the project directory and make a copy of the example environment variables file.
 
 ```Text Bash
-cd humanloop-tutorial-python  
+cd humanloop-tutorial-python
 cp .example.env .env
 ```
 
@@ -86,12 +93,12 @@ Copy your [Humanloop API key](https://app.humanloop.com/account/settings) and se
 
 ## Run the app
 
-Run the following commands in your terminal in the project directory to install the dependencies and run the app. 
+Run the following commands in your terminal in the project directory to install the dependencies and run the app.
 
 ```
-python -m venv venv  
-. venv/bin/activate  
-pip install -r requirements.txt  
+python -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
 flask run
 ```
 
@@ -123,7 +130,7 @@ topic = request.form["Topic"]
 
 # hl.complete automatically logs the data to your project.
 complete_response = humanloop.complete_deployed(
-  project="learn-anything", 
+  project="learn-anything",
   inputs={"expert": expert, "topic": topic},
   provider_api_keys={"openai": OPENAI_API_KEY}
 )
@@ -132,18 +139,18 @@ data_id = complete_response.body["data"][0]["id"]
 result = complete_response.body["data"][0]["output"]
 ```
 
-On line 34 you can see the call to `humanloop.complete_deployed` which takes the project name and project inputs as variables. `humanloop.complete_deployed` calls GPT-4 and also automatically logs your data to the Humanloop app. 
+On line 34 you can see the call to `humanloop.complete_deployed` which takes the project name and project inputs as variables. `humanloop.complete_deployed` calls GPT-4 and also automatically logs your data to the Humanloop app.
 
-In addition to returning the result of your model on line 39, you also get back a `data_id` which can be used for recording feedback about your generations. 
+In addition to returning the result of your model on line 39, you also get back a `data_id` which can be used for recording feedback about your generations.
 
 On line 51 of `app.py`, you can see an example of logging feedback to Humanloop.
 
 ```python
-# Send feedback to Humanloop  
+# Send feedback to Humanloop
 humanloop.feedback(type="rating", value="good", data_id=data_id)
 ```
 
-The call to `humanloop.feedback` uses the `data_id` returned above to associate a piece of positive feedback with that generation. 
+The call to `humanloop.feedback` uses the `data_id` returned above to associate a piece of positive feedback with that generation.
 
 In this app there are two feedback groups `rating` (which can be `good` or `bad`) and `actions`, which here is the copy button and also indicates positive feedback from the user.
 
@@ -151,28 +158,27 @@ In this app there are two feedback groups `rating` (which can be `good` or `bad`
 
 If you experiment a bit, you might find that the model isn't initially that good. The answers are often too short or not in the style of the expert being asked. We can try to improve this by experimenting with other prompts.
 
-1. Click on your model on the model dashboard and then in the top right,  click **_Editor_**  
+1. Click on your model on the model dashboard and then in the top right, click **_Editor_**
+
    <img src="../../assets/images/bda508f-image.png" />
 
-2. Edit the prompt template to try and improve the prompt. Try changing the maximum number of tokens using the **_Max tokens_** slider, or the wording of the prompt.  
+2. Edit the prompt template to try and improve the prompt. Try changing the maximum number of tokens using the **_Max tokens_** slider, or the wording of the prompt.
    <img src="../../assets/images/299c597-image.png" />
 
 Here are some prompt ideas to try out. Which ones work better?
 
 <CodeBlocks>
-```Text Transcript from lecture
-{{expert}} recently gave a lecture on {{topic}}. 
-Here is a transcript of the most interesting section:
-```
-```Text ELI10
-If {{expert}} explained {{topic}} to a 10 year old, they would likely say:
-```
-```
-Write an essay in the style of {{expert}} on {{topic}}
-```
+  ```Text Transcript from lecture
+  {{ expert }} recently gave a lecture on {{ topic }}. Here is a transcript of the
+  most interesting section: ``` ```Text ELI10 If {{ expert }} explained {{
+    topic,
+  }} to a 10 year old, they would likely say: ``` ``` Write an essay in the style
+  of {{ expert }} on {{ topic }}
+  ```
 </CodeBlocks>
 
-3. Click **_Save_** to add the new model to your project. Add it to the "learn-anything" project.  
+3. Click **_Save_** to add the new model to your project. Add it to the "learn-anything" project.
+
    <img src="../../assets/images/3e8c1b7-image.png" />
 
 4. Go to your project dashboard. At the top left of the page, click menu of "production" environment card. Within that click the button **_Change deployment_** and set a new model config as active; calls to `humanloop.complete_deployed` will now use this new model. Now go back to the app and see the effect!
@@ -181,6 +187,6 @@ Write an essay in the style of {{expert}} on {{topic}}
 
 # Step 8: Go home happy!
 
-And that’s it! You should now have a full understanding of how to go from the Humanloop playground to a deployed and functioning app. You've learned how to create prompt templates, capture user feedback and deploy a new model from the playground. 
+And that’s it! You should now have a full understanding of how to go from the Humanloop playground to a deployed and functioning app. You've learned how to create prompt templates, capture user feedback and deploy a new model from the playground.
 
 If you want to learn how to improve your model by running experiments or finetuning check out our guides below.

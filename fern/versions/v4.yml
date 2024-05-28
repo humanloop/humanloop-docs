@@ -1,7 +1,7 @@
 tabs:
   docs:
     display-name: Guides
-    slug: docs
+    slug: guides
     icon: light book-open
   api:
     display-name: API Reference
@@ -25,11 +25,12 @@ navigation:
       - section: Tutorials
         skip-slug: true
         contents:
-          - page: ChatGPT clone in Next.js
-            slug: chatgpt-clone-in-nextjs
-            path: ../pages/tutorials/clone.mdx
           - page: Create your first GPT-4 App
             path: ../pages/tutorials/create-app.mdx
+          - page: ChatGPT clone with streaming
+            slug: chatgpt-clone-in-nextjs
+            path: ../pages/tutorials/clone.mdx
+
           - page: Debug a LangChain Agent
             slug: debug-a-langchain-agent
             hidden: true
@@ -37,18 +38,18 @@ navigation:
       - section: Guides
         skip-slug: true
         contents:
-          - section: Create a project
+          - section: Create a Prompt
             skip-slug: true
             contents:
               - page: Overview
-                slug: projects-2
-                path: ../pages/guides/create-project/create-project.mdx
-              - page: From Playground
-                path: ../pages/guides/create-project/from-playground.mdx
-                slug: create-a-project-from-the-playground
+                slug: create-a-prompt
+                path: ../pages/guides/create-prompt/create-prompt.mdx
+              - page: Using the UI
+                path: ../pages/guides/create-prompt/from-ui.mdx
+                slug: create-a-prompt-in-the-ui
               - page: Using the SDK
-                path: ../pages/guides/create-project/using-sdk.mdx
-                slug: create-a-project-with-the-sdk
+                path: ../pages/guides/create-prompt/using-sdk.mdx
+                slug: create-a-prompt-with-the-sdk
           - section: Generate and log data
             skip-slug: true
             contents:
@@ -155,42 +156,47 @@ navigation:
               - page: Set up semantic search
                 path: ../pages/guides/integrate/set-up-search.mdx
                 slug: set-up-semantic-search
+
+      - section: Core concepts
+        skip-slug: true
+        contents:
+          - page: Prompts
+            slug: prompts
+            path: ../pages/core-entities/prompts.mdx
+          - page: Tools
+            slug: tools
+            path: ../pages/core-entities/tools.mdx
+          - page: Datasets
+            slug: datasets
+            path: ../pages/core-entities/datasets.mdx
+          - page: Evaluators
+            slug: evaluators
+            path: ../pages/core-entities/evaluators.mdx
+          - page: Key Concepts
+            path: ../pages/core-entities/key-concepts.mdx
       - section: Examples
         skip-slug: true
         contents:
           - page: Example Projects
             slug: examples
             path: ../pages/examples/example-projects.mdx
-      - section: Core entities
-        skip-slug: true
-        contents:
-          - page: Prompts
-            path: ../pages/core-entities/prompts.mdx
-          - page: Tools
-            path: ../pages/core-entities/tools.mdx
-          - page: Datasets
-            slug: datasets-2
-            path: ../pages/core-entities/datasets.mdx
-          - page: Evaluators
-            slug: evaluators-1
-            path: ../pages/core-entities/evaluators.mdx
-          - page: Key Concepts
-            path: ../pages/core-entities/key-concepts.mdx
       - section: References
         skip-slug: true
         contents:
-          - page: Postman Workspace
-            path: ../pages/references/postman-workspace.mdx
+          - page: Supported Models
+            path: ../pages/references/models.mdx
           - page: Access Roles
             path: ../pages/references/access-roles.mdx
           - page: .prompt files
             slug: prompt-file-format
             path: ../pages/references/prompt-files.mdx
+          - page: Postman Workspace
+            path: ../pages/references/postman-workspace.mdx
   - tab: api
     layout:
       - section: Introduction
         skip-slug: true
-        contents: 
+        contents:
           - page: SDKs
             path: ../pages/api-reference/sdks.md
             slug: sdks

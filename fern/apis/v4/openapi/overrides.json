@@ -1,0 +1,681 @@
+{
+  "paths": {
+    "/chat": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Simple",
+            "request": {
+              "project": "persona",
+              "model_config": {
+                "model": "gpt-4o",
+                "max_tokens": 200,
+                "chat_template": [
+                  {
+                    "role": "system",
+                    "content": "You are {{person}}. Answer any questions as this person. Do not break character."
+                  }
+                ]
+              },
+              "messages": [
+                {
+                  "role": "user",
+                  "content": "What really happened at Roswell?"
+                }
+              ],
+              "inputs": {
+                "person": "Trump"
+              }
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_3usCu3dAkgrXTlufrvPs7",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": null,
+                "data": [
+                  {
+                    "id": "data_fIfEb1SoKZooqeFbi9IFs",
+                    "index": 0,
+                    "output": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                    "raw_output": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                    "inputs": {
+                      "person": "Trump"
+                    },
+                    "finish_reason": "stop",
+                    "model_config_id": "prv_Wu6zx1lAWJRqOyL8nWuZk",
+                    "tool_results": [],
+                    "messages": [
+                      {
+                        "content": "You are Trump. Answer any questions as this person. Do not break character.",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "system",
+                        "tool_calls": null,
+                        "tool_call": null
+                      },
+                      {
+                        "content": "What really happened at Roswell?",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "user",
+                        "tool_calls": null,
+                        "tool_call": null
+                      }
+                    ],
+                    "tool_call": null,
+                    "tool_calls": null,
+                    "output_message": {
+                      "content": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                      "name": null,
+                      "tool_call_id": null,
+                      "role": "assistant",
+                      "tool_calls": null,
+                      "tool_call": null
+                    }
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 34,
+                  "generation_tokens": 125,
+                  "total_tokens": 159
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9TbTAC1WFnAlRNY3yzVGGPQbLOXFY",
+                    "choices": [
+                      {
+                        "finish_reason": "stop",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": null
+                        }
+                      }
+                    ],
+                    "created": 1716842572,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_43dfabdef1",
+                    "usage": {
+                      "completion_tokens": 125,
+                      "prompt_tokens": 34,
+                      "total_tokens": 159
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "You are Trump. Answer any questions as this person. Do not break character.",
+                      "role": "system"
+                    },
+                    {
+                      "content": "What really happened at Roswell?",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 1,
+                  "top_p": 1,
+                  "presence_penalty": 0,
+                  "frequency_penalty": 0,
+                  "max_tokens": 200
+                },
+                "session_id": null,
+                "tool_choice": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/chat-deployed": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "ai-assistant-with-tools",
+            "request": {
+              "project": "ai-assistant",
+              "inputs": {
+                "persona": "helpful but will *always* tell a joke first before calling tools"
+              },
+              "messages": [
+                { "role": "user", "content": "What is the weather in SF?" }
+              ]
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_TfhDgggIsPi3cgmhq2yeA",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": null,
+                "data": [
+                  {
+                    "id": "data_lwWadasRw0vT4XDarZuNQ",
+                    "index": 0,
+                    "output": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                    "raw_output": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                    "inputs": {
+                      "persona": "helpful but will *always* tell a joke first before calling tools"
+                    },
+                    "finish_reason": "tool_call",
+                    "model_config_id": "prv_rlwVnPhRsiMKfnTusferP",
+                    "tool_results": [],
+                    "messages": [
+                      {
+                        "content": "You are a helpful assistant with persona helpful but will *always* tell a joke first before calling tools. \nUse tools to respond to user's queries.\n",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "system",
+                        "tool_calls": null,
+                        "tool_call": null
+                      },
+                      {
+                        "content": "What is the weather in SF?",
+                        "name": null,
+                        "tool_call_id": null,
+                        "role": "user",
+                        "tool_calls": null,
+                        "tool_call": null
+                      }
+                    ],
+                    "tool_call": {
+                      "name": "get_current_weather",
+                      "arguments": "{\"location\":\"San Francisco, CA\"}"
+                    },
+                    "tool_calls": [
+                      {
+                        "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                        "type": "function",
+                        "function": {
+                          "name": "get_current_weather",
+                          "arguments": "{\"location\":\"San Francisco, CA\"}"
+                        }
+                      }
+                    ],
+                    "output_message": {
+                      "content": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                      "name": null,
+                      "tool_call_id": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                          "type": "function",
+                          "function": {
+                            "name": "get_current_weather",
+                            "arguments": "{\"location\":\"San Francisco, CA\"}"
+                          }
+                        }
+                      ],
+                      "tool_call": null
+                    }
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 137,
+                  "generation_tokens": 46,
+                  "total_tokens": 183
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9TbcxkvnK9Q0VTCO89GGPsgWiI7LY",
+                    "choices": [
+                      {
+                        "finish_reason": "tool_calls",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "Why did the weather report go to school? To become a little brighter!\n\nLet me check the current weather in San Francisco for you.",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": [
+                            {
+                              "id": "call_1b6yHTGiB51P2I75T6yZrm63",
+                              "function": {
+                                "arguments": "{\"location\":\"San Francisco, CA\"}",
+                                "name": "get_current_weather"
+                              },
+                              "type": "function"
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "created": 1716843179,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_43dfabdef1",
+                    "usage": {
+                      "completion_tokens": 46,
+                      "prompt_tokens": 137,
+                      "total_tokens": 183
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "You are a helpful assistant with persona helpful but will *always* tell a joke first before calling tools. \nUse tools to respond to user's queries.\n",
+                      "role": "system"
+                    },
+                    {
+                      "content": "What is the weather in SF?",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 0.7,
+                  "top_p": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "tools": [
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "get_current_weather",
+                        "description": "Get the current weather in a given location",
+                        "parameters": {
+                          "type": "object",
+                          "properties": {
+                            "location": {
+                              "type": "string",
+                              "name": "Location",
+                              "description": "The city and state, e.g. San Francisco, CA"
+                            },
+                            "unit": {
+                              "type": "string",
+                              "name": "Unit",
+                              "enum": ["celsius", "fahrenheit"]
+                            }
+                          },
+                          "required": ["location"]
+                        }
+                      }
+                    },
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "get_stock_price",
+                        "description": "Get current stock price",
+                        "parameters": {
+                          "type": "object",
+                          "properties": {
+                            "ticker_symbol": {
+                              "type": "string",
+                              "name": "Ticker Symbol",
+                              "description": "Ticker symbol of the stock"
+                            }
+                          },
+                          "required": []
+                        }
+                      }
+                    }
+                  ],
+                  "tool_choice": "auto"
+                },
+                "session_id": null,
+                "tool_choice": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/chat-experiment": {
+      "post": {}
+    },
+    "/chat-model-config": {
+      "post": {}
+    },
+    "/completion": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Simple",
+            "request": {
+              "model_config": {
+                "model": "gpt-4o",
+                "endpoint": "complete",
+                "prompt_template": "write a limerick about {{topic}}"
+              },
+              "inputs": {
+                "topic": "AI"
+              },
+              "project": "limerick"
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_eJgRt5K1zivoFgHVlRnFv",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": null,
+                "data": [
+                  {
+                    "id": "data_hdsujCtCep4W5L7XwYpnn",
+                    "index": 0,
+                    "output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "raw_output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "inputs": {
+                      "topic": "AI"
+                    },
+                    "finish_reason": "stop",
+                    "model_config_id": "prv_AkObw2O2rquayfWHyJbqw",
+                    "tool_results": []
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 14,
+                  "generation_tokens": 36,
+                  "total_tokens": 50
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9SY6mNMWrL5gxtyL7xUOTIYZOjguD",
+                    "choices": [
+                      {
+                        "finish_reason": "stop",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": null
+                        }
+                      }
+                    ],
+                    "created": 1716591324,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_3196d36131",
+                    "usage": {
+                      "completion_tokens": 36,
+                      "prompt_tokens": 14,
+                      "total_tokens": 50
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "write a limerick about AI",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 0.7,
+                  "top_p": 1,
+                  "presence_penalty": 0,
+                  "frequency_penalty": 0
+                },
+                "session_id": null
+              }
+            }
+          },
+          {
+            "name": "Using ID and session",
+            "request": {
+              "model_config": {
+                "model": "gpt-4o",
+                "endpoint": "complete",
+                "prompt_template": "write a limerick about {{topic}}"
+              },
+              "inputs": {
+                "topic": "AI"
+              },
+              "project_id": "pr_eJgRt5K1zivoFgHVlRnFv",
+              "session_reference_id": "my_external_session_id",
+              "user": "jordan@humanloop.com"
+            },
+            "response": {
+              "body": {
+                "project_id": "pr_eJgRt5K1zivoFgHVlRnFv",
+                "num_samples": 1,
+                "logprobs": null,
+                "suffix": null,
+                "user": "jordan@humanloop.com",
+                "data": [
+                  {
+                    "id": "data_hdsujCtCep4W5L7XwYpnn",
+                    "index": 0,
+                    "output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "raw_output": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                    "inputs": {
+                      "topic": "AI"
+                    },
+                    "finish_reason": "stop",
+                    "model_config_id": "prv_AkObw2O2rquayfWHyJbqw",
+                    "tool_results": []
+                  }
+                ],
+                "usage": {
+                  "prompt_tokens": 14,
+                  "generation_tokens": 36,
+                  "total_tokens": 50
+                },
+                "metadata": null,
+                "provider_responses": [
+                  {
+                    "id": "chatcmpl-9SY6mNMWrL5gxtyL7xUOTIYZOjguD",
+                    "choices": [
+                      {
+                        "finish_reason": "stop",
+                        "index": 0,
+                        "logprobs": null,
+                        "message": {
+                          "content": "There once was an AI so keen,\nWith circuits and code all pristine.\nIt learned how to chat,\nAnd got clever at that,\nNow it talks like a true human being!",
+                          "role": "assistant",
+                          "function_call": null,
+                          "tool_calls": null
+                        }
+                      }
+                    ],
+                    "created": 1716591324,
+                    "model": "gpt-4o-2024-05-13",
+                    "object": "chat.completion",
+                    "system_fingerprint": "fp_3196d36131",
+                    "usage": {
+                      "completion_tokens": 36,
+                      "prompt_tokens": 14,
+                      "total_tokens": 50
+                    }
+                  }
+                ],
+                "provider_request": {
+                  "messages": [
+                    {
+                      "content": "write a limerick about AI",
+                      "role": "user"
+                    }
+                  ],
+                  "stream": false,
+                  "n": 1,
+                  "model": "gpt-4o",
+                  "temperature": 0.7,
+                  "top_p": 1,
+                  "presence_penalty": 0,
+                  "frequency_penalty": 0,
+                  "user": "jordan@humanloop.com"
+                },
+                "session_id": "sesh_YuzHoIpqfcs15KoDmfuGb"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/completion-deployed": {
+      "post": {}
+    },
+    "/completion-experiment": {
+      "post": {}
+    },
+    "/completion-model-config": {
+      "post": {}
+    },
+    "/logs": {
+      "get": {},
+      "post": {},
+      "delete": {},
+      "patch": {}
+    },
+    "/logs/{id}": {
+      "get": {},
+      "patch": {}
+    },
+    "/feedback": {
+      "post": {}
+    },
+    "/projects": {
+      "get": {},
+      "post": {}
+    },
+    "/projects/{id}": {
+      "get": {},
+      "delete": {},
+      "patch": {}
+    },
+    "/projects/{id}/configs": {
+      "get": {}
+    },
+    "/projects/{id}/active-config": {
+      "get": {},
+      "delete": {}
+    },
+    "/projects/{id}/active-experiment": {
+      "delete": {}
+    },
+    "/projects/{id}/feedback-types": {
+      "post": {},
+      "patch": {}
+    },
+    "/projects/{id}/export": {
+      "post": {}
+    },
+    "/projects/{id}/deployed-configs": {
+      "get": {}
+    },
+    "/projects/{project_id}/deploy-config": {
+      "patch": {}
+    },
+    "/projects/{project_id}/deployed-config/{environment_id}": {
+      "delete": {}
+    },
+    "/model-configs": {
+      "post": {}
+    },
+    "/model-configs/{id}": {
+      "get": {}
+    },
+    "/model-configs/{id}/export": {
+      "post": {}
+    },
+    "/model-configs/serialize": {
+      "post": {}
+    },
+    "/model-configs/deserialize": {
+      "post": {}
+    },
+    "/projects/{project_id}/experiments": {
+      "get": {},
+      "post": {}
+    },
+    "/experiments/{experiment_id}": {
+      "delete": {},
+      "patch": {}
+    },
+    "/experiments/{experiment_id}/model-config": {
+      "get": {}
+    },
+    "/sessions": {
+      "get": {},
+      "post": {}
+    },
+    "/sessions/{id}": {
+      "get": {}
+    },
+    "/evaluators": {
+      "get": {},
+      "post": {}
+    },
+    "/evaluators/{id}": {
+      "get": {},
+      "delete": {},
+      "patch": {}
+    },
+    "/datapoints/{id}": {
+      "get": {},
+      "patch": {}
+    },
+    "/datapoints": {
+      "delete": {}
+    },
+    "/projects/{project_id}/datasets": {
+      "get": {},
+      "post": {}
+    },
+    "/datasets": {
+      "get": {}
+    },
+    "/datasets/{id}": {
+      "get": {},
+      "delete": {},
+      "patch": {}
+    },
+    "/datasets/{dataset_id}/datapoints": {
+      "get": {},
+      "post": {}
+    },
+    "/evaluations/{id}": {
+      "get": {}
+    },
+    "/evaluations/{id}/datapoints": {
+      "get": {}
+    },
+    "/projects/{project_id}/evaluations": {
+      "get": {},
+      "post": {}
+    },
+    "/evaluations/{evaluation_id}/log": {
+      "post": {}
+    },
+    "/evaluations/{evaluation_id}/result": {
+      "post": {}
+    },
+    "/evaluations/{id}/status": {
+      "patch": {}
+    },
+    "/evaluations/{id}/evaluators": {
+      "patch": {}
+    },
+    "/evaluations": {
+      "get": {}
+    }
+  },
+  "x-readme": {
+    "samples-languages": ["python", "javascript", "curl"]
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "The Humanloop API uses API keys for authentication. Visit your\n[API Keys](https://app.humanloop.com/account/api-keys) page to retrieve the\nAPI key you'll use in your requests.\n\nThis key allows full access and control over your projects, so keep this secret\nand take care to not expose it in any client-side code.\n\nTo use your API key, include it under the `X-API-KEY` header in your HTTP request.\n\n```bash\ncurl https://api.humanloop.com/v4/projects -H 'X-API-KEY: YOUR_API_KEY'\n```\n\nIf you're using the Python SDK, initialize the client with your API key before\nusing other SDK methods:\n\n```python\nfrom humanloop import Humanloop\nhumanloop = Humanloop(api_key=\"YOUR_API_KEY\")\n```\n\nIf you're using the TypeScript SDK, initialize the client with your API key before\nusing other SDK methods:\n\n```js\nimport { Humanloop } from \"humanloop\";\nconst humanloop = new Humanloop({apiKey: \"YOUR_API_KEY\"});\n```"
+    }
+  ]
+}

@@ -1,10 +1,19 @@
 ## Projects
 
+<Warning>
+  Projects are now [Prompts](./prompts) (and we've added [Tools](./tools) and
+  [Evaluators](./evaluators) special types). The V4 API still refers to projects
+  however as the main way to interact with your Prompts.
+</Warning>
+
 A project groups together the data, prompts and models that are all achieving the same task to be done using the large language model.
 
 For example, if you have a task of ‘generate google ad copy’, that should be a project. If you have a summarization that works on top of tweets, that should be a project. You should have many separate projects for each of your tasks on top of the LLM.
 
-<img src="../../assets/images/bc87851-image.png" alt="Screenshot from Peppertype AI Copywriting assistant, each of these ‘apps’ corresponds to a project within Humanloop for managing the best way to get generations from large language models." />
+<img
+  src="../../assets/images/bc87851-image.png"
+  alt="Screenshot from Peppertype AI Copywriting assistant, each of these ‘apps’ corresponds to a project within Humanloop for managing the best way to get generations from large language models."
+/>
 
 ## Models
 
@@ -35,22 +44,29 @@ This is the prompt that is fed to the model, which also allows the use of variab
 
 The variables are surrounded by `{{ and }}` like this:
 
-<img src="../../assets/images/ea83c77-Screenshot_2022-10-06_at_17.56.51.png" alt="The input name is ‘topic’ and the value will be inserted into the prompt at runtime."/>
+<img
+  src="../../assets/images/ea83c77-Screenshot_2022-10-06_at_17.56.51.png"
+  alt="The input name is ‘topic’ and the value will be inserted into the prompt at runtime."
+/>
 
+## Log
+
+All [Prompts](./prompts),
+[Tools](./tools) and [Evaluators](./evaluators) produce Logs. A Log containsthe `inputs` and the `output`s and tracks which version of Prompt/Tool/Evaluator was used.
+
+For the example of a Prompt above, the Log would have one `input` called ‘topic’ and the `output` will be the completion.
+
+<img src="../../assets/images/log.png" alt="An example Log " />
 
 ## Datapoint
 
-This is a generation from the model. It contains the `inputs` and the `output` and tracks which model config was used.
-
-In the above example, the prompt template has one `input` called ‘topic’ and the `output` will be the completion. Each time this model is called it will create a datapoint with the actual values.
-
-<img src="../../assets/images/04be08f-Screenshot_2022-10-07_at_12.01.48.png" alt="An example datapoint for the limerick example prompt template above." />
+A datapoint is an input-output pair that is used to evaluate the performance of a model. It is different to a Log in that it is not tied to any specific version of a Prompt (or Tool or Evaluator), and that the target is an arbitrary object that can be used to evaluate the output of the model. See [Datasets](./datasets) for more information.
 
 ## Feedback
 
-Human feedback is crucial to help understand how your models are performing and to direct you in the ways to improve them. 
+Human feedback is crucial to help understand how your models are performing and to direct you in the ways to improve them.
 
-**Explicit feedback**  these are purposeful actions to review the generations. For example, ‘thumbs up/down’ button presses. 
+**Explicit feedback** these are purposeful actions to review the generations. For example, ‘thumbs up/down’ button presses.
 
 **Implicit feedback** – actions taken by your users may signal whether the generation was good or bad, for example, whether the user ‘copied’ the generation, ‘saved it’ or ‘dismissed it’ (which is negative feedback).
 

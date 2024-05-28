@@ -13,9 +13,11 @@ favicon: ./assets/favicon.svg
 versions:
   - display-name: v4.0
     path: ./versions/v4.yml
-  - display-name: v5.0
-    path: ./versions/v5.yml
-    availability: beta
+    slug: v4
+  # - display-name: v5.0
+  #   path: ./versions/v5.yml
+  #   slug: v5
+  #   availability: beta
 
 colors:
   accentPrimary:
@@ -44,7 +46,7 @@ footer-links:
 layout:
   content-width: 704px
   page-width: 1408px
-  sidebar-width: 288px
+  sidebar-width: 280px
   searchbar-placement: header
   tabs-placement: header
 typography:

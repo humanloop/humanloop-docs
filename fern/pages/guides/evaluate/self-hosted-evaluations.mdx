@@ -1,6 +1,7 @@
 ---
 subtitle: In this guide, we'll show how to run an evaluation in your own infrastructure and post the results to Humanloop.
 ---
+
 For some use cases, you may wish to run your evaluation process outside of Humanloop, as opposed to running the evaluators we offer in our Humanloop runtime.
 
 For example, you may have implemented an evaluator that uses your own custom model or which has to interact with multiple systems. In these cases, you can continue to leverage the datasets you have curated on Humanloop, as well as consolidate all of the results alongside the prompts you maintain in Humanloop.
@@ -10,8 +11,8 @@ In this guide, we'll show an example of setting up a simple script to run such a
 ### Prerequisites
 
 - You need to have access to evaluations
-- You also need to have a project created - if not, please first follow our [project creation](/docs/create-a-project-from-the-playground) guides.
-- You need to have a dataset in your project. See our [dataset creation](/docs/datasets) guide if you don't yet have one.
+- You also need to have a project created - if not, please first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You need to have a dataset in your project. See our [dataset creation](./datasets) guide if you don't yet have one.
 - You need to have a model config that you're trying to evaluate - create one in the **Editor**.
 
 ### Setting up the script
@@ -125,10 +126,11 @@ for log, datapoint in logs:
 ```python
 humanloop.evaluations.update_status(id=evaluation_run.id, status="completed")
 ```
+
 </Steps>
 
 ### Review the results
 
-After running this script with the appropriate resource IDs  (project, dataset, model config), you should see the results in the Humanloop app, right alongside any other evaluations you have performed using the Humanloop runtime.
+After running this script with the appropriate resource IDs (project, dataset, model config), you should see the results in the Humanloop app, right alongside any other evaluations you have performed using the Humanloop runtime.
 
 <img src="../../../assets/images/f5e8663-image.png" />
