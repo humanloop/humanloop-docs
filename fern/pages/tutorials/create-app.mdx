@@ -1,69 +1,24 @@
 ---
 subtitle: In this tutorial, you’ll use GPT-4 and Humanloop to quickly create a GPT-4 chat app that explains topics in the style of different experts.
+comment: <!-- This page is a bit of a hazard still. It duplicated a lot of the quickstart, so instead i've just made that a snippet so its at least up to do. The latter parts are still showing old screenshots (and its a bit of a crappy Flask app). Tempted to nuke it. -->
 ---
 
 At the end of this tutorial, you’ll have created your first GPT-4 app. You’ll also have learned how to:
 
-1. Create a project using the Humanloop Playground
+1. Create a Prompt
 2. Use the Humanloop SDK to call Open AI GPT-4 and log your results
-3. Capture feedback from your end users to evaluate and improve your model.
-
-This tutorial picks up where the [Quick Start](./quickstart) left off. If you’ve already followed the quick start you can skip to step 4.
+3. Capture feedback from your end users to evaluate and improve your model
 
 <img
   src="../../assets/images/b517f71-Screenshot_2022-11-08_at_16.34.54.png"
   alt="In this tutorial, you'll build a simple GPT-4 app that can explain a topic in the style of different experts."
 />
 
-# Step 1: Open the Humanloop Playground
+This tutorial picks up where the [Quick Start](./quickstart) left off. If you’ve already followed the quick start you can skip to step 4 below.
 
-When you first [open the playground](https://app.humanloop.com/playground) you’ll be prompted to enter your OpenAI API Key. You can do that by going [here](https://beta.openai.com/account/api-keys) and copying the API key.
+<Markdown src="../../snippets/quickstart-create-prompt.mdx" />
 
-If you don’t already have an OpenAI account, you’ll need to create one. Paste your key into the box in the Humanloop app.
-
-<Warning>
-  Using the Humanloop playground will use your OpenAI credits in the same way
-  that the OpenAI playground does.
-</Warning>
-
-# Step 2: Create a prompt template
-
-First switch to completion mode in the playground by opening the dropdown menu in the config pane. Select **_Switch to completion mode_**.
-
-<img src="../../assets/images/4c691e2-image.png" />
-
-Copy the following text into the prompt box on the left-hand-side of the playground, and overwrite any text that is already there.
-
-```
-Write a short article about {{topic}} as written by {{expert}}:
-```
-
-This sentence is an example of a [prompt template](./key-concepts#prompt-templates). It’s an instruction to GPT-4 but with slots for user input.  
-The slots are surrounded by two curly braces. On the right side of the page, you’ll now see three boxes with inputs for “expert” and “topic”.
-
-<img src="../../assets/images/f90f701-image.png" />
-
-1. For the top set of the input boxes enter a famous person. Suggestions: Einstein, David Beckham, Elon Musk
-2. Put in a different topic in the "topic" box. Suggestions: relativity, football, spaceships
-3. Click **_Run_** in the same section of the inputted topic and expert on right side of the page.
-
-This will call GPT-4 and return answers for each of the input groups you have.
-
-Click **_Run_** a few times to get a sense of the different possible outputs. Try changing the temperature on the left panel and see what impact it has.
-
-<img src="../../assets/images/5046db9-image.png" />
-
-# Step 3: Create your first project
-
-You now have a first prompt-template that you might want to use in an app. To create a project:
-
-1. Click **_Save_**
-2. Click **_or create new project_**
-3. Enter a Project name of "learn anything" and set the Model config name as "expert-topics"
-4. Click **_Create project_**
-5. Now go to your project by clicking the **_Open in project editor_** button. Thats it!
-
-# Step 4: Add the model to an app
+# Step 5: Add the model to an app
 
 Now that you’ve found a good prompt and settings, you’re ready to build the "Learn anything from anyone" app! We’ve written some code to get you started — follow the instructions below to download the code and run the app.
 
@@ -185,7 +140,7 @@ Here are some prompt ideas to try out. Which ones work better?
 
 <img src="../../assets/images/40ee971-image.png" />
 
-# Step 8: Go home happy!
+# Step 8: Congratulations!
 
 And that’s it! You should now have a full understanding of how to go from the Humanloop playground to a deployed and functioning app. You've learned how to create prompt templates, capture user feedback and deploy a new model from the playground.
 
