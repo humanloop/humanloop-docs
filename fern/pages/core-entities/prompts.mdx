@@ -1,5 +1,5 @@
 ---
-subtitle: Prompts define how an large language model behaves.
+subtitle: Prompts define how a large language model behaves.
 ---
 
 <img src="../../assets/images/1763dbe-Prompts.png" />
@@ -8,10 +8,10 @@ A Prompt on Humanloop encapsulates the instructions and other configuration for 
 
 - the template such as `Write a song about {{topic}}`
 - the model e.g. `gpt-4o`
-- all the paramaters that define how the model should behave such as `temperature`, `max_tokens`, `top_p` etc.
+- all the parameters that define how the model should behave such as `temperature`, `max_tokens`, `top_p` etc.
 - any tools available to the model
 
-Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value to variable will need to be supplied when you call the Prompt to create a generation.
+Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 
 This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes. The Prompt stores the configuration and the query time data are stored in [Logs](./logs), which can then be re-used in Datasets.
 
@@ -69,13 +69,13 @@ const chatResponse = await humanloop.chatDeployed({
 });
 ```
 
-Your can also use Prompts without proxying all requests through Humanloop.
+You can also use Prompts without proxying all requests through Humanloop.
 
-# Serialization (`.prompt` file)
+## Serialization (`.prompt` file)
 
 Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](./prompt-file-format) reference for more details.
 
-## Format
+### Format
 
 The .prompt file is heavily inspired by [MDX](https://mdxjs.com/), with model and hyperparameters specified in a YAML header alongside a JSX-inspired format for your Chat Template.
 
