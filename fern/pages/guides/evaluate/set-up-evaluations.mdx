@@ -8,23 +8,31 @@ subtitle: In this guide, we'll walk through an example of using our API to creat
 
 <Info title="API Options">
   This guide uses our [Python SDK](/docs/reference/sdks). All of the endpoints
-  used are available in our [Typescript SDK](/docs/reference/sdks) and directly
+  used are available in our [TypeScript SDK](/docs/reference/sdks) and directly
   [via the API](/docs/reference/humanloop-api).
 </Info>
-
-### Install and initialize the SDK
+hu ### Install and initialize the SDK
 
 First you need to install and initialize the SDK, which requires **Python 3.8 or greater.** If you have already set this up, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
 <Steps>
   ### Install the Humanloop Python SDK:
-  <Tip>
-    We recommend pinning your installed Humanloop SDK to a specific version so
-    that changes don't cause issues.
-  </Tip>
-  ```shell pip install humanloop ``` ### Start a Python interpreter: ```shell
-  python ``` ### Test your installation by running: ```python >>> from humanloop
-  import Humanloop ```
+  
+  ```shell
+pip install humanloop 
+   ``` 
+### Start a Python interpreter
+   
+   ```shell
+python 
+  ```
+
+### Test your installation
+
+```python
+>>> from humanloop import Humanloop
+```
+
 </Steps>
 
 ## Create evaluation

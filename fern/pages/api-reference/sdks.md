@@ -2,13 +2,14 @@ The Humanloop platform can be accessed through the API or through our Python and
 
 <Cards>
   <Card
-    title="Python"
+    title="Python ↗"
     icon="fa-brands fa-python"
     href="https://pypi.org/project/humanloop/"
   />
   <Card
-    title="Node/TypeScript"
+    title="JavaScript/TypeScript ↗"
     icon="fa-brands fa-node"
+    icon="fa-brands fa-js"
     href="https://www.npmjs.com/package/humanloop"
   />
 </Cards>
@@ -25,25 +26,36 @@ pip install humanloop
 ```python title="Example usage"
 from humanloop import Humanloop
 
-# You need to initialize the Humanloop SDK with your API Keys
 humanloop = Humanloop(
-    api_key="YOUR_HUMANLOOP_API_KEY",
+    api_key="YOUR_API_KEY",
     openai_api_key="YOUR_OPENAI_API_KEY",
 )
 
-complete_response = humanloop.complete(
+chat_response = humanloop.chat(
     project="sdk-example",
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain asynchronous programming.",
+        }
+    ],
     model_config={
-      "model": "gpt-3.5-turbo",
-      "prompt_template": "Answer the question like Paul Graham from YCombinator.\nQuestion: {{question}}\nAnswer: "
+        "model": "gpt-3.5-turbo",
+        "max_tokens": -1,
+        "temperature": 0.7,
+        "chat_template": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant who replies in the style of {{persona}}.",
+            },
+        ],
     },
-    inputs={"question": "How should I think about competition for my startup?"}
+    inputs={
+        "persona": "Jeff Dean",
+    },
+    stream=False,
 )
-
-print(complete_response.body)
-print(complete_response.body["project_id"])
-print(complete_response.body["data"][0])
-print(complete_response.body["provider_responses"])
+print(chat_response)
 ```
 
 </Tab>
@@ -54,28 +66,28 @@ npm i humanloop
 ```
 
 ```typescript title="Example usage"
-import { Humanloop } from "humanloop"
+import { Humanloop } from "humanloop";
 
 const humanloop = new Humanloop({
-  apiKey: 'YOUR_HUMANLOOP_API_KEY',
+  apiKey: "YOUR_HUMANLOOP_API_KEY",
   openaiApiKey: "YOUR_OPENAI_API_KEY",
-})
+});
 
 const chatResponse = await humanloop.chat({
-  "project": "sdk-example",
-  "messages": [
+  project: "sdk-example",
+  messages: [
     {
-      "role": "user",
-      "content": "Write me a song",
-    }
+      role: "user",
+      content: "Write me a song",
+    },
   ],
-  "model_config": {
-    "model": "gpt-4",
-    "temperature": 1,
+  model_config: {
+    model: "gpt-4",
+    temperature: 1,
   },
-})
+});
 
-console.log(chatResponse)
+console.log(chatResponse);
 ```
 
 </Tab>
