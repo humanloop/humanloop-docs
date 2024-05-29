@@ -129,17 +129,17 @@ navigation:
           - section: Tools
             skip-slug: true
             contents:
-              - page: In the Editor
-                path: ../pages/guides/tools/in-editor.mdx
-                slug: create-a-tool-in-the-editor
-              - page: With the SDK
-                path: ../pages/guides/tools/with-sdk.mdx
+              - page: Tool Calling in Editor
+                path: ../pages/guides/tools/tool-calling.mdx
+                slug: tool-calling
+              - page: Tool Calling with the SDK
+                path: ../pages/guides/tools/tool-calling-sdk.mdx
                 slug: create-a-tool-with-the-sdk
-              - page: Link a JSON Schema tool
+              - page: Link a JSON Schema Tool
                 path: ../pages/guides/tools/link-json.mdx
-                slug: link-a-jsonschema-tool
-              - page: Reusable Snippet Tool
-                slug: in-your-prompts
+                slug: link-jsonschema-tool
+              - page: Use the Snippet Tool
+                slug: snippet-tool
                 path: ../pages/guides/tools/with-snippet.mdx
               - page: Set up semantic search (RAG)
                 path: ../pages/guides/tools/set-up-search.mdx
