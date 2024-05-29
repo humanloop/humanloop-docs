@@ -11,13 +11,13 @@ Humanloop Tools can be used in multiple ways:
 - provided to the LLM as something it can call (think [OpenAI Function calling](https://platform.openai.com/docs/guides/function-calling))
 - as part of a chain of LLM calls and other events, such as a Retrieval Tool in a RAG pipeline
 
-Some Tools are executable within Humanloop, and these offer the greatest utility and convenience. For example Google and Pinecone have pre-built integrations and so so Tools that use them can be automatically performed and inserted into the right place.
+Some Tools are executable within Humanloop, and these offer the greatest utility and convenience. For example, Google and Pinecone have pre-built integrations and so Tools that use them can be automatically performed and inserted into the right place.
 
 ### Tools in a Prompt template
 
-You can add a tool call in a prompt template and the result will be inserted into the prompt sent to the model.  This allows you to insert retreived information into your LLMs calls. 
+You can add a tool call in a prompt template and the result will be inserted into the prompt sent to the model.  This allows you to insert retrieved information into your LLMs calls. 
 
-For example, if you have **`{{ google("population of india") }}`** in your template, this Google tool will get executed and replaced with the resulting text “**1.42 billion (2024)**” before the prompt is sent to the model. Additionally, if your template contains a Tool call that uses an input variable e.g. **`{{ google(query) }}`** this will take the value of the input supplied in the request, compute the output of the Google tool, and insert that result into the resulting prompt that is stnd to the model.
+For example, if you have **`{{ google("population of india") }}`** in your template, this Google tool will get executed and replaced with the resulting text “**1.42 billion (2024)**” before the prompt is sent to the model. Additionally, if your template contains a Tool call that uses an input variable e.g. **`{{ google(query) }}`** this will take the value of the input supplied in the request, compute the output of the Google tool, and insert that result into the resulting prompt that is sent to the model.
 
 <img src="../../assets/images/4974396-image.png" alt="Example of a Tool being used within a Prompt template. This example will mean that this Prompt needs two inputs to be supplied (`query`, and `top_k`)" />
 
@@ -26,7 +26,7 @@ Example of a Tool being used within a Prompt template. This example will mean th
 
 ### Tools as function calling
 
-Certain large language models support function calling. For these models you can supply the description of functions and model can choose to call one or many of them by providing the values to call it with. 
+Certain large language models support function calling. For these models, you can supply the description of functions and the model can choose to call one or more of them by providing the values to call the functions with. 
 
 <img src="../../assets/images/b8e1ce6-toolsimage.png" />
 
@@ -40,7 +40,7 @@ Tools for function calling can be defined inline in our Editor or centrally mana
 
 You can call a Tool within a chain of events and post the result to Humanloop.
 
-In this way you benefit from being able to see the logs, and version your tool, enabling you to make any changes and 
+In this way, you benefit from both being able to see the logs, and being able to version your tool, enabling you to make any changes and identify their effects.
 
 ### Supported Tools
 
