@@ -6,7 +6,7 @@ The Humanloop Python SDK allows you to easily replace your `openai.ChatCompletio
 
 ## Prerequisites
 
-1. You already have a project created - if not, please pause and first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
 
 <Info>
   This guide assumes you're using an OpenAI model. If you want to use other
@@ -14,34 +14,7 @@ The Humanloop Python SDK allows you to easily replace your `openai.ChatCompletio
   model](./use-your-own-model-provider).
 </Info>
 
-## Install and initialize the SDK
-
-<Info>The SDK requires Python 3.8 or greater.</Info>
-
-First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
-
-1.  Install the Humanloop Python SDK:
-
-          <Tip>
-
-    We recommend pinning your installed Humanloop SDK to a specific version as our API is still currently evolving.
-
-    You will be kept informed of the changes as we make them, and we do support older versions to accommodate a transition period.
-
-          </Tip>
-
-    ```shell
-    pip install humanloop
-    ```
-
-2.  Start a Python interpreter:
-    ```shell
-    python
-    ```
-3.  Test your installation by running:
-    ```python
-    from humanloop import Humanloop
-    ```
+<Markdown src="../../../snippets/setup-sdk.mdx" />
 
 ## Activate a model
 

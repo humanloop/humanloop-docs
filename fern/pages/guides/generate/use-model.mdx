@@ -12,27 +12,9 @@ In this guide, we walk through how to use these SDK methods to log data to Human
 
 ## Prerequisites
 
-You already have a project created - if not, please pause and first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
 
-## Install and Initialize the SDK
-
-First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
-
-<Steps>
-### Install the Humanloop Python SDK:
-   ```shell
-   pip install humanloop
-   ```
-### Start a Python interpreter:
-   ```shell
-   python
-   ```
-### Initialize the SDK with your Humanloop API key (get your API key from your API Keys page)
-   ```python
-   >>> from humanloop import Humanloop
-   >>> humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
-   ```
-</Steps>
+<Markdown src="../../../snippets/setup-sdk.mdx" />
 
 ## Log data to your project
 
@@ -84,7 +66,7 @@ data_id = log_response.body["id"]
 
 ### The process of capturing feedback then uses the returned `data_id` as before.
 
-See our [guide to recording feedback with the SDK](./guides/generate-and-log-with-the-sdk).
+See our [guide on capturing user feedback](./capture-user-feedback).
 
 ### You can also log immediate feedback alongside the input and outputs:
 

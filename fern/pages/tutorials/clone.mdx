@@ -179,7 +179,7 @@ export async function POST(req: Request): Promise<Response> {
 }
 ```
 
-In this code, we're calling `humanloop.chatDeployed`. This function is used to target the model which is actively deployed on your project - in this case it should be the model we set up in step 1. Other related functions in the [SDK reference](/docs/reference/sdks) (such as `humanloop.chat`) allow you to target a specific model config (rather than the actively deployed one) or even specify model config directly in the function call.
+In this code, we're calling `humanloop.chatDeployed`. This function is used to target the model which is actively deployed on your project - in this case it should be the model we set up in step 1. Other related functions in the [SDK reference](/docs/api-reference/sdks) (such as `humanloop.chat`) allow you to target a specific model config (rather than the actively deployed one) or even specify model config directly in the function call.
 
 When we receive a response from Humanloop, we strip out just the text of the chat response and send this back to the client via a `Response` object (see [Next.js - Route Handler docs](https://nextjs.org/docs/app/building-your-application/routing/router-handlers)). The Humanloop SDK response contains much more data besides the raw text, which you can inspect by logging to the console.
 
@@ -516,8 +516,8 @@ When you click one of these feedback buttons and visit the Prompt in Humanloop, 
 
 # Conclusion
 
-You've now built a working chat interface and used Humanloop to handle interaction with the model provider and log chats. You used a system message (which is invisible to your end user) to make GPT-4 behave like a chess tutor. You also added a way for your app's users to provide feedback which you can track in Humanloop to help improve your models.
+Congratulations! You've now built a working chat interface and used Humanloop to handle interaction with the model provider and log chats. You used a system message (which is invisible to your end user) to make GPT-4 behave like a chess tutor. You also added a way for your app's users to provide feedback which you can track in Humanloop to help improve your models.
 
 Now that you've seen how to create a simple Humanloop project and build a chat interface on top of it, try visiting the Humanloop project dashboard to view the logs and iterate on your model configs. You can also create experiments to learn which model configs perform best with your users. To learn more about these topics, take a look at our guides below.
 
-All the code for this project is available at [https://github.com/humanloop/hl-chatgpt-clone-typescript](https://github.com/humanloop/hl-chatgpt-clone-typescript).
+All the code for this project is available on [Github](https://github.com/humanloop/hl-chatgpt-clone-typescript).

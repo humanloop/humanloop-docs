@@ -7,7 +7,7 @@ subtitle: In this guide, we will walk through creating a testset and using it to
 ### Prerequisites
 
 - You need to have access to evaluations.
-- You also need to have a project created - if not, please first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
 - Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
 
 <Info>
@@ -114,16 +114,18 @@ def it_extracts_correct_feature(log, testcase):
         return False
 ```
 
-### In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
+### Use the Debug Console
+
+In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
 
 <img
   src="../../../assets/images/e3dd068-image.png"
   alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
 />
 
-### Choose a model config from the dropdown menu.
+#### Choose a model config from the dropdown menu.
 
-### Click the run button at the far right of one of the test datapoints.
+#### Click the run button at the far right of one of the test datapoints.
 
 A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
 

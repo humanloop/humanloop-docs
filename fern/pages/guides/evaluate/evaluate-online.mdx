@@ -9,7 +9,7 @@ subtitle: In this guide, we will demonstrate how to create and use online evalua
 ### Prerequisites
 
 - You need to have access to evaluations.
-- You also need to have a project created - if not, please first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
 - Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
 
 To set up an online Python evaluator:
@@ -77,23 +77,23 @@ To set up an online Python evaluator:
 To track the performance of different model configs in your project:
 
 <Steps>
-  ### Go to the **Dashboard** tab. ### In the table of model configs at the
-  bottom, choose a subset of the project's model configs. ### Use the graph
-  controls at the top of the page to select the date range and time granularity
-  of interest. ### Review the relative performance of the model configs for each
-  activated Evaluator shown in the graphs.
+  
+  ### Go to the **Dashboard** tab. 
+  
+   In the table of model configs at the
+  bottom, choose a subset of the project's model configs.
+
+### Use the graph controls
+
+At the top of the page to select the date range and time granularity
+of interest.
+
+### Review the relative performance
+
+For each activated Evaluator shown in the graphs, you can see the relative performance of the model configs you selected.
+
 </Steps>
 
 <img src="../../../assets/images/da76734-image.png" />
 
-## Note: Available Modules
-
-The following Python modules are available to be imported in your code evaluators:
-
-- `math`
-- `random`
-- `datetime`
-- `json` (useful for validating JSON grammar as per the example above)
-- `jsonschema` (useful for more fine-grained validation of JSON output - see the in-app example)
-- `sqlglot` (useful for validating SQL query grammar)
-- `requests` (useful to make further LLM calls as part of your evaluation - see the in-app example for a suggestion of how to get started).
+<Markdown src="../../../snippets/secure-runtime-modules.mdx" />

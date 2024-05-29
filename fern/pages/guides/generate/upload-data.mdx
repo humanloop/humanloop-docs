@@ -6,26 +6,9 @@ The Humanloop Python SDK allows you to upload your historic model data to an exi
 
 ## Prerequisites
 
-1. You already have a project created - if not, please pause and first follow our [project creation](./create-a-prompt-in-the-ui) guides.
+- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
 
-## Install and initialize the SDK
-
-<Tip>The SDK requires Python 3.8 or greater.</Tip>
-
-First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
-
-1. Install the Humanloop Python SDK:
-   ```shell
-   pip install humanloop
-   ```
-2. Start a Python interpreter:
-   ```shell
-   python
-   ```
-3. Test your installation by running:
-   ```python
-   >>> from humanloop import Humanloop
-   ```
+<Markdown src="../../../snippets/setup-sdk.mdx" />
 
 ## Log historic data
 
@@ -59,8 +42,10 @@ Grab your API key from your [Settings page](https://app.humanloop.com/account/ap
    data_id = log_response.body["id"]
    ```
 
-2. The process of capturing feedback then uses the returned `log_id` as before.  
-   See our [guide to recording feedback with the SDK](./overview).
+2. The process of capturing feedback then uses the returned `log_id` as before.
+
+   See our [guide on capturing user feedback](./capture-user-feedback).
+
 3. You can also log immediate feedback alongside the input and outputs:
    ```python
    # Log the inputs, outputs and model config to your project.
