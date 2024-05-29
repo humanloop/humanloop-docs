@@ -16,9 +16,11 @@ At the end of this tutorial, you’ll have created your first GPT-4 app. You’l
 
 This tutorial picks up where the [Quick Start](./quickstart) left off. If you’ve already followed the quick start you can skip to step 4 below.
 
+## Create the Prompt
+
 <Markdown src="../../snippets/quickstart-create-prompt.mdx" />
 
-# Step 5: Add the model to an app
+## Call the Prompt in an app
 
 Now that you’ve found a good prompt and settings, you’re ready to build the "Learn anything from anyone" app! We’ve written some code to get you started — follow the instructions below to download the code and run the app.
 
@@ -27,7 +29,7 @@ Now that you’ve found a good prompt and settings, you’re ready to build the 
   alt="When you run the app, this is what you should see."
 />
 
-## Setup
+### Setup
 
 If you don’t have Python 3 installed, [install it from here](https://www.python.org/downloads/). Then download the code by cloning [this repository](https://github.com/humanloop/humanloop-tutorial-python) in your terminal:
 
@@ -46,7 +48,7 @@ cp .example.env .env
 
 Copy your [Humanloop API key](https://app.humanloop.com/account/settings) and set it as `HUMANLOOP_API_KEY` in your newly created .env file. Copy your [OpenAI API key](https://beta.openai.com/account/api-keys) and set it as the `OPENAI_API_KEY`.
 
-## Run the app
+### Run the app
 
 Run the following commands in your terminal in the project directory to install the dependencies and run the app.
 
@@ -63,7 +65,7 @@ Press the thumbs-up or thumbs-down buttons to register your feedback on whether 
 
 Try a few more questions. Perhaps change the name of the expert and keep the topic fixed.
 
-# Step 5: View the data on Humanloop
+## View the data on Humanloop
 
 Now that you have a working app you can use Humanloop to measure and improve performance. Go back to the Humanloop app and go to your project named "learn-anything".
 
@@ -73,7 +75,7 @@ On the **_Models_** dashboard you'll be able to see how many data points have fl
 
 Click **_View data_** in the top right. Here you should be able to see each of your generations as well as the feedback that's been logged against them. You can also add your own internal feedback by clicking on a datapoint in the table and using the feedback buttons.
 
-# Step 6: Understand the code
+## Understand the code
 
 Open up the file `app.py` in the "openai-quickstart-python" folder. There are a few key code snippets that will let you understand how the app works.
 
@@ -109,7 +111,7 @@ The call to `humanloop.feedback` uses the `data_id` returned above to associate 
 
 In this app there are two feedback groups `rating` (which can be `good` or `bad`) and `actions`, which here is the copy button and also indicates positive feedback from the user.
 
-# Step 7: Add a new model config
+## Add a new model config
 
 If you experiment a bit, you might find that the model isn't initially that good. The answers are often too short or not in the style of the expert being asked. We can try to improve this by experimenting with other prompts.
 
@@ -140,7 +142,7 @@ Here are some prompt ideas to try out. Which ones work better?
 
 <img src="../../assets/images/40ee971-image.png" />
 
-# Step 8: Congratulations!
+## Congratulations!
 
 And that’s it! You should now have a full understanding of how to go from creating a Prompt in Humanloop to a deployed and functioning app. You've learned how to create prompt templates, capture user feedback and deploy a new models.
 
