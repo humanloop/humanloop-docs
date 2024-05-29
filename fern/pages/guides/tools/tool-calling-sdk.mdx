@@ -66,7 +66,7 @@ def run_conversation():
         model_config={"model": "gpt-4", "max_tokens": 100},
         messages=messages,
     )
-    response = response.body["data"][0]
+    response = response.data[0]
 ```
 
 ### **Define the tool**: Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example.
@@ -206,7 +206,7 @@ The assistant should respond with a message that incorporates the parameters you
 ```python
 if __name__ == "__main__":
     response = run_conversation()
-    response = response.body["data"][0]["output"]
+    response = response.data[0].output
     # Print to console the response from OpenAI with the formatted message
     print(response)
 ```
@@ -313,7 +313,7 @@ def run_conversation():
 
 if __name__ == "__main__":
     response = run_conversation()
-    response = response.body["data"][0]["output"]
+    response = response.data[0]output
     # Print to console the response from OpenAI with the formatted message
     print(response)
 

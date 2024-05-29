@@ -27,18 +27,13 @@ The Humanloop Python SDK allows you to easily replace your `openai.ChatCompletio
 
 ## Use the SDK to call your model
 
-Now you can use the SDK to generate completions and log the results to your project. The following code demonstrates how:
+Now you can use the SDK to generate completions and log the results to your project:
 
 ```python
-from humanloop import Humanloop
-
-# You need to initialize the Humanloop SDK with your API Keys
-humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
-
 # humanloop.chat_deployed(...) will call the active model config on your project.
 # The inputs must match the input of the chat template in your project.
 chat_response = humanloop.chat_deployed(
-    project="<YOUR UNIQUE PROJECT NAME>",
+    project_id="YOUR_PROJECT_ID_HERE",
   	 # inputs required by your chat_template - for example your templated system message.
     inputs={"persona": "paul graham from YC"},
   	messages=[
@@ -47,11 +42,12 @@ chat_response = humanloop.chat_deployed(
 )
 
 # A single call to chat may return multiple outputs.
-data_id = chat_response.body["data"][0]["id"]
-output = chat_response.body["data"][0]["output"]
+data_id = chat_response.data[0].id
+output = chat_response.data[0].output
+print(output)
 
 # You can also access the raw response from OpenAI.
-print(chat_response.body["provider_responses"])
+print(chat_response.provider_responses)
 ```
 
 Navigate to your project's **Logs** tab in the browser to see the recorded inputs, messages and responses of your chat.

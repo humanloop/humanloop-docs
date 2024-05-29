@@ -96,9 +96,10 @@ navigation:
                 slug: overview
               - page: Create a dataset
                 path: ../pages/guides/create-datasets/create-dataset.mdx
-                slug: create
+                slug: create-dataset
               - page: Batch generate
                 path: ../pages/guides/create-datasets/batch-generate.mdx
+                slug: batch-generate
           - section: Evaluation and Monitoring
             slug: evaluation
             contents:

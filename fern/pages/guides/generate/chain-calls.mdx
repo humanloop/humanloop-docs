@@ -151,7 +151,7 @@ response = humanloop.chat(
     inputs={"user_request": user_request},
     messages=[],
 )
-assistant_response = response.body["data"][0]["output"]
+assistant_response = response.data[0].output
 ```
 
 <Tip>
@@ -200,7 +200,7 @@ response = humanloop.complete(
     },
     inputs={"user_request": user_request, "google_answer": google_answer},
 )
-assistant_response = response.body["data"][0]["output"]
+assistant_response = response.data[0].output
 ```
 
 </Steps>
@@ -307,7 +307,7 @@ response = humanloop.chat(
     messages=[],
     session_reference_id=session_reference_id,
 )
-assistant_response = response.body["data"][0]["output"]
+assistant_response = response.data[0]output
 print("Moderator response:", assistant_response)
 
 if assistant_response == "Yes":
@@ -354,7 +354,7 @@ response = humanloop.complete(
     inputs={"user_request": user_request, "google_answer": google_answer},
     session_reference_id=session_reference_id,
 )
-assistant_response = response.body["data"][0]["output"]
+assistant_response = response.data[0].output
 print("Assistant response:", assistant_response)
 
 ```

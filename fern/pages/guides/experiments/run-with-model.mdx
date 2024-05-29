@@ -61,7 +61,7 @@ humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
 
 # Sample a model_config from your experiment.
 model_config_response = humanloop.projects.get_active_config(id=project_id)
-model_config = model_config_response.body["config"]
+model_config = model_config_response.config
 
 # Make a generation using OpenAI using the parameters from the sampled model_config.
 response = openai.Completion.create(
@@ -83,7 +83,7 @@ log_response = humanloop.log(
 )
 
 # Use this ID to associate feedback received later to this log.
-data_id = log_response.body["id"]
+data_id = log_response.id
 ```
 
 </Steps>

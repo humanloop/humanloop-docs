@@ -31,7 +31,7 @@ humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
 project_id = "<YOUR PROJECT ID>"
 
 config_response = humanloop.projects.get_config(id=project_id)
-config = config_response.body["config"]
+config = config_response.config
 
 client = openai.OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
@@ -61,7 +61,7 @@ log_response = humanloop.log(
 )
 
 # Use this ID to associate feedback received later to this datapoint.
-data_id = log_response.body["id"]
+data_id = log_response.id
 ```
 
 ### The process of capturing feedback then uses the returned `data_id` as before.

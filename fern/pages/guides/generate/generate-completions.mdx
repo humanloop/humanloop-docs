@@ -24,28 +24,22 @@ The Humanloop Python SDK allows you to easily replace your `openai.Completions.c
 
 ## Use the SDK to call your model
 
-Now you can use the SDK to generate completions and log the results to your project. The following code demonstrates how:
+Now you can use the SDK to generate completions and log the results to your project.
 
 ```python
-from humanloop import Humanloop
-
-# You need to initialize the Humanloop SDK with your API Keys
-humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
-
 # humanloop.complete_deployed(...) will call the active model config on your project.
 # The inputs must match the input of the prompt template in your project.
 complete_response = humanloop.complete_deployed(
     project="<YOUR UNIQUE PROJECT NAME>", # change the project name to your project
     inputs={"question": "How should I think about competition for my startup?"},
-    provider_api_keys={"openai": "<YOUR OpenAI API KEY>"}
 )
 
 # A single call to generate may return multiple outputs.
-data_id = complete_response.body["data"][0]["id"]
-output = complete_response.body["data"][0]["output"]
+data_id = complete_response.data[0].id
+output = complete_response.data[0]output
 
 # You can also access the raw response from OpenAI.
-print(complete_response.body["provider_responses"])
+print(complete_response.provider_responses)
 ```
 
 Navigate to your project's **Logs** tab in the browser to see the recorded inputs and outputs of your generation.

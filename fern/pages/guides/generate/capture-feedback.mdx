@@ -20,7 +20,7 @@ This guide shows how to use the Humanloop SDK to record user feedback on datapoi
        inputs={"question": "How should I think about competition for my startup?"},
    )
 
-   data_id = completion.body["data"][0]["id"]
+   data_id = completion.data[0].id
    ```
 
 2. Call `humanloop.feedback()` referencing the saved datapoint ID to record user feedback.  

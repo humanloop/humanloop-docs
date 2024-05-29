@@ -92,8 +92,8 @@ complete_response = humanloop.complete_deployed(
   provider_api_keys={"openai": OPENAI_API_KEY}
 )
 
-data_id = complete_response.body["data"][0]["id"]
-result = complete_response.body["data"][0]["output"]
+data_id = complete_response.data[0].id
+result = complete_response.data[0].output
 ```
 
 On line 34 you can see the call to `humanloop.complete_deployed` which takes the project name and project inputs as variables. `humanloop.complete_deployed` calls GPT-4 and also automatically logs your data to the Humanloop app.

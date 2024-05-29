@@ -1,5 +1,5 @@
 ---
-subtitle: In this guide, we'll walk through an example of using our API to create testsets and trigger an evaluation.
+subtitle: In this guide, we'll walk through an example of using our API to create dataset and trigger an evaluation.
 ---
 
 <Markdown src="../../../snippets/paid-feature.mdx" />
@@ -15,7 +15,7 @@ subtitle: In this guide, we'll walk through an example of using our API to creat
 
 ## Create evaluation
 
-We'll go through how to use the SDK in a Python script to set up a project, create a testset and then finally trigger an evaluation.
+We'll go through how to use the SDK in a Python script to set up a project, create a dataset and then finally trigger an evaluation.
 
 ### Set up a project
 
@@ -44,7 +44,7 @@ We'll use OpenAI's GPT-4 for extracting product feature names from customer quer
 
 # Create a project
 project = humanloop.projects.create(name="evals-guide")
-project_id = project.body["id"]
+project_id = project.id
 
 # Create the first model config for the project, which will automatically be deployed
 model_config = humanloop.model_configs.register(
@@ -62,7 +62,7 @@ model_config = humanloop.model_configs.register(
         }
     ],
 )
-config_id = model_config.body["config"]["id"]
+config_id = model_config.config.id
 
 ```
 
@@ -85,7 +85,7 @@ log = humanloop.chat_deployed(
     project_id=project_id,
     messages=data[0]["messages"],
     inputs={"features": "evaluations, experiments, fine-tuning"},
-).body["data"][0]
+).data[0]
 
 import json
 print(json.dumps(log))
@@ -167,7 +167,7 @@ evaluator = humanloop.evaluators.create(
     arguments_type="target_required",
     return_type="boolean",
 )
-evaluator_id = evaluator.body["id"]
+evaluator_id = evaluator.id
 ```
 
 In your Humanloop project you will now see an evaluator defined:
@@ -222,7 +222,7 @@ humanloop = Humanloop(
 
 # Create a project
 project = humanloop.projects.create(name="evals-guide")
-project_id = project.body["id"]
+project_id = project.id
 
 # Create the first model config for the project, which will automatically be deployed
 model_config = humanloop.model_configs.register(
@@ -241,7 +241,7 @@ model_config = humanloop.model_configs.register(
     endpoint="chat",
     temperature=0.5,
 )
-config_id = model_config.body["config"]["id"]
+config_id = model_config.config.id
 
 # Example test case data
 data = [
@@ -274,11 +274,10 @@ dataset = humanloop.datasets.create(
     name="Target feature requests",
     description="Target feature request json extractions",
 )
-dataset_id = dataset.body["id"]
 
 # Create test datapoints for the dataset
 datapoints = humanloop.datasets.create_datapoint(
-    dataset_id=dataset_id,
+    dataset_id=dataset.id,
     body=data,
 )
 
@@ -286,7 +285,7 @@ datapoints = humanloop.datasets.create_datapoint(
 log = humanloop.chat_deployed(
     project_id=project_id,
     messages=data[0]["messages"],
-).body["data"][0]
+).data[0]
 
 
 # Define an evaluator
@@ -320,12 +319,11 @@ evaluator = humanloop.evaluators.create(
     arguments_type="target_required",
     return_type="boolean",
 )
-evaluator_id = evaluator.body["id"]
 
 # Finally trigger an evaluation
 evaluation = humanloop.evaluations.create(
     project_id=project_id,
-    evaluator_ids=[evaluator_id],
+    evaluator_ids=[evaluator.id],
     config_id=config_id,
     dataset_id=dataset_id,
 )
