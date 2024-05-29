@@ -2,13 +2,20 @@
 subtitle: Use Humanloop to generate from large language models
 ---
 
-A **Log** is a generation from a large language model. It contains the inputs and the output as well as metadata such as which version was used and any associated feedback.
+A [**Log**](./logs) is created every time a [Prompt](./prompts) is called. The Log contain contains the inputs and the output (the generation) as well as metadata such as which version of the Prompt was used and any associated feedback.
 
-There are two ways to create a Log:
+There are two ways to get your Logs into Humanloop, referred to as 'proxy' and 'async'.
 
-- **[Generate](./generate)**: Use the Humanloop UI to generate text from a large language model.
-- **[Log](./log)**: Use the Humanloop API to create a Log from a large language model.
+### **Proxied**
 
-The guides in this section instruct you on how to create Logs on Humanloop. Once this is setup, you can begin to use Humanloop to evaluate and improve your LLM apps.
+In one call you can fetch the latest version of a Prompt, generate from the provider, stream the result back and log the result.
+Using Humanloop as a proxy is by far the most convenient and way of calling your LLM-based applications.
+
+### **Async**
+
+With the async method, you can fetch the latest version of a Prompt, generate from the provider, and log the result in separate calls. This is useful if you want to decouple the generation and logging steps, or if you want to log results from your own infrastructure. It also allows you to have no additional latency or servers on the critical path to your AI features.
 
 <img src="../../../assets/images/11ae297-image.png" />
+
+The guides in this section instruct you on how to create Logs on Humanloop. Once
+this is setup, you can begin to use Humanloop to evaluate and improve your LLM apps.
