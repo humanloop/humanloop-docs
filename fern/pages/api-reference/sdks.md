@@ -7,10 +7,9 @@ The Humanloop platform can be accessed through the API or through our Python and
     href="https://pypi.org/project/humanloop/"
   />
   <Card
-    title="JavaScript/TypeScript ↗"
-    description="Coming soon"
+    title="Node/TypeScript ↗"
+    icon="fa-brands fa-node"
     icon="fa-brands fa-js"
-    target="_blank"
     href="https://www.npmjs.com/package/humanloop"
   />
 </Cards>
