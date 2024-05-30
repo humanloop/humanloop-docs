@@ -11,10 +11,11 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         slug: getting-started
         contents:
           - page: Overview
-            slug: what-is-humanloop
+            slug: overview
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
@@ -62,7 +63,7 @@ navigation:
               - page: Use your own model
                 path: ../pages/guides/generate/use-model.mdx
                 slug: use-your-own-model-provider
-              - page: Chain multiple calls
+              - page: Chaining calls (Sessions)
                 path: ../pages/guides/generate/chain-calls.mdx
                 slug: logging-session-traces
           - section: Run an experiment
@@ -103,7 +104,7 @@ navigation:
           - section: Evaluation and Monitoring
             slug: evaluation
             contents:
-              - page: Overview
+              - page: Overviews
                 slug: overview
                 path: ../pages/guides/evaluate/overview.mdx
               - page: Run an evaluation

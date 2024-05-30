@@ -1,5 +1,7 @@
 ---
 subtitle: Prompts define how a large language model behaves.
+description: Discover how Humanloop manages prompts, with version control and rigorous evaluation for better performance.
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-29T23%3A44%3A09.384Z%2Fassets%2Fimages%2F5f4671a-Welcome_image.png&w=3840&q=75
 ---
 
 <img src="../../assets/images/1763dbe-Prompts.png" />
@@ -8,8 +10,10 @@ A Prompt on Humanloop encapsulates the instructions and other configuration for 
 
 - the template such as `Write a song about {{topic}}`
 - the model e.g. `gpt-4o`
-- all the parameters that define how the model should behave such as `temperature`, `max_tokens`, `top_p` etc.
+- all the parameters to the model such as `temperature`, `max_tokens`, `top_p` etc.
 - any tools available to the model
+
+A Prompt is callable in that if you supply the necessary inputs, it will return a response from the model.
 
 Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 

@@ -10,6 +10,7 @@ instances:
         branch: main
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
+# description: Humanloop is a platform for building AI-powered applications. This documentation provides guides, tutorials, and API references to help you get started.
 versions:
   - display-name: v4.0
     path: ./versions/v4.yml
