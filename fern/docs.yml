@@ -10,7 +10,23 @@ instances:
         branch: main
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
-# description: Humanloop is a platform for building AI-powered applications. This documentation provides guides, tutorials, and API references to help you get started.
+metadata:
+  og:site_name: "Humanloop Docs"
+  og:title: "Humanloop Documentation and API Reference"
+  og:description: "Learn how to use Humanloop for prompt engineering, evaluation and monitoring. Comprehensive guides and tutorials for LLMOps."
+  og:url: "https://humanloop.com/docs"
+  og:image: "https://humanloop.com/assets/blog/social-image.png"
+  og:image:width: 1200
+  og:image:height: 630
+  og:locale: "en_US"
+  og:logo: "https://humanloop.com/assets/logos/logomark.png"
+  twitter:title: "Humanloop API Documentation"
+  twitter:description: "Learn how to use Humanloop for prompt engineering, evaluation and monitoring. Comprehensive guides and tutorials for LLMOps."
+  twitter:handle: "@humanloop"
+  twitter:image: "https://humanloop.com/assets/blog/social-image.png"
+  twitter:site: "@humanloop"
+  twitter:url: "https://humanloop.com/docs"
+  twitter:card: "summary_large_image"
 versions:
   - display-name: v4.0
     path: ./versions/v4.yml
