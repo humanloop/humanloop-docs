@@ -1,5 +1,6 @@
 ---
 subtitle: In the event an issue occurs with our system, or with one of the model providers we integrate with, our API will raise a predictable and interpretable error.
+description: This page provides a list of the error codes and messages you may encounter when using the Humanloop API.
 ---
 
 ### HTTP error codes

@@ -1,3 +1,8 @@
+---
+description: Learn how to integrate Humanloop into your applications using our Python and TypeScript SDKs or REST API.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
 The Humanloop platform can be accessed through the API or through our Python and TypeScript SDKs.
 
 <Cards>
