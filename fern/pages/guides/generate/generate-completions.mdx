@@ -1,5 +1,7 @@
 ---
-subtitle: A walkthrough of how to set up the SDK to use humanloop.complete()
+subtitle: A walkthrough of how to generate completions from a large language model with the prompt managed in Humanloop.
+description: Learn how to generate completions from a large language model and log the results in Humanloop, with managed and versioned prompts.
+image: https://humanloop.com/assets/docs/social-image.png
 ---
 
 The Humanloop Python SDK allows you to easily replace your `openai.Completions.create()` calls with a `humanloop.complete()` call that, in addition to calling OpenAI to get a generation, automatically logs the data to your Humanloop project.
@@ -36,7 +38,7 @@ complete_response = humanloop.complete_deployed(
 
 # A single call to generate may return multiple outputs.
 data_id = complete_response.data[0].id
-output = complete_response.data[0]output
+output = complete_response.data[0].output
 
 # You can also access the raw response from OpenAI.
 print(complete_response.provider_responses)
