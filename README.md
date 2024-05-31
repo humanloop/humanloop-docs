@@ -37,7 +37,10 @@ and you'll get a preview URL.
 
 ## Deploying your Docs
 
+Docs don't currently deploy automatically. To deploy your docs, run:
+
+WARNING: you can do this at any time, and it will overwrite the current docs.
+
 ```sh
-npm install -g fern-api # only required once
-fern docs
+fern generate --docs
 ```
