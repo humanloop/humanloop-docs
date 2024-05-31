@@ -66,41 +66,6 @@ navigation:
               - page: Chaining calls (Sessions)
                 path: ../pages/guides/generate/chain-calls.mdx
                 slug: logging-session-traces
-          - section: Run an experiment
-            skip-slug: true
-            contents:
-              - page: Overview
-                slug: run-an-experiment
-                path: ../pages/guides/experiments/overview.mdx
-              - page: Run an experiment
-                slug: experiments-from-the-app
-                path: ../pages/guides/experiments/run-experiment.mdx
-              - page: Run experiments managing your own model
-                slug: run-an-experiment-with-your-own-model-provider
-                path: ../pages/guides/experiments/run-with-model.mdx
-          - page: Fine-tune a model
-            slug: finetune-a-model
-            path: ../pages/guides/fine-tune-model.mdx
-          - page: Manage API keys
-            slug: create-and-revoke-api-keys
-            path: ../pages/guides/manage-api-keys.mdx
-          - page: Invite collaborators
-            path: ../pages/guides/invite-collaborators.mdx
-          - page: Deploy to environments
-            slug: deploy-to-an-environment
-            path: ../pages/guides/deploy-to-environments.mdx
-          - section: Datasets
-            skip-slug: true
-            contents:
-              - page: Overview
-                path: ../pages/guides/create-datasets/create-and-use.mdx
-                slug: overview
-              - page: Create a dataset
-                path: ../pages/guides/create-datasets/create-dataset.mdx
-                slug: create-dataset
-              - page: Batch generate
-                path: ../pages/guides/create-datasets/batch-generate.mdx
-                slug: batch-generate
           - section: Evaluation and Monitoring
             slug: evaluation
             contents:
@@ -128,6 +93,31 @@ navigation:
               - page: Set up Monitoring
                 slug: monitoring
                 path: ../pages/guides/evaluate/evaluate-online.mdx
+          - section: Datasets
+            skip-slug: true
+            contents:
+              - page: Overview
+                path: ../pages/guides/create-datasets/create-and-use.mdx
+                slug: overview
+              - page: Create a dataset
+                path: ../pages/guides/create-datasets/create-dataset.mdx
+                slug: create-dataset
+              - page: Batch generate
+                path: ../pages/guides/create-datasets/batch-generate.mdx
+                slug: batch-generate
+          - section: Experiments
+            skip-slug: true
+            contents:
+              - page: Overview
+                slug: run-an-experiment
+                path: ../pages/guides/experiments/overview.mdx
+              - page: Run an experiment
+                slug: experiments-from-the-app
+                path: ../pages/guides/experiments/run-experiment.mdx
+              - page: Run experiments managing your own model
+                slug: run-an-experiment-with-your-own-model-provider
+                path: ../pages/guides/experiments/run-with-model.mdx
+
           - section: Tools
             skip-slug: true
             contents:
@@ -146,6 +136,17 @@ navigation:
               - page: Set up semantic search (RAG)
                 path: ../pages/guides/tools/set-up-search.mdx
                 slug: set-up-semantic-search
+          - page: Fine-tune a model
+            slug: finetune-a-model
+            path: ../pages/guides/fine-tune-model.mdx
+          - page: Manage API keys
+            slug: create-and-revoke-api-keys
+            path: ../pages/guides/manage-api-keys.mdx
+          - page: Invite collaborators
+            path: ../pages/guides/invite-collaborators.mdx
+          - page: Deploy to environments
+            slug: deploy-to-an-environment
+            path: ../pages/guides/deploy-to-environments.mdx
 
       - section: Core concepts
         skip-slug: true
