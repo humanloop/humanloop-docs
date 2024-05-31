@@ -1,3 +1,8 @@
+---
+description: Learn about the core entities and concepts in Humanloop. Understand how to use them to manage your projects and improve your models.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
 ## Projects
 
 <Warning>
@@ -10,10 +15,14 @@ A project groups together the data, prompts and models that are all achieving th
 
 For example, if you have a task of ‘generate google ad copy’, that should be a project. If you have a summarization that works on top of tweets, that should be a project. You should have many separate projects for each of your tasks on top of the LLM.
 
+<Frame caption="Screenshot from Peppertype AI Copywriting assistant, each of these ‘apps’ corresponds to a project within Humanloop for managing the best way to get generations from large language models.">
+
 <img
   src="../../assets/images/bc87851-image.png"
   alt="Screenshot from Peppertype AI Copywriting assistant, each of these ‘apps’ corresponds to a project within Humanloop for managing the best way to get generations from large language models."
 />
+
+</Frame>
 
 ## Models
 
@@ -48,6 +57,12 @@ The variables are surrounded by `{{ and }}` like this:
   src="../../assets/images/ea83c77-Screenshot_2022-10-06_at_17.56.51.png"
   alt="The input name is ‘topic’ and the value will be inserted into the prompt at runtime."
 />
+
+## Input Variables
+
+Variables are used in prompts to allow you to insert different values into the prompt at runtime. For example, in the prompt `Write a song about {{topic}}`, `{{topic}}` is a variable that can be replaced with different values at runtime.
+
+Variables in a prompt template are called Inputs.
 
 ## Log
 

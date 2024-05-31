@@ -10,6 +10,23 @@ instances:
         branch: main
 title: Humanloop Docs
 favicon: ./assets/favicon.svg
+metadata:
+  og:site_name: "Humanloop Docs"
+  og:title: "Humanloop Documentation and API Reference"
+  og:description: "Learn how to use Humanloop for prompt engineering, evaluation and monitoring. Comprehensive guides and tutorials for LLMOps."
+  og:url: "https://humanloop.com/docs"
+  og:image: "https://humanloop.com/assets/docs/social-image.png"
+  og:image:width: 1200
+  og:image:height: 630
+  og:locale: "en_US"
+  og:logo: "https://humanloop.com/assets/logos/logomark.png"
+  twitter:title: "Humanloop API Documentation"
+  twitter:description: "Learn how to use Humanloop for prompt engineering, evaluation and monitoring. Comprehensive guides and tutorials for LLMOps."
+  twitter:handle: "@humanloop"
+  twitter:image: "https://humanloop.com/assets/docs/social-image.png"
+  twitter:site: "@humanloop"
+  twitter:url: "https://humanloop.com/docs"
+  twitter:card: "summary_large_image"
 versions:
   - display-name: v4.0
     path: ./versions/v4.yml

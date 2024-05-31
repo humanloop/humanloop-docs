@@ -11,10 +11,11 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         slug: getting-started
         contents:
           - page: Overview
-            slug: what-is-humanloop
+            slug: overview
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
@@ -41,7 +42,7 @@ navigation:
           - page: Create a Prompt
             slug: create-prompt
             path: ../pages/guides/create-prompt.mdx
-          - section: Generate and Logging
+          - section: Generate and Log
             skip-slug: true
             contents:
               - page: Overview
@@ -59,10 +60,10 @@ navigation:
               - page: Upload historic data
                 path: ../pages/guides/generate/upload-data.mdx
                 slug: upload-historic-data
-              - page: Use your own model
+              - page: Logging
                 path: ../pages/guides/generate/use-model.mdx
                 slug: use-your-own-model-provider
-              - page: Chain multiple calls
+              - page: Chaining calls (Sessions)
                 path: ../pages/guides/generate/chain-calls.mdx
                 slug: logging-session-traces
           - section: Run an experiment
@@ -88,7 +89,7 @@ navigation:
           - page: Deploy to environments
             slug: deploy-to-an-environment
             path: ../pages/guides/deploy-to-environments.mdx
-          - section: Create and use Datasets
+          - section: Datasets
             skip-slug: true
             contents:
               - page: Overview
@@ -103,7 +104,7 @@ navigation:
           - section: Evaluation and Monitoring
             slug: evaluation
             contents:
-              - page: Overview
+              - page: Overviews
                 slug: overview
                 path: ../pages/guides/evaluate/overview.mdx
               - page: Run an evaluation
@@ -181,6 +182,7 @@ navigation:
             path: ../pages/references/prompt-files.mdx
           - page: Postman Workspace
             path: ../pages/references/postman-workspace.mdx
+
   - tab: api
     layout:
       - section: Introduction
