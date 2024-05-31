@@ -42,7 +42,7 @@ navigation:
           - page: Create a Prompt
             slug: create-prompt
             path: ../pages/guides/create-prompt.mdx
-          - section: Generate and Logging
+          - section: Generate and Log
             skip-slug: true
             contents:
               - page: Overview
