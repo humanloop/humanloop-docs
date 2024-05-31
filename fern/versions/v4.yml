@@ -60,7 +60,7 @@ navigation:
               - page: Upload historic data
                 path: ../pages/guides/generate/upload-data.mdx
                 slug: upload-historic-data
-              - page: Use your own model
+              - page: Logging
                 path: ../pages/guides/generate/use-model.mdx
                 slug: use-your-own-model-provider
               - page: Chaining calls (Sessions)
@@ -89,7 +89,7 @@ navigation:
           - page: Deploy to environments
             slug: deploy-to-an-environment
             path: ../pages/guides/deploy-to-environments.mdx
-          - section: Create and use Datasets
+          - section: Datasets
             skip-slug: true
             contents:
               - page: Overview
