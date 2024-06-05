@@ -1,11 +1,11 @@
 tabs:
   docs:
     display-name: Docs
-    slug: docs
+    skip-slug: true
     icon: light book-open
   api:
     display-name: API Reference
-    slug: docs/api-reference
+    slug: api-reference
     icon: light code
 navigation:
   - tab: docs
