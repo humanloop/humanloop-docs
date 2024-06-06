@@ -17,6 +17,8 @@ groups:
           # mode: pull-request
         config:
           client_class_name: Humanloop
+          pydantic_config:
+            skip_validation: true
 
   python-local:
     generators:
@@ -27,3 +29,5 @@ groups:
           path: ../../../generated/python
         config:
           client_class_name: Humanloop
+          pydantic_config:
+            skip_validation: true

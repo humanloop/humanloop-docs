@@ -762,5 +762,14 @@
       "name": "Authentication",
       "description": "The Humanloop API uses API keys for authentication. Visit your\n[API Keys](https://app.humanloop.com/account/api-keys) page to retrieve the\nAPI key you'll use in your requests.\n\nThis key allows full access and control over your projects, so keep this secret\nand take care to not expose it in any client-side code.\n\nTo use your API key, include it under the `X-API-KEY` header in your HTTP request.\n\n```bash\ncurl https://api.humanloop.com/v4/projects -H 'X-API-KEY: YOUR_API_KEY'\n```\n\nIf you're using the Python SDK, initialize the client with your API key before\nusing other SDK methods:\n\n```python\nfrom humanloop import Humanloop\nhumanloop = Humanloop(api_key=\"YOUR_API_KEY\")\n```\n\nIf you're using the TypeScript SDK, initialize the client with your API key before\nusing other SDK methods:\n\n```js\nimport { Humanloop } from \"humanloop\";\nconst humanloop = new Humanloop({apiKey: \"YOUR_API_KEY\"});\n```"
     }
-  ]
+  ],
+  "components": {
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "x-fern-header": {
+          "env": "HUMANLOOP_API_KEY"
+        }
+      }
+    }
+  }
 }
