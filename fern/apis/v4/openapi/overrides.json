@@ -1,7 +1,17 @@
 {
+  "x-fern-pagination": {
+    "offset": "$request.page",
+    "results": "$response.records"
+  },
   "paths": {
     "/chat": {
       "post": {
+        "x-fern-sdk-method-name": "chat",
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
+          "response": {"$ref": "#/components/schemas/ChatResponse"}
+        },
         "x-fern-examples": [
           {
             "name": "Simple",
@@ -25,7 +35,8 @@
               ],
               "inputs": {
                 "person": "Trump"
-              }
+              },
+              "stream": false
             },
             "response": {
               "body": {
@@ -139,6 +150,13 @@
     },
     "/chat-deployed": {
       "post": {
+        "x-fern-sdk-group-name": "chats",
+        "x-fern-sdk-method-name": "create_deployed",
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
+          "response": {"$ref": "#/components/schemas/ChatResponse"}
+        },
         "x-fern-examples": [
           {
             "name": "ai-assistant-with-tools",
@@ -149,7 +167,8 @@
               },
               "messages": [
                 { "role": "user", "content": "What is the weather in SF?" }
-              ]
+              ],
+              "stream": false
             },
             "response": {
               "body": {
@@ -335,13 +354,35 @@
       }
     },
     "/chat-experiment": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "chats",
+        "x-fern-sdk-method-name": "create_experiment",
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
+          "response": {"$ref": "#/components/schemas/ChatResponse"}
+        }
+      }
     },
     "/chat-model-config": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "chats",
+        "x-fern-sdk-method-name": "create_config",
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
+          "response": {"$ref": "#/components/schemas/ChatResponse"}
+        }
+      }
     },
     "/completion": {
       "post": {
+        "x-fern-sdk-method-name": "completion",
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
+          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+        },
         "x-fern-examples": [
           {
             "name": "Simple",
@@ -354,7 +395,8 @@
               "inputs": {
                 "topic": "AI"
               },
-              "project": "limerick"
+              "project": "limerick",
+              "stream": false
             },
             "response": {
               "body": {
@@ -442,7 +484,8 @@
               },
               "project_id": "pr_eJgRt5K1zivoFgHVlRnFv",
               "session_reference_id": "my_external_session_id",
-              "user": "jordan@humanloop.com"
+              "user": "jordan@humanloop.com",
+              "stream": false
             },
             "response": {
               "body": {
@@ -522,151 +565,193 @@
       }
     },
     "/completion-deployed": {
-      "post": {}
+      "post": {
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
+          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+        },
+        "x-fern-sdk-group-name": "completions",
+        "x-fern-sdk-method-name": "create_deployed"
+      }
     },
     "/completion-experiment": {
-      "post": {}
+      "post": {
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
+          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+        },
+        "x-fern-sdk-group-name": "completions",
+        "x-fern-sdk-method-name": "create_experiment"
+      }
     },
     "/completion-model-config": {
-      "post": {}
+      "post": {
+        "x-fern-streaming": {
+          "stream-condition": "$request.stream",
+          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
+          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+        },
+        "x-fern-sdk-group-name": "completions",
+        "x-fern-sdk-method-name": "create_config"
+      }
     },
     "/logs": {
-      "get": {},
-      "post": {},
-      "delete": {},
-      "patch": {}
-    },
-    "/logs/{id}": {
-      "get": {},
-      "patch": {}
-    },
-    "/feedback": {
-      "post": {}
+      "get": {
+        "x-fern-sdk-group-name": "logs",
+        "x-fern-pagination": true
+      },
+      "patch": {
+        "x-fern-sdk-group-name": "logs",
+        "x-fern-sdk-method-name": "update_by_ref"
+      }
     },
     "/projects": {
-      "get": {},
-      "post": {}
-    },
-    "/projects/{id}": {
-      "get": {},
-      "delete": {},
-      "patch": {}
+      "get": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-pagination": true
+      }
     },
     "/projects/{id}/configs": {
-      "get": {}
+      "get": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "list_configs"
+      }
     },
     "/projects/{id}/active-config": {
-      "get": {},
-      "delete": {}
+      "get": {
+        "x-fern-sdk-group-name": ["projects", "active_config"],
+        "x-fern-sdk-method-name": "get"
+      },
+      "delete": {
+        "x-fern-sdk-group-name": ["projects", "active_config"],
+        "x-fern-sdk-method-name": "deactivate"
+      }
     },
     "/projects/{id}/active-experiment": {
-      "delete": {}
+      "delete": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "deactivate_experiment"
+      }
     },
     "/projects/{id}/feedback-types": {
-      "post": {},
-      "patch": {}
+      "post": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "create_feedback_type"
+      },
+      "patch": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "update_feedback_types"
+      }
     },
     "/projects/{id}/export": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "export"
+      }
     },
     "/projects/{id}/deployed-configs": {
-      "get": {}
+      "get": {
+        "x-fern-sdk-group-name": ["projects", "deployed_config"],
+        "x-fern-sdk-method-name": "list"
+      }
     },
     "/projects/{project_id}/deploy-config": {
-      "patch": {}
+      "patch": {
+        "x-fern-sdk-group-name": ["projects", "deployed_config"],
+        "x-fern-sdk-method-name": "deploy"
+      }
     },
     "/projects/{project_id}/deployed-config/{environment_id}": {
-      "delete": {}
+      "delete": {
+        "x-fern-sdk-group-name": ["projects", "deployed_config"],
+        "x-fern-sdk-method-name": "delete"
+      }
     },
     "/model-configs": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-sdk-method-name": "register"
+      }
     },
     "/model-configs/{id}": {
-      "get": {}
+      "get": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-sdk-method-name": "get"
+      }
     },
     "/model-configs/{id}/export": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-sdk-method-name": "export"
+      }
     },
     "/model-configs/serialize": {
-      "post": {}
+      "post": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-sdk-method-name": "serialize"
+      }
     },
     "/model-configs/deserialize": {
-      "post": {}
-    },
-    "/projects/{project_id}/experiments": {
-      "get": {},
-      "post": {}
-    },
-    "/experiments/{experiment_id}": {
-      "delete": {},
-      "patch": {}
-    },
-    "/experiments/{experiment_id}/model-config": {
-      "get": {}
+      "post": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-sdk-method-name": "deserialize"
+      }
     },
     "/sessions": {
-      "get": {},
-      "post": {}
-    },
-    "/sessions/{id}": {
-      "get": {}
-    },
-    "/evaluators": {
-      "get": {},
-      "post": {}
-    },
-    "/evaluators/{id}": {
-      "get": {},
-      "delete": {},
-      "patch": {}
-    },
-    "/datapoints/{id}": {
-      "get": {},
-      "patch": {}
-    },
-    "/datapoints": {
-      "delete": {}
+      "get": {
+        "x-fern-sdk-group-name": "model_configs",
+        "x-fern-pagination": true
+      }
     },
     "/projects/{project_id}/datasets": {
-      "get": {},
-      "post": {}
-    },
-    "/datasets": {
-      "get": {}
-    },
-    "/datasets/{id}": {
-      "get": {},
-      "delete": {},
-      "patch": {}
+      "get": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "list_datasets"
+      },
     },
     "/datasets/{dataset_id}/datapoints": {
-      "get": {},
-      "post": {}
-    },
-    "/evaluations/{id}": {
-      "get": {}
+      "get": {
+        "x-fern-pagination": true,
+        "x-fern-sdk-group-name": "datasets",
+        "x-fern-sdk-method-name": "list_datapoints"
+      },
+      "post": {
+        "x-fern-sdk-group-name": "datasets",
+        "x-fern-sdk-method-name": "create_datapoint"
+      }
     },
     "/evaluations/{id}/datapoints": {
-      "get": {}
+      "get": {
+        "x-fern-pagination": true,
+        "x-fern-sdk-group-name": "evaluations",
+        "x-fern-sdk-method-name": "list_datapoints"
+      }
     },
     "/projects/{project_id}/evaluations": {
-      "get": {},
-      "post": {}
-    },
-    "/evaluations/{evaluation_id}/log": {
-      "post": {}
-    },
-    "/evaluations/{evaluation_id}/result": {
-      "post": {}
+      "get": {
+        "x-fern-sdk-group-name": "projects",
+        "x-fern-sdk-method-name": "list_evaluations"
+      },
     },
     "/evaluations/{id}/status": {
-      "patch": {}
+      "patch": {
+        "x-fern-sdk-group-name": "evaluations",
+        "x-fern-sdk-method-name": "update_status"
+      }
     },
     "/evaluations/{id}/evaluators": {
-      "patch": {}
+      "patch": {
+        "x-fern-sdk-group-name": "evaluations",
+        "x-fern-sdk-method-name": "add_evaluators"
+      }
     },
     "/evaluations": {
-      "get": {}
+      "get": {
+        "x-fern-sdk-group-name": "evaluations",
+        "x-fern-pagination": true
+      }
     }
   },
   "x-readme": {
