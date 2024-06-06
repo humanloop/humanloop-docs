@@ -6,7 +6,7 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 2.8.1
+        version: 2.9.0
         output:
           location: pypi
           package-name: 'humanloop'
@@ -21,7 +21,7 @@ groups:
   python-local:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 2.8.1
+        version: 2.9.0
         output:
           location: local-file-system
           path: ../../../generated/python
