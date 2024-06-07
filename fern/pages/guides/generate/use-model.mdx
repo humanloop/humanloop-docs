@@ -30,34 +30,35 @@ humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
 
 project_id = "<YOUR PROJECT ID>"
 
-config_response = humanloop.projects.get_active_config(id=project_id)
-config = config_response.config
+config = humanloop.projects.get_active_config(id=project_id).config
 
 client = openai.OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
     api_key="<YOUR OPENAI API KEY>",
 )
 
+messages = [
+    {
+        "role": "user",
+        "content": "Say this is a test",
+    }
+]
+    
 chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Say this is a test",
-        }
-    ],
-    model=config["model"],
-  	temperature=config["temperature"]
+    messages=messages,
+    model=config.model,
+  	temperature=config.temperature
 )
 
 # Parse the output from the OpenAI response.
 output = chat_completion.choices[0].message.content
 
-# Log the inputs, outputs and model config to your project.
+# Log the inputs, outputs and config to your project.
 log_response = humanloop.log(
     project_id=project_id,
-    inputs={"question": "How should I think about competition for my startup?"},
+    messages=messages
     output=output,
-    config=config
+    config_id=config.id
 )
 
 # Use this ID to associate feedback received later to this datapoint.
@@ -74,9 +75,9 @@ See our [guide on capturing user feedback](./capture-user-feedback).
 # Log the inputs, outputs and model config to your project.
 log_response = humanloop.log(
     project_id=project_id,
-    inputs={"question": "How should I think about competition for my startup?"},
+    messages=messages
     output=output,
-    config=config,
+    config_id=config.id,
     feedback={"type": "rating", "value": "good"}
 )
 ```
