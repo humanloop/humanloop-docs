@@ -37,9 +37,9 @@ and you'll get a preview URL.
 
 ## Deploying your Docs
 
-Docs don't currently deploy automatically. To deploy your docs, run:
+**Docs deploy automatically on merge with main.**
 
-WARNING: you can do this at any time, and it will overwrite the current docs.
+You can deploy manually if your github handle has been associated with our account on Fern:
 
 ```sh
 fern generate --docs
