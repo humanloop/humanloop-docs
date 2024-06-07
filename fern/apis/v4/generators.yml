@@ -1,3 +1,33 @@
 api:
   path: openapi/openapi.yml
   overrides: openapi/overrides.json
+
+groups:
+  python-sdk:
+    generators:
+      - name: fernapi/fern-python-sdk
+        version: 2.9.0
+        output:
+          location: pypi
+          package-name: 'humanloop'
+          # Uncomment when we'd like to publish to PyPI
+          # token: ${PYPI_TOKEN}
+        github:
+          repository: fern-demo/humanloop-python
+          # mode: pull-request
+        config:
+          client_class_name: Humanloop
+          pydantic_config:
+            skip_validation: true
+
+  python-local:
+    generators:
+      - name: fernapi/fern-python-sdk
+        version: 2.9.0
+        output:
+          location: local-file-system
+          path: ../../../generated/python
+        config:
+          client_class_name: Humanloop
+          pydantic_config:
+            skip_validation: true
