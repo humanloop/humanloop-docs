@@ -6,7 +6,7 @@ The `humanloop.complete()`and `humanloop.chat()` call encapsulates the LLM provi
 
 For example, you may be using an LLM provider that currently is not directly supported by Humanloop such as Hugging Face.
 
-To support using your own model provider, we provide additional `humanloop.log()` and `humanloop.projects.get_config()` methods in the SDK.
+To support using your own model provider, we provide additional `humanloop.log()` and `humanloop.projects.get_active_config()` methods in the SDK.
 
 In this guide, we walk through how to use these SDK methods to log data to Humanloop and run experiments.
 
@@ -19,7 +19,7 @@ In this guide, we walk through how to use these SDK methods to log data to Human
 ## Log data to your project
 
 <Steps>
-### Set up your code to first get your model config from Humanloop, then call your LLM provider to get a completion (or chat response) and then log this,  alongside the inputs, config and output:
+#### Set up your code to first get your model config from Humanloop, then call your LLM provider to get a completion (or chat response) and then log this,  alongside the inputs, config and output:
 
 ```python
 from humanloop import Humanloop
@@ -30,53 +30,54 @@ humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
 
 project_id = "<YOUR PROJECT ID>"
 
-config_response = humanloop.projects.get_config(id=project_id)
-config = config_response.config
+config = humanloop.projects.get_active_config(id=project_id).config
 
 client = openai.OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
     api_key="<YOUR OPENAI API KEY>",
 )
 
+messages = [
+    {
+        "role": "user",
+        "content": "Say this is a test",
+    }
+]
+    
 chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Say this is a test",
-        }
-    ],
-    model=config["model"],
-  	temperature=config["temperature"]
+    messages=messages,
+    model=config.model,
+  	temperature=config.temperature
 )
 
 # Parse the output from the OpenAI response.
 output = chat_completion.choices[0].message.content
 
-# Log the inputs, outputs and model config to your project.
+# Log the inputs, outputs and config to your project.
 log_response = humanloop.log(
     project_id=project_id,
-    inputs={"question": "How should I think about competition for my startup?"},
+    messages=messages
     output=output,
-    config=config
+    config_id=config.id
 )
 
 # Use this ID to associate feedback received later to this datapoint.
 data_id = log_response.id
 ```
 
-### The process of capturing feedback then uses the returned `data_id` as before.
+#### The process of capturing feedback then uses the returned `data_id` as before.
 
 See our [guide on capturing user feedback](./capture-user-feedback).
 
-### You can also log immediate feedback alongside the input and outputs:
+#### You can also log immediate feedback alongside the input and outputs:
 
 ```
 # Log the inputs, outputs and model config to your project.
 log_response = humanloop.log(
     project_id=project_id,
-    inputs={"question": "How should I think about competition for my startup?"},
+    messages=messages
     output=output,
-    config=config,
+    config_id=config.id,
     feedback={"type": "rating", "value": "good"}
 )
 ```
@@ -114,13 +115,13 @@ output = response[0]["generated_text"]
 # Log the inputs, outputs and model config to your project.
 
 log_response = humanloop.log(
-project=project_id,
-inputs={"question": "How should I think about competition for my startup?"},
-output=output,
-model_config={
-"model": "gpt2",
-"prompt_template": "Answer the following question like Paul Graham from YCombinator:\n{{question}}",
-"temperature": 0.2,
+    project=project_id,
+    inputs={"question": "How should I think about competition for my startup?"},
+    output=output,
+    model_config={
+        "model": "gpt2",
+        "prompt_template": "Answer the following question like Paul Graham from YCombinator:\n{{question}}",
+        "temperature": 0.2, 
 },
 )
 
