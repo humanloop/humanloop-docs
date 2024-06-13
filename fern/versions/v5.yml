@@ -1,143 +1,201 @@
 tabs:
-  guides:
-    display-name: Guides
+  docs:
+    display-name: Docs
+    skip-slug: true
     icon: light book-open
   api:
     display-name: API Reference
+    slug: api-reference
     icon: light code
 navigation:
-  - tab: guides
+  - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
+        slug: getting-started
         contents:
           - page: Overview
+            slug: overview
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
             slug: why-humanloop
           - page: Quickstart Tutorial
-            path: ../pages/tbd.md
+            path: ../pages/getting-started/quickstart-tutorial.mdx
             slug: quickstart
       - section: Tutorials
+        slug: tutorials
         contents:
-          - page: ChatGPT clone in Next.js
-            path: ../pages/tbd.md
           - page: Create your first GPT-4 App
-            path: ../pages/tbd.md
+            path: ../pages/tutorials/create-app.mdx
+          - page: ChatGPT clone with streaming
+            slug: chatgpt-clone-in-nextjs
+            path: ../pages/tutorials/clone.mdx
+
+          - page: Debug a LangChain Agent
+            slug: debug-a-langchain-agent
+            hidden: true
+            path: ../pages/tutorials/debug-a-langchain-agent.mdx
       - section: Guides
+        slug: guides
         contents:
-          - section: Create a project
+          - page: Create a Prompt
+            slug: create-prompt
+            path: ../pages/guides/create-prompt.mdx
+          - section: Generate and Log
+            skip-slug: true
             contents:
-              - page: From Playground
-                path: ../pages/tbd.md
-              - page: Using the SDK
-                path: ../pages/tbd.md
-          - section: Generate and log data
-            contents:
+              - page: Overview
+                path: ../pages/guides/generate/generate-and-log.mdx
+                slug: generate-and-log-with-the-sdk
               - page: Generate completions
-                path: ../pages/tbd.md
+                path: ../pages/guides/generate/generate-completions.mdx
+                slug: completion-using-the-sdk
               - page: Generate chat responses
-                path: ../pages/tbd.md
+                path: ../pages/guides/generate/generate-chat.mdx
+                slug: chat-using-the-sdk
               - page: Capture user feedback
-                path: ../pages/tbd.md
+                slug: capture-user-feedback
+                path: ../pages/guides/generate/capture-feedback.mdx
               - page: Upload historic data
-                path: ../pages/tbd.md
-              - page: Use your own model
-                path: ../pages/tbd.md
-              - page: Chain multiple calls
-                path: ../pages/tbd.md
-          - section: Run an experiment
+                path: ../pages/guides/generate/upload-data.mdx
+                slug: upload-historic-data
+              - page: Logging
+                path: ../pages/guides/generate/use-model.mdx
+                slug: use-your-own-model-provider
+              - page: Chaining calls (Sessions)
+                path: ../pages/guides/generate/chain-calls.mdx
+                slug: logging-session-traces
+          - section: Evaluation and Monitoring
+            slug: evaluation
             contents:
-              - page: Run an experiment
-                path: ../pages/tbd.md
-              - page: Run experiments managing your own model
-                path: ../pages/tbd.md
-          - page: Fine-tune a model
-            path: ../pages/tbd.md
-          - page: Manage API keys
-            path: ../pages/tbd.md
-          - page: Invite collaborators
-            path: ../pages/tbd.md
-          - page: Deploy to environments
-            path: ../pages/tbd.md
-          - section: Create and use Datasets
-            contents:
-              - page: Create a dataset
-                path: ../pages/tbd.md
-              - page: Batch generate
-                path: ../pages/tbd.md
-          - section: Evaluate your model
-            slug: evaluate
-            contents:
-              - page: Evaluate models online
-                slug: models-online
-                path: ../pages/tbd.md
-              - page: Evaluate models offline
-                slug: models-offline
-                path: ../pages/tbd.md
+              - page: Overviews
+                slug: overview
+                path: ../pages/guides/evaluate/overview.mdx
+              - page: Run an evaluation
+                slug: evaluate-models-offline
+                path: ../pages/guides/evaluate/evaluate-offline.mdx
               - page: Set up evaluations using API
-                slug: using-api
-                path: ../pages/tbd.md
+                slug: evaluations-using-api
+                path: ../pages/guides/evaluate/set-up-evaluations.mdx
               - page: Use LLMs to evaluate logs
-                slug: logs
-                path: ../pages/tbd.md
+                slug: use-llms-to-evaluate-logs
+                path: ../pages/guides/evaluate/use-llms.mdx
               - page: Self-hosted evaluations
-                slug: self-hosted
-                path: ../pages/tbd.md
-              - page: Evaluating externally generated logs
-                slug: externally-generated-logs
+                slug: self-hosted-evaluations
+                path: ../pages/guides/evaluate/self-hosted-evaluations.mdx
+              - page: Evaluating externally generated Logs
+                slug: evaluating-externally-generated-logs
                 path: ../pages/guides/evaluate/externally-generated-logs.mdx
               - page: Evaluating with human feedback
-                slug: human-feedback
-                path: ../pages/tbd.md
-          - section: Integrate Tools
+                slug: evaluating-with-human-feedback
+                path: ../pages/guides/evaluate/evaluating-with-feedback.mdx
+              - page: Set up Monitoring
+                slug: monitoring
+                path: ../pages/guides/evaluate/evaluate-online.mdx
+          - section: Datasets
+            skip-slug: true
             contents:
-              - page: In the Editor
-                path: ../pages/tbd.md
-              - page: With the SDK
-                path: ../pages/tbd.md
-              - page: With the Snippet tool
-                path: ../pages/tbd.md
-              - page: Link a JSON Schema tool
-                path: ../pages/tbd.md
-                slug: json-schema
-              - page: Set up semantic search
-                path: ../pages/tbd.md
-                slug: semantic-search
-      - section: Examples
-        contents:
-          - page: Example Projects
-            path: ../pages/tbd.md
-      - section: Core entities
+              - page: Overview
+                path: ../pages/guides/create-datasets/create-and-use.mdx
+                slug: overview
+              - page: Create a dataset
+                path: ../pages/guides/create-datasets/create-dataset.mdx
+                slug: create-dataset
+              - page: Batch generate
+                path: ../pages/guides/create-datasets/batch-generate.mdx
+                slug: batch-generate
+          - section: Experiments
+            skip-slug: true
+            contents:
+              - page: Overview
+                slug: run-an-experiment
+                path: ../pages/guides/experiments/overview.mdx
+              - page: Run an experiment
+                slug: experiments-from-the-app
+                path: ../pages/guides/experiments/run-experiment.mdx
+              - page: Run experiments managing your own model
+                slug: run-an-experiment-with-your-own-model-provider
+                path: ../pages/guides/experiments/run-with-model.mdx
+
+          - section: Tools
+            skip-slug: true
+            contents:
+              - page: Tool Calling in Editor
+                path: ../pages/guides/tools/tool-calling.mdx
+                slug: tool-calling
+              - page: Tool Calling with the SDK
+                path: ../pages/guides/tools/tool-calling-sdk.mdx
+                slug: create-a-tool-with-the-sdk
+              - page: Link a JSON Schema Tool
+                path: ../pages/guides/tools/link-json.mdx
+                slug: link-jsonschema-tool
+              - page: Use the Snippet Tool
+                slug: snippet-tool
+                path: ../pages/guides/tools/with-snippet.mdx
+              - page: Set up semantic search (RAG)
+                path: ../pages/guides/tools/set-up-search.mdx
+                slug: set-up-semantic-search
+          - page: Fine-tune a model
+            slug: finetune-a-model
+            path: ../pages/guides/fine-tune-model.mdx
+          - page: Manage API keys
+            slug: create-and-revoke-api-keys
+            path: ../pages/guides/manage-api-keys.mdx
+          - page: Invite collaborators
+            path: ../pages/guides/invite-collaborators.mdx
+          - page: Deploy to environments
+            slug: deploy-to-an-environment
+            path: ../pages/guides/deploy-to-environments.mdx
+
+      - section: Core concepts
+        skip-slug: true
         contents:
           - page: Prompts
-            path: ../pages/tbd.md
+            path: ../pages/core-entities/prompts.mdx
           - page: Tools
-            path: ../pages/tbd.md
+            path: ../pages/core-entities/tools.mdx
           - page: Datasets
-            path: ../pages/tbd.md
+            path: ../pages/core-entities/datasets.mdx
           - page: Evaluators
-            path: ../pages/tbd.md
+            path: ../pages/core-entities/evaluators.mdx
+          - page: Logs
+            path: ../pages/core-entities/logs.mdx
+          - page: Environments
+            path: ../pages/core-entities/environments.mdx
           - page: Key Concepts
-            path: ../pages/tbd.md
-      - section: References
+            path: ../pages/core-entities/key-concepts.mdx
+      - section: Examples
+        skip-slug: true
         contents:
-          - page: Postman Workspace
-            path: ../pages/tbd.md
+          - page: Example Projects
+            slug: examples
+            path: ../pages/examples/example-projects.mdx
+      - section: References
+        skip-slug: true
+        contents:
+          - page: Supported Models
+            path: ../pages/references/models.mdx
           - page: Access Roles
-            path: ../pages/tbd.md
+            path: ../pages/references/access-roles.mdx
           - page: .prompt files
-            path: ../pages/tbd.md
+            slug: prompt-file-format
+            path: ../pages/references/prompt-files.mdx
+          - page: Postman Workspace
+            path: ../pages/references/postman-workspace.mdx
+
   - tab: api
     layout:
       - section: Introduction
-        contents: 
+        skip-slug: true
+        contents:
           - page: SDKs
             path: ../pages/api-reference/sdks.md
             slug: sdks
           - page: Errors
             path: ../pages/api-reference/errors.md
       - api: Humanloop API
+        skip-slug: true
         api-name: v5
         display-errors: true
         summary: ../apis/v5/summary.md
