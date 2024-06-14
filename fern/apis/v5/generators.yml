@@ -1,5 +1,5 @@
 api:
-  path: openapi/openapi.json
+  path: openapi/openapi.yml
   overrides: openapi/overrides.json
   settings:
     use-title: false
