@@ -70,7 +70,11 @@
             "description": "Field to sort Prompts by",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/ProjectSortBy" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectSortBy"
+                }
+              ],
               "title": "Sort by",
               "description": "Field to sort Prompts by",
               "default": "created_at"
@@ -82,7 +86,11 @@
             "description": "Direction to sort by.",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/SortOrder" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                }
+              ],
               "title": "Sort order",
               "description": "Direction to sort by.",
               "default": "desc"
@@ -96,7 +104,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ListPrompts" }
+                "schema": {
+                  "$ref": "#/components/schemas/ListPrompts"
+                }
               }
             }
           },
@@ -104,12 +114,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "post": {
         "tags": ["Prompts"],
@@ -119,7 +135,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PromptRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/PromptRequest"
+              }
             }
           },
           "required": true
@@ -129,7 +147,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -137,12 +157,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}": {
@@ -191,7 +217,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -199,12 +227,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Prompts"],
@@ -225,17 +259,25 @@
           }
         ],
         "responses": {
-          "204": { "description": "Successful Response" },
+          "204": {
+            "description": "Successful Response"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "patch": {
         "tags": ["Prompts"],
@@ -258,7 +300,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdatePromptRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePromptRequest"
+              }
             }
           },
           "required": true
@@ -268,7 +312,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -276,12 +322,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/versions": {
@@ -306,7 +358,11 @@
             "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned.",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/VersionStatus"
+                }
+              ],
               "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
             },
             "name": "status",
@@ -325,7 +381,10 @@
           },
           {
             "required": false,
-            "schema": { "type": "boolean", "title": "Evaluation Aggregates" },
+            "schema": {
+              "type": "boolean",
+              "title": "Evaluation Aggregates"
+            },
             "name": "evaluation_aggregates",
             "in": "query"
           }
@@ -335,7 +394,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ListPrompts" }
+                "schema": {
+                  "$ref": "#/components/schemas/ListPrompts"
+                }
               }
             }
           },
@@ -343,12 +404,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/versions/{version_id}/deploy": {
@@ -397,7 +464,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -405,12 +474,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/versions/{version_id}/commit": {
@@ -446,7 +521,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CommitPromptRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CommitPromptRequest"
+              }
             }
           },
           "required": true
@@ -456,7 +533,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -464,12 +543,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/log": {
@@ -516,7 +601,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PromptLogRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/PromptLogRequest"
+              }
             }
           },
           "required": true
@@ -536,12 +623,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/call": {
@@ -588,7 +681,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PromptCallRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/PromptCallRequest"
+              }
             }
           },
           "required": true
@@ -600,8 +695,12 @@
               "application/json": {
                 "schema": {
                   "anyOf": [
-                    { "$ref": "#/components/schemas/PromptCallResponse" },
-                    { "$ref": "#/components/schemas/PromptCallStreamResponse" }
+                    {
+                      "$ref": "#/components/schemas/PromptCallResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromptCallStreamResponse"
+                    }
                   ],
                   "title": "Response Prompts Call"
                 }
@@ -612,12 +711,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/prompts/{id}/evaluators": {
@@ -629,7 +734,10 @@
         "parameters": [
           {
             "required": true,
-            "schema": { "type": "string", "title": "Id" },
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
             "name": "id",
             "in": "path"
           }
@@ -649,7 +757,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromptResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
               }
             }
           },
@@ -657,12 +767,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools/templates": {
@@ -706,12 +822,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools": {
@@ -723,7 +845,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateToolRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateToolRequest"
+              }
             }
           },
           "required": true
@@ -743,12 +867,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools/{id}": {
@@ -785,12 +915,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Tools"],
@@ -811,17 +947,25 @@
           }
         ],
         "responses": {
-          "204": { "description": "Successful Response" },
+          "204": {
+            "description": "Successful Response"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "patch": {
         "tags": ["Tools"],
@@ -844,7 +988,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdateToolRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/UpdateToolRequest"
+              }
             }
           },
           "required": true
@@ -864,12 +1010,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools/{id}/versions": {
@@ -894,7 +1046,11 @@
             "description": "Filter versions by status: 'uncommitted', 'committed''",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/VersionStatus"
+                }
+              ],
               "description": "Filter versions by status: 'uncommitted', 'committed''",
               "default": "committed"
             },
@@ -903,7 +1059,10 @@
           },
           {
             "required": false,
-            "schema": { "type": "boolean", "title": "Evaluation Aggregates" },
+            "schema": {
+              "type": "boolean",
+              "title": "Evaluation Aggregates"
+            },
             "name": "evaluation_aggregates",
             "in": "query"
           }
@@ -923,12 +1082,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools/versions": {
@@ -952,7 +1117,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ToolVersionResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ToolVersionResponse"
+                }
               }
             }
           },
@@ -960,12 +1127,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/tools/versions/{id}": {
@@ -992,7 +1165,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ToolVersionResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ToolVersionResponse"
+                }
               }
             }
           },
@@ -1000,12 +1175,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/datasets": {
@@ -1066,7 +1247,11 @@
             "description": "Field to sort Datasets by",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/ProjectSortBy" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectSortBy"
+                }
+              ],
               "title": "Sort by",
               "description": "Field to sort Datasets by",
               "default": "created_at"
@@ -1078,7 +1263,11 @@
             "description": "Direction to sort by.",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/SortOrder" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                }
+              ],
               "title": "Sort order",
               "description": "Direction to sort by.",
               "default": "desc"
@@ -1102,12 +1291,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "post": {
         "tags": ["Datasets"],
@@ -1153,7 +1348,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/DatasetResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
               }
             }
           },
@@ -1161,12 +1358,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/datasets/{id}": {
@@ -1227,7 +1430,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/DatasetResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
               }
             }
           },
@@ -1235,12 +1440,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Datasets"],
@@ -1261,17 +1472,25 @@
           }
         ],
         "responses": {
-          "204": { "description": "Successful Response" },
+          "204": {
+            "description": "Successful Response"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "patch": {
         "tags": ["Datasets"],
@@ -1294,7 +1513,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdateDatasetRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDatasetRequest"
+              }
             }
           },
           "required": true
@@ -1304,7 +1525,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/DatasetResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
               }
             }
           },
@@ -1312,12 +1535,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/datasets/{id}/datapoints": {
@@ -1402,12 +1631,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/datasets/{id}/versions": {
@@ -1432,7 +1667,11 @@
             "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned.",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/VersionStatus"
+                }
+              ],
               "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
             },
             "name": "status",
@@ -1451,7 +1690,10 @@
           },
           {
             "required": false,
-            "schema": { "type": "boolean", "title": "Evaluation Aggregates" },
+            "schema": {
+              "type": "boolean",
+              "title": "Evaluation Aggregates"
+            },
             "name": "evaluation_aggregates",
             "in": "query"
           }
@@ -1461,7 +1703,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ListDatasets" }
+                "schema": {
+                  "$ref": "#/components/schemas/ListDatasets"
+                }
               }
             }
           },
@@ -1469,12 +1713,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/datasets/{id}/versions/{version_id}/deploy": {
@@ -1523,7 +1773,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/DatasetResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
               }
             }
           },
@@ -1531,12 +1783,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluations": {
@@ -1559,13 +1817,21 @@
           },
           {
             "required": false,
-            "schema": { "type": "integer", "title": "Size", "default": 50 },
+            "schema": {
+              "type": "integer",
+              "title": "Size",
+              "default": 50
+            },
             "name": "size",
             "in": "query"
           },
           {
             "required": false,
-            "schema": { "type": "integer", "title": "Page", "default": 0 },
+            "schema": {
+              "type": "integer",
+              "title": "Page",
+              "default": 0
+            },
             "name": "page",
             "in": "query"
           }
@@ -1585,12 +1851,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "post": {
         "tags": ["Evaluations"],
@@ -1612,7 +1884,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluationResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
               }
             }
           },
@@ -1620,12 +1894,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluations/{id}": {
@@ -1652,7 +1932,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluationResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
               }
             }
           },
@@ -1660,12 +1942,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Evaluations"],
@@ -1686,17 +1974,25 @@
           }
         ],
         "responses": {
-          "204": { "description": "Successful Response" },
+          "204": {
+            "description": "Successful Response"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "patch": {
         "tags": ["Evaluations"],
@@ -1731,7 +2027,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluationResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
               }
             }
           },
@@ -1739,12 +2037,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluations/{id}/status": {
@@ -1781,7 +2085,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluationResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
               }
             }
           },
@@ -1789,12 +2095,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluations/{id}/stats": {
@@ -1821,7 +2133,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluationStats" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationStats"
+                }
               }
             }
           },
@@ -1829,12 +2143,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluations/{id}/progress": {
@@ -1871,12 +2191,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/default": {
@@ -1891,7 +2217,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "items": { "$ref": "#/components/schemas/EvaluatorResponse" },
+                  "items": {
+                    "$ref": "#/components/schemas/EvaluatorResponse"
+                  },
                   "type": "array",
                   "title": "Response Evaluators Listdefault"
                 }
@@ -1902,12 +2230,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators": {
@@ -1931,7 +2265,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluatorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
               }
             }
           },
@@ -1939,12 +2275,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/{id}": {
@@ -1970,7 +2312,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluatorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
               }
             }
           },
@@ -1978,12 +2322,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Evaluators"],
@@ -2004,17 +2354,25 @@
           }
         ],
         "responses": {
-          "204": { "description": "Successful Response" },
+          "204": {
+            "description": "Successful Response"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       },
       "patch": {
         "tags": ["Evaluators"],
@@ -2049,7 +2407,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluatorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
               }
             }
           },
@@ -2057,12 +2417,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/{id}/versions": {
@@ -2087,7 +2453,11 @@
             "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned.",
             "required": false,
             "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/VersionStatus"
+                }
+              ],
               "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
             },
             "name": "status",
@@ -2095,7 +2465,10 @@
           },
           {
             "required": false,
-            "schema": { "type": "boolean", "title": "Evaluation Aggregates" },
+            "schema": {
+              "type": "boolean",
+              "title": "Evaluation Aggregates"
+            },
             "name": "evaluation_aggregates",
             "in": "query"
           }
@@ -2115,12 +2488,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/{id}/deployments": {
@@ -2147,7 +2526,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/EvaluatorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
               }
             }
           },
@@ -2155,12 +2536,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/versions": {
@@ -2217,12 +2604,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/evaluators/versions/{id}": {
@@ -2259,12 +2652,18 @@
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         },
-        "security": [{ "APIKeyHeader": [] }]
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     }
   },
@@ -2282,7 +2681,11 @@
             "title": "Other parameters",
             "description": "Other parameters that define the config."
           },
-          "type": { "type": "string", "enum": ["agent"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["agent"],
+            "title": "Type"
+          },
           "created_by": {
             "allOf": [
               {
@@ -2313,14 +2716,20 @@
             "description": "Class of the agent."
           },
           "tools": {
-            "items": { "$ref": "#/components/schemas/ToolConfigRequest" },
+            "items": {
+              "$ref": "#/components/schemas/ToolConfigRequest"
+            },
             "type": "array",
             "title": "Tools",
             "description": "Tools associated with the agent.",
             "default": []
           },
           "model_config": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelConfigRequest" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelConfigRequest"
+              }
+            ],
             "title": "Model config",
             "description": "Model config associated with the agent."
           }
@@ -2338,7 +2747,9 @@
       },
       "Body_Evaluations_updateStatus": {
         "properties": {
-          "status": { "$ref": "#/components/schemas/EvaluationStatus" }
+          "status": {
+            "$ref": "#/components/schemas/EvaluationStatus"
+          }
         },
         "type": "object",
         "required": ["status"],
@@ -2397,14 +2808,25 @@
       },
       "CategoricalFeedbackLabel": {
         "properties": {
-          "value": { "type": "string", "title": "Label value" },
+          "value": {
+            "type": "string",
+            "title": "Label value"
+          },
           "sentiment": {
-            "allOf": [{ "$ref": "#/components/schemas/LabelSentiment" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LabelSentiment"
+              }
+            ],
             "title": "Feedback label sentiment",
             "description": "Whether the feedback sentiment is positive or negative."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/FeedbackLabelStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FeedbackLabelStatus"
+              }
+            ],
             "title": "Feedback label status",
             "description": "Whether the feedback label is active or inactive."
           }
@@ -2417,12 +2839,18 @@
         "properties": {
           "content": {
             "anyOf": [
-              { "type": "string" },
+              {
+                "type": "string"
+              },
               {
                 "items": {
                   "anyOf": [
-                    { "$ref": "#/components/schemas/TextChatContent" },
-                    { "$ref": "#/components/schemas/ImageChatContent" }
+                    {
+                      "$ref": "#/components/schemas/TextChatContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ImageChatContent"
+                    }
                   ]
                 },
                 "type": "array"
@@ -2445,12 +2873,18 @@
             "nullable": true
           },
           "role": {
-            "allOf": [{ "$ref": "#/components/schemas/ChatRole" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatRole"
+              }
+            ],
             "title": "Role",
             "description": "Role of the message author."
           },
           "tool_calls": {
-            "items": { "$ref": "#/components/schemas/ToolCall" },
+            "items": {
+              "$ref": "#/components/schemas/ToolCall"
+            },
             "type": "array",
             "title": "Tool calls",
             "description": "A list of tool calls requested by the assistant.",
@@ -2465,12 +2899,18 @@
         "properties": {
           "content": {
             "anyOf": [
-              { "type": "string" },
+              {
+                "type": "string"
+              },
               {
                 "items": {
                   "anyOf": [
-                    { "$ref": "#/components/schemas/TextChatContent" },
-                    { "$ref": "#/components/schemas/ImageChatContent" }
+                    {
+                      "$ref": "#/components/schemas/TextChatContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ImageChatContent"
+                    }
                   ]
                 },
                 "type": "array"
@@ -2493,19 +2933,29 @@
             "nullable": true
           },
           "role": {
-            "allOf": [{ "$ref": "#/components/schemas/ChatRole" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatRole"
+              }
+            ],
             "title": "Role",
             "description": "Role of the message author."
           },
           "tool_calls": {
-            "items": { "$ref": "#/components/schemas/ToolCall" },
+            "items": {
+              "$ref": "#/components/schemas/ToolCall"
+            },
             "type": "array",
             "title": "Tool calls",
             "description": "A list of tool calls requested by the assistant.",
             "nullable": true
           },
           "tool_call": {
-            "allOf": [{ "$ref": "#/components/schemas/FunctionTool" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FunctionTool"
+              }
+            ],
             "title": "Tool call",
             "description": "NB: Deprecated in favour of tool_calls. A tool call requested by the assistant.",
             "deprecated": true,
@@ -2536,11 +2986,21 @@
       },
       "ConfigResponse": {
         "oneOf": [
-          { "$ref": "#/components/schemas/ModelConfigResponse" },
-          { "$ref": "#/components/schemas/ToolConfigResponse" },
-          { "$ref": "#/components/schemas/EvaluatorConfigResponse" },
-          { "$ref": "#/components/schemas/AgentConfigResponse" },
-          { "$ref": "#/components/schemas/GenericConfigResponse" }
+          {
+            "$ref": "#/components/schemas/ModelConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/ToolConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/EvaluatorConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AgentConfigResponse"
+          },
+          {
+            "$ref": "#/components/schemas/GenericConfigResponse"
+          }
         ],
         "title": "ConfigResponse",
         "discriminator": {
@@ -2557,14 +3017,18 @@
       "CreateDatapointRequest": {
         "properties": {
           "inputs": {
-            "additionalProperties": { "type": "string" },
+            "additionalProperties": {
+              "type": "string"
+            },
             "type": "object",
             "title": "Inputs",
             "description": "The inputs to the prompt template.",
             "default": {}
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessage" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
             "type": "array",
             "title": "Chat messages",
             "description": "List of chat messages to provide to the model."
@@ -2572,12 +3036,25 @@
           "target": {
             "additionalProperties": {
               "anyOf": [
-                { "type": "string" },
-                { "type": "integer" },
-                { "type": "number" },
-                { "type": "boolean" },
-                { "type": "object" },
-                { "items": {}, "type": "array" }
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object"
+                },
+                {
+                  "items": {},
+                  "type": "array"
+                }
               ]
             },
             "type": "object",
@@ -2600,14 +3077,18 @@
             "description": "The Dataset Version to use in this Evaluation."
           },
           "evaluatees": {
-            "items": { "$ref": "#/components/schemas/EvaluateeRequest" },
+            "items": {
+              "$ref": "#/components/schemas/EvaluateeRequest"
+            },
             "type": "array",
             "minItems": 1,
             "title": "Evaluated Version IDs",
             "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation Report."
           },
           "evaluators": {
-            "items": { "$ref": "#/components/schemas/EvaluatorRequest" },
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorRequest"
+            },
             "type": "array",
             "title": "Evaluators",
             "description": "The Evaluators used to evaluate."
@@ -2631,7 +3112,11 @@
             "description": "Unique identifier for the Directory to create Evaluator in. Starts with `dir_`. If not provided, the Evaluator will be created in your Organization's root directory."
           },
           "evaluator_type": {
-            "allOf": [{ "$ref": "#/components/schemas/EvaluatorType" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorType"
+              }
+            ],
             "title": "Evaluator Type",
             "description": "Type of Evaluator, one of python, llm, human, external."
           }
@@ -2661,14 +3146,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -2699,14 +3188,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -2736,20 +3229,28 @@
             "default": "llm"
           },
           "prompt": {
-            "allOf": [{ "$ref": "#/components/schemas/PromptVersionRequest" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptVersionRequest"
+              }
+            ],
             "title": "Prompt parameters",
             "description": "The prompt parameters used to generate."
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -2812,14 +3313,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -2899,10 +3404,17 @@
       },
       "DashboardConfiguration": {
         "properties": {
-          "time_unit": { "$ref": "#/components/schemas/TimeUnit" },
-          "time_range_days": { "type": "integer", "title": "Time Range Days" },
+          "time_unit": {
+            "$ref": "#/components/schemas/TimeUnit"
+          },
+          "time_range_days": {
+            "type": "integer",
+            "title": "Time Range Days"
+          },
           "model_config_ids": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Model Config Ids"
           }
@@ -2914,14 +3426,18 @@
       "DatapointResponse": {
         "properties": {
           "inputs": {
-            "additionalProperties": { "type": "string" },
+            "additionalProperties": {
+              "type": "string"
+            },
             "type": "object",
             "title": "Inputs",
             "description": "The inputs to the prompt template.",
             "default": {}
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessage" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
             "type": "array",
             "title": "Chat messages",
             "description": "List of chat messages to provide to the model."
@@ -2929,12 +3445,25 @@
           "target": {
             "additionalProperties": {
               "anyOf": [
-                { "type": "string" },
-                { "type": "integer" },
-                { "type": "number" },
-                { "type": "boolean" },
-                { "type": "object" },
-                { "items": {}, "type": "array" }
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object"
+                },
+                {
+                  "items": {},
+                  "type": "array"
+                }
               ]
             },
             "type": "object",
@@ -2969,7 +3498,9 @@
             "description": "Unique identifier for the specific Dataset Version. If no query params provided, the default deployed Dataset Version is returned. Starts with `dsv_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments",
             "description": "The list of environments the Dataset Version is deployed to."
@@ -2994,7 +3525,11 @@
             "description": "The user who created the Dataset."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Dataset Version."
           },
@@ -3014,7 +3549,9 @@
             "description": "The number of Datapoints in this Dataset version."
           },
           "datapoints": {
-            "items": { "$ref": "#/components/schemas/DatapointResponse" },
+            "items": {
+              "$ref": "#/components/schemas/DatapointResponse"
+            },
             "type": "array",
             "title": "Datapoints",
             "description": "The list of Datapoints in this Dataset version. Only provided if explicitly requested."
@@ -3036,14 +3573,22 @@
       },
       "EnvironmentResponse": {
         "properties": {
-          "id": { "type": "string", "title": "Id" },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
             "title": "Created At"
           },
-          "name": { "type": "string", "title": "Name" },
-          "tag": { "$ref": "#/components/schemas/EnvironmentTag" }
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "tag": {
+            "$ref": "#/components/schemas/EnvironmentTag"
+          }
         },
         "type": "object",
         "required": ["id", "created_at", "name", "tag"],
@@ -3057,9 +3602,13 @@
       },
       "EvaluatedReportDatapointMissingData": {
         "properties": {
-          "datapoint": { "$ref": "#/components/schemas/DatapointResponse" },
+          "datapoint": {
+            "$ref": "#/components/schemas/DatapointResponse"
+          },
           "logs_missing_for_versions": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Logs Missing For Versions"
           }
@@ -3070,9 +3619,13 @@
       },
       "EvaluatedReportMissingEvaluatorLogs": {
         "properties": {
-          "log": { "$ref": "#/components/schemas/LogResponse" },
+          "log": {
+            "$ref": "#/components/schemas/LogResponse"
+          },
           "evaluator_versions_missing_logs": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Evaluator Versions Missing Logs"
           }
@@ -3084,8 +3637,12 @@
       },
       "EvaluatedVersionResponse": {
         "anyOf": [
-          { "$ref": "#/components/schemas/PromptResponse" },
-          { "$ref": "#/components/schemas/ToolVersionResponse" }
+          {
+            "$ref": "#/components/schemas/PromptResponse"
+          },
+          {
+            "$ref": "#/components/schemas/ToolVersionResponse"
+          }
         ],
         "title": "EvaluatedVersionResponse"
       },
@@ -3177,12 +3734,18 @@
             "description": "Unique identifier for the Evaluation. Starts with `evr`."
           },
           "dataset": {
-            "allOf": [{ "$ref": "#/components/schemas/DatasetResponse" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DatasetResponse"
+              }
+            ],
             "title": "Dataset",
             "description": "The Dataset Version used in the Evaluation."
           },
           "evaluatees": {
-            "items": { "$ref": "#/components/schemas/EvaluateeResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EvaluateeResponse"
+            },
             "type": "array",
             "title": "Evaluated Versions",
             "description": "The Prompt/Tool Versions included in the Evaluation."
@@ -3196,7 +3759,11 @@
             "description": "The Evaluator Versions used to evaluate."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/EvaluationStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluationStatus"
+              }
+            ],
             "title": "Status",
             "description": "The current status of the Evaluation."
           },
@@ -3228,22 +3795,51 @@
       },
       "EvaluationResultResponse": {
         "properties": {
-          "id": { "type": "string", "title": "Id" },
-          "evaluator_id": { "type": "string", "title": "Evaluator Id" },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "evaluator_id": {
+            "type": "string",
+            "title": "Evaluator Id"
+          },
           "evaluator_version_id": {
             "type": "string",
             "title": "Evaluator Version Id"
           },
-          "evaluation_id": { "type": "string", "title": "Evaluation Id" },
-          "log_id": { "type": "string", "title": "Log Id" },
-          "log": { "$ref": "#/components/schemas/LogResponse" },
-          "version_id": { "type": "string", "title": "Version Id" },
-          "version": { "title": "Version" },
+          "evaluation_id": {
+            "type": "string",
+            "title": "Evaluation Id"
+          },
+          "log_id": {
+            "type": "string",
+            "title": "Log Id"
+          },
+          "log": {
+            "$ref": "#/components/schemas/LogResponse"
+          },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
+          "version": {
+            "title": "Version"
+          },
           "value": {
-            "anyOf": [{ "type": "boolean" }, { "type": "number" }],
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "Value"
           },
-          "error": { "type": "string", "title": "Error" },
+          "error": {
+            "type": "string",
+            "title": "Error"
+          },
           "updated_at": {
             "type": "string",
             "format": "date-time",
@@ -3254,7 +3850,9 @@
             "format": "date-time",
             "title": "Created At"
           },
-          "llm_evaluator_log": { "$ref": "#/components/schemas/LogResponse" }
+          "llm_evaluator_log": {
+            "$ref": "#/components/schemas/LogResponse"
+          }
         },
         "type": "object",
         "required": [
@@ -3270,12 +3868,18 @@
       "EvaluationStats": {
         "properties": {
           "overall_stats": {
-            "allOf": [{ "$ref": "#/components/schemas/OverallStats" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OverallStats"
+              }
+            ],
             "title": "Overall Stats",
             "description": "Stats for the Evaluation Report as a whole."
           },
           "version_stats": {
-            "items": { "$ref": "#/components/schemas/VersionStats" },
+            "items": {
+              "$ref": "#/components/schemas/VersionStats"
+            },
             "type": "array",
             "title": "Version Stats",
             "description": "Stats for each Evaluated Version in the Evaluation Report."
@@ -3345,7 +3949,11 @@
             "title": "Other parameters",
             "description": "Other parameters that define the config."
           },
-          "type": { "type": "string", "enum": ["evaluator"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["evaluator"],
+            "title": "Type"
+          },
           "created_by": {
             "allOf": [
               {
@@ -3376,7 +3984,11 @@
             "description": "Type of evaluator."
           },
           "model_config": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelConfigResponse" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelConfigResponse"
+              }
+            ],
             "title": "Model config",
             "description": "The model config defining the LLM evaluator."
           },
@@ -3387,14 +3999,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -3446,14 +4062,19 @@
             "title": "Evaluator Name",
             "description": "Name of the Evaluator."
           },
-          "version_id": { "type": "string", "title": "Version Id" },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
           "directory_id": {
             "type": "string",
             "title": "Directory ID",
             "description": "Unique identifier for the Directory the Evaluator belongs to. Starts with `dir_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments"
           },
@@ -3470,14 +4091,20 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "status": { "$ref": "#/components/schemas/VersionStatus" },
+          "status": {
+            "$ref": "#/components/schemas/VersionStatus"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
             "title": "Last Used At"
           },
           "evaluator_type": {
-            "allOf": [{ "$ref": "#/components/schemas/EvaluatorType" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorType"
+              }
+            ],
             "title": "Evaluator Type",
             "description": "The type of the evaluator."
           }
@@ -3519,14 +4146,19 @@
             "title": "Evaluator Name",
             "description": "Name of the Evaluator."
           },
-          "version_id": { "type": "string", "title": "Version Id" },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
           "directory_id": {
             "type": "string",
             "title": "Directory ID",
             "description": "Unique identifier for the Directory the Evaluator belongs to. Starts with `dir_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments"
           },
@@ -3543,14 +4175,20 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "status": { "$ref": "#/components/schemas/VersionStatus" },
+          "status": {
+            "$ref": "#/components/schemas/VersionStatus"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
             "title": "Last Used At"
           },
           "evaluator_type": {
-            "allOf": [{ "$ref": "#/components/schemas/EvaluatorType" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorType"
+              }
+            ],
             "title": "Evaluator Type",
             "description": "The type of the evaluator."
           }
@@ -3569,10 +4207,18 @@
       },
       "EvaluatorVersionResponse": {
         "oneOf": [
-          { "$ref": "#/components/schemas/LLMEvaluatorVersionResponse" },
-          { "$ref": "#/components/schemas/PythonEvaluatorVersionResponse" },
-          { "$ref": "#/components/schemas/HumanEvaluatorVersionResponse" },
-          { "$ref": "#/components/schemas/ExternalEvaluatorVersionResponse" }
+          {
+            "$ref": "#/components/schemas/LLMEvaluatorVersionResponse"
+          },
+          {
+            "$ref": "#/components/schemas/PythonEvaluatorVersionResponse"
+          },
+          {
+            "$ref": "#/components/schemas/HumanEvaluatorVersionResponse"
+          },
+          {
+            "$ref": "#/components/schemas/ExternalEvaluatorVersionResponse"
+          }
         ],
         "title": "EvaluatorVersionResponse",
         "discriminator": {
@@ -3606,7 +4252,11 @@
             "description": "Message describing the changes made."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Evaluator Version."
           },
@@ -3619,7 +4269,10 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "num_logs": { "type": "integer", "title": "Num Logs" },
+          "num_logs": {
+            "type": "integer",
+            "title": "Num Logs"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -3644,14 +4297,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -3692,13 +4349,22 @@
               {
                 "$ref": "#/components/schemas/src__external__app__models__v4__feedback__FeedbackType"
               },
-              { "type": "string" }
+              {
+                "type": "string"
+              }
             ],
             "title": "Feedback type",
             "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
           },
           "value": {
-            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Feedback value",
             "description": "The feedback value to set. This would be the appropriate text for 'correction' or 'comment', or a label to apply for 'rating', 'action', or 'issue'."
           },
@@ -3735,7 +4401,9 @@
               {
                 "$ref": "#/components/schemas/src__external__app__models__v5__feedback__FeedbackType"
               },
-              { "type": "string" }
+              {
+                "type": "string"
+              }
             ],
             "title": "Feedback type",
             "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
@@ -3754,14 +4422,22 @@
         "title": "FeedbackTypeModel"
       },
       "FeedbackTypes": {
-        "items": { "$ref": "#/components/schemas/FeedbackTypeModel" },
+        "items": {
+          "$ref": "#/components/schemas/FeedbackTypeModel"
+        },
         "type": "array",
         "title": "FeedbackTypes"
       },
       "FunctionTool": {
         "properties": {
-          "name": { "type": "string", "title": "Name" },
-          "arguments": { "type": "string", "title": "Arguments" }
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "arguments": {
+            "type": "string",
+            "title": "Arguments"
+          }
         },
         "type": "object",
         "required": ["name"],
@@ -3769,7 +4445,12 @@
         "description": "A function tool to be called by the model where user owns runtime."
       },
       "FunctionToolChoice": {
-        "properties": { "name": { "type": "string", "title": "Name" } },
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
         "type": "object",
         "required": ["name"],
         "title": "FunctionToolChoice",
@@ -3787,7 +4468,11 @@
             "title": "Other parameters",
             "description": "Other parameters that define the config."
           },
-          "type": { "type": "string", "enum": ["generic"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["generic"],
+            "title": "Type"
+          },
           "created_by": {
             "allOf": [
               {
@@ -3820,7 +4505,9 @@
       "HTTPValidationError": {
         "properties": {
           "detail": {
-            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
             "type": "array",
             "title": "Detail"
           }
@@ -3849,7 +4536,11 @@
             "description": "Message describing the changes made."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Evaluator Version."
           },
@@ -3862,7 +4553,10 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "num_logs": { "type": "integer", "title": "Num Logs" },
+          "num_logs": {
+            "type": "integer",
+            "title": "Num Logs"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -3887,14 +4581,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -3918,9 +4616,17 @@
       },
       "ImageChatContent": {
         "properties": {
-          "type": { "type": "string", "enum": ["image_url"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["image_url"],
+            "title": "Type"
+          },
           "image_url": {
-            "allOf": [{ "$ref": "#/components/schemas/ImageUrl" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ImageUrl"
+              }
+            ],
             "title": "Image URL",
             "description": "The message's image content."
           }
@@ -3968,7 +4674,11 @@
             "description": "Message describing the changes made."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Evaluator Version."
           },
@@ -3981,7 +4691,10 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "num_logs": { "type": "integer", "title": "Num Logs" },
+          "num_logs": {
+            "type": "integer",
+            "title": "Num Logs"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -4005,20 +4718,28 @@
             "default": "llm"
           },
           "prompt": {
-            "allOf": [{ "$ref": "#/components/schemas/PromptVersionRequest" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptVersionRequest"
+              }
+            ],
             "title": "Prompt parameters",
             "description": "The prompt parameters used to generate."
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -4082,7 +4803,9 @@
       "ListDatasets": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/DatasetResponse" },
+            "items": {
+              "$ref": "#/components/schemas/DatasetResponse"
+            },
             "type": "array",
             "title": "Records",
             "description": "The list of Datasets."
@@ -4110,7 +4833,9 @@
       "ListPrompts": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/PromptResponse" },
+            "items": {
+              "$ref": "#/components/schemas/PromptResponse"
+            },
             "type": "array",
             "title": "Records",
             "description": "The list of Prompts."
@@ -4123,7 +4848,9 @@
       "ListToolVersionsResponse": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/ToolVersionResponse" },
+            "items": {
+              "$ref": "#/components/schemas/ToolVersionResponse"
+            },
             "type": "array",
             "title": "Records",
             "description": "The list of Tool Versions associated to the Tool."
@@ -4208,7 +4935,9 @@
             "description": "Unique ID of an experiment trial to associate to the log."
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessageWithToolCall" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageWithToolCall"
+            },
             "type": "array",
             "title": "Messages",
             "description": "The messages passed to the to provider chat endpoint."
@@ -4219,7 +4948,14 @@
             "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later"
           },
           "judgment": {
-            "anyOf": [{ "type": "boolean" }, { "type": "number" }],
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "Judgment"
           },
           "config_id": {
@@ -4227,14 +4963,18 @@
             "title": "Config ID",
             "description": "Unique ID of a config to associate to the log."
           },
-          "config": { "$ref": "#/components/schemas/ConfigResponse" },
+          "config": {
+            "$ref": "#/components/schemas/ConfigResponse"
+          },
           "environment": {
             "type": "string",
             "title": "Environment name",
             "description": "The environment name used to create the log."
           },
           "feedback": {
-            "items": { "$ref": "#/components/schemas/FeedbackResponse" },
+            "items": {
+              "$ref": "#/components/schemas/FeedbackResponse"
+            },
             "type": "array",
             "title": "Feedback"
           },
@@ -4256,7 +4996,9 @@
           },
           "output_message": {
             "allOf": [
-              { "$ref": "#/components/schemas/ChatMessageWithToolCall" }
+              {
+                "$ref": "#/components/schemas/ChatMessageWithToolCall"
+              }
             ],
             "title": "Output message",
             "description": "The message returned by the provider."
@@ -4317,20 +5059,32 @@
             "description": "Reason the generation finished."
           },
           "metric_values": {
-            "items": { "$ref": "#/components/schemas/MetricValueResponse" },
+            "items": {
+              "$ref": "#/components/schemas/MetricValueResponse"
+            },
             "type": "array",
             "title": "Metric Values"
           },
           "tools": {
-            "items": { "$ref": "#/components/schemas/ToolResultResponse" },
+            "items": {
+              "$ref": "#/components/schemas/ToolResultResponse"
+            },
             "type": "array",
             "title": "Tools"
           },
           "tool_choice": {
             "anyOf": [
-              { "type": "string", "enum": ["none"] },
-              { "type": "string", "enum": ["auto"] },
-              { "$ref": "#/components/schemas/ToolChoice" }
+              {
+                "type": "string",
+                "enum": ["none"]
+              },
+              {
+                "type": "string",
+                "enum": ["auto"]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
             ],
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
@@ -4351,7 +5105,9 @@
             "title": "Updated At"
           },
           "batch_ids": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Batch IDs",
             "description": "List of batch IDs the log belongs to."
@@ -4370,9 +5126,18 @@
       },
       "MetricValueResponse": {
         "properties": {
-          "metric_id": { "type": "string", "title": "Metric Id" },
-          "metric_name": { "type": "string", "title": "Metric Name" },
-          "metric_value": { "type": "number", "title": "Metric Value" }
+          "metric_id": {
+            "type": "string",
+            "title": "Metric Id"
+          },
+          "metric_name": {
+            "type": "string",
+            "title": "Metric Name"
+          },
+          "metric_value": {
+            "type": "number",
+            "title": "Metric Value"
+          }
         },
         "type": "object",
         "required": ["metric_id", "metric_name", "metric_value"],
@@ -4391,7 +5156,11 @@
             "description": "A description of the model config."
           },
           "provider": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelProviders" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelProviders"
+              }
+            ],
             "title": "Model provider",
             "description": "The company providing the underlying model service.",
             "default": "openai"
@@ -4421,8 +5190,15 @@
           },
           "stop": {
             "anyOf": [
-              { "type": "string" },
-              { "items": { "type": "string" }, "type": "array" }
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             ],
             "title": "Stop sequence(s)",
             "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
@@ -4451,12 +5227,20 @@
             "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
           },
           "response_format": {
-            "allOf": [{ "$ref": "#/components/schemas/ResponseFormat" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              }
+            ],
             "title": "Response format",
             "description": "The format of the response. Only type json_object is currently supported for chat."
           },
           "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelEndpoints" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelEndpoints"
+              }
+            ],
             "title": "Provider endpoint",
             "description": "The provider model endpoint used.",
             "default": "complete"
@@ -4467,7 +5251,9 @@
             "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "chat_template": {
-            "items": { "$ref": "#/components/schemas/ChatMessageWithToolCall" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageWithToolCall"
+            },
             "type": "array",
             "title": "Chat template",
             "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
@@ -4475,15 +5261,23 @@
           "tools": {
             "items": {
               "anyOf": [
-                { "$ref": "#/components/schemas/LinkedToolRequest" },
-                { "$ref": "#/components/schemas/ModelConfigToolRequest" }
+                {
+                  "$ref": "#/components/schemas/LinkedToolRequest"
+                },
+                {
+                  "$ref": "#/components/schemas/ModelConfigToolRequest"
+                }
               ]
             },
             "type": "array",
             "title": "Tools - equivalent to OpenAI functions.",
             "description": "Make tools available to OpenAIs chat model as functions."
           },
-          "type": { "type": "string", "enum": ["model"], "title": "Type" }
+          "type": {
+            "type": "string",
+            "enum": ["model"],
+            "title": "Type"
+          }
         },
         "additionalProperties": false,
         "type": "object",
@@ -4504,7 +5298,11 @@
             "description": "Other parameter values to be passed to the provider call.",
             "default": {}
           },
-          "type": { "type": "string", "enum": ["model"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["model"],
+            "title": "Type"
+          },
           "name": {
             "type": "string",
             "title": "Model config name",
@@ -4516,7 +5314,11 @@
             "description": "A description of the model config."
           },
           "provider": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelProviders" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelProviders"
+              }
+            ],
             "title": "Model provider",
             "description": "The company providing the underlying model service.",
             "default": "openai"
@@ -4546,8 +5348,15 @@
           },
           "stop": {
             "anyOf": [
-              { "type": "string" },
-              { "items": { "type": "string" }, "type": "array" }
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             ],
             "title": "Stop sequence(s)",
             "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
@@ -4570,7 +5379,11 @@
             "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
           },
           "response_format": {
-            "allOf": [{ "$ref": "#/components/schemas/ResponseFormat" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              }
+            ],
             "title": "Response format",
             "description": "The format of the response. Only type json_object is currently supported for chat."
           },
@@ -4580,13 +5393,17 @@
             "description": "Prompt template that will take your specified inputs to form your final request to the model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "chat_template": {
-            "items": { "$ref": "#/components/schemas/ChatMessageWithToolCall" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageWithToolCall"
+            },
             "type": "array",
             "title": "Chat template",
             "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
           },
           "tool_configs": {
-            "items": { "$ref": "#/components/schemas/ToolConfigResponse" },
+            "items": {
+              "$ref": "#/components/schemas/ToolConfigResponse"
+            },
             "type": "array",
             "title": "Tool configs",
             "description": "NB: Deprecated with tools field. Definition of tools shown to the model.",
@@ -4601,7 +5418,11 @@
             "description": "Tools shown to the model."
           },
           "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelEndpoints" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelEndpoints"
+              }
+            ],
             "title": "Provider endpoint",
             "description": "The provider model endpoint used."
           }
@@ -4630,7 +5451,11 @@
             "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
           },
           "source": {
-            "allOf": [{ "$ref": "#/components/schemas/ToolSource" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ToolSource"
+              }
+            ],
             "title": "Source",
             "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
           },
@@ -4699,21 +5524,27 @@
         "properties": {
           "version_reference": {
             "allOf": [
-              { "$ref": "#/components/schemas/VersionReferenceResponse" }
+              {
+                "$ref": "#/components/schemas/VersionReferenceResponse"
+              }
             ],
             "title": "Version reference",
             "description": "The Evaluator Version used for monitoring. This can be a specific Version by ID, or a Version deployed to an Environment."
           },
           "version": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorVersionResponse" }
+              {
+                "$ref": "#/components/schemas/EvaluatorVersionResponse"
+              }
             ],
             "title": "Version",
             "description": "The deployed Version."
           },
           "state": {
             "allOf": [
-              { "$ref": "#/components/schemas/MonitoringEvaluatorState" }
+              {
+                "$ref": "#/components/schemas/MonitoringEvaluatorState"
+              }
             ],
             "title": "State",
             "description": "The state of the Monitoring Evaluator. Either `active` or `inactive`"
@@ -4778,10 +5609,18 @@
             "title": "Number of Errors",
             "description": "The total number of errored Evaluators for this Evaluator Version."
           },
-          "mean": { "type": "number", "title": "Mean" },
-          "std": { "type": "number", "title": "Std" },
+          "mean": {
+            "type": "number",
+            "title": "Mean"
+          },
+          "std": {
+            "type": "number",
+            "title": "Std"
+          },
           "percentiles": {
-            "additionalProperties": { "type": "number" },
+            "additionalProperties": {
+              "type": "number"
+            },
             "type": "object",
             "title": "Percentiles"
           }
@@ -4829,13 +5668,24 @@
       "PaginatedData_DatapointResponse_": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/DatapointResponse" },
+            "items": {
+              "$ref": "#/components/schemas/DatapointResponse"
+            },
             "type": "array",
             "title": "Records"
           },
-          "page": { "type": "integer", "title": "Page" },
-          "size": { "type": "integer", "title": "Size" },
-          "total": { "type": "integer", "title": "Total" }
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
         },
         "type": "object",
         "required": ["records", "page", "size", "total"],
@@ -4844,13 +5694,24 @@
       "PaginatedData_DatasetResponse_": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/DatasetResponse" },
+            "items": {
+              "$ref": "#/components/schemas/DatasetResponse"
+            },
             "type": "array",
             "title": "Records"
           },
-          "page": { "type": "integer", "title": "Page" },
-          "size": { "type": "integer", "title": "Size" },
-          "total": { "type": "integer", "title": "Total" }
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
         },
         "type": "object",
         "required": ["records", "page", "size", "total"],
@@ -4859,13 +5720,24 @@
       "PaginatedData_EvaluationResponse_": {
         "properties": {
           "records": {
-            "items": { "$ref": "#/components/schemas/EvaluationResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EvaluationResponse"
+            },
             "type": "array",
             "title": "Records"
           },
-          "page": { "type": "integer", "title": "Page" },
-          "size": { "type": "integer", "title": "Size" },
-          "total": { "type": "integer", "title": "Total" }
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
         },
         "type": "object",
         "required": ["records", "page", "size", "total"],
@@ -4912,7 +5784,11 @@
             "description": "Duration of the logged event in seconds."
           },
           "output_message": {
-            "allOf": [{ "$ref": "#/components/schemas/ChatMessage" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatMessage"
+              }
+            ],
             "title": "Output message",
             "description": "The message returned by the provider."
           },
@@ -4955,21 +5831,35 @@
       "PromptCallRequest": {
         "properties": {
           "prompt": {
-            "allOf": [{ "$ref": "#/components/schemas/PromptVersionRequest" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptVersionRequest"
+              }
+            ],
             "title": "Prompt",
             "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessage" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
             "type": "array",
             "title": "Messages",
             "description": "The messages passed to the to provider chat endpoint."
           },
           "tool_choice": {
             "anyOf": [
-              { "type": "string", "enum": ["none"] },
-              { "type": "string", "enum": ["auto"] },
-              { "$ref": "#/components/schemas/ToolChoice" }
+              {
+                "type": "string",
+                "enum": ["none"]
+              },
+              {
+                "type": "string",
+                "enum": ["auto"]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
             ],
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
@@ -5012,7 +5902,9 @@
             "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
           },
           "batches": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Batch IDs",
             "description": "Array of batch Ids that this log is part of. Batches are used to group logs together for offline Evaluations"
@@ -5028,7 +5920,11 @@
             "description": "The environment name used to create the log."
           },
           "provider_api_keys": {
-            "allOf": [{ "$ref": "#/components/schemas/ProviderApiKeys" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProviderApiKeys"
+              }
+            ],
             "title": "Provider API Keys",
             "description": "API keys required by each provider to make API calls. The API keys provided here are not stored by Humanloop. If not specified here, Humanloop will fall back to the key saved to your organization."
           },
@@ -5069,21 +5965,35 @@
       "PromptCallResponse": {
         "properties": {
           "prompt": {
-            "allOf": [{ "$ref": "#/components/schemas/PromptResponse" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              }
+            ],
             "title": "Prompt",
             "description": "Prompt details used to generate the log."
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessage" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
             "type": "array",
             "title": "Messages",
             "description": "The messages passed to the to provider chat endpoint."
           },
           "tool_choice": {
             "anyOf": [
-              { "type": "string", "enum": ["none"] },
-              { "type": "string", "enum": ["auto"] },
-              { "$ref": "#/components/schemas/ToolChoice" }
+              {
+                "type": "string",
+                "enum": ["none"]
+              },
+              {
+                "type": "string",
+                "enum": ["auto"]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
             ],
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
@@ -5126,7 +6036,9 @@
             "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
           },
           "batches": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Batch IDs",
             "description": "Array of batch Ids that this log is part of. Batches are used to group logs together for offline Evaluations"
@@ -5147,7 +6059,9 @@
             "description": "ID of the log."
           },
           "logs": {
-            "items": { "$ref": "#/components/schemas/PromptCallLogResponse" },
+            "items": {
+              "$ref": "#/components/schemas/PromptCallLogResponse"
+            },
             "type": "array",
             "title": "Logs",
             "description": "The logs generated by the Prompt call."
@@ -5188,7 +6102,11 @@
             "description": "Duration of the logged event in seconds."
           },
           "output_message": {
-            "allOf": [{ "$ref": "#/components/schemas/ChatMessage" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatMessage"
+              }
+            ],
             "title": "Output message",
             "description": "The message returned by the provider."
           },
@@ -5258,7 +6176,11 @@
       "PromptLogRequest": {
         "properties": {
           "output_message": {
-            "allOf": [{ "$ref": "#/components/schemas/ChatMessage" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatMessage"
+              }
+            ],
             "title": "Output message",
             "description": "The message returned by the provider."
           },
@@ -5288,21 +6210,35 @@
             "description": "Reason the generation finished."
           },
           "prompt": {
-            "allOf": [{ "$ref": "#/components/schemas/PromptVersionRequest" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptVersionRequest"
+              }
+            ],
             "title": "Prompt",
             "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
           },
           "messages": {
-            "items": { "$ref": "#/components/schemas/ChatMessage" },
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
             "type": "array",
             "title": "Messages",
             "description": "The messages passed to the to provider chat endpoint."
           },
           "tool_choice": {
             "anyOf": [
-              { "type": "string", "enum": ["none"] },
-              { "type": "string", "enum": ["auto"] },
-              { "$ref": "#/components/schemas/ToolChoice" }
+              {
+                "type": "string",
+                "enum": ["none"]
+              },
+              {
+                "type": "string",
+                "enum": ["auto"]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
             ],
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
@@ -5381,7 +6317,9 @@
             "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
           },
           "batches": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Batch IDs",
             "description": "Array of batch Ids that this log is part of. Batches are used to group logs together for offline Evaluations"
@@ -5415,16 +6353,24 @@
             "description": "The model instance used. E.g. gpt-4."
           },
           "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelEndpoints" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelEndpoints"
+              }
+            ],
             "title": "Provider endpoint",
             "description": "The provider model endpoint used.",
             "default": "chat"
           },
           "template": {
             "anyOf": [
-              { "type": "string" },
               {
-                "items": { "$ref": "#/components/schemas/ChatMessage" },
+                "type": "string"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ChatMessage"
+                },
                 "type": "array"
               }
             ],
@@ -5432,7 +6378,11 @@
             "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
           },
           "provider": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelProviders" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelProviders"
+              }
+            ],
             "title": "Model provider",
             "description": "The company providing the underlying model service.",
             "default": "openai"
@@ -5457,8 +6407,15 @@
           },
           "stop": {
             "anyOf": [
-              { "type": "string" },
-              { "items": { "type": "string" }, "type": "array" }
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             ],
             "title": "Stop sequence(s)",
             "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
@@ -5487,18 +6444,26 @@
             "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
           },
           "response_format": {
-            "allOf": [{ "$ref": "#/components/schemas/ResponseFormat" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              }
+            ],
             "title": "Response format",
             "description": "The format of the response. Only `{\"type\": \"json_object\"}` is currently supported for chat."
           },
           "tools": {
-            "items": { "$ref": "#/components/schemas/ToolRequest" },
+            "items": {
+              "$ref": "#/components/schemas/ToolRequest"
+            },
             "type": "array",
             "title": "Tools",
             "description": "The tool definitions that the model can choose to call if tool calling is supported."
           },
           "linked_tools": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Linked tools",
             "description": "The IDs of the tools that the model can choose to call if tool calling is supported. The default deployed version of that tool is called."
@@ -5532,7 +6497,9 @@
             "description": "Unique identifier for the specific Prompt Version. If no query params provided, the default deployed Prompt Version is returned. Starts with `prv_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments",
             "description": "The list of environments the Prompt Version is deployed to."
@@ -5557,7 +6524,11 @@
             "description": "The user who created the Prompt."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Prompt Version."
           },
@@ -5572,16 +6543,24 @@
             "description": "The model instance used. E.g. gpt-4."
           },
           "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelEndpoints" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelEndpoints"
+              }
+            ],
             "title": "Provider endpoint",
             "description": "The provider model endpoint used.",
             "default": "chat"
           },
           "template": {
             "anyOf": [
-              { "type": "string" },
               {
-                "items": { "$ref": "#/components/schemas/ChatMessage" },
+                "type": "string"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ChatMessage"
+                },
                 "type": "array"
               }
             ],
@@ -5589,7 +6568,11 @@
             "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
           },
           "provider": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelProviders" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelProviders"
+              }
+            ],
             "title": "Model provider",
             "description": "The company providing the underlying model service.",
             "default": "openai"
@@ -5614,8 +6597,15 @@
           },
           "stop": {
             "anyOf": [
-              { "type": "string" },
-              { "items": { "type": "string" }, "type": "array" }
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             ],
             "title": "Stop sequence(s)",
             "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
@@ -5644,7 +6634,11 @@
             "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
           },
           "response_format": {
-            "allOf": [{ "$ref": "#/components/schemas/ResponseFormat" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              }
+            ],
             "title": "Response format",
             "description": "The format of the response. Only `{\"type\": \"json_object\"}` is currently supported for chat."
           },
@@ -5657,7 +6651,9 @@
             "description": "The tool definitions that the model can choose to call if tool calling is supported."
           },
           "linked_tools": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Linked tools",
             "description": "The IDs of the tools that the model can choose to call if tool calling is supported. The default deployed version of that tool is called."
@@ -5678,7 +6674,9 @@
             "description": "The number of logs that have been generated across all Prompt Versions"
           },
           "inputs": {
-            "items": { "$ref": "#/components/schemas/PromptInputResponse" },
+            "items": {
+              "$ref": "#/components/schemas/PromptInputResponse"
+            },
             "type": "array",
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
@@ -5709,16 +6707,24 @@
             "description": "The model instance used. E.g. gpt-4."
           },
           "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelEndpoints" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelEndpoints"
+              }
+            ],
             "title": "Provider endpoint",
             "description": "The provider model endpoint used.",
             "default": "chat"
           },
           "template": {
             "anyOf": [
-              { "type": "string" },
               {
-                "items": { "$ref": "#/components/schemas/ChatMessage" },
+                "type": "string"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ChatMessage"
+                },
                 "type": "array"
               }
             ],
@@ -5726,7 +6732,11 @@
             "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
           },
           "provider": {
-            "allOf": [{ "$ref": "#/components/schemas/ModelProviders" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModelProviders"
+              }
+            ],
             "title": "Model provider",
             "description": "The company providing the underlying model service.",
             "default": "openai"
@@ -5751,8 +6761,15 @@
           },
           "stop": {
             "anyOf": [
-              { "type": "string" },
-              { "items": { "type": "string" }, "type": "array" }
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             ],
             "title": "Stop sequence(s)",
             "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
@@ -5781,18 +6798,26 @@
             "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
           },
           "response_format": {
-            "allOf": [{ "$ref": "#/components/schemas/ResponseFormat" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseFormat"
+              }
+            ],
             "title": "Response format",
             "description": "The format of the response. Only `{\"type\": \"json_object\"}` is currently supported for chat."
           },
           "tools": {
-            "items": { "$ref": "#/components/schemas/ToolRequest" },
+            "items": {
+              "$ref": "#/components/schemas/ToolRequest"
+            },
             "type": "array",
             "title": "Tools",
             "description": "The tool definitions that the model can choose to call if tool calling is supported."
           },
           "linked_tools": {
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "type": "array",
             "title": "Linked tools",
             "description": "The IDs of the tools that the model can choose to call if tool calling is supported. The default deployed version of that tool is called."
@@ -5804,12 +6829,30 @@
       },
       "ProviderApiKeys": {
         "properties": {
-          "openai": { "type": "string", "title": "Openai" },
-          "ai21": { "type": "string", "title": "Ai21" },
-          "mock": { "type": "string", "title": "Mock" },
-          "anthropic": { "type": "string", "title": "Anthropic" },
-          "cohere": { "type": "string", "title": "Cohere" },
-          "openai_azure": { "type": "string", "title": "Openai Azure" },
+          "openai": {
+            "type": "string",
+            "title": "Openai"
+          },
+          "ai21": {
+            "type": "string",
+            "title": "Ai21"
+          },
+          "mock": {
+            "type": "string",
+            "title": "Mock"
+          },
+          "anthropic": {
+            "type": "string",
+            "title": "Anthropic"
+          },
+          "cohere": {
+            "type": "string",
+            "title": "Cohere"
+          },
+          "openai_azure": {
+            "type": "string",
+            "title": "Openai Azure"
+          },
           "openai_azure_endpoint": {
             "type": "string",
             "title": "Openai Azure Endpoint"
@@ -5839,7 +6882,11 @@
             "description": "Message describing the changes made."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Evaluator Version."
           },
@@ -5852,7 +6899,10 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "num_logs": { "type": "integer", "title": "Num Logs" },
+          "num_logs": {
+            "type": "integer",
+            "title": "Num Logs"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -5882,14 +6932,18 @@
           },
           "arguments_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorArgumentsType" }
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
             ],
             "title": "Arguments type",
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
-              { "$ref": "#/components/schemas/EvaluatorReturnTypeEnum" }
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
@@ -5913,7 +6967,11 @@
       },
       "ResponseFormat": {
         "properties": {
-          "type": { "type": "string", "enum": ["json_object"], "title": "Type" }
+          "type": {
+            "type": "string",
+            "enum": ["json_object"],
+            "title": "Type"
+          }
         },
         "type": "object",
         "required": ["type"],
@@ -5928,7 +6986,11 @@
       },
       "TextChatContent": {
         "properties": {
-          "type": { "type": "string", "enum": ["text"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["text"],
+            "title": "Type"
+          },
           "text": {
             "type": "string",
             "title": "Text",
@@ -5947,11 +7009,16 @@
       },
       "ToolCall": {
         "properties": {
-          "id": { "type": "string", "title": "Id" },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
           "type": {
             "$ref": "#/components/schemas/src__domain__chat_types__enums__ToolType"
           },
-          "function": { "$ref": "#/components/schemas/FunctionTool" }
+          "function": {
+            "$ref": "#/components/schemas/FunctionTool"
+          }
         },
         "type": "object",
         "required": ["id", "type", "function"],
@@ -5963,7 +7030,9 @@
           "type": {
             "$ref": "#/components/schemas/src__domain__chat_types__enums__ToolType"
           },
-          "function": { "$ref": "#/components/schemas/FunctionToolChoice" }
+          "function": {
+            "$ref": "#/components/schemas/FunctionToolChoice"
+          }
         },
         "type": "object",
         "required": ["type", "function"],
@@ -5988,7 +7057,11 @@
             "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
           },
           "source": {
-            "allOf": [{ "$ref": "#/components/schemas/ToolSource" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ToolSource"
+              }
+            ],
             "title": "Source",
             "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
           },
@@ -6007,7 +7080,11 @@
             "title": "preset_name",
             "description": "If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to look up the Humanloop runtime of the tool"
           },
-          "type": { "type": "string", "enum": ["tool"], "title": "Type" }
+          "type": {
+            "type": "string",
+            "enum": ["tool"],
+            "title": "Type"
+          }
         },
         "type": "object",
         "required": ["name", "type"],
@@ -6026,7 +7103,11 @@
             "title": "Other parameters",
             "description": "Other parameters that define the config."
           },
-          "type": { "type": "string", "enum": ["tool"], "title": "Type" },
+          "type": {
+            "type": "string",
+            "enum": ["tool"],
+            "title": "Type"
+          },
           "created_by": {
             "allOf": [
               {
@@ -6052,7 +7133,11 @@
             "description": "Description of the tool referenced by the model"
           },
           "source": {
-            "allOf": [{ "$ref": "#/components/schemas/ToolSource" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ToolSource"
+              }
+            ],
             "title": "Source",
             "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
           },
@@ -6132,10 +7217,22 @@
       },
       "ToolResultResponse": {
         "properties": {
-          "id": { "type": "string", "title": "Id" },
-          "name": { "type": "string", "title": "Name" },
-          "signature": { "type": "string", "title": "Signature" },
-          "result": { "type": "string", "title": "Result" }
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "signature": {
+            "type": "string",
+            "title": "Signature"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          }
         },
         "type": "object",
         "required": ["id", "name", "signature", "result"],
@@ -6216,14 +7313,20 @@
             "title": "Tool Version ID",
             "description": "Unique identifier for the Tool Version. Starts with `tlv_`."
           },
-          "tool": { "$ref": "#/components/schemas/ToolVersionToolResponse" },
+          "tool": {
+            "$ref": "#/components/schemas/ToolVersionToolResponse"
+          },
           "signature": {
             "type": "string",
             "title": "Signature",
             "description": "The function signature of the tool when being called."
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/VersionStatus" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
             "title": "Status",
             "description": "The status of the Tool Version."
           },
@@ -6236,7 +7339,10 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "num_logs": { "type": "integer", "title": "Num Logs" },
+          "num_logs": {
+            "type": "integer",
+            "title": "Num Logs"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -6280,14 +7386,19 @@
             "title": "Tool Name",
             "description": "Name of the tool."
           },
-          "version_id": { "type": "string", "title": "Version Id" },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
           "directory_id": {
             "type": "string",
             "title": "Directory ID",
             "description": "Unique identifier for the Directory the Tool belongs to. Starts with `dir_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments"
           },
@@ -6304,7 +7415,9 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "status": { "$ref": "#/components/schemas/VersionStatus" },
+          "status": {
+            "$ref": "#/components/schemas/VersionStatus"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -6404,12 +7517,27 @@
       "ValidationError": {
         "properties": {
           "loc": {
-            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
             "type": "array",
             "title": "Location"
           },
-          "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
         },
         "type": "object",
         "required": ["loc", "msg", "type"],
@@ -6419,22 +7547,36 @@
         "properties": {
           "file": {
             "anyOf": [
-              { "$ref": "#/components/schemas/PromptResponse" },
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              },
               {
                 "$ref": "#/components/schemas/src__external__app__models__v5__tools__tools__ToolResponse"
               },
-              { "$ref": "#/components/schemas/DatasetResponse" },
-              { "$ref": "#/components/schemas/EvaluatorResponse" }
+              {
+                "$ref": "#/components/schemas/DatasetResponse"
+              },
+              {
+                "$ref": "#/components/schemas/EvaluatorResponse"
+              }
             ],
             "title": "File",
             "description": "The File that the deployed Version belongs to."
           },
           "environment": {
-            "allOf": [{ "$ref": "#/components/schemas/EnvironmentResponse" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EnvironmentResponse"
+              }
+            ],
             "title": "Environment",
             "description": "The Environment that the Version is deployed to."
           },
-          "type": { "type": "string", "enum": ["environment"], "title": "Type" }
+          "type": {
+            "type": "string",
+            "enum": ["environment"],
+            "title": "Type"
+          }
         },
         "type": "object",
         "required": ["file", "environment", "type"],
@@ -6443,13 +7585,22 @@
       },
       "VersionEvaluatorAggregateResponse": {
         "properties": {
-          "version_id": { "type": "string", "title": "Version Id" },
-          "evaluator_id": { "type": "string", "title": "Evaluator Id" },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
+          "evaluator_id": {
+            "type": "string",
+            "title": "Evaluator Id"
+          },
           "evaluator_version_id": {
             "type": "string",
             "title": "Evaluator Version Id"
           },
-          "aggregate_value": { "type": "number", "title": "Aggregate Value" }
+          "aggregate_value": {
+            "type": "number",
+            "title": "Aggregate Value"
+          }
         },
         "type": "object",
         "required": ["version_id", "evaluator_id", "evaluator_version_id"],
@@ -6459,13 +7610,21 @@
         "properties": {
           "version": {
             "anyOf": [
-              { "$ref": "#/components/schemas/ToolVersionResponse" },
-              { "$ref": "#/components/schemas/EvaluatorVersionResponse" }
+              {
+                "$ref": "#/components/schemas/ToolVersionResponse"
+              },
+              {
+                "$ref": "#/components/schemas/EvaluatorVersionResponse"
+              }
             ],
             "title": "Version",
             "description": "The specific Version being referenced."
           },
-          "type": { "type": "string", "enum": ["version"], "title": "Type" }
+          "type": {
+            "type": "string",
+            "enum": ["version"],
+            "title": "Type"
+          }
         },
         "type": "object",
         "required": ["version", "type"],
@@ -6474,8 +7633,12 @@
       },
       "VersionReferenceResponse": {
         "oneOf": [
-          { "$ref": "#/components/schemas/VersionDeploymentResponse" },
-          { "$ref": "#/components/schemas/VersionIdResponse" }
+          {
+            "$ref": "#/components/schemas/VersionDeploymentResponse"
+          },
+          {
+            "$ref": "#/components/schemas/VersionIdResponse"
+          }
         ],
         "title": "VersionReferenceResponse",
         "discriminator": {
@@ -6501,8 +7664,12 @@
           "evaluator_version_stats": {
             "items": {
               "anyOf": [
-                { "$ref": "#/components/schemas/NumericEvaluatorVersionStats" },
-                { "$ref": "#/components/schemas/BooleanEvaluatorVersionStats" }
+                {
+                  "$ref": "#/components/schemas/NumericEvaluatorVersionStats"
+                },
+                {
+                  "$ref": "#/components/schemas/BooleanEvaluatorVersionStats"
+                }
               ]
             },
             "type": "array",
@@ -6618,13 +7785,19 @@
             "description": "Message describing the changes made. If provided, a committed version of the Dataset is created. Otherwise, an uncommitted version is created."
           },
           "datapoints": {
-            "items": { "$ref": "#/components/schemas/CreateDatapointRequest" },
+            "items": {
+              "$ref": "#/components/schemas/CreateDatapointRequest"
+            },
             "type": "array",
             "title": "Datapoints",
             "description": "The Datapoints to create this Dataset version with. Modify the `action` field to determine how these Datapoints are used."
           },
           "action": {
-            "allOf": [{ "$ref": "#/components/schemas/UpdateDatesetAction" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UpdateDatesetAction"
+              }
+            ],
             "title": "Action",
             "description": "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided.",
             "default": "set"
@@ -6696,14 +7869,19 @@
             "title": "Tool Name",
             "description": "Name of the tool."
           },
-          "version_id": { "type": "string", "title": "Version Id" },
+          "version_id": {
+            "type": "string",
+            "title": "Version Id"
+          },
           "directory_id": {
             "type": "string",
             "title": "Directory ID",
             "description": "Unique identifier for the Directory the Tool belongs to. Starts with `dir_`."
           },
           "environments": {
-            "items": { "$ref": "#/components/schemas/EnvironmentResponse" },
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
             "type": "array",
             "title": "Environments"
           },
@@ -6720,7 +7898,9 @@
           "created_by": {
             "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           },
-          "status": { "$ref": "#/components/schemas/VersionStatus" },
+          "status": {
+            "$ref": "#/components/schemas/VersionStatus"
+          },
           "last_used_at": {
             "type": "string",
             "format": "date-time",
@@ -6781,7 +7961,9 @@
       }
     }
   },
-  "x-readme": { "samples-languages": ["python", "javascript", "curl"] },
+  "x-readme": {
+    "samples-languages": ["python", "javascript", "curl"]
+  },
   "tags": [
     {
       "name": "Authentication",
