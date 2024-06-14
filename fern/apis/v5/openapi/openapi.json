@@ -14,7 +14,9 @@
   "paths": {
     "/prompts": {
       "get": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "List ",
         "description": "Get a list of Prompts.",
         "operationId": "Prompts_list",
@@ -128,7 +130,9 @@
         ]
       },
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Create Prompt",
         "description": "Create a Prompt.\n\nPrompts have immutable versions. When you call this endpoint\nwith the same Prompt name but different parameters, a new version of\nthe Prompt will be created.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "Prompts_create",
@@ -173,7 +177,9 @@
     },
     "/prompts/{id}": {
       "get": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Get Prompt",
         "description": "Retrieve the Prompt with the given ID.",
         "operationId": "Prompts_get",
@@ -241,7 +247,9 @@
         ]
       },
       "delete": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Delete Prompt",
         "description": "Delete the Prompt with the given ID.",
         "operationId": "Prompts_delete",
@@ -280,7 +288,9 @@
         ]
       },
       "patch": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Update Prompt",
         "description": "Update the Prompt with the given ID.",
         "operationId": "Prompts_update",
@@ -338,7 +348,9 @@
     },
     "/prompts/{id}/versions": {
       "get": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "List Versions",
         "description": "Get a list of the Prompt Versions for a Prompt.",
         "operationId": "Prompts_listVersions",
@@ -420,7 +432,9 @@
     },
     "/prompts/{id}/versions/{version_id}/deploy": {
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Deploy",
         "description": "Deploy Prompt to Environment.\n\nSet the deployed Version for the specified Environment. This Prompt Version\nwill be used for calls made to the Prompt in this Environment.",
         "operationId": "deploy_prompts__id__versions__version_id__deploy_post",
@@ -490,7 +504,9 @@
     },
     "/prompts/{id}/versions/{version_id}/commit": {
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Commit",
         "description": "Commit the Prompt Version with the given ID.",
         "operationId": "Prompts_commit",
@@ -559,7 +575,9 @@
     },
     "/prompts/{id}/log": {
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Log",
         "description": "Log to a Prompt.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
         "operationId": "Prompts_log",
@@ -639,7 +657,9 @@
     },
     "/prompts/{id}/call": {
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Call",
         "description": "Call a Prompt.\n\nCalling a Prompt subsequently calls the model provider before logging\nthe data to Humanloop.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
         "operationId": "Prompts_call",
@@ -727,7 +747,9 @@
     },
     "/prompts/{id}/evaluators": {
       "post": {
-        "tags": ["Prompts"],
+        "tags": [
+          "Prompts"
+        ],
         "summary": "Update Evaluators",
         "description": "Activate and deactivate Evaluators for the Prompt.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Prompt for monitoring purposes.",
         "operationId": "Update_evaluators_prompts__id__evaluators_post",
@@ -783,7 +805,9 @@
     },
     "/tools/templates": {
       "get": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "List Tool Templates",
         "operationId": "list_tool_templates_tools_templates_get",
         "parameters": [
@@ -838,7 +862,9 @@
     },
     "/tools": {
       "post": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Create A Tool",
         "description": "Create a Tool in an existing Directory. If no Directory is specified, the\nTool will be created in the Organization's root directory.",
         "operationId": "Tools_create",
@@ -883,7 +909,9 @@
     },
     "/tools/{id}": {
       "get": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Retrieve A Tool",
         "description": "Retrieve the Tool with the given ID.",
         "operationId": "Tools_get",
@@ -929,7 +957,9 @@
         ]
       },
       "delete": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Delete A Tool",
         "description": "Delete the Tool with the given ID.",
         "operationId": "Tools_delete",
@@ -968,7 +998,9 @@
         ]
       },
       "patch": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Update A Tool",
         "description": "Update the Tool with the given ID.",
         "operationId": "Tools_update",
@@ -1026,7 +1058,9 @@
     },
     "/tools/{id}/versions": {
       "get": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "List Tool Versions",
         "description": "Get a list of the Tool Versions for a Tool.",
         "operationId": "Tools_list",
@@ -1098,7 +1132,9 @@
     },
     "/tools/versions": {
       "post": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Commit A Tool Version",
         "description": "Commit a new Tool Version for the Tool with the given ID.",
         "operationId": "ToolVersions_commit",
@@ -1143,7 +1179,9 @@
     },
     "/tools/versions/{id}": {
       "get": {
-        "tags": ["Tools"],
+        "tags": [
+          "Tools"
+        ],
         "summary": "Retrieve A Tool Version",
         "description": "Retrieve the Tool Version with the given ID.",
         "operationId": "ToolVersions_get",
@@ -1191,7 +1229,9 @@
     },
     "/datasets": {
       "get": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "List ",
         "description": "Get a list of Datasets.",
         "operationId": "Datasets_list",
@@ -1305,7 +1345,9 @@
         ]
       },
       "post": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "Create Dataset",
         "description": "Create a Dataset.\n\nDataset have immutable versions. When you call this endpoint\nwith the same Dataset name but different parameters, a new version of\nthe Dataset will be created.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.\n\nBy default, the new Dataset version will be set to the list of Datapoints provided in\nthe request.\nYou can create a new version by adding or removing Datapoints from an existing version\nby specifying `action` as `add` or `remove` respectively. In this case, you may specify\nthe `version_id` or `environment` query parameters to identify the existing version to base\nthe new version on. If neither is provided, the default deployed version will be used.\n\nHumanloop also deduplicates Datapoints. If you try to add a Datapoint that already\nexists, it will be ignored.",
         "operationId": "Datasets_create",
@@ -1374,7 +1416,9 @@
     },
     "/datasets/{id}": {
       "get": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "Get Dataset",
         "description": "Retrieve the Dataset with the given ID.\n\nUnless `include_datapoints` is set to `true`, the response will not include\nthe Datapoints.\nUse the List Datapoints endpoint (`GET /{id}/datapoints`) to efficiently\nretrieve Datapoints for a large Dataset.",
         "operationId": "Datasets_get",
@@ -1454,7 +1498,9 @@
         ]
       },
       "delete": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "Delete Dataset",
         "description": "Delete the Dataset with the given ID.",
         "operationId": "Datasets_delete",
@@ -1493,7 +1539,9 @@
         ]
       },
       "patch": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "Update Dataset",
         "description": "Update the Dataset with the given ID.",
         "operationId": "Datasets_update",
@@ -1551,7 +1599,9 @@
     },
     "/datasets/{id}/datapoints": {
       "get": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "List Datapoints",
         "description": "List all Datapoints for the Dataset with the given ID.",
         "operationId": "Datasets_listDatapoints",
@@ -1647,7 +1697,9 @@
     },
     "/datasets/{id}/versions": {
       "get": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "List Versions",
         "description": "Get a list of the versions for a Dataset.",
         "operationId": "Datasets_listVersions",
@@ -1729,7 +1781,9 @@
     },
     "/datasets/{id}/versions/{version_id}/deploy": {
       "post": {
-        "tags": ["Datasets"],
+        "tags": [
+          "Datasets"
+        ],
         "summary": "Deploy",
         "description": "Deploy Dataset to Environment.\n\nSet the deployed Version for the specified Environment.",
         "operationId": "deploy_datasets__id__versions__version_id__deploy_post",
@@ -1799,7 +1853,9 @@
     },
     "/evaluations": {
       "get": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "List Evaluation Reports",
         "description": "List Evaluation Reports for the specified File.",
         "operationId": "Evaluations_list",
@@ -1865,7 +1921,9 @@
         ]
       },
       "post": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Create an Evaluation",
         "description": "Create an Evaluation.",
         "operationId": "Evaluations_create",
@@ -1910,7 +1968,9 @@
     },
     "/evaluations/{id}": {
       "get": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Get an Evaluation Report",
         "description": "Get an Evaluation Report.",
         "operationId": "Evaluations_get",
@@ -1956,7 +2016,9 @@
         ]
       },
       "delete": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Delete an Evaluation",
         "description": "Delete an Evaluation.",
         "operationId": "Evaluations_delete",
@@ -1995,7 +2057,9 @@
         ]
       },
       "patch": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Update an Evaluation",
         "description": "Update an Evaluation.",
         "operationId": "Evaluations_update",
@@ -2053,7 +2117,9 @@
     },
     "/evaluations/{id}/status": {
       "patch": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Update Status",
         "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses external or human evaluators\nas completed.",
         "operationId": "Evaluations_updateStatus",
@@ -2111,7 +2177,9 @@
     },
     "/evaluations/{id}/stats": {
       "get": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Get Evaluation Stats",
         "description": "Get Evaluation Stats.",
         "operationId": "Evaluations_getStats",
@@ -2159,7 +2227,9 @@
     },
     "/evaluations/{id}/progress": {
       "get": {
-        "tags": ["Evaluations"],
+        "tags": [
+          "Evaluations"
+        ],
         "summary": "Get Progress",
         "description": "Get missing data for an Evaluation.",
         "operationId": "Evaluations_getMissingData",
@@ -2207,7 +2277,9 @@
     },
     "/evaluators/default": {
       "get": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "List Default Evaluators",
         "description": "Get a list of default evaluators for the organization.",
         "operationId": "Evaluators_listDefault",
@@ -2246,7 +2318,9 @@
     },
     "/evaluators": {
       "post": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Create An Evaluator",
         "description": "Create an Evaluator in an existing Directory. If no Directory is specified, the\nEvaluator will be created in the Organization's root directory.",
         "operationId": "Evaluators_create",
@@ -2291,7 +2365,9 @@
     },
     "/evaluators/{id}": {
       "get": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Retrieve A Evaluator",
         "operationId": "Evaluators_get",
         "parameters": [
@@ -2336,7 +2412,9 @@
         ]
       },
       "delete": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Delete A Evaluator",
         "description": "Delete the Evaluator with the given ID.",
         "operationId": "Evaluators_delete",
@@ -2375,7 +2453,9 @@
         ]
       },
       "patch": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Update A Evaluator",
         "description": "Update the Evaluator with the given ID.",
         "operationId": "Evaluators_update",
@@ -2433,7 +2513,9 @@
     },
     "/evaluators/{id}/versions": {
       "get": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "List Evaluator Versions",
         "description": "Get a list of the Evaluator Versions for a Evaluator.",
         "operationId": "Evaluators_list",
@@ -2504,7 +2586,9 @@
     },
     "/evaluators/{id}/deployments": {
       "post": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Deploy",
         "description": "Deploy Evaluator Version to Environment.\n\nSet the deployed Version for the specified Environment. This Evaluator Version\nwill be used for calls made to the Evaluator in this Environment.",
         "operationId": "deploy_evaluators__id__deployments_post",
@@ -2552,7 +2636,9 @@
     },
     "/evaluators/versions": {
       "post": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Commit Evaluator Version",
         "description": "Commit a new Evaluator Version for the Evaluator with the given ID.",
         "operationId": "EvaluatorVersions_commit",
@@ -2620,7 +2706,9 @@
     },
     "/evaluators/versions/{id}": {
       "get": {
-        "tags": ["Evaluators"],
+        "tags": [
+          "Evaluators"
+        ],
         "summary": "Retrieve Evaluator Version",
         "description": "Retrieve the Evaluator Version with the given ID.",
         "operationId": "EvaluatorVersions_get",
@@ -2683,7 +2771,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["agent"],
+            "enum": [
+              "agent"
+            ],
             "title": "Type"
           },
           "created_by": {
@@ -2752,7 +2842,9 @@
           }
         },
         "type": "object",
-        "required": ["status"],
+        "required": [
+          "status"
+        ],
         "title": "Body_Evaluations_updateStatus"
       },
       "BooleanEvaluatorVersionStats": {
@@ -2832,7 +2924,11 @@
           }
         },
         "type": "object",
-        "required": ["value", "sentiment", "status"],
+        "required": [
+          "value",
+          "sentiment",
+          "status"
+        ],
         "title": "CategoricalFeedbackLabel"
       },
       "ChatMessage": {
@@ -2892,7 +2988,9 @@
           }
         },
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "title": "ChatMessage"
       },
       "ChatMessageWithToolCall": {
@@ -2963,12 +3061,19 @@
           }
         },
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "title": "ChatMessageWithToolCall"
       },
       "ChatRole": {
         "type": "string",
-        "enum": ["user", "assistant", "system", "tool"],
+        "enum": [
+          "user",
+          "assistant",
+          "system",
+          "tool"
+        ],
         "title": "ChatRole",
         "description": "An enumeration."
       },
@@ -2981,7 +3086,9 @@
           }
         },
         "type": "object",
-        "required": ["commit_message"],
+        "required": [
+          "commit_message"
+        ],
         "title": "CommitPromptRequest"
       },
       "ConfigResponse": {
@@ -3095,7 +3202,11 @@
           }
         },
         "type": "object",
-        "required": ["dataset", "evaluatees", "evaluators"],
+        "required": [
+          "dataset",
+          "evaluatees",
+          "evaluators"
+        ],
         "title": "CreateEvaluationRequest",
         "description": "Request model for creating an Evaluation.\n\nEvaluation benchmark your Prompt/Tool Versions. With the Datapoints in a Dataset Version,\nLogs corresponding to the Datapoint and each Evaluated Version are evaluated by the specified Evaluator Versions.\nAggregated statistics are then calculated and presented in the Evaluation."
       },
@@ -3122,7 +3233,9 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_type"],
+        "required": [
+          "evaluator_type"
+        ],
         "title": "CreateEvaluatorRequest"
       },
       "CreateExternalEvaluatorVersionRequest": {
@@ -3139,7 +3252,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["external"],
+            "enum": [
+              "external"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "external"
@@ -3164,7 +3279,11 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_id", "arguments_type", "return_type"],
+        "required": [
+          "evaluator_id",
+          "arguments_type",
+          "return_type"
+        ],
         "title": "CreateExternalEvaluatorVersionRequest"
       },
       "CreateHumanEvaluatorVersionRequest": {
@@ -3181,7 +3300,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["human"],
+            "enum": [
+              "human"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "human"
@@ -3206,7 +3327,11 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_id", "arguments_type", "return_type"],
+        "required": [
+          "evaluator_id",
+          "arguments_type",
+          "return_type"
+        ],
         "title": "CreateHumanEvaluatorVersionRequest"
       },
       "CreateLLMEvaluatorVersionRequest": {
@@ -3223,7 +3348,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["llm"],
+            "enum": [
+              "llm"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "llm"
@@ -3257,7 +3384,11 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_id", "arguments_type", "return_type"],
+        "required": [
+          "evaluator_id",
+          "arguments_type",
+          "return_type"
+        ],
         "title": "CreateLLMEvaluatorVersionRequest"
       },
       "CreatePromptLogResponse": {
@@ -3284,7 +3415,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "prompt_id", "version_id"],
+        "required": [
+          "id",
+          "prompt_id",
+          "version_id"
+        ],
         "title": "CreatePromptLogResponse"
       },
       "CreatePythonEvaluatorVersionRequest": {
@@ -3301,7 +3436,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["python"],
+            "enum": [
+              "python"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "python"
@@ -3331,7 +3468,11 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_id", "arguments_type", "return_type"],
+        "required": [
+          "evaluator_id",
+          "arguments_type",
+          "return_type"
+        ],
         "title": "CreatePythonEvaluatorVersionRequest"
       },
       "CreateToolRequest": {
@@ -3399,7 +3540,11 @@
           }
         },
         "type": "object",
-        "required": ["tool_id", "commit_message", "name"],
+        "required": [
+          "tool_id",
+          "commit_message",
+          "name"
+        ],
         "title": "CreateToolVersionRequest"
       },
       "DashboardConfiguration": {
@@ -3420,7 +3565,11 @@
           }
         },
         "type": "object",
-        "required": ["time_unit", "time_range_days", "model_config_ids"],
+        "required": [
+          "time_unit",
+          "time_range_days",
+          "model_config_ids"
+        ],
         "title": "DashboardConfiguration"
       },
       "DatapointResponse": {
@@ -3477,7 +3626,9 @@
           }
         },
         "type": "object",
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "title": "DatapointResponse"
       },
       "DatasetResponse": {
@@ -3591,12 +3742,20 @@
           }
         },
         "type": "object",
-        "required": ["id", "created_at", "name", "tag"],
+        "required": [
+          "id",
+          "created_at",
+          "name",
+          "tag"
+        ],
         "title": "EnvironmentResponse"
       },
       "EnvironmentTag": {
         "type": "string",
-        "enum": ["default", "other"],
+        "enum": [
+          "default",
+          "other"
+        ],
         "title": "EnvironmentTag",
         "description": "An enumeration."
       },
@@ -3614,7 +3773,10 @@
           }
         },
         "type": "object",
-        "required": ["datapoint", "logs_missing_for_versions"],
+        "required": [
+          "datapoint",
+          "logs_missing_for_versions"
+        ],
         "title": "EvaluatedReportDatapointMissingData"
       },
       "EvaluatedReportMissingEvaluatorLogs": {
@@ -3631,7 +3793,10 @@
           }
         },
         "type": "object",
-        "required": ["log", "evaluator_versions_missing_logs"],
+        "required": [
+          "log",
+          "evaluator_versions_missing_logs"
+        ],
         "title": "EvaluatedReportMissingEvaluatorLogs",
         "description": "Missing data an evaluator log for a evaluatee log"
       },
@@ -3666,7 +3831,9 @@
           }
         },
         "type": "object",
-        "required": ["version_id"],
+        "required": [
+          "version_id"
+        ],
         "title": "EvaluateeRequest"
       },
       "EvaluateeResponse": {
@@ -3686,7 +3853,10 @@
           }
         },
         "type": "object",
-        "required": ["version", "orchestrated"],
+        "required": [
+          "version",
+          "orchestrated"
+        ],
         "title": "EvaluateeResponse"
       },
       "EvaluationEvaluatorResponse": {
@@ -3701,7 +3871,10 @@
           }
         },
         "type": "object",
-        "required": ["version", "orchestrated"],
+        "required": [
+          "version",
+          "orchestrated"
+        ],
         "title": "EvaluationEvaluatorResponse"
       },
       "EvaluationReportMissingData": {
@@ -3722,7 +3895,10 @@
           }
         },
         "type": "object",
-        "required": ["datapoints", "logs"],
+        "required": [
+          "datapoints",
+          "logs"
+        ],
         "title": "EvaluationReportMissingData",
         "description": "Missing data in an Evaluation Report."
       },
@@ -3886,12 +4062,21 @@
           }
         },
         "type": "object",
-        "required": ["overall_stats", "version_stats"],
+        "required": [
+          "overall_stats",
+          "version_stats"
+        ],
         "title": "EvaluationStats"
       },
       "EvaluationStatus": {
         "type": "string",
-        "enum": ["pending", "running", "completed", "cancelled", "failed"],
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "cancelled",
+          "failed"
+        ],
         "title": "EvaluationStatus",
         "description": "Status of an evaluation."
       },
@@ -3933,7 +4118,10 @@
       },
       "EvaluatorArgumentsType": {
         "type": "string",
-        "enum": ["target_free", "target_required"],
+        "enum": [
+          "target_free",
+          "target_required"
+        ],
         "title": "EvaluatorArgumentsType",
         "description": "Enum representing the possible argument types of an evaluator."
       },
@@ -3951,7 +4139,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["evaluator"],
+            "enum": [
+              "evaluator"
+            ],
             "title": "Type"
           },
           "created_by": {
@@ -4017,7 +4207,13 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "status", "name", "evaluator_type"],
+        "required": [
+          "id",
+          "type",
+          "status",
+          "name",
+          "evaluator_type"
+        ],
         "title": "EvaluatorConfigResponse"
       },
       "EvaluatorInputResponse": {
@@ -4029,7 +4225,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "EvaluatorInputResponse"
       },
       "EvaluatorRequest": {
@@ -4047,7 +4245,9 @@
           }
         },
         "type": "object",
-        "required": ["version_id"],
+        "required": [
+          "version_id"
+        ],
         "title": "EvaluatorRequest"
       },
       "EvaluatorResponse": {
@@ -4124,13 +4324,21 @@
       },
       "EvaluatorReturnTypeEnum": {
         "type": "string",
-        "enum": ["boolean", "number"],
+        "enum": [
+          "boolean",
+          "number"
+        ],
         "title": "EvaluatorReturnTypeEnum",
         "description": "Enum representing the possible return types of an evaluator."
       },
       "EvaluatorType": {
         "type": "string",
-        "enum": ["python", "llm", "human", "external"],
+        "enum": [
+          "python",
+          "llm",
+          "human",
+          "external"
+        ],
         "title": "EvaluatorType",
         "description": "An enumeration."
       },
@@ -4262,7 +4470,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["evaluator"],
+            "enum": [
+              "evaluator"
+            ],
             "title": "Type",
             "default": "evaluator"
           },
@@ -4290,7 +4500,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["external"],
+            "enum": [
+              "external"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "external"
@@ -4332,13 +4544,22 @@
       },
       "FeedbackClass": {
         "type": "string",
-        "enum": ["select", "multi_select", "text", "number"],
+        "enum": [
+          "select",
+          "multi_select",
+          "text",
+          "number"
+        ],
         "title": "FeedbackClass",
         "description": "An enumeration."
       },
       "FeedbackLabelStatus": {
         "type": "string",
-        "enum": ["unset", "active", "inactive"],
+        "enum": [
+          "unset",
+          "active",
+          "inactive"
+        ],
         "title": "FeedbackLabelStatus",
         "description": "Controls whether the label is displayed in the UI."
       },
@@ -4391,7 +4612,11 @@
           }
         },
         "type": "object",
-        "required": ["type", "value", "id"],
+        "required": [
+          "type",
+          "value",
+          "id"
+        ],
         "title": "FeedbackResponse"
       },
       "FeedbackTypeModel": {
@@ -4418,7 +4643,9 @@
           }
         },
         "type": "object",
-        "required": ["type"],
+        "required": [
+          "type"
+        ],
         "title": "FeedbackTypeModel"
       },
       "FeedbackTypes": {
@@ -4440,7 +4667,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "FunctionTool",
         "description": "A function tool to be called by the model where user owns runtime."
       },
@@ -4452,7 +4681,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "FunctionToolChoice",
         "description": "A function tool to be called by the model where user owns runtime."
       },
@@ -4470,7 +4701,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["generic"],
+            "enum": [
+              "generic"
+            ],
             "title": "Type"
           },
           "created_by": {
@@ -4499,7 +4732,12 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "status", "name"],
+        "required": [
+          "id",
+          "type",
+          "status",
+          "name"
+        ],
         "title": "GenericConfigResponse"
       },
       "HTTPValidationError": {
@@ -4546,7 +4784,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["evaluator"],
+            "enum": [
+              "evaluator"
+            ],
             "title": "Type",
             "default": "evaluator"
           },
@@ -4574,7 +4814,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["human"],
+            "enum": [
+              "human"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "human"
@@ -4618,7 +4860,9 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["image_url"],
+            "enum": [
+              "image_url"
+            ],
             "title": "Type"
           },
           "image_url": {
@@ -4632,7 +4876,10 @@
           }
         },
         "type": "object",
-        "required": ["type", "image_url"],
+        "required": [
+          "type",
+          "image_url"
+        ],
         "title": "ImageChatContent"
       },
       "ImageUrl": {
@@ -4644,13 +4891,19 @@
           },
           "detail": {
             "type": "string",
-            "enum": ["high", "low", "auto"],
+            "enum": [
+              "high",
+              "low",
+              "auto"
+            ],
             "title": "Image detail level",
             "description": "Specify the detail level of the image provided to the model. For more details see: https://platform.openai.com/docs/guides/vision/low-or-high-fidelity-image-understanding"
           }
         },
         "type": "object",
-        "required": ["url"],
+        "required": [
+          "url"
+        ],
         "title": "ImageUrl"
       },
       "LLMEvaluatorVersionResponse": {
@@ -4684,7 +4937,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["evaluator"],
+            "enum": [
+              "evaluator"
+            ],
             "title": "Type",
             "default": "evaluator"
           },
@@ -4712,7 +4967,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["llm"],
+            "enum": [
+              "llm"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "llm"
@@ -4763,7 +5020,12 @@
       },
       "LabelSentiment": {
         "type": "string",
-        "enum": ["positive", "negative", "neutral", "unset"],
+        "enum": [
+          "positive",
+          "negative",
+          "neutral",
+          "unset"
+        ],
         "title": "LabelSentiment",
         "description": "How a label should be treated in calculating Version performance.\n\nUsed by a File's PAPV (Positive Action Per View) metric."
       },
@@ -4776,7 +5038,9 @@
           },
           "source": {
             "type": "string",
-            "enum": ["organization"],
+            "enum": [
+              "organization"
+            ],
             "title": "Tool source",
             "description": "The source of the linked tool. For a linked tool it should be `organization`"
           },
@@ -4797,7 +5061,10 @@
           }
         },
         "type": "object",
-        "required": ["id", "source"],
+        "required": [
+          "id",
+          "source"
+        ],
         "title": "LinkedToolRequest"
       },
       "ListDatasets": {
@@ -4812,7 +5079,9 @@
           }
         },
         "type": "object",
-        "required": ["records"],
+        "required": [
+          "records"
+        ],
         "title": "ListDatasets"
       },
       "ListEvaluatorVersionsResponse": {
@@ -4827,7 +5096,9 @@
           }
         },
         "type": "object",
-        "required": ["records"],
+        "required": [
+          "records"
+        ],
         "title": "ListEvaluatorVersionsResponse"
       },
       "ListPrompts": {
@@ -4842,7 +5113,9 @@
           }
         },
         "type": "object",
-        "required": ["records"],
+        "required": [
+          "records"
+        ],
         "title": "ListPrompts"
       },
       "ListToolVersionsResponse": {
@@ -4857,7 +5130,9 @@
           }
         },
         "type": "object",
-        "required": ["records"],
+        "required": [
+          "records"
+        ],
         "title": "ListToolVersionsResponse"
       },
       "LogResponse": {
@@ -5076,11 +5351,15 @@
             "anyOf": [
               {
                 "type": "string",
-                "enum": ["none"]
+                "enum": [
+                  "none"
+                ]
               },
               {
                 "type": "string",
-                "enum": ["auto"]
+                "enum": [
+                  "auto"
+                ]
               },
               {
                 "$ref": "#/components/schemas/ToolChoice"
@@ -5140,7 +5419,11 @@
           }
         },
         "type": "object",
-        "required": ["metric_id", "metric_name", "metric_value"],
+        "required": [
+          "metric_id",
+          "metric_name",
+          "metric_value"
+        ],
         "title": "MetricValueResponse"
       },
       "ModelConfigRequest": {
@@ -5275,13 +5558,17 @@
           },
           "type": {
             "type": "string",
-            "enum": ["model"],
+            "enum": [
+              "model"
+            ],
             "title": "Type"
           }
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["model"],
+        "required": [
+          "model"
+        ],
         "title": "ModelConfigRequest",
         "description": "Model config used for logging both chat and completion."
       },
@@ -5300,7 +5587,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["model"],
+            "enum": [
+              "model"
+            ],
             "title": "Type"
           },
           "name": {
@@ -5429,7 +5718,11 @@
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["id", "type", "model"],
+        "required": [
+          "id",
+          "type",
+          "model"
+        ],
         "title": "ModelConfigResponse",
         "description": "Model config request.\n\nContains fields that are common to all (i.e. both chat and complete) endpoints."
       },
@@ -5476,13 +5769,19 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "ModelConfigToolRequest",
         "description": "Definition of tool within a model config.\n\nThe subset of ToolConfig parameters received by the chat endpoint.\nDoes not have things like the signature or setup schema."
       },
       "ModelEndpoints": {
         "type": "string",
-        "enum": ["complete", "chat", "edit"],
+        "enum": [
+          "complete",
+          "chat",
+          "edit"
+        ],
         "title": "ModelEndpoints",
         "description": "Supported model provider endpoints."
       },
@@ -5517,7 +5816,10 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_id", "environment_id"],
+        "required": [
+          "evaluator_id",
+          "environment_id"
+        ],
         "title": "MonitoringEvaluatorEnvironmentRequest"
       },
       "MonitoringEvaluatorResponse": {
@@ -5561,12 +5863,20 @@
           }
         },
         "type": "object",
-        "required": ["version_reference", "state", "created_at", "updated_at"],
+        "required": [
+          "version_reference",
+          "state",
+          "created_at",
+          "updated_at"
+        ],
         "title": "MonitoringEvaluatorResponse"
       },
       "MonitoringEvaluatorState": {
         "type": "string",
-        "enum": ["active", "inactive"],
+        "enum": [
+          "active",
+          "inactive"
+        ],
         "title": "MonitoringEvaluatorState",
         "description": "State of an evaluator connected to a file"
       },
@@ -5579,7 +5889,9 @@
           }
         },
         "type": "object",
-        "required": ["evaluator_version_id"],
+        "required": [
+          "evaluator_version_id"
+        ],
         "title": "MonitoringEvaluatorVersionRequest"
       },
       "NumericEvaluatorVersionStats": {
@@ -5639,7 +5951,12 @@
       },
       "ObservabilityStatus": {
         "type": "string",
-        "enum": ["pending", "running", "completed", "failed"],
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed"
+        ],
         "title": "ObservabilityStatus",
         "description": "Status of a project datum for observability."
       },
@@ -5662,7 +5979,11 @@
           }
         },
         "type": "object",
-        "required": ["num_datapoints", "total_logs", "total_evaluator_logs"],
+        "required": [
+          "num_datapoints",
+          "total_logs",
+          "total_evaluator_logs"
+        ],
         "title": "OverallStats"
       },
       "PaginatedData_DatapointResponse_": {
@@ -5688,7 +6009,12 @@
           }
         },
         "type": "object",
-        "required": ["records", "page", "size", "total"],
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
         "title": "PaginatedData[DatapointResponse]"
       },
       "PaginatedData_DatasetResponse_": {
@@ -5714,7 +6040,12 @@
           }
         },
         "type": "object",
-        "required": ["records", "page", "size", "total"],
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
         "title": "PaginatedData[DatasetResponse]"
       },
       "PaginatedData_EvaluationResponse_": {
@@ -5740,18 +6071,31 @@
           }
         },
         "type": "object",
-        "required": ["records", "page", "size", "total"],
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
         "title": "PaginatedData[EvaluationResponse]"
       },
       "PlatformAccessEnum": {
         "type": "string",
-        "enum": ["superadmin", "supportadmin", "user"],
+        "enum": [
+          "superadmin",
+          "supportadmin",
+          "user"
+        ],
         "title": "PlatformAccessEnum",
         "description": "An enumeration."
       },
       "ProjectSortBy": {
         "type": "string",
-        "enum": ["created_at", "updated_at", "name"],
+        "enum": [
+          "created_at",
+          "updated_at",
+          "name"
+        ],
         "title": "ProjectSortBy",
         "description": "An enumeration."
       },
@@ -5824,7 +6168,9 @@
           }
         },
         "type": "object",
-        "required": ["index"],
+        "required": [
+          "index"
+        ],
         "title": "PromptCallLogResponse",
         "description": "Sample specific response details for a Prompt call"
       },
@@ -5851,11 +6197,15 @@
             "anyOf": [
               {
                 "type": "string",
-                "enum": ["none"]
+                "enum": [
+                  "none"
+                ]
               },
               {
                 "type": "string",
-                "enum": ["auto"]
+                "enum": [
+                  "auto"
+                ]
               },
               {
                 "$ref": "#/components/schemas/ToolChoice"
@@ -5985,11 +6335,15 @@
             "anyOf": [
               {
                 "type": "string",
-                "enum": ["none"]
+                "enum": [
+                  "none"
+                ]
               },
               {
                 "type": "string",
-                "enum": ["auto"]
+                "enum": [
+                  "auto"
+                ]
               },
               {
                 "$ref": "#/components/schemas/ToolChoice"
@@ -6069,7 +6423,11 @@
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["prompt", "id", "logs"],
+        "required": [
+          "prompt",
+          "id",
+          "logs"
+        ],
         "title": "PromptCallResponse",
         "description": "Response model for a Prompt call with potentially multiple log samples."
       },
@@ -6157,7 +6515,12 @@
           }
         },
         "type": "object",
-        "required": ["index", "id", "prompt_id", "version_id"],
+        "required": [
+          "index",
+          "id",
+          "prompt_id",
+          "version_id"
+        ],
         "title": "PromptCallStreamResponse",
         "description": "Response model for calling Prompt in streaming mode."
       },
@@ -6170,7 +6533,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "PromptInputResponse"
       },
       "PromptLogRequest": {
@@ -6230,11 +6595,15 @@
             "anyOf": [
               {
                 "type": "string",
-                "enum": ["none"]
+                "enum": [
+                  "none"
+                ]
               },
               {
                 "type": "string",
-                "enum": ["auto"]
+                "enum": [
+                  "auto"
+                ]
               },
               {
                 "$ref": "#/components/schemas/ToolChoice"
@@ -6475,7 +6844,9 @@
           }
         },
         "type": "object",
-        "required": ["model"],
+        "required": [
+          "model"
+        ],
         "title": "PromptRequest",
         "description": "Request model for creating a new Prompt"
       },
@@ -6824,7 +7195,9 @@
           }
         },
         "type": "object",
-        "required": ["model"],
+        "required": [
+          "model"
+        ],
         "title": "PromptVersionRequest"
       },
       "ProviderApiKeys": {
@@ -6892,7 +7265,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["evaluator"],
+            "enum": [
+              "evaluator"
+            ],
             "title": "Type",
             "default": "evaluator"
           },
@@ -6920,7 +7295,9 @@
           },
           "evaluator_type": {
             "type": "string",
-            "enum": ["python"],
+            "enum": [
+              "python"
+            ],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "python"
@@ -6969,18 +7346,25 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["json_object"],
+            "enum": [
+              "json_object"
+            ],
             "title": "Type"
           }
         },
         "type": "object",
-        "required": ["type"],
+        "required": [
+          "type"
+        ],
         "title": "ResponseFormat",
         "description": "Response format of the model."
       },
       "SortOrder": {
         "type": "string",
-        "enum": ["asc", "desc"],
+        "enum": [
+          "asc",
+          "desc"
+        ],
         "title": "SortOrder",
         "description": "An enumeration."
       },
@@ -6988,7 +7372,9 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["text"],
+            "enum": [
+              "text"
+            ],
             "title": "Type"
           },
           "text": {
@@ -6998,12 +7384,19 @@
           }
         },
         "type": "object",
-        "required": ["type", "text"],
+        "required": [
+          "type",
+          "text"
+        ],
         "title": "TextChatContent"
       },
       "TimeUnit": {
         "type": "string",
-        "enum": ["day", "week", "month"],
+        "enum": [
+          "day",
+          "week",
+          "month"
+        ],
         "title": "TimeUnit",
         "description": "An enumeration."
       },
@@ -7021,7 +7414,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "function"],
+        "required": [
+          "id",
+          "type",
+          "function"
+        ],
         "title": "ToolCall",
         "description": "A tool call to be made."
       },
@@ -7035,7 +7432,10 @@
           }
         },
         "type": "object",
-        "required": ["type", "function"],
+        "required": [
+          "type",
+          "function"
+        ],
         "title": "ToolChoice",
         "description": "Tool choice to force the model to use a tool."
       },
@@ -7082,12 +7482,17 @@
           },
           "type": {
             "type": "string",
-            "enum": ["tool"],
+            "enum": [
+              "tool"
+            ],
             "title": "Type"
           }
         },
         "type": "object",
-        "required": ["name", "type"],
+        "required": [
+          "name",
+          "type"
+        ],
         "title": "ToolConfigRequest",
         "description": "Definition of tool within a model config.\n\nThe subset of ToolConfig parameters received by the chat endpoint.\nDoes not have things like the signature or setup schema."
       },
@@ -7105,7 +7510,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["tool"],
+            "enum": [
+              "tool"
+            ],
             "title": "Type"
           },
           "created_by": {
@@ -7173,7 +7580,12 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "status", "name"],
+        "required": [
+          "id",
+          "type",
+          "status",
+          "name"
+        ],
         "title": "ToolConfigResponse"
       },
       "ToolInputResponse": {
@@ -7185,7 +7597,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "ToolInputResponse"
       },
       "ToolRequest": {
@@ -7212,7 +7626,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "ToolRequest"
       },
       "ToolResultResponse": {
@@ -7235,13 +7651,21 @@
           }
         },
         "type": "object",
-        "required": ["id", "name", "signature", "result"],
+        "required": [
+          "id",
+          "name",
+          "signature",
+          "result"
+        ],
         "title": "ToolResultResponse",
         "description": "A result from a tool used to populate the prompt template"
       },
       "ToolSource": {
         "type": "string",
-        "enum": ["organization", "inline"],
+        "enum": [
+          "organization",
+          "inline"
+        ],
         "title": "ToolSource",
         "description": "Source of tool. Used to differentiate between tools and tool versions when they are combined in a list.\n\nV4 uses organization and inline. Those are deprecated and will be removed in favour of tool and tool_version."
       },
@@ -7268,7 +7692,10 @@
           }
         },
         "type": "object",
-        "required": ["name", "description"],
+        "required": [
+          "name",
+          "description"
+        ],
         "title": "ToolTemplateResponse"
       },
       "ToolVersionResponse": {
@@ -7332,7 +7759,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["tool"],
+            "enum": [
+              "tool"
+            ],
             "title": "Type",
             "default": "tool"
           },
@@ -7458,7 +7887,11 @@
       },
       "UpdateDatesetAction": {
         "type": "string",
-        "enum": ["set", "add", "remove"],
+        "enum": [
+          "set",
+          "add",
+          "remove"
+        ],
         "title": "UpdateDatesetAction",
         "description": "An enumeration."
       },
@@ -7540,7 +7973,11 @@
           }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       },
       "VersionDeploymentResponse": {
@@ -7574,12 +8011,18 @@
           },
           "type": {
             "type": "string",
-            "enum": ["environment"],
+            "enum": [
+              "environment"
+            ],
             "title": "Type"
           }
         },
         "type": "object",
-        "required": ["file", "environment", "type"],
+        "required": [
+          "file",
+          "environment",
+          "type"
+        ],
         "title": "VersionDeploymentResponse",
         "description": "A variable reference to the Version deployed to an Environment"
       },
@@ -7603,7 +8046,11 @@
           }
         },
         "type": "object",
-        "required": ["version_id", "evaluator_id", "evaluator_version_id"],
+        "required": [
+          "version_id",
+          "evaluator_id",
+          "evaluator_version_id"
+        ],
         "title": "VersionEvaluatorAggregateResponse"
       },
       "VersionIdResponse": {
@@ -7622,12 +8069,17 @@
           },
           "type": {
             "type": "string",
-            "enum": ["version"],
+            "enum": [
+              "version"
+            ],
             "title": "Type"
           }
         },
         "type": "object",
-        "required": ["version", "type"],
+        "required": [
+          "version",
+          "type"
+        ],
         "title": "VersionIdResponse",
         "description": "A reference to a specific Version by its ID"
       },
@@ -7678,19 +8130,29 @@
           }
         },
         "type": "object",
-        "required": ["version_id", "num_logs", "evaluator_version_stats"],
+        "required": [
+          "version_id",
+          "num_logs",
+          "evaluator_version_stats"
+        ],
         "title": "VersionStats",
         "description": "Stats for an Evaluated Version in the Evaluation Report."
       },
       "VersionStatus": {
         "type": "string",
-        "enum": ["uncommitted", "committed", "deleted"],
+        "enum": [
+          "uncommitted",
+          "committed",
+          "deleted"
+        ],
         "title": "VersionStatus",
         "description": "An enumeration."
       },
       "src__domain__chat_types__enums__ToolType": {
         "type": "string",
-        "enum": ["function"],
+        "enum": [
+          "function"
+        ],
         "title": "ToolType",
         "description": "The type of tool to call."
       },
@@ -7736,12 +8198,21 @@
           }
         },
         "type": "object",
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "title": "ToolResponse"
       },
       "src__external__app__models__v4__feedback__FeedbackType": {
         "type": "string",
-        "enum": ["rating", "action", "issue", "correction", "comment"],
+        "enum": [
+          "rating",
+          "action",
+          "issue",
+          "correction",
+          "comment"
+        ],
         "title": "FeedbackType",
         "description": "An enumeration."
       },
@@ -7769,7 +8240,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "email_address", "verified"],
+        "required": [
+          "id",
+          "email_address",
+          "verified"
+        ],
         "title": "UserResponse"
       },
       "src__external__app__models__v5__datasets__DatasetRequest": {
@@ -7804,7 +8279,9 @@
           }
         },
         "type": "object",
-        "required": ["datapoints"],
+        "required": [
+          "datapoints"
+        ],
         "title": "DatasetRequest"
       },
       "src__external__app__models__v5__evaluations__DatasetRequest": {
@@ -7816,12 +8293,20 @@
           }
         },
         "type": "object",
-        "required": ["version_id"],
+        "required": [
+          "version_id"
+        ],
         "title": "DatasetRequest"
       },
       "src__external__app__models__v5__feedback__FeedbackType": {
         "type": "string",
-        "enum": ["rating", "action", "issue", "correction", "comment"],
+        "enum": [
+          "rating",
+          "action",
+          "issue",
+          "correction",
+          "comment"
+        ],
         "title": "FeedbackType",
         "description": "An enumeration."
       },
@@ -7854,7 +8339,9 @@
           }
         },
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "title": "ToolResponse"
       },
       "src__external__app__models__v5__tools__tools__ToolResponse": {
@@ -7948,7 +8435,10 @@
           }
         },
         "type": "object",
-        "required": ["id", "email_address"],
+        "required": [
+          "id",
+          "email_address"
+        ],
         "title": "UserResponse"
       }
     },
@@ -7962,7 +8452,11 @@
     }
   },
   "x-readme": {
-    "samples-languages": ["python", "javascript", "curl"]
+    "samples-languages": [
+      "python",
+      "javascript",
+      "curl"
+    ]
   },
   "tags": [
     {

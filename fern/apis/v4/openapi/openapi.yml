@@ -655,6 +655,14 @@ paths:
             description: Whether to include evaluator aggregates in the response.
           name: evaluator_aggregates
           in: query
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
+          in: query
       responses:
         "200":
           description: Successful Response
@@ -704,6 +712,14 @@ paths:
             default: 10
           name: size
           in: query
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
+          in: query
       responses:
         "200":
           description: Successful Response
@@ -739,6 +755,14 @@ paths:
             description: String ID of project. Starts with `pr_`.
           name: project_id
           in: path
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
+          in: query
         - description: Whether to include evaluator aggregates in the response.
           required: false
           schema:
@@ -821,6 +845,14 @@ paths:
             description: ID of the evaluation run. Starts with `evrun_`.
           name: evaluation_id
           in: path
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
+          in: query
       requestBody:
         content:
           application/json:
@@ -861,6 +893,14 @@ paths:
             description: ID of the evaluation run. Starts with `evrun_`.
           name: evaluation_id
           in: path
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
+          in: query
       requestBody:
         content:
           application/json:
@@ -1036,6 +1076,14 @@ paths:
             title: Page
             default: 0
           name: page
+          in: query
+        - description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          required: false
+          schema:
+            type: string
+            title: Evaluatee ID
+            description: String ID of evaluatee version to return. If not defined, the first evaluatee will be returned. Starts with `evv_`.
+          name: evaluatee_id
           in: query
       responses:
         "200":
@@ -3935,11 +3983,6 @@ components:
             - $ref: "#/components/schemas/ProviderApiKeys"
           title: Provider API Keys
           description: API keys required by each provider to make API calls. The API keys provided here are not stored by Humanloop. If not specified here, Humanloop will fall back to the key saved to your organization. Ensure you provide an API key for the provider for the model config you are evaluating, or have one saved to your organization.
-        max_concurrency:
-          type: integer
-          title: Maximum concurrency
-          description: "The maximum number of concurrent generations to run. A higher value will result in faster completion of the evaluation but may place higher load on your provider rate-limits. "
-          default: 5
         hl_generated:
           type: boolean
           title: Humanloop generated
@@ -4432,8 +4475,8 @@ components:
         - pending
         - running
         - completed
-        - failed
         - cancelled
+        - failed
       title: EvaluationStatus
       description: Status of an evaluation.
     EvaluatorArgumentsType:
@@ -5232,6 +5275,11 @@ components:
           type: string
           title: Model output
           description: Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later
+        judgment:
+          anyOf:
+            - type: boolean
+            - type: number
+          title: Judgment
         config_id:
           type: string
           title: Config ID
@@ -5374,6 +5422,11 @@ components:
           type: string
           title: Model output
           description: Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later
+        judgment:
+          anyOf:
+            - type: boolean
+            - type: number
+          title: Judgment
         config_id:
           type: string
           title: Config ID
@@ -5483,6 +5536,12 @@ components:
           type: string
           format: date-time
           title: Updated At
+        batch_ids:
+          items:
+            type: string
+          type: array
+          title: Batch IDs
+          description: List of batch IDs the log belongs to.
       type: object
       required:
         - id
