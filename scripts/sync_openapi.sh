@@ -3,6 +3,9 @@
 # This script is used to sync the OpenAPI specification from the backend
 
 # TO USE:
+# 0. install yq and prettier
+# brew install yq
+# npm install -g prettier
 # 1. Set API_URL to the URL of the backend API (if local, make sure it is running)
 # 2. Run the script
 
