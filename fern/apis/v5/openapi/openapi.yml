@@ -431,20 +431,20 @@ paths:
             description: Unique identifier for Prompt.
           name: id
           in: path
-        - description: A specific Version Id  of the Prompt to retrieve.
+        - description: A specific version Id of the Prompt to log to.
           required: false
           schema:
             type: string
             title: Version Id
-            description: A specific Version Id  of the Prompt to retrieve.
+            description: A specific version Id of the Prompt to log to.
           name: version_id
           in: query
-        - description: An environment tag to retrieve a deployed Version from.
+        - description: An environment tag of the deployed version to log to.
           required: false
           schema:
             type: string
             title: Environment
-            description: An environment tag to retrieve a deployed Version from.
+            description: An environment tag of the deployed version to log to.
           name: environment
           in: query
       requestBody:
@@ -496,20 +496,20 @@ paths:
             description: Unique identifier for Prompt.
           name: id
           in: path
-        - description: A specific Version Id  of the Prompt to retrieve.
+        - description: A specific version Id of the Prompt to log to.
           required: false
           schema:
             type: string
             title: Version Id
-            description: A specific Version Id  of the Prompt to retrieve.
+            description: A specific version Id of the Prompt to log to.
           name: version_id
           in: query
-        - description: An environment tag to retrieve a deployed Version from.
+        - description: An environment tag of the deployed version to log to.
           required: false
           schema:
             type: string
             title: Environment
-            description: An environment tag to retrieve a deployed Version from.
+            description: An environment tag of the deployed version to log to.
           name: environment
           in: query
       requestBody:
@@ -546,7 +546,7 @@ paths:
 
         An activated Evaluator will automatically be run on all new Logs
         within the Prompt for monitoring purposes.
-      operationId: Update_evaluators_prompts__id__evaluators_post
+      operationId: update_evaluators_prompts__id__evaluators_post
       parameters:
         - required: true
           schema:
@@ -680,7 +680,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ToolResponse"
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
         "422":
           description: Validation Error
           content:
@@ -731,7 +731,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ToolResponse"
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
         "422":
           description: Validation Error
           content:
@@ -793,7 +793,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ToolResponse"
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
         "422":
           description: Validation Error
           content:
@@ -814,7 +814,7 @@ paths:
           required: true
           schema:
             type: string
-            title: Prompt ID
+            title: Tool ID
             description: Unique identifier for the Tool.
           name: id
           in: path
@@ -847,6 +847,203 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListTools"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /tools/{id}/versions/{version_id}/deploy:
+    post:
+      tags:
+        - Tools
+      summary: Deploy
+      description: |-
+        Deploy Tool to Environment.
+
+        Set the deployed Version for the specified Environment. This Tool Version
+        will be used for calls made to the Tool in this Environment.
+      operationId: deploy_tools__id__versions__version_id__deploy_post
+      parameters:
+        - description: Unique identifier for Tool.
+          required: true
+          schema:
+            type: string
+            title: Tool ID
+            description: Unique identifier for Tool.
+          name: id
+          in: path
+        - description: Unique identifier for the specific version of the Tool.
+          required: true
+          schema:
+            type: string
+            title: Version ID
+            description: Unique identifier for the specific version of the Tool.
+          name: version_id
+          in: path
+        - description: Unique identifier for the Environment to deploy the Version to.
+          required: true
+          schema:
+            type: string
+            title: Environment ID
+            description: Unique identifier for the Environment to deploy the Version to.
+          name: environment_id
+          in: query
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      tags:
+        - Tools
+      summary: Commit
+      description: Commit the Tool Version with the given ID.
+      operationId: Tools_commit
+      parameters:
+        - description: Unique identifier for Tool.
+          required: true
+          schema:
+            type: string
+            title: Tool ID
+            description: Unique identifier for Tool.
+          name: id
+          in: path
+        - description: Unique identifier for the specific version of the Tool.
+          required: true
+          schema:
+            type: string
+            title: Version ID
+            description: Unique identifier for the specific version of the Tool.
+          name: version_id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommitRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /tools/{id}/log:
+    post:
+      tags:
+        - Tools
+      summary: Log
+      description: |-
+        Log to a Tool.
+
+        You can use query parameters version_id, or environment, to target
+        an existing version of the Tool. Otherwise the default deployed version will be chosen.
+
+        Instead of targeting an existing version explicitly, you can instead pass in
+        Tool details in the request body. In this case, we will check if the details correspond
+        to an existing version of the Tool, if not we will create a new version. This is helpful
+        in the case where you are storing or deriving your Tool details in code.
+      operationId: Tools_log
+      parameters:
+        - description: Unique identifier for Tool.
+          required: true
+          schema:
+            type: string
+            title: Tool ID
+            description: Unique identifier for Tool.
+          name: id
+          in: path
+        - description: A specific version Id of the Tool to log to.
+          required: false
+          schema:
+            type: string
+            title: Version Id
+            description: A specific version Id of the Tool to log to.
+          name: version_id
+          in: query
+        - description: An environment tag of the deployed version to log to.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: An environment tag of the deployed version to log to.
+          name: environment
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToolLogRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateToolLogResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /tools/{id}/evaluators:
+    post:
+      tags:
+        - Tools
+      summary: Update Evaluators
+      description: |-
+        Activate and deactivate Evaluators for the Tool.
+
+        An activated Evaluator will automatically be run on all new Logs
+        within the Tool for monitoring purposes.
+      operationId: update_evaluators_tools__id__evaluators_post
+      parameters:
+        - required: true
+          schema:
+            type: string
+            title: Id
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvaluatorActivationDeactivationRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
         "422":
           description: Validation Error
           content:
@@ -1278,6 +1475,51 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
+  /datasets/{id}/versions/{version_id}/commit:
+    post:
+      tags:
+        - Datasets
+      summary: Commit
+      description: Commit the Dataset Version with the given ID.
+      operationId: Datasets_commit
+      parameters:
+        - description: Unique identifier for Dataset.
+          required: true
+          schema:
+            type: string
+            title: Dataset ID
+            description: Unique identifier for Dataset.
+          name: id
+          in: path
+        - description: Unique identifier for the specific version of the Dataset.
+          required: true
+          schema:
+            type: string
+            title: Version ID
+            description: Unique identifier for the specific version of the Dataset.
+          name: version_id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommitRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
   /datasets/{id}/versions/{version_id}/deploy:
     post:
       tags:
@@ -1596,23 +1838,76 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators/default:
+  /evaluators:
     get:
       tags:
         - Evaluators
-      summary: List Default Evaluators
-      description: Get a list of default evaluators for the organization.
-      operationId: Evaluators_listDefault
+      summary: "List "
+      description: Get a list of Evaluators.
+      operationId: Evaluators_list
+      parameters:
+        - description: Page offset for pagination.
+          required: false
+          schema:
+            type: integer
+            minimum: 1.0
+            title: Page index
+            description: Page offset for pagination.
+            default: 1
+          name: page
+          in: query
+        - description: Page size for pagination. Number of Evaluators to fetch.
+          required: false
+          schema:
+            type: integer
+            title: Page size
+            description: Page size for pagination. Number of Evaluators to fetch.
+            default: 10
+          name: size
+          in: query
+        - description: Case-insensitive filter for Evaluator name.
+          required: false
+          schema:
+            type: string
+            title: Evaluator name filter
+            description: Case-insensitive filter for Evaluator name.
+          name: name
+          in: query
+        - description: Case-insensitive filter for users in the Evaluator. This filter matches against both email address and name of users.
+          required: false
+          schema:
+            type: string
+            title: User filter
+            description: Case-insensitive filter for users in the Evaluator. This filter matches against both email address and name of users.
+          name: user_filter
+          in: query
+        - description: Field to sort Evaluators by
+          required: false
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ProjectSortBy"
+            title: Sort by
+            description: Field to sort Evaluators by
+            default: created_at
+          name: sort_by
+          in: query
+        - description: Direction to sort by.
+          required: false
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/SortOrder"
+            title: Sort order
+            description: Direction to sort by.
+            default: desc
+          name: order
+          in: query
       responses:
         "200":
           description: Successful Response
           content:
             application/json:
               schema:
-                items:
-                  $ref: "#/components/schemas/EvaluatorResponse"
-                type: array
-                title: Response Evaluators Listdefault
+                $ref: "#/components/schemas/ListEvaluators"
         "422":
           description: Validation Error
           content:
@@ -1621,23 +1916,29 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators:
     post:
       tags:
         - Evaluators
-      summary: Create An Evaluator
+      summary: Create Evaluator
       description: |-
-        Create an Evaluator in an existing Directory. If no Directory is specified, the
-        Evaluator will be created in the Organization's root directory.
+        Create an Evaluator.
+
+        Evaluators have immutable versions. When you call this endpoint
+        with the same Evaluator name but different spec, a new version of
+        the Evaluator will be created.
+
+        If you provide a commit message, then the new version will be committed;
+        otherwise it will be uncommitted. If you try to commit an already committed version,
+        an exception will be raised.
       operationId: Evaluators_create
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateEvaluatorRequest"
+              $ref: "#/components/schemas/src__external__app__models__v5__evaluators__EvaluatorRequest"
         required: true
       responses:
-        "201":
+        "200":
           description: Successful Response
           content:
             application/json:
@@ -1655,17 +1956,38 @@ paths:
     get:
       tags:
         - Evaluators
-      summary: Retrieve A Evaluator
+      summary: Get Evaluator
+      description: |-
+        Retrieve the Evaluator with the given ID.
+
+        By default the deployed version of the Evaluator is returned. Use the query parameters
+        `version_id` or `environment` to target a specific version of the Evaluator.
       operationId: Evaluators_get
       parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
+        - description: Unique identifier for Evaluator.
           required: true
           schema:
             type: string
             title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
+            description: Unique identifier for Evaluator.
           name: id
           in: path
+        - description: A specific Version Id  of the Evaluator to retrieve.
+          required: false
+          schema:
+            type: string
+            title: Version Id
+            description: A specific Version Id  of the Evaluator to retrieve.
+          name: version_id
+          in: query
+        - description: An environment tag to retrieve a deployed Version from.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: An environment tag to retrieve a deployed Version from.
+          name: environment
+          in: query
       responses:
         "200":
           description: Successful Response
@@ -1684,16 +2006,16 @@ paths:
     delete:
       tags:
         - Evaluators
-      summary: Delete A Evaluator
+      summary: Delete Evaluator
       description: Delete the Evaluator with the given ID.
       operationId: Evaluators_delete
       parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
+        - description: Unique identifier for Evaluator.
           required: true
           schema:
             type: string
             title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
+            description: Unique identifier for Evaluator.
           name: id
           in: path
       responses:
@@ -1710,16 +2032,16 @@ paths:
     patch:
       tags:
         - Evaluators
-      summary: Update A Evaluator
+      summary: Update Evaluator
       description: Update the Evaluator with the given ID.
       operationId: Evaluators_update
       parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
+        - description: Unique identifier for Evaluator.
           required: true
           schema:
             type: string
             title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
+            description: Unique identifier for Evaluator.
           name: id
           in: path
       requestBody:
@@ -1747,16 +2069,16 @@ paths:
     get:
       tags:
         - Evaluators
-      summary: List Evaluator Versions
-      description: Get a list of the Evaluator Versions for a Evaluator.
-      operationId: Evaluators_list
+      summary: List Versions
+      description: Get a list of all the versions of an Evaluator.
+      operationId: Evaluators_listVersions
       parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
+        - description: Unique identifier for the Evaluator.
           required: true
           schema:
             type: string
-            title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
+            title: Prompt ID
+            description: Unique identifier for the Evaluator.
           name: id
           in: path
         - description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
@@ -1766,6 +2088,14 @@ paths:
               - $ref: "#/components/schemas/VersionStatus"
             description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
           name: status
+          in: query
+        - description: Filter versions by environment tag. If no environment is provided, all versions are returned.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: Filter versions by environment tag. If no environment is provided, all versions are returned.
+          name: environment
           in: query
         - required: false
           schema:
@@ -1779,7 +2109,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListEvaluatorVersionsResponse"
+                $ref: "#/components/schemas/ListEvaluators"
         "422":
           description: Validation Error
           content:
@@ -1788,26 +2118,42 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators/{id}/deployments:
+  /evaluators/{id}/versions/{version_id}/deploy:
     post:
       tags:
         - Evaluators
       summary: Deploy
       description: |-
-        Deploy Evaluator Version to Environment.
+        Deploy Evaluator to Environment.
 
         Set the deployed Version for the specified Environment. This Evaluator Version
         will be used for calls made to the Evaluator in this Environment.
-      operationId: deploy_evaluators__id__deployments_post
+      operationId: deploy_evaluators__id__versions__version_id__deploy_post
       parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
+        - description: Unique identifier for Evaluator.
           required: true
           schema:
             type: string
             title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
+            description: Unique identifier for Evaluator.
           name: id
           in: path
+        - description: Unique identifier for the specific version of the Evaluator.
+          required: true
+          schema:
+            type: string
+            title: Version ID
+            description: Unique identifier for the specific version of the Evaluator.
+          name: version_id
+          in: path
+        - description: Unique identifier for the Environment to deploy the Version to.
+          required: true
+          schema:
+            type: string
+            title: Environment ID
+            description: Unique identifier for the Environment to deploy the Version to.
+          name: environment_id
+          in: query
       responses:
         "200":
           description: Successful Response
@@ -1823,38 +2169,43 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators/versions:
+  /evaluators/{id}/versions/{version_id}/commit:
     post:
       tags:
         - Evaluators
-      summary: Commit Evaluator Version
-      description: Commit a new Evaluator Version for the Evaluator with the given ID.
-      operationId: EvaluatorVersions_commit
+      summary: Commit
+      description: Commit the Evaluator Version with the given ID.
+      operationId: Evaluators_commit
+      parameters:
+        - description: Unique identifier for Prompt.
+          required: true
+          schema:
+            type: string
+            title: Evaluator ID
+            description: Unique identifier for Prompt.
+          name: id
+          in: path
+        - description: Unique identifier for the specific version of the Evaluator.
+          required: true
+          schema:
+            type: string
+            title: Version ID
+            description: Unique identifier for the specific version of the Evaluator.
+          name: version_id
+          in: path
       requestBody:
         content:
           application/json:
             schema:
-              oneOf:
-                - $ref: "#/components/schemas/CreateLLMEvaluatorVersionRequest"
-                - $ref: "#/components/schemas/CreatePythonEvaluatorVersionRequest"
-                - $ref: "#/components/schemas/CreateHumanEvaluatorVersionRequest"
-                - $ref: "#/components/schemas/CreateExternalEvaluatorVersionRequest"
-              title: Request
-              discriminator:
-                propertyName: evaluator_type
-                mapping:
-                  llm: "#/components/schemas/CreateLLMEvaluatorVersionRequest"
-                  python: "#/components/schemas/CreatePythonEvaluatorVersionRequest"
-                  human: "#/components/schemas/CreateHumanEvaluatorVersionRequest"
-                  external: "#/components/schemas/CreateExternalEvaluatorVersionRequest"
+              $ref: "#/components/schemas/CommitRequest"
         required: true
       responses:
-        "201":
+        "200":
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvaluatorVersionResponse"
+                $ref: "#/components/schemas/EvaluatorResponse"
         "422":
           description: Validation Error
           content:
@@ -1863,29 +2214,54 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators/versions/{id}:
+  /evaluators/default:
     get:
       tags:
         - Evaluators
-      summary: Retrieve Evaluator Version
-      description: Retrieve the Evaluator Version with the given ID.
-      operationId: EvaluatorVersions_get
-      parameters:
-        - description: Unique identifier for Evaluator. Starts with `ev_`.
-          required: true
-          schema:
-            type: string
-            title: Evaluator ID
-            description: Unique identifier for Evaluator. Starts with `ev_`.
-          name: id
-          in: path
+      summary: List Default Evaluators
+      description: Get a list of default evaluators for the organization.
+      operationId: Evaluators_listDefault
       responses:
         "200":
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvaluatorVersionResponse"
+                items:
+                  $ref: "#/components/schemas/EvaluatorResponse"
+                type: array
+                title: Response Evaluators Listdefault
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /evaluators/debug:
+    post:
+      tags:
+        - Evaluators
+      summary: Debug
+      description: Run a synchronous evaluator execution on a collection of datapoints.
+      operationId: debug_evaluators_debug_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunSyncEvaluationRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/EvaluationDebugResultResponse"
+                type: array
+                title: Response Debug Evaluators Debug Post
         "422":
           description: Validation Error
           content:
@@ -1898,7 +2274,7 @@ paths:
     get:
       tags:
         - Logs
-      summary: List Logs
+      summary: List
       description: List Logs.
       operationId: list_logs_for_file_logs_get
       parameters:
@@ -2173,6 +2549,63 @@ paths:
         - APIKeyHeader: []
 components:
   schemas:
+    AgentConfigResponse:
+      properties:
+        id:
+          type: string
+          title: Config ID
+          description: String ID of config. Starts with `config_`.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
+        type:
+          type: string
+          enum:
+            - agent
+          title: Type
+        created_by:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
+          title: Created by
+          description: The user who created the config.
+        status:
+          type: string
+          title: Status
+          description: Whether the config is committed or not.
+        name:
+          type: string
+          title: Config name
+          description: Name of config.
+        description:
+          type: string
+          title: Config description
+          description: Description of config.
+        agent_class:
+          type: string
+          title: Agent class
+          description: Class of the agent.
+        tools:
+          items:
+            $ref: "#/components/schemas/ToolConfigRequest"
+          type: array
+          title: Tools
+          description: Tools associated with the agent.
+          default: []
+        model_config:
+          allOf:
+            - $ref: "#/components/schemas/ModelConfigRequest"
+          title: Model config
+          description: Model config associated with the agent.
+      type: object
+      required:
+        - id
+        - type
+        - status
+        - name
+        - agent_class
+        - model_config
+      title: AgentConfigResponse
     Body_Evaluations_updateStatus:
       properties:
         status:
@@ -2284,6 +2717,52 @@ components:
       required:
         - role
       title: ChatMessage
+    ChatMessageWithToolCall:
+      properties:
+        content:
+          anyOf:
+            - type: string
+            - items:
+                anyOf:
+                  - $ref: "#/components/schemas/TextChatContent"
+                  - $ref: "#/components/schemas/ImageChatContent"
+              type: array
+          title: Content
+          description: The content of the message.
+          nullable: true
+        name:
+          type: string
+          title: Name
+          description: Optional name of the message author.
+          nullable: true
+        tool_call_id:
+          type: string
+          title: Tool call id
+          description: Tool call that this message is responding to.
+          nullable: true
+        role:
+          allOf:
+            - $ref: "#/components/schemas/ChatRole"
+          title: Role
+          description: Role of the message author.
+        tool_calls:
+          items:
+            $ref: "#/components/schemas/ToolCall"
+          type: array
+          title: Tool calls
+          description: A list of tool calls requested by the assistant.
+          nullable: true
+        tool_call:
+          allOf:
+            - $ref: "#/components/schemas/FunctionTool"
+          title: Tool call
+          description: "NB: Deprecated in favour of tool_calls. A tool call requested by the assistant."
+          deprecated: true
+          nullable: true
+      type: object
+      required:
+        - role
+      title: ChatMessageWithToolCall
     ChatRole:
       type: string
       enum:
@@ -2293,6 +2772,34 @@ components:
         - tool
       title: ChatRole
       description: An enumeration.
+    CodeEvaluatorRequest:
+      properties:
+        arguments_type:
+          allOf:
+            - $ref: "#/components/schemas/EvaluatorArgumentsType"
+          title: Arguments type
+          description: Whether this evaluator is target-free or target-required.
+        return_type:
+          allOf:
+            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
+          title: Return type
+          description: The type of the return value of the evaluator.
+        evaluator_type:
+          type: string
+          enum:
+            - python
+          title: Evaluator type
+          description: The type of the evaluator.
+          default: python
+        code:
+          type: string
+          title: Code
+          description: The code for the evaluator. This code will be executed in a sandboxed environment.
+      type: object
+      required:
+        - arguments_type
+        - return_type
+      title: CodeEvaluatorRequest
     CommitRequest:
       properties:
         commit_message:
@@ -2303,6 +2810,22 @@ components:
       required:
         - commit_message
       title: CommitRequest
+    ConfigResponse:
+      oneOf:
+        - $ref: "#/components/schemas/ModelConfigResponse"
+        - $ref: "#/components/schemas/ToolConfigResponse"
+        - $ref: "#/components/schemas/EvaluatorConfigResponse"
+        - $ref: "#/components/schemas/AgentConfigResponse"
+        - $ref: "#/components/schemas/GenericConfigResponse"
+      title: ConfigResponse
+      discriminator:
+        propertyName: type
+        mapping:
+          model: "#/components/schemas/ModelConfigResponse"
+          tool: "#/components/schemas/ToolConfigResponse"
+          evaluator: "#/components/schemas/EvaluatorConfigResponse"
+          agent: "#/components/schemas/AgentConfigResponse"
+          generic: "#/components/schemas/GenericConfigResponse"
     CreateDatapointRequest:
       properties:
         inputs:
@@ -2349,7 +2872,7 @@ components:
           description: Unique identifiers for the Prompt/Tool Versions to include in the Evaluation Report.
         evaluators:
           items:
-            $ref: "#/components/schemas/EvaluatorRequest"
+            $ref: "#/components/schemas/src__external__app__models__v5__evaluations__EvaluatorRequest"
           type: array
           title: Evaluators
           description: The Evaluators used to evaluate.
@@ -2365,129 +2888,6 @@ components:
         Evaluation benchmark your Prompt/Tool Versions. With the Datapoints in a Dataset Version,
         Logs corresponding to the Datapoint and each Evaluated Version are evaluated by the specified Evaluator Versions.
         Aggregated statistics are then calculated and presented in the Evaluation.
-    CreateEvaluatorRequest:
-      properties:
-        name:
-          type: string
-          title: Evaluator Name
-          description: Name of the Evaluator. This has to be unique within your Organization.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: Unique identifier for the Directory to create Evaluator in. Starts with `dir_`. If not provided, the Evaluator will be created in your Organization's root directory.
-        evaluator_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorType"
-          title: Evaluator Type
-          description: Type of Evaluator, one of python, llm, human, external.
-      type: object
-      required:
-        - evaluator_type
-      title: CreateEvaluatorRequest
-    CreateExternalEvaluatorVersionRequest:
-      properties:
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator to create a new Evaluator Version for. Starts with `ev_`.
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        evaluator_type:
-          type: string
-          enum:
-            - external
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: external
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
-      type: object
-      required:
-        - evaluator_id
-        - arguments_type
-        - return_type
-      title: CreateExternalEvaluatorVersionRequest
-    CreateHumanEvaluatorVersionRequest:
-      properties:
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator to create a new Evaluator Version for. Starts with `ev_`.
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        evaluator_type:
-          type: string
-          enum:
-            - human
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: human
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
-      type: object
-      required:
-        - evaluator_id
-        - arguments_type
-        - return_type
-      title: CreateHumanEvaluatorVersionRequest
-    CreateLLMEvaluatorVersionRequest:
-      properties:
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator to create a new Evaluator Version for. Starts with `ev_`.
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        evaluator_type:
-          type: string
-          enum:
-            - llm
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: llm
-        prompt:
-          allOf:
-            - $ref: "#/components/schemas/PromptKernelRequest"
-          title: Prompt parameters
-          description: The prompt parameters used to generate.
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
-      type: object
-      required:
-        - evaluator_id
-        - arguments_type
-        - return_type
-      title: CreateLLMEvaluatorVersionRequest
     CreatePromptLogResponse:
       properties:
         id:
@@ -2512,43 +2912,30 @@ components:
         - prompt_id
         - version_id
       title: CreatePromptLogResponse
-    CreatePythonEvaluatorVersionRequest:
+    CreateToolLogResponse:
       properties:
-        evaluator_id:
+        id:
           type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator to create a new Evaluator Version for. Starts with `ev_`.
-        commit_message:
+          title: Log ID
+          description: String ID of log.
+        tool_id:
           type: string
-          title: Commit message
-          description: Message describing the changes made.
-        evaluator_type:
+          title: Tool ID
+          description: ID of the Prompt the log belongs to.
+        version_id:
           type: string
-          enum:
-            - python
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: python
-        code:
+          title: Tool Version ID
+          description: ID of the specific version of the Tool.
+        session_id:
           type: string
-          title: Code
-          description: The code for the evaluator. This code will be executed in a sandboxed environment.
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
+          title: Session ID
+          description: String ID of session the log belongs to.
       type: object
       required:
-        - evaluator_id
-        - arguments_type
-        - return_type
-      title: CreatePythonEvaluatorVersionRequest
+        - id
+        - tool_id
+        - version_id
+      title: CreateToolLogResponse
     DashboardConfiguration:
       properties:
         time_unit:
@@ -2633,7 +3020,7 @@ components:
           title: Updated At
         created_by:
           allOf:
-            - $ref: "#/components/schemas/UserResponse"
+            - $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           title: Created by
           description: The user who created the Dataset.
         status:
@@ -2706,7 +3093,7 @@ components:
     EvaluatedVersionResponse:
       anyOf:
         - $ref: "#/components/schemas/PromptResponse"
-        - $ref: "#/components/schemas/ToolResponse"
+        - $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
       title: EvaluatedVersionResponse
     EvaluateeRequest:
       properties:
@@ -2744,10 +3131,39 @@ components:
         - version
         - orchestrated
       title: EvaluateeResponse
+    EvaluationDebugResultResponse:
+      properties:
+        log_id:
+          type: string
+          title: Log Id
+        log:
+          $ref: "#/components/schemas/LogResponse"
+        datapoint_id:
+          type: string
+          title: Datapoint Id
+        llm_evaluation_log:
+          $ref: "#/components/schemas/LogResponse"
+        value:
+          anyOf:
+            - type: boolean
+            - type: number
+          title: Value
+        error:
+          type: string
+          title: Error
+      type: object
+      required:
+        - log_id
+        - log
+      title: EvaluationDebugResultResponse
+      description: |-
+        This is similar to an `EvaluationResult` but is ephemeral as it is only for synchronous
+        debug runs. It does not have an ID, or a reference to an evaluation run or even an evaluation
+        function.
     EvaluationEvaluatorResponse:
       properties:
         version:
-          $ref: "#/components/schemas/EvaluatorVersionResponse"
+          $ref: "#/components/schemas/EvaluatorResponse"
         orchestrated:
           type: boolean
           title: Humanloop Orchestrated
@@ -2796,7 +3212,7 @@ components:
           format: date-time
           title: Created At
         created_by:
-          $ref: "#/components/schemas/UserResponse"
+          $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
         updated_at:
           type: string
           format: date-time
@@ -2811,6 +3227,57 @@ components:
         - created_at
         - updated_at
       title: EvaluationResponse
+    EvaluationResultResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        evaluator_id:
+          type: string
+          title: Evaluator Id
+        evaluator_version_id:
+          type: string
+          title: Evaluator Version Id
+        evaluation_id:
+          type: string
+          title: Evaluation Id
+        log_id:
+          type: string
+          title: Log Id
+        log:
+          $ref: "#/components/schemas/LogResponse"
+        version_id:
+          type: string
+          title: Version Id
+        version:
+          title: Version
+        value:
+          anyOf:
+            - type: boolean
+            - type: number
+          title: Value
+        error:
+          type: string
+          title: Error
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        llm_evaluator_log:
+          $ref: "#/components/schemas/LogResponse"
+      type: object
+      required:
+        - id
+        - evaluator_id
+        - evaluator_version_id
+        - log_id
+        - updated_at
+        - created_at
+      title: EvaluationResultResponse
     EvaluationStats:
       properties:
         overall_stats:
@@ -2866,223 +3333,51 @@ components:
         - target_required
       title: EvaluatorArgumentsType
       description: Enum representing the possible argument types of an evaluator.
-    EvaluatorInputResponse:
-      properties:
-        name:
-          type: string
-          title: Input name
-          description: Type of input.
-      type: object
-      required:
-        - name
-      title: EvaluatorInputResponse
-    EvaluatorRequest:
-      properties:
-        version_id:
-          type: string
-          title: Evaluator Version ID
-          description: Unique identifier for the Evaluator Version to use in this evaluation. Starts with `evv_`.
-        orchestrated:
-          type: boolean
-          title: Humanloop Orchestrated
-          description: Whether the Evaluator is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Evaluator should be submitted by the user via the API.
-          default: true
-      type: object
-      required:
-        - version_id
-      title: EvaluatorRequest
-    EvaluatorResponse:
+    EvaluatorConfigResponse:
       properties:
         id:
           type: string
-          title: Evaluator ID
-          description: Unique identifier for Evaluator. Starts with `ev_`.
-        name:
-          type: string
-          title: Evaluator Name
-          description: Name of the Evaluator.
-        version_id:
-          type: string
-          title: Version Id
-        directory_id:
-          type: string
-          title: Directory ID
-          description: Unique identifier for the Directory the Evaluator belongs to. Starts with `dir_`.
-        environments:
-          items:
-            $ref: "#/components/schemas/EnvironmentResponse"
-          type: array
-          title: Environments
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        created_by:
-          $ref: "#/components/schemas/UserResponse"
-        status:
-          $ref: "#/components/schemas/VersionStatus"
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        evaluator_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorType"
-          title: Evaluator Type
-          description: The type of the evaluator.
-      type: object
-      required:
-        - id
-        - name
-        - version_id
-        - created_at
-        - updated_at
-        - status
-        - last_used_at
-      title: EvaluatorResponse
-      description: |-
-        Base type that all File Responses should inherit from.
-
-        Attributes defined here are common to all File Responses and should be overridden
-        in the inheriting classes with documentation and appropriate Field definitions.
-    EvaluatorReturnTypeEnum:
-      type: string
-      enum:
-        - boolean
-        - number
-      title: EvaluatorReturnTypeEnum
-      description: Enum representing the possible return types of an evaluator.
-    EvaluatorType:
-      type: string
-      enum:
-        - python
-        - llm
-        - human
-        - external
-      title: EvaluatorType
-      description: An enumeration.
-    EvaluatorVersionEvaluatorResponse:
-      properties:
-        id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for Evaluator. Starts with `ev_`.
-        name:
-          type: string
-          title: Evaluator Name
-          description: Name of the Evaluator.
-        version_id:
-          type: string
-          title: Version Id
-        directory_id:
-          type: string
-          title: Directory ID
-          description: Unique identifier for the Directory the Evaluator belongs to. Starts with `dir_`.
-        environments:
-          items:
-            $ref: "#/components/schemas/EnvironmentResponse"
-          type: array
-          title: Environments
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        created_by:
-          $ref: "#/components/schemas/UserResponse"
-        status:
-          $ref: "#/components/schemas/VersionStatus"
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        evaluator_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorType"
-          title: Evaluator Type
-          description: The type of the evaluator.
-      type: object
-      required:
-        - id
-        - name
-        - version_id
-        - created_at
-        - updated_at
-        - status
-        - last_used_at
-      title: EvaluatorVersionEvaluatorResponse
-    EvaluatorVersionResponse:
-      oneOf:
-        - $ref: "#/components/schemas/LLMEvaluatorVersionResponse"
-        - $ref: "#/components/schemas/PythonEvaluatorVersionResponse"
-        - $ref: "#/components/schemas/HumanEvaluatorVersionResponse"
-        - $ref: "#/components/schemas/ExternalEvaluatorVersionResponse"
-      title: EvaluatorVersionResponse
-      discriminator:
-        propertyName: evaluator_type
-        mapping:
-          llm: "#/components/schemas/LLMEvaluatorVersionResponse"
-          python: "#/components/schemas/PythonEvaluatorVersionResponse"
-          human: "#/components/schemas/HumanEvaluatorVersionResponse"
-          external: "#/components/schemas/ExternalEvaluatorVersionResponse"
-    ExternalEvaluatorVersionResponse:
-      properties:
-        id:
-          type: string
-          title: Evaluator Version ID
-          description: Unique identifier for the Evaluator Version. Starts with `evv_`.
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator that this Evaluator Version belongs to. Starts with `ev_`.
-        evaluator:
-          $ref: "#/components/schemas/EvaluatorVersionEvaluatorResponse"
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        status:
-          allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Evaluator Version.
+          title: Config ID
+          description: String ID of config. Starts with `config_`.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
         type:
           type: string
           enum:
             - evaluator
           title: Type
-          default: evaluator
         created_by:
-          $ref: "#/components/schemas/UserResponse"
-        num_logs:
-          type: integer
-          title: Num Logs
-        last_used_at:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
+          title: Created by
+          description: The user who created the config.
+        status:
           type: string
-          format: date-time
-          title: Last Used At
-        created_at:
+          title: Status
+          description: Whether the config is committed or not.
+        name:
           type: string
-          format: date-time
-          title: Created At
-        updated_at:
+          title: Config name
+          description: Name of config.
+        description:
           type: string
-          format: date-time
-          title: Updated At
+          title: Config description
+          description: Description of config.
         evaluator_type:
           type: string
-          enum:
-            - external
           title: Evaluator type
-          description: The type of the evaluator.
-          default: external
+          description: Type of evaluator.
+        model_config:
+          allOf:
+            - $ref: "#/components/schemas/ModelConfigResponse"
+          title: Model config
+          description: The model config defining the LLM evaluator.
+        code:
+          type: string
+          title: Code
+          description: The code for the evaluator. This code will be executed in a sandboxed environment.
         arguments_type:
           allOf:
             - $ref: "#/components/schemas/EvaluatorArgumentsType"
@@ -3096,17 +3391,106 @@ components:
       type: object
       required:
         - id
-        - evaluator_id
-        - evaluator
+        - type
         - status
-        - num_logs
-        - last_used_at
+        - name
+        - evaluator_type
+      title: EvaluatorConfigResponse
+    EvaluatorResponse:
+      properties:
+        id:
+          type: string
+          title: Evaluator ID
+          description: Unique identifier for the Evaluator.
+        name:
+          type: string
+          title: Prompt name
+          description: Name of the Evaluator, which is used as a unique identifier.
+        version_id:
+          type: string
+          title: Version ID
+          description: Unique identifier for the specific Evaluator Version. If no query params provided, the default deployed Evaluator Version is returned.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: Unique identifier for the Directory of the Evaluator.
+        environments:
+          items:
+            $ref: "#/components/schemas/EnvironmentResponse"
+          type: array
+          title: Environments
+          description: The list of environments the Prompt Version is deployed to.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        created_by:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+          title: Created by
+          description: The user who created the Prompt.
+        status:
+          $ref: "#/components/schemas/VersionStatus"
+        last_used_at:
+          type: string
+          format: date-time
+          title: Last Used At
+        commit_message:
+          type: string
+          title: Commit message
+          description: Message describing the changes made.
+        spec:
+          oneOf:
+            - $ref: "#/components/schemas/LLMEvaluatorRequest"
+            - $ref: "#/components/schemas/CodeEvaluatorRequest"
+            - $ref: "#/components/schemas/HumanEvaluatorRequest"
+          title: Spec
+          discriminator:
+            propertyName: evaluator_type
+            mapping:
+              llm: "#/components/schemas/LLMEvaluatorRequest"
+              python: "#/components/schemas/CodeEvaluatorRequest"
+              human: "#/components/schemas/HumanEvaluatorRequest"
+        version_logs_count:
+          type: integer
+          title: Number of logs for this version
+          description: The number of logs that have been generated for this Prompt Version
+        total_logs_count:
+          type: integer
+          title: Total number of logs across all versions
+          description: The number of logs that have been generated across all Prompt Versions
+        inputs:
+          items:
+            $ref: "#/components/schemas/InputResponse"
+          type: array
+          title: Prompt inputs
+          description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+      type: object
+      required:
+        - id
+        - name
+        - version_id
         - created_at
         - updated_at
-        - arguments_type
-        - return_type
-      title: ExternalEvaluatorVersionResponse
-      description: Base type that all Version Responses should inherit from.
+        - status
+        - last_used_at
+        - spec
+        - version_logs_count
+        - total_logs_count
+        - inputs
+      title: EvaluatorResponse
+      description: Request model for creating a new Evaluator
+    EvaluatorReturnTypeEnum:
+      type: string
+      enum:
+        - boolean
+        - number
+      title: EvaluatorReturnTypeEnum
+      description: Enum representing the possible return types of an evaluator.
     FeedbackClass:
       type: string
       enum:
@@ -3124,21 +3508,48 @@ components:
         - inactive
       title: FeedbackLabelStatus
       description: Controls whether the label is displayed in the UI.
-    FeedbackType:
-      type: string
-      enum:
-        - rating
-        - action
-        - issue
-        - correction
-        - comment
-      title: FeedbackType
-      description: An enumeration.
+    FeedbackResponse:
+      properties:
+        type:
+          anyOf:
+            - $ref: "#/components/schemas/src__external__app__models__v4__feedback__FeedbackType"
+            - type: string
+          title: Feedback type
+          description: The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'.
+        value:
+          anyOf:
+            - type: number
+            - type: string
+          title: Feedback value
+          description: The feedback value to set. This would be the appropriate text for 'correction' or 'comment', or a label to apply for 'rating', 'action', or 'issue'.
+        data_id:
+          type: string
+          title: Datapoint ID
+          description: ID to associate the feedback to a previously logged datapoint.
+        user:
+          type: string
+          title: User
+          description: A unique identifier to who provided the feedback.
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: "User defined timestamp for when the feedback was created. "
+        id:
+          type: string
+          title: Feedback ID
+          description: String ID of user feedback. Starts with `ann_`, short for annotation.
+      type: object
+      required:
+        - type
+        - value
+        - id
+      title: FeedbackResponse
     FeedbackTypeModel:
       properties:
         type:
           anyOf:
-            - $ref: "#/components/schemas/FeedbackType"
+            - $ref: "#/components/schemas/src__external__app__models__v5__feedback__FeedbackType"
             - type: string
           title: Feedback type
           description: The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'.
@@ -3180,6 +3591,45 @@ components:
         - name
       title: FunctionToolChoice
       description: A function tool to be called by the model where user owns runtime.
+    GenericConfigResponse:
+      properties:
+        id:
+          type: string
+          title: Config ID
+          description: String ID of config. Starts with `config_`.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
+        type:
+          type: string
+          enum:
+            - generic
+          title: Type
+        created_by:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
+          title: Created by
+          description: The user who created the config.
+        status:
+          type: string
+          title: Status
+          description: Whether the config is committed or not.
+        name:
+          type: string
+          title: Config name
+          description: Name of config.
+        description:
+          type: string
+          title: Config description
+          description: Description of config.
+      type: object
+      required:
+        - id
+        - type
+        - status
+        - name
+      title: GenericConfigResponse
     HTTPValidationError:
       properties:
         detail:
@@ -3189,57 +3639,8 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    HumanEvaluatorVersionResponse:
+    HumanEvaluatorRequest:
       properties:
-        id:
-          type: string
-          title: Evaluator Version ID
-          description: Unique identifier for the Evaluator Version. Starts with `evv_`.
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator that this Evaluator Version belongs to. Starts with `ev_`.
-        evaluator:
-          $ref: "#/components/schemas/EvaluatorVersionEvaluatorResponse"
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        status:
-          allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Evaluator Version.
-        type:
-          type: string
-          enum:
-            - evaluator
-          title: Type
-          default: evaluator
-        created_by:
-          $ref: "#/components/schemas/UserResponse"
-        num_logs:
-          type: integer
-          title: Num Logs
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        evaluator_type:
-          type: string
-          enum:
-            - human
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: human
         arguments_type:
           allOf:
             - $ref: "#/components/schemas/EvaluatorArgumentsType"
@@ -3250,20 +3651,18 @@ components:
             - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
           title: Return type
           description: The type of the return value of the evaluator.
+        evaluator_type:
+          type: string
+          enum:
+            - human
+          title: Evaluator type
+          description: The type of the evaluator.
+          default: human
       type: object
       required:
-        - id
-        - evaluator_id
-        - evaluator
-        - status
-        - num_logs
-        - last_used_at
-        - created_at
-        - updated_at
         - arguments_type
         - return_type
-      title: HumanEvaluatorVersionResponse
-      description: Base type that all Version Responses should inherit from.
+      title: HumanEvaluatorRequest
     ImageChatContent:
       properties:
         type:
@@ -3309,50 +3708,18 @@ components:
       required:
         - name
       title: InputResponse
-    LLMEvaluatorVersionResponse:
+    LLMEvaluatorRequest:
       properties:
-        id:
-          type: string
-          title: Evaluator Version ID
-          description: Unique identifier for the Evaluator Version. Starts with `evv_`.
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator that this Evaluator Version belongs to. Starts with `ev_`.
-        evaluator:
-          $ref: "#/components/schemas/EvaluatorVersionEvaluatorResponse"
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        status:
+        arguments_type:
           allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Evaluator Version.
-        type:
-          type: string
-          enum:
-            - evaluator
-          title: Type
-          default: evaluator
-        created_by:
-          $ref: "#/components/schemas/UserResponse"
-        num_logs:
-          type: integer
-          title: Num Logs
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
+            - $ref: "#/components/schemas/EvaluatorArgumentsType"
+          title: Arguments type
+          description: Whether this evaluator is target-free or target-required.
+        return_type:
+          allOf:
+            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
+          title: Return type
+          description: The type of the return value of the evaluator.
         evaluator_type:
           type: string
           enum:
@@ -3365,30 +3732,11 @@ components:
             - $ref: "#/components/schemas/PromptKernelRequest"
           title: Prompt parameters
           description: The prompt parameters used to generate.
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
       type: object
       required:
-        - id
-        - evaluator_id
-        - evaluator
-        - status
-        - num_logs
-        - last_used_at
-        - created_at
-        - updated_at
         - arguments_type
         - return_type
-      title: LLMEvaluatorVersionResponse
-      description: Base type that all Version Responses should inherit from.
+      title: LLMEvaluatorRequest
     LabelSentiment:
       type: string
       enum:
@@ -3401,6 +3749,35 @@ components:
         How a label should be treated in calculating Version performance.
 
         Used by a File's PAPV (Positive Action Per View) metric.
+    LinkedToolRequest:
+      properties:
+        id:
+          type: string
+          title: Tool ID
+          description: The ID of the linked tool. Starts with "oc_"
+        source:
+          type: string
+          enum:
+            - organization
+          title: Tool source
+          description: The source of the linked tool. For a linked tool it should be `organization`
+        name:
+          type: string
+          title: Tool name
+          description: The name of the linked tool.
+        description:
+          type: string
+          title: Tool description
+          description: The description of the linked tool.
+        parameters:
+          type: object
+          title: Tool parameters
+          description: The parameters of the linked tool.
+      type: object
+      required:
+        - id
+        - source
+      title: LinkedToolRequest
     LinkedToolResponse:
       properties:
         name:
@@ -3442,18 +3819,18 @@ components:
       required:
         - records
       title: ListDatasets
-    ListEvaluatorVersionsResponse:
+    ListEvaluators:
       properties:
         records:
           items:
-            $ref: "#/components/schemas/EvaluatorVersionResponse"
+            $ref: "#/components/schemas/EvaluatorResponse"
           type: array
           title: Records
-          description: The list of Evaluator Versions associated to the Evaluator.
+          description: The list of Evaluators.
       type: object
       required:
         - records
-      title: ListEvaluatorVersionsResponse
+      title: ListEvaluators
     ListPrompts:
       properties:
         records:
@@ -3470,7 +3847,7 @@ components:
       properties:
         records:
           items:
-            $ref: "#/components/schemas/ToolResponse"
+            $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
           type: array
           title: Records
           description: The list of Tools.
@@ -3478,6 +3855,482 @@ components:
       required:
         - records
       title: ListTools
+    LogResponse:
+      properties:
+        project:
+          type: string
+          title: Project name
+          description: The name of the project associated with this log
+        project_id:
+          type: string
+          title: Project ID
+          description: The unique ID of the project associated with this log.
+        session_id:
+          type: string
+          title: Session ID
+          description: ID of the session to associate the datapoint.
+        session_reference_id:
+          type: string
+          title: Session Reference ID
+          description: A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`.
+        parent_id:
+          type: string
+          title: Parent ID
+          description: ID associated to the parent datapoint in a session.
+        parent_reference_id:
+          type: string
+          title: Parent Reference ID
+          description: A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request.
+        inputs:
+          type: object
+          title: Inputs
+          description: The inputs passed to the prompt template.
+          default: {}
+        source:
+          type: string
+          title: Source
+          description: Identifies where the model was called from.
+        metadata:
+          type: object
+          title: Metadata
+          description: Any additional metadata to record.
+        save:
+          type: boolean
+          title: Save
+          description: Whether the request/response payloads will be stored on Humanloop.
+          default: true
+        source_datapoint_id:
+          type: string
+          title: Source datapoint ID
+          description: ID of the source datapoint if this is a log derived from a datapoint in a dataset.
+        id:
+          type: string
+          title: Datapoint ID
+          description: String ID of logged datapoint. Starts with `data_`.
+        reference_id:
+          type: string
+          title: Reference ID
+          description: Unique user-provided string identifying the datapoint.
+        trial_id:
+          type: string
+          title: Trial ID
+          description: Unique ID of an experiment trial to associate to the log.
+        messages:
+          items:
+            $ref: "#/components/schemas/ChatMessageWithToolCall"
+          type: array
+          title: Messages
+          description: The messages passed to the to provider chat endpoint.
+        output:
+          type: string
+          title: Model output
+          description: Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later
+        judgment:
+          anyOf:
+            - type: boolean
+            - type: number
+          title: Judgment
+        config_id:
+          type: string
+          title: Config ID
+          description: Unique ID of a config to associate to the log.
+        config:
+          $ref: "#/components/schemas/ConfigResponse"
+        environment:
+          type: string
+          title: Environment name
+          description: The environment name used to create the log.
+        feedback:
+          items:
+            $ref: "#/components/schemas/FeedbackResponse"
+          type: array
+          title: Feedback
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: "User defined timestamp for when the log was created. "
+        error:
+          type: string
+          title: Error
+          description: Error message if the log is an error.
+        duration:
+          type: number
+          title: Duration
+          description: Duration of the logged event in seconds.
+        output_message:
+          allOf:
+            - $ref: "#/components/schemas/ChatMessageWithToolCall"
+          title: Output message
+          description: The message returned by the provider.
+        prompt_tokens:
+          type: integer
+          title: Prompt tokens
+          description: Number of tokens in the prompt used to generate the output.
+        output_tokens:
+          type: integer
+          title: Output tokens
+          description: Number of tokens in the output generated by the model.
+        prompt_cost:
+          type: number
+          title: Prompt cost
+          description: Cost in dollars associated to the tokens in the prompt.
+        output_cost:
+          type: number
+          title: Output tokens
+          description: Cost in dollars associated to the tokens in the output.
+        provider_request:
+          type: object
+          title: Provider request
+          description: Raw request sent to provider.
+        provider_response:
+          type: object
+          title: Provider response
+          description: Raw response received the provider.
+        user:
+          type: string
+          title: User
+          description: User email address provided when creating the datapoint.
+        provider_latency:
+          type: number
+          title: Provider Latency
+          description: Latency of provider response.
+        tokens:
+          type: integer
+          title: Tokens
+          description: Total number of tokens in the prompt and output.
+        raw_output:
+          type: string
+          title: Raw output
+          description: Raw output from the provider.
+        finish_reason:
+          type: string
+          title: Finish reason
+          description: Reason the generation finished.
+        metric_values:
+          items:
+            $ref: "#/components/schemas/MetricValueResponse"
+          type: array
+          title: Metric Values
+        tools:
+          items:
+            $ref: "#/components/schemas/ToolResultResponse"
+          type: array
+          title: Tools
+        tool_choice:
+          anyOf:
+            - type: string
+              enum:
+                - none
+            - type: string
+              enum:
+                - auto
+            - type: string
+              enum:
+                - required
+            - $ref: "#/components/schemas/ToolChoice"
+          title: Tool choice
+          description: "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
+        evaluation_results:
+          items:
+            $ref: "#/components/schemas/EvaluationResultResponse"
+          type: array
+          title: Evaluation Results
+        observability_status:
+          $ref: "#/components/schemas/ObservabilityStatus"
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        batch_ids:
+          items:
+            type: string
+          type: array
+          title: Batch IDs
+          description: List of batch IDs the log belongs to.
+      type: object
+      required:
+        - id
+        - config
+        - evaluation_results
+        - observability_status
+        - updated_at
+      title: LogResponse
+      description: Request model for logging a datapoint.
+    MetricValueResponse:
+      properties:
+        metric_id:
+          type: string
+          title: Metric Id
+        metric_name:
+          type: string
+          title: Metric Name
+        metric_value:
+          type: number
+          title: Metric Value
+      type: object
+      required:
+        - metric_id
+        - metric_name
+        - metric_value
+      title: MetricValueResponse
+    ModelConfigRequest:
+      properties:
+        name:
+          type: string
+          title: Model config name
+          description: A friendly display name for the model config. If not provided, a name will be generated.
+        description:
+          type: string
+          title: Model config description
+          description: A description of the model config.
+        provider:
+          allOf:
+            - $ref: "#/components/schemas/ModelProviders"
+          title: Model provider
+          description: The company providing the underlying model service.
+          default: openai
+        model:
+          type: string
+          title: Model instance used
+          description: The model instance used. E.g. text-davinci-002.
+        max_tokens:
+          type: integer
+          title: Maximum tokens
+          description: The maximum number of tokens to generate. Provide max_tokens=-1 to dynamically calculate the maximum number of tokens to generate given the length of the prompt
+          default: -1
+        temperature:
+          type: number
+          title: Sampling temperature
+          description: What sampling temperature to use when making a generation. Higher values means the model will be more creative.
+          default: 1
+        top_p:
+          type: number
+          title: Top p probability mass
+          description: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
+          default: 1
+        stop:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+          title: Stop sequence(s)
+          description: The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence.
+        presence_penalty:
+          type: number
+          title: Penalize tokens on whether present.
+          description: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the generation so far.
+          default: 0
+        frequency_penalty:
+          type: number
+          title: Penalize tokens on whether frequent.
+          description: Number between -2.0 and 2.0. Positive values penalize new tokens based on how frequently they appear in the generation so far.
+          default: 0
+        other:
+          type: object
+          title: Other provider parameters
+          description: Other parameter values to be passed to the provider call.
+          default: {}
+        seed:
+          type: integer
+          title: Seed
+          description: If specified, model will make a best effort to sample deterministically, but it is not guaranteed.
+        response_format:
+          allOf:
+            - $ref: "#/components/schemas/ResponseFormat"
+          title: Response format
+          description: The format of the response. Only type json_object is currently supported for chat.
+        endpoint:
+          allOf:
+            - $ref: "#/components/schemas/ModelEndpoints"
+          title: Provider endpoint
+          description: The provider model endpoint used.
+          default: complete
+        prompt_template:
+          type: string
+          title: Prompt template
+          description: "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
+        chat_template:
+          items:
+            $ref: "#/components/schemas/ChatMessageWithToolCall"
+          type: array
+          title: Chat template
+          description: "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
+        tools:
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/LinkedToolRequest"
+              - $ref: "#/components/schemas/ModelConfigToolRequest"
+          type: array
+          title: Tools - equivalent to OpenAI functions.
+          description: Make tools available to OpenAIs chat model as functions.
+        type:
+          type: string
+          enum:
+            - model
+          title: Type
+      additionalProperties: false
+      type: object
+      required:
+        - model
+      title: ModelConfigRequest
+      description: Model config used for logging both chat and completion.
+    ModelConfigResponse:
+      properties:
+        id:
+          type: string
+          title: Config ID
+          description: String ID of config. Starts with `config_`.
+        other:
+          type: object
+          title: Other provider parameters
+          description: Other parameter values to be passed to the provider call.
+          default: {}
+        type:
+          type: string
+          enum:
+            - model
+          title: Type
+        name:
+          type: string
+          title: Model config name
+          description: A friendly display name for the model config. If not provided, a name will be generated.
+        description:
+          type: string
+          title: Model config description
+          description: A description of the model config.
+        provider:
+          allOf:
+            - $ref: "#/components/schemas/ModelProviders"
+          title: Model provider
+          description: The company providing the underlying model service.
+          default: openai
+        model:
+          type: string
+          title: Model instance used
+          description: The model instance used. E.g. text-davinci-002.
+        max_tokens:
+          type: integer
+          title: Maximum tokens
+          description: The maximum number of tokens to generate. Provide max_tokens=-1 to dynamically calculate the maximum number of tokens to generate given the length of the prompt
+          default: -1
+        temperature:
+          type: number
+          title: Sampling temperature
+          description: What sampling temperature to use when making a generation. Higher values means the model will be more creative.
+          default: 1
+        top_p:
+          type: number
+          title: Top p probability mass
+          description: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
+          default: 1
+        stop:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+          title: Stop sequence(s)
+          description: The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence.
+        presence_penalty:
+          type: number
+          title: Penalize tokens on whether present.
+          description: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the generation so far.
+          default: 0
+        frequency_penalty:
+          type: number
+          title: Penalize tokens on whether frequent.
+          description: Number between -2.0 and 2.0. Positive values penalize new tokens based on how frequently they appear in the generation so far.
+          default: 0
+        seed:
+          type: integer
+          title: Seed
+          description: If specified, model will make a best effort to sample deterministically, but it is not guaranteed.
+        response_format:
+          allOf:
+            - $ref: "#/components/schemas/ResponseFormat"
+          title: Response format
+          description: The format of the response. Only type json_object is currently supported for chat.
+        prompt_template:
+          type: string
+          title: Prompt template
+          description: "Prompt template that will take your specified inputs to form your final request to the model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
+        chat_template:
+          items:
+            $ref: "#/components/schemas/ChatMessageWithToolCall"
+          type: array
+          title: Chat template
+          description: "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
+        tool_configs:
+          items:
+            $ref: "#/components/schemas/ToolConfigResponse"
+          type: array
+          title: Tool configs
+          description: "NB: Deprecated with tools field. Definition of tools shown to the model."
+          deprecated: true
+        tools:
+          items:
+            $ref: "#/components/schemas/src__external__app__models__v4__configs__ToolResponse"
+          type: array
+          title: Tools
+          description: Tools shown to the model.
+        endpoint:
+          allOf:
+            - $ref: "#/components/schemas/ModelEndpoints"
+          title: Provider endpoint
+          description: The provider model endpoint used.
+      additionalProperties: false
+      type: object
+      required:
+        - id
+        - type
+        - model
+      title: ModelConfigResponse
+      description: |-
+        Model config request.
+
+        Contains fields that are common to all (i.e. both chat and complete) endpoints.
+    ModelConfigToolRequest:
+      properties:
+        name:
+          type: string
+          title: Tool name
+          description: The name of the tool shown to the model.
+        description:
+          type: string
+          title: Tool description
+          description: The description of the tool shown to the model.
+        parameters:
+          type: object
+          title: Schema of tool arguments.
+          description: "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
+        source:
+          allOf:
+            - $ref: "#/components/schemas/ToolSource"
+          title: Source
+          description: Source of the tool. If defined at an organization level will be 'organization' else 'inline'.
+        source_code:
+          type: string
+          title: Code source
+          description: Code source of the tool.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
+        preset_name:
+          type: string
+          title: preset_name
+          description: If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to look up the Humanloop runtime of the tool
+      type: object
+      required:
+        - name
+      title: ModelConfigToolRequest
+      description: |-
+        Definition of tool within a model config.
+
+        The subset of ToolConfig parameters received by the chat endpoint.
+        Does not have things like the signature or setup schema.
     ModelEndpoints:
       type: string
       enum:
@@ -3525,7 +4378,7 @@ components:
           description: The Evaluator Version used for monitoring. This can be a specific Version by ID, or a Version deployed to an Environment.
         version:
           allOf:
-            - $ref: "#/components/schemas/EvaluatorVersionResponse"
+            - $ref: "#/components/schemas/EvaluatorResponse"
           title: Version
           description: The deployed Version.
         state:
@@ -3869,7 +4722,7 @@ components:
         session_id:
           type: string
           title: Session ID
-          description: "Unique identifier for the Session to associate the Log to.Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          description: "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
         parent_id:
           type: string
           title: Parent ID
@@ -3972,7 +4825,7 @@ components:
         session_id:
           type: string
           title: Session ID
-          description: "Unique identifier for the Session to associate the Log to.Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          description: "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
         parent_id:
           type: string
           title: Parent ID
@@ -4178,7 +5031,7 @@ components:
           description: 'The format of the response. Only `{"type": "json_object"}` is currently supported for chat.'
         tools:
           items:
-            $ref: "#/components/schemas/ToolSpec"
+            $ref: "#/components/schemas/ToolFunction"
           type: array
           title: Tools
           description: The tool specification that the model can choose to call if Tool calling is supported.
@@ -4276,7 +5129,7 @@ components:
         session_id:
           type: string
           title: Session ID
-          description: "Unique identifier for the Session to associate the Log to.Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          description: "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
         parent_id:
           type: string
           title: Parent ID
@@ -4405,7 +5258,7 @@ components:
         session_id:
           type: string
           title: Session ID
-          description: "Unique identifier for the Session to associate the Log to.Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          description: "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
         parent_id:
           type: string
           title: Parent ID
@@ -4540,7 +5393,7 @@ components:
           description: 'The format of the response. Only `{"type": "json_object"}` is currently supported for chat.'
         tools:
           items:
-            $ref: "#/components/schemas/ToolSpec"
+            $ref: "#/components/schemas/ToolFunction"
           type: array
           title: Tools
           description: The tool specification that the model can choose to call if Tool calling is supported.
@@ -4593,7 +5446,7 @@ components:
           title: Updated At
         created_by:
           allOf:
-            - $ref: "#/components/schemas/UserResponse"
+            - $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           title: Created by
           description: The user who created the Prompt.
         status:
@@ -4678,10 +5531,10 @@ components:
           description: 'The format of the response. Only `{"type": "json_object"}` is currently supported for chat.'
         tools:
           items:
-            $ref: "#/components/schemas/ToolSpec"
+            $ref: "#/components/schemas/ToolFunction"
           type: array
           title: Tools
-          description: The Tool specifications that the model can choose to call if Tool calling is supported.
+          description: The tool specification that the model can choose to call if Tool calling is supported.
         linked_tools:
           items:
             $ref: "#/components/schemas/LinkedToolResponse"
@@ -4746,85 +5599,6 @@ components:
           title: Openai Azure Endpoint
       type: object
       title: ProviderApiKeys
-    PythonEvaluatorVersionResponse:
-      properties:
-        id:
-          type: string
-          title: Evaluator Version ID
-          description: Unique identifier for the Evaluator Version. Starts with `evv_`.
-        evaluator_id:
-          type: string
-          title: Evaluator ID
-          description: Unique identifier for the Evaluator that this Evaluator Version belongs to. Starts with `ev_`.
-        evaluator:
-          $ref: "#/components/schemas/EvaluatorVersionEvaluatorResponse"
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        status:
-          allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Evaluator Version.
-        type:
-          type: string
-          enum:
-            - evaluator
-          title: Type
-          default: evaluator
-        created_by:
-          $ref: "#/components/schemas/UserResponse"
-        num_logs:
-          type: integer
-          title: Num Logs
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        evaluator_type:
-          type: string
-          enum:
-            - python
-          title: Evaluator type
-          description: The type of the evaluator.
-          default: python
-        code:
-          type: string
-          title: Code
-          description: The code for the evaluator. This code will be executed in a sandboxed environment.
-        arguments_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorArgumentsType"
-          title: Arguments type
-          description: Whether this evaluator is target-free or target-required.
-        return_type:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorReturnTypeEnum"
-          title: Return type
-          description: The type of the return value of the evaluator.
-      type: object
-      required:
-        - id
-        - evaluator_id
-        - evaluator
-        - status
-        - num_logs
-        - last_used_at
-        - created_at
-        - updated_at
-        - arguments_type
-        - return_type
-      title: PythonEvaluatorVersionResponse
-      description: Base type that all Version Responses should inherit from.
     ResponseFormat:
       properties:
         type:
@@ -4837,6 +5611,56 @@ components:
         - type
       title: ResponseFormat
       description: Response format of the model.
+    RunSyncEvaluationRequest:
+      properties:
+        file_id:
+          type: string
+          title: Dataset ID
+          description: The ID of the Dataset that the datapoints belong to.
+        evaluator:
+          oneOf:
+            - $ref: "#/components/schemas/LLMEvaluatorRequest"
+            - $ref: "#/components/schemas/CodeEvaluatorRequest"
+            - $ref: "#/components/schemas/HumanEvaluatorRequest"
+          title: Evaluator
+          discriminator:
+            propertyName: evaluator_type
+            mapping:
+              llm: "#/components/schemas/LLMEvaluatorRequest"
+              python: "#/components/schemas/CodeEvaluatorRequest"
+              human: "#/components/schemas/HumanEvaluatorRequest"
+        evaluator_version_id:
+          type: string
+          title: Evaluator Version ID
+          description: The ID of the Evaluator Version being debugged if it already exists and is being edited.
+        log_ids:
+          items:
+            type: string
+          type: array
+          title: Log IDs
+          description: The IDs of the logs on which to run the draft evaluator.Provide one of `log_ids` or `datapoint_ids`.
+        datapoint_ids:
+          items:
+            type: string
+          type: array
+          title: Evaluation datapoint IDs
+          description: "The IDs of the evaluation datapoints on which to run the draft evaluator. "
+        prompt_version_id:
+          type: string
+          title: Prompt Version ID
+          description: The ID of the Prompt Version to use generate datapoints for the evaluation datapoints. Only required if `datapoint` is provided; has no effect otherwise.
+      type: object
+      required:
+        - file_id
+        - evaluator
+      title: RunSyncEvaluationRequest
+      description: |-
+        Request model for a synchronous evaluator execution on a collection
+        of datapoints in a file.
+
+        The evaluator is defined in the request, rather than refering to a
+        previously saved evaluator, as this is used for debugging in the evaluation
+        function creation debug console.
     SessionResponse:
       properties:
         id:
@@ -4923,8 +5747,247 @@ components:
         - function
       title: ToolChoice
       description: Tool choice to force the model to use a tool.
+    ToolConfigRequest:
+      properties:
+        name:
+          type: string
+          title: Tool name
+          description: The name of the tool shown to the model.
+        description:
+          type: string
+          title: Tool description
+          description: The description of the tool shown to the model.
+        parameters:
+          type: object
+          title: Schema of tool arguments.
+          description: "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
+        source:
+          allOf:
+            - $ref: "#/components/schemas/ToolSource"
+          title: Source
+          description: Source of the tool. If defined at an organization level will be 'organization' else 'inline'.
+        source_code:
+          type: string
+          title: Code source
+          description: Code source of the tool.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
+        preset_name:
+          type: string
+          title: preset_name
+          description: If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to look up the Humanloop runtime of the tool
+        type:
+          type: string
+          enum:
+            - tool
+          title: Type
+      type: object
+      required:
+        - name
+        - type
+      title: ToolConfigRequest
+      description: |-
+        Definition of tool within a model config.
+
+        The subset of ToolConfig parameters received by the chat endpoint.
+        Does not have things like the signature or setup schema.
+    ToolConfigResponse:
+      properties:
+        id:
+          type: string
+          title: Config ID
+          description: String ID of config. Starts with `config_`.
+        other:
+          type: object
+          title: Other parameters
+          description: Other parameters that define the config.
+        type:
+          type: string
+          enum:
+            - tool
+          title: Type
+        created_by:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
+          title: Created by
+          description: The user who created the config.
+        status:
+          type: string
+          title: Status
+          description: Whether the config is committed or not.
+        name:
+          type: string
+          title: Name
+          description: Name for the tool referenced by the model.
+        description:
+          type: string
+          title: Description
+          description: Description of the tool referenced by the model
+        source:
+          allOf:
+            - $ref: "#/components/schemas/ToolSource"
+          title: Source
+          description: Source of the tool. If defined at an organization level will be 'organization' else 'inline'.
+        source_code:
+          type: string
+          title: Source Code
+          description: Code source of the tool.
+        setup_schema:
+          type: object
+          title: Setup arguments schema.
+          description: "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
+        parameters:
+          type: object
+          title: Run arguments schema.
+          description: "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
+        signature:
+          type: string
+          title: Signature
+          description: The function signature of the tool when being called.
+        is_preset:
+          type: boolean
+          title: Is preset
+          description: Whether the tool is one where Humanloop defines runtime or not.
+        preset_name:
+          type: string
+          title: preset_name
+          description: If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to lookup the Humanloop runtime of the tool
+      type: object
+      required:
+        - id
+        - type
+        - status
+        - name
+      title: ToolConfigResponse
+    ToolFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name for the tool referenced by the model.
+        description:
+          type: string
+          title: Description
+          description: Description of the tool referenced by the model
+        parameters:
+          type: object
+          title: Tool parameters
+          description: "Parameters needed to run the Tool, defined in JSON Schema format: https://json-schema.org/"
+      type: object
+      required:
+        - name
+        - description
+      title: ToolFunction
+    ToolKernelRequest:
+      properties:
+        function:
+          allOf:
+            - $ref: "#/components/schemas/ToolFunction"
+          title: Function
+          description: Callable function specification of the Tool shown to the model for tool calling.
+        source_code:
+          type: string
+          title: Source Code
+          description: Code source of the Tool.
+        setup_values:
+          type: object
+          title: Setup values
+          description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+      type: object
+      title: ToolKernelRequest
+    ToolLogRequest:
+      properties:
+        output:
+          type: string
+          title: Model output
+          description: Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later.
+        raw_output:
+          type: string
+          title: Raw output
+          description: Raw output from the provider.
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: "User defined timestamp for when the log was created. "
+        error:
+          type: string
+          title: Error
+          description: Error message if the log is an error.
+        provider_latency:
+          type: number
+          title: Log latency
+          description: Duration of the logged event in seconds.
+        provider_request:
+          type: object
+          title: Provider request
+          description: Raw request sent to provider.
+        provider_response:
+          type: object
+          title: Provider response
+          description: Raw response received the provider.
+        session_id:
+          type: string
+          title: Session ID
+          description: "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+        parent_id:
+          type: string
+          title: Parent ID
+          description: Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session.
+        inputs:
+          type: object
+          title: Inputs
+          description: The inputs passed to the prompt template.
+          default: {}
+        source:
+          type: string
+          title: Source
+          description: Identifies where the model was called from.
+        metadata:
+          type: object
+          title: Metadata
+          description: Any additional metadata to record.
+        save:
+          type: boolean
+          title: Save
+          description: Whether the request/response payloads will be stored on Humanloop.
+          default: true
+        source_datapoint_id:
+          type: string
+          title: Source Datapoint ID
+          description: Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair.
+        batches:
+          items:
+            type: string
+          type: array
+          title: Batch IDs
+          description: Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations
+        user:
+          type: string
+          title: End-user identifier
+          description: End-user ID related to the Log.
+        environment:
+          type: string
+          title: Environment name
+          description: The name of the Environment the Log is associated to.
+        tool:
+          allOf:
+            - $ref: "#/components/schemas/ToolKernelRequest"
+          title: Tool
+          description: Details of your Tool. A new Tool version will be created if the provided details are new.
+      additionalProperties: false
+      type: object
+      title: ToolLogRequest
+      description: Request for creating a Tool log.
     ToolRequest:
       properties:
+        function:
+          allOf:
+            - $ref: "#/components/schemas/ToolFunction"
+          title: Function
+          description: Callable function specification of the Tool shown to the model for tool calling.
         source_code:
           type: string
           title: Source Code
@@ -4947,11 +6010,6 @@ components:
           title: Tool Type
           description: Type of Tool.
           default: json_schema
-        spec:
-          allOf:
-            - $ref: "#/components/schemas/ToolSpec"
-          title: Tool spec
-          description: The specification of the tool shown to the model.
         commit_message:
           type: string
           title: Commit message
@@ -4959,126 +6017,38 @@ components:
       type: object
       title: ToolRequest
       description: Request to create a new Tool.
-    ToolResponse:
+    ToolResultResponse:
       properties:
         id:
           type: string
-          title: Tool ID
-          description: Unique identifier for Tool.
+          title: Id
         name:
           type: string
-          title: Tool name
-          description: Name of the Tool, which is used as a unique identifier.
-        version_id:
-          type: string
-          title: Version ID
-          description: Unique identifier for the specific Tool Version. If no query params provided, the default deployed Tool Version is returned.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
-        environments:
-          items:
-            $ref: "#/components/schemas/EnvironmentResponse"
-          type: array
-          title: Environments
-          description: The list of environments the Prompt Version is deployed to.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        created_by:
-          allOf:
-            - $ref: "#/components/schemas/UserResponse"
-          title: Created by
-          description: The user who created the Prompt.
-        status:
-          allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Prompt Version.
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
-        source_code:
-          type: string
-          title: Source Code
-          description: Code source of the Tool.
-        setup_values:
-          type: object
-          title: Setup values
-          description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
-        tool_type:
-          allOf:
-            - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
-          title: Tool Type
-          description: Type of Tool.
-          default: json_schema
-        spec:
-          allOf:
-            - $ref: "#/components/schemas/ToolSpec"
-          title: Tool spec
-          description: The specification of the tool shown to the model.
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
+          title: Name
         signature:
           type: string
           title: Signature
-          description: Signature of the Tool.
-        version_logs_count:
-          type: integer
-          title: Number of logs for this version
-          description: The number of logs that have been generated for this Prompt Version
-        total_logs_count:
-          type: integer
-          title: Total number of logs across all versions
-          description: The number of logs that have been generated across all Prompt Versions
-        inputs:
-          items:
-            $ref: "#/components/schemas/InputResponse"
-          type: array
-          title: Prompt inputs
-          description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+        result:
+          type: string
+          title: Result
       type: object
       required:
         - id
         - name
-        - version_id
-        - created_at
-        - updated_at
-        - status
-        - last_used_at
-        - version_logs_count
-        - total_logs_count
-        - inputs
-      title: ToolResponse
-      description: Request to create a new Tool.
-    ToolSpec:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Name for the tool referenced by the model.
-        description:
-          type: string
-          title: Description
-          description: Description of the tool referenced by the model
-        parameters:
-          type: object
-          title: Tool parameters
-          description: "Parameters needed to run the Tool, defined in JSON Schema format: https://json-schema.org/"
-      type: object
-      required:
-        - name
-        - description
-      title: ToolSpec
+        - signature
+        - result
+      title: ToolResultResponse
+      description: A result from a tool used to populate the prompt template
+    ToolSource:
+      type: string
+      enum:
+        - organization
+        - inline
+      title: ToolSource
+      description: |-
+        Source of tool. Used to differentiate between tools and tool versions when they are combined in a list.
+
+        V4 uses organization and inline. Those are deprecated and will be removed in favour of tool and tool_version.
     ToolTemplateResponse:
       properties:
         name:
@@ -5128,11 +6098,11 @@ components:
         name:
           type: string
           title: Evaluator Name
-          description: Name of the Evaluator. This has to be unique within your Organization.
+          description: Name of the Evaluator, which is used as a unique identifier.
         directory_id:
           type: string
           title: Directory ID
-          description: Unique identifier for the Directory to move Evaluator to. Starts with `dir_`.
+          description: Unique identifier for the Directory of the Evaluator.
       type: object
       title: UpdateEvaluatorRequest
     UpdatePromptRequest:
@@ -5159,25 +6129,6 @@ components:
           description: "Unique identifier for the Directory of the Prompt. "
       type: object
       title: UpdateToolRequest
-    UserResponse:
-      properties:
-        id:
-          type: string
-          title: User ID
-          description: Unique identifier for User. Starts with `usr`.
-        email_address:
-          type: string
-          title: Email address
-          description: The User's email address.
-        full_name:
-          type: string
-          title: Full name
-          description: The User's full name.
-      type: object
-      required:
-        - id
-        - email_address
-      title: UserResponse
     ValidationError:
       properties:
         loc:
@@ -5204,7 +6155,7 @@ components:
         file:
           anyOf:
             - $ref: "#/components/schemas/PromptResponse"
-            - $ref: "#/components/schemas/ToolResponse"
+            - $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
             - $ref: "#/components/schemas/DatasetResponse"
             - $ref: "#/components/schemas/EvaluatorResponse"
           title: File
@@ -5229,8 +6180,11 @@ components:
     VersionIdResponse:
       properties:
         version:
-          allOf:
-            - $ref: "#/components/schemas/EvaluatorVersionResponse"
+          anyOf:
+            - $ref: "#/components/schemas/PromptResponse"
+            - $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+            - $ref: "#/components/schemas/DatasetResponse"
+            - $ref: "#/components/schemas/EvaluatorResponse"
           title: Version
           description: The specific Version being referenced.
         type:
@@ -5304,6 +6258,67 @@ components:
         - get_api_call
       title: ToolType
       description: Type of tool.
+    src__external__app__models__v4__configs__ToolResponse:
+      properties:
+        id:
+          type: string
+          title: Tool ID
+          description: The ID of the tool. Starts with either `config_` or `oc_`.
+        name:
+          type: string
+          title: Name
+          description: Name for the tool referenced by the model.
+        description:
+          type: string
+          title: Description
+          description: Description of the tool referenced by the model
+        parameters:
+          type: object
+          title: Run arguments schema.
+          description: "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
+        source:
+          type: string
+          title: Origin
+          description: The origin of the tool
+      type: object
+      required:
+        - id
+        - name
+      title: ToolResponse
+    src__external__app__models__v4__feedback__FeedbackType:
+      type: string
+      enum:
+        - rating
+        - action
+        - issue
+        - correction
+        - comment
+      title: FeedbackType
+      description: An enumeration.
+    src__external__app__models__v4__orgs__base_models__UserResponse:
+      properties:
+        id:
+          type: string
+          title: User ID
+          description: String ID of user. Starts with `usr_`.
+        email_address:
+          type: string
+          title: Email address
+          description: The user's email address.
+        full_name:
+          type: string
+          title: Full name
+          description: The user's full name.
+        verified:
+          type: boolean
+          title: Verified
+          description: Whether the user has verified their email address.
+      type: object
+      required:
+        - id
+        - email_address
+        - verified
+      title: UserResponse
     src__external__app__models__v5__datasets__DatasetRequest:
       properties:
         name:
@@ -5340,6 +6355,182 @@ components:
       required:
         - version_id
       title: DatasetRequest
+    src__external__app__models__v5__evaluations__EvaluatorRequest:
+      properties:
+        version_id:
+          type: string
+          title: Evaluator Version ID
+          description: Unique identifier for the Evaluator Version to use in this evaluation. Starts with `evv_`.
+        orchestrated:
+          type: boolean
+          title: Humanloop Orchestrated
+          description: Whether the Evaluator is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Evaluator should be submitted by the user via the API.
+          default: true
+      type: object
+      required:
+        - version_id
+      title: EvaluatorRequest
+    src__external__app__models__v5__evaluators__EvaluatorRequest:
+      properties:
+        name:
+          type: string
+          title: Evaluator Name
+          description: Name of the Evaluator, which is used as a unique identifier.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: Unique identifier for the Directory of the Evaluator.
+        commit_message:
+          type: string
+          title: Commit message
+          description: Message describing the changes made.
+        spec:
+          oneOf:
+            - $ref: "#/components/schemas/LLMEvaluatorRequest"
+            - $ref: "#/components/schemas/CodeEvaluatorRequest"
+            - $ref: "#/components/schemas/HumanEvaluatorRequest"
+          title: Spec
+          discriminator:
+            propertyName: evaluator_type
+            mapping:
+              llm: "#/components/schemas/LLMEvaluatorRequest"
+              python: "#/components/schemas/CodeEvaluatorRequest"
+              human: "#/components/schemas/HumanEvaluatorRequest"
+      type: object
+      required:
+        - spec
+      title: EvaluatorRequest
+      description: Request model for creating a new Evaluator
+    src__external__app__models__v5__feedback__FeedbackType:
+      type: string
+      enum:
+        - rating
+        - action
+        - issue
+        - correction
+        - comment
+      title: FeedbackType
+      description: An enumeration.
+    src__external__app__models__v5__tools__ToolResponse:
+      properties:
+        id:
+          type: string
+          title: Tool ID
+          description: Unique identifier for Tool.
+        name:
+          type: string
+          title: Tool name
+          description: Name of the Tool, which is used as a unique identifier.
+        version_id:
+          type: string
+          title: Version ID
+          description: Unique identifier for the specific Tool Version. If no query params provided, the default deployed Tool Version is returned.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: "Unique identifier for the Directory of the Prompt. "
+        environments:
+          items:
+            $ref: "#/components/schemas/EnvironmentResponse"
+          type: array
+          title: Environments
+          description: The list of environments the Prompt Version is deployed to.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        created_by:
+          allOf:
+            - $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+          title: Created by
+          description: The user who created the Prompt.
+        status:
+          allOf:
+            - $ref: "#/components/schemas/VersionStatus"
+          title: Status
+          description: The status of the Prompt Version.
+        last_used_at:
+          type: string
+          format: date-time
+          title: Last Used At
+        function:
+          allOf:
+            - $ref: "#/components/schemas/ToolFunction"
+          title: Function
+          description: Callable function specification of the Tool shown to the model for tool calling.
+        source_code:
+          type: string
+          title: Source Code
+          description: Code source of the Tool.
+        setup_values:
+          type: object
+          title: Setup values
+          description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+        tool_type:
+          allOf:
+            - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
+          title: Tool Type
+          description: Type of Tool.
+          default: json_schema
+        commit_message:
+          type: string
+          title: Commit message
+          description: Message describing the changes made.
+        signature:
+          type: string
+          title: Signature
+          description: Signature of the Tool.
+        version_logs_count:
+          type: integer
+          title: Number of logs for this version
+          description: The number of logs that have been generated for this Prompt Version
+        total_logs_count:
+          type: integer
+          title: Total number of logs across all versions
+          description: The number of logs that have been generated across all Prompt Versions
+        inputs:
+          items:
+            $ref: "#/components/schemas/InputResponse"
+          type: array
+          title: Prompt inputs
+          description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+      type: object
+      required:
+        - id
+        - name
+        - version_id
+        - created_at
+        - updated_at
+        - status
+        - last_used_at
+        - version_logs_count
+        - total_logs_count
+        - inputs
+      title: ToolResponse
+      description: Request to create a new Tool.
+    src__external__app__models__v5__users__UserResponse:
+      properties:
+        id:
+          type: string
+          title: User ID
+          description: Unique identifier for User. Starts with `usr`.
+        email_address:
+          type: string
+          title: Email address
+          description: The User's email address.
+        full_name:
+          type: string
+          title: Full name
+          description: The User's full name.
+      type: object
+      required:
+        - id
+        - email_address
+      title: UserResponse
   securitySchemes:
     APIKeyHeader:
       type: apiKey
