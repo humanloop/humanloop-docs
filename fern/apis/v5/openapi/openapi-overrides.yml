@@ -1,6 +1,7 @@
 x-fern-pagination: 
   offset: $request.page
   results: $response.records
+
 paths:
   /prompts:
     get:
@@ -47,6 +48,12 @@ paths:
       x-fern-sdk-method-name: log
   /prompts/{id}/call:
     post:
+      x-fern-streaming:
+        stream-condition: $request.stream
+        response-stream: 
+          $ref: "#/components/schemas/PromptCallStreamResponse"
+        response: 
+          $ref: "#/components/schemas/PromptCallResponse"
       x-fern-sdk-group-name:
         - prompts
       x-fern-sdk-method-name: call
@@ -417,8 +424,6 @@ components:
       x-fern-type-name: ProjectSortBy
     PromptCallLogResponse:
       x-fern-type-name: PromptCallLogResponse
-    PromptCallRequest:
-      x-fern-type-name: PromptCallRequest
     PromptCallResponse:
       x-fern-type-name: PromptCallResponse
     PromptCallStreamResponse:
@@ -515,3 +520,7 @@ components:
       x-fern-type-name: ToolResponse
     src__external__app__models__v5__users__UserResponse:
       x-fern-type-name: UserResponse
+  securitySchemes: 
+    APIKeyHeader: 
+      x-fern-header: 
+        env: HUMANLOOP_API_KEY
