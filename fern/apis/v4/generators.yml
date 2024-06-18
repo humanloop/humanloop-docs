@@ -31,3 +31,31 @@ groups:
           client_class_name: Humanloop
           pydantic_config:
             skip_validation: true
+
+  ts-local: 
+    generators:
+      - name: fernapi/fern-typescript-node-sdk
+        version: 0.23.3
+        output:
+          location: local-file-system
+          path: ../generated
+        smart-casing: true
+
+  ts-sdk:
+    generators:
+      - name: fernapi/fern-typescript-node-sdk
+        version: 0.23.3
+        output:
+          location: npm
+          package-name: humanloop
+          # Uncomment when we'd like to publish to NPM
+          # token: ${NPM_TOKEN}
+        github: 
+          repository: fern-demo/humanloop-typescript
+          # mode: pull-request
+        smart-casing: true
+        config: 
+          namespaceExport: Humanloop
+          allowCustomFetcher: true
+          skipResponseValidation: true
+          includeApiReference: true
