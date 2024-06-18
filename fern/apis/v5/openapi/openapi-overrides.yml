@@ -1,0 +1,517 @@
+x-fern-pagination: 
+  offset: $request.page
+  results: $response.records
+paths:
+  /prompts:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: create
+  /prompts/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: update
+  /prompts/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: listversions
+  /prompts/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: deploy
+  /prompts/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: commit
+  /prompts/{id}/log:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: log
+  /prompts/{id}/call:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: call
+  /prompts/{id}/evaluators:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: updateEvaluators
+  /tools:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: create
+  /tools/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: update
+  /tools/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: listversions
+  /tools/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: deploy
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: commit
+  /tools/{id}/log:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: log
+  /tools/{id}/evaluators:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: updateEvaluators
+  /tools/templates:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: listTemplates
+  /datasets:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: create
+  /datasets/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: update
+  /datasets/{id}/datapoints:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: listdatapoints
+  /datasets/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: listversions
+  /datasets/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: commit
+  /datasets/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: deploy
+  /evaluations:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: create
+  /evaluations/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: update
+  /evaluations/{id}/status:
+    patch:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: updatestatus
+  /evaluations/{id}/stats:
+    get:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: getstats
+  /evaluators:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: create
+  /evaluators/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: update
+  /evaluators/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: listversions
+  /evaluators/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: deploy
+  /evaluators/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: commit
+  /evaluators/default:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: listdefault
+  /evaluators/debug:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: debug
+  /logs:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: list
+    delete:
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: delete
+  /logs/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: get
+  /sessions/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: delete
+  /sessions:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: list
+components:
+  schemas:
+    AgentConfigResponse:
+      x-fern-type-name: AgentConfigResponse
+    Body_Evaluations_updateStatus:
+      x-fern-type-name: Body_Evaluations_updateStatus
+    BooleanEvaluatorVersionStats:
+      x-fern-type-name: BooleanEvaluatorVersionStats
+    CategoricalFeedbackLabel:
+      x-fern-type-name: CategoricalFeedbackLabel
+    ChatMessage:
+      x-fern-type-name: ChatMessage
+    ChatMessageWithToolCall:
+      x-fern-type-name: ChatMessageWithToolCall
+    ChatRole:
+      x-fern-type-name: ChatRole
+    CodeEvaluatorRequest:
+      x-fern-type-name: CodeEvaluatorRequest
+    CommitRequest:
+      x-fern-type-name: CommitRequest
+    ConfigResponse:
+      x-fern-type-name: ConfigResponse
+    CreateDatapointRequest:
+      x-fern-type-name: CreateDatapointRequest
+    CreateEvaluationRequest:
+      x-fern-type-name: CreateEvaluationRequest
+    CreatePromptLogResponse:
+      x-fern-type-name: CreatePromptLogResponse
+    CreateToolLogResponse:
+      x-fern-type-name: CreateToolLogResponse
+    DashboardConfiguration:
+      x-fern-type-name: DashboardConfiguration
+    DatapointResponse:
+      x-fern-type-name: DatapointResponse
+    DatasetResponse:
+      x-fern-type-name: DatasetResponse
+    EnvironmentResponse:
+      x-fern-type-name: EnvironmentResponse
+    EnvironmentTag:
+      x-fern-type-name: EnvironmentTag
+    EvaluatedVersionResponse:
+      x-fern-type-name: EvaluatedVersionResponse
+    EvaluateeRequest:
+      x-fern-type-name: EvaluateeRequest
+    EvaluateeResponse:
+      x-fern-type-name: EvaluateeResponse
+    EvaluationDebugResultResponse:
+      x-fern-type-name: EvaluationDebugResultResponse
+    EvaluationEvaluatorResponse:
+      x-fern-type-name: EvaluationEvaluatorResponse
+    EvaluationResponse:
+      x-fern-type-name: EvaluationResponse
+    EvaluationResultResponse:
+      x-fern-type-name: EvaluationResultResponse
+    EvaluationStats:
+      x-fern-type-name: EvaluationStats
+    EvaluationStatus:
+      x-fern-type-name: EvaluationStatus
+    EvaluatorActivationDeactivationRequest:
+      x-fern-type-name: EvaluatorActivationDeactivationRequest
+    EvaluatorArgumentsType:
+      x-fern-type-name: EvaluatorArgumentsType
+    EvaluatorConfigResponse:
+      x-fern-type-name: EvaluatorConfigResponse
+    EvaluatorResponse:
+      x-fern-type-name: EvaluatorResponse
+    EvaluatorReturnTypeEnum:
+      x-fern-type-name: EvaluatorReturnTypeEnum
+    FeedbackClass:
+      x-fern-type-name: FeedbackClass
+    FeedbackLabelStatus:
+      x-fern-type-name: FeedbackLabelStatus
+    FeedbackResponse:
+      x-fern-type-name: FeedbackResponse
+    FeedbackTypeModel:
+      x-fern-type-name: FeedbackTypeModel
+    FeedbackTypes:
+      x-fern-type-name: FeedbackTypes
+    FunctionTool:
+      x-fern-type-name: FunctionTool
+    FunctionToolChoice:
+      x-fern-type-name: FunctionToolChoice
+    GenericConfigResponse:
+      x-fern-type-name: GenericConfigResponse
+    HTTPValidationError:
+      x-fern-type-name: HTTPValidationError
+    HumanEvaluatorRequest:
+      x-fern-type-name: HumanEvaluatorRequest
+    ImageChatContent:
+      x-fern-type-name: ImageChatContent
+    ImageUrl:
+      x-fern-type-name: ImageUrl
+    InputResponse:
+      x-fern-type-name: InputResponse
+    LLMEvaluatorRequest:
+      x-fern-type-name: LLMEvaluatorRequest
+    LabelSentiment:
+      x-fern-type-name: LabelSentiment
+    LinkedToolRequest:
+      x-fern-type-name: LinkedToolRequest
+    LinkedToolResponse:
+      x-fern-type-name: LinkedToolResponse
+    ListDatasets:
+      x-fern-type-name: ListDatasets
+    ListEvaluators:
+      x-fern-type-name: ListEvaluators
+    ListPrompts:
+      x-fern-type-name: ListPrompts
+    ListTools:
+      x-fern-type-name: ListTools
+    LogResponse:
+      x-fern-type-name: LogResponse
+    MetricValueResponse:
+      x-fern-type-name: MetricValueResponse
+    ModelConfigRequest:
+      x-fern-type-name: ModelConfigRequest
+    ModelConfigResponse:
+      x-fern-type-name: ModelConfigResponse
+    ModelConfigToolRequest:
+      x-fern-type-name: ModelConfigToolRequest
+    ModelEndpoints:
+      x-fern-type-name: ModelEndpoints
+    ModelProviders:
+      x-fern-type-name: ModelProviders
+    MonitoringEvaluatorEnvironmentRequest:
+      x-fern-type-name: MonitoringEvaluatorEnvironmentRequest
+    MonitoringEvaluatorResponse:
+      x-fern-type-name: MonitoringEvaluatorResponse
+    MonitoringEvaluatorState:
+      x-fern-type-name: MonitoringEvaluatorState
+    MonitoringEvaluatorVersionRequest:
+      x-fern-type-name: MonitoringEvaluatorVersionRequest
+    NumericEvaluatorVersionStats:
+      x-fern-type-name: NumericEvaluatorVersionStats
+    ObservabilityStatus:
+      x-fern-type-name: ObservabilityStatus
+    OverallStats:
+      x-fern-type-name: OverallStats
+    PaginatedData_DatapointResponse_:
+      x-fern-type-name: PaginatedData_DatapointResponse_
+    PaginatedData_DatasetResponse_:
+      x-fern-type-name: PaginatedData_DatasetResponse_
+    PaginatedData_EvaluationResponse_:
+      x-fern-type-name: PaginatedData_EvaluationResponse_
+    PaginatedData_PromptLogResponse_:
+      x-fern-type-name: PaginatedData_PromptLogResponse_
+    PaginatedData_SessionResponse_:
+      x-fern-type-name: PaginatedData_SessionResponse_
+    PlatformAccessEnum:
+      x-fern-type-name: PlatformAccessEnum
+    ProjectSortBy:
+      x-fern-type-name: ProjectSortBy
+    PromptCallLogResponse:
+      x-fern-type-name: PromptCallLogResponse
+    PromptCallRequest:
+      x-fern-type-name: PromptCallRequest
+    PromptCallResponse:
+      x-fern-type-name: PromptCallResponse
+    PromptCallStreamResponse:
+      x-fern-type-name: PromptCallStreamResponse
+    PromptKernelRequest:
+      x-fern-type-name: PromptKernelRequest
+    PromptLogRequest:
+      x-fern-type-name: PromptLogRequest
+    PromptLogResponse:
+      x-fern-type-name: PromptLogResponse
+    PromptRequest:
+      x-fern-type-name: PromptRequest
+    PromptResponse:
+      x-fern-type-name: PromptResponse
+    ProviderApiKeys:
+      x-fern-type-name: ProviderApiKeys
+    ResponseFormat:
+      x-fern-type-name: ResponseFormat
+    RunSyncEvaluationRequest:
+      x-fern-type-name: RunSyncEvaluationRequest
+    SessionResponse:
+      x-fern-type-name: SessionResponse
+    SortOrder:
+      x-fern-type-name: SortOrder
+    TextChatContent:
+      x-fern-type-name: TextChatContent
+    TimeUnit:
+      x-fern-type-name: TimeUnit
+    ToolCall:
+      x-fern-type-name: ToolCall
+    ToolChoice:
+      x-fern-type-name: ToolChoice
+    ToolConfigRequest:
+      x-fern-type-name: ToolConfigRequest
+    ToolConfigResponse:
+      x-fern-type-name: ToolConfigResponse
+    ToolFunction:
+      x-fern-type-name: ToolFunction
+    ToolKernelRequest:
+      x-fern-type-name: ToolKernelRequest
+    ToolLogRequest:
+      x-fern-type-name: ToolLogRequest
+    ToolRequest:
+      x-fern-type-name: ToolRequest
+    ToolResultResponse:
+      x-fern-type-name: ToolResultResponse
+    ToolSource:
+      x-fern-type-name: ToolSource
+    ToolTemplateResponse:
+      x-fern-type-name: ToolTemplateResponse
+    UpdateDatasetRequest:
+      x-fern-type-name: UpdateDatasetRequest
+    UpdateDatesetAction:
+      x-fern-type-name: UpdateDatesetAction
+    UpdateEvaluatorRequest:
+      x-fern-type-name: UpdateEvaluatorRequest
+    UpdatePromptRequest:
+      x-fern-type-name: UpdatePromptRequest
+    UpdateToolRequest:
+      x-fern-type-name: UpdateToolRequest
+    ValidationError:
+      x-fern-type-name: ValidationError
+    VersionDeploymentResponse:
+      x-fern-type-name: VersionDeploymentResponse
+    VersionIdResponse:
+      x-fern-type-name: VersionIdResponse
+    VersionReferenceResponse:
+      x-fern-type-name: VersionReferenceResponse
+    VersionStats:
+      x-fern-type-name: VersionStats
+    VersionStatus:
+      x-fern-type-name: VersionStatus
+    src__domain__chat_types__enums__ToolType:
+      x-fern-type-name: ChatToolType
+    src__domain__files__tool__ToolType:
+      x-fern-type-name: FilesToolType
+    src__external__app__models__v4__configs__ToolResponse:
+      x-fern-type-name: ConfigToolResponse
+    src__external__app__models__v4__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v4__orgs__base_models__UserResponse:
+      x-fern-type-name: BaseModelsUserResponse
+    src__external__app__models__v5__datasets__DatasetRequest:
+      x-fern-type-name: DatasetsRequest
+    src__external__app__models__v5__evaluations__DatasetRequest:
+      x-fern-type-name: EvaluationsDatasetRequest
+    src__external__app__models__v5__evaluations__EvaluatorRequest:
+      x-fern-type-name: EvaluationsRequest
+    src__external__app__models__v5__evaluators__EvaluatorRequest:
+      x-fern-type-name: EvaluatorsRequest
+    src__external__app__models__v5__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v5__tools__ToolResponse:
+      x-fern-type-name: ToolResponse
+    src__external__app__models__v5__users__UserResponse:
+      x-fern-type-name: UserResponse
