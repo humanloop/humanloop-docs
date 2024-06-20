@@ -89,3 +89,93 @@ if (window.analytics) {
   analytics.page();
 })();
 // End Segment
+
+// Function to duplicate and rename the API Reference tab
+function duplicateAndRenameTab() {
+  console.log("Function duplicateAndRenameTab started");
+
+  // Find the nav element with aria-label="tabs"
+  const tabsNav = document.querySelector('nav[aria-label="tabs"]');
+
+  if (!tabsNav) {
+    console.error("Tabs navigation not found");
+    return;
+  }
+
+  console.log("Tabs navigation found");
+
+  // Find the API Reference tab
+  const apiReferenceTab = Array.from(tabsNav.querySelectorAll("li")).find(
+    (li) => {
+      const text = li.textContent.trim().toLowerCase();
+      console.log("Checking tab:", text);
+      return text === "api reference";
+    }
+  );
+
+  if (!apiReferenceTab) {
+    console.error("API Reference tab not found");
+    return;
+  }
+
+  console.log("API Reference tab found");
+
+  // Clone the API Reference tab
+  const changelogTab = apiReferenceTab.cloneNode(true);
+
+  // Update the text content to "Changelog"
+  const tabContent = changelogTab.querySelector(".truncate");
+  if (tabContent) {
+    tabContent.textContent = "Changelog";
+    console.log("Tab text updated to Changelog");
+  } else {
+    console.error("Could not find .truncate element in the cloned tab");
+  }
+
+  // Update the href attribute
+  const tabLink = changelogTab.querySelector("a");
+  if (tabLink) {
+    tabLink.href = "/v4/api-reference/changelog";
+    // Replace the icon with a clock icon
+    const iconSpan = tabLink.querySelector(".fa-icon");
+    if (iconSpan) {
+      iconSpan.style.maskImage =
+        'url("https://icons.ferndocs.com/light/clock.svg")';
+      iconSpan.style.webkitMaskImage =
+        'url("https://icons.ferndocs.com/light/clock.svg")';
+    }
+    console.log("Tab href updated", tabLink.href);
+  } else {
+    console.error("Could not find anchor element in the cloned tab");
+  }
+
+  // Insert the new tab after the API Reference tab
+  apiReferenceTab.parentNode.insertBefore(
+    changelogTab,
+    apiReferenceTab.nextSibling
+  );
+
+  console.log("Changelog tab added successfully");
+}
+
+// Function to run when the DOM is loaded
+function onDOMLoaded() {
+  console.log("DOM fully loaded");
+  duplicateAndRenameTab();
+}
+
+// Run the function when the DOM is fully loaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", onDOMLoaded);
+} else {
+  // DOM already loaded, run the function immediately
+  onDOMLoaded();
+}
+
+// Fallback: If the tab is not added after a short delay, try again
+setTimeout(() => {
+  if (!document.querySelector('nav[aria-label="tabs"] li:nth-child(3)')) {
+    console.log("Tab not added, trying again");
+    duplicateAndRenameTab();
+  }
+}, 1000);

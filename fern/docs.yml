@@ -35,7 +35,6 @@ versions:
   #   path: ./versions/v5.yml
   #   slug: v5
   #   availability: beta
-
 colors:
   accentPrimary:
     light: "#1919E5"
