@@ -4928,6 +4928,14 @@ components:
       description: Sample specific response details for a Prompt call
     PromptCallRequest:
       properties:
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Prompt ID
+          description: ID for an existing Prompt to update.
         prompt:
           allOf:
             - $ref: "#/components/schemas/PromptKernelRequest"
@@ -4997,14 +5005,6 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
-        path:
-          type: string
-          title: Prompt path
-          description: Path of the Prompt including the name to call.
-        id:
-          type: string
-          title: Prompt ID
-          description: Prompt ID to call.
         provider_api_keys:
           allOf:
             - $ref: "#/components/schemas/ProviderApiKeys"
@@ -5289,6 +5289,14 @@ components:
       title: PromptKernelRequest
     PromptLogRequest:
       properties:
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Prompt ID
+          description: ID for an existing Prompt to update.
         output_message:
           allOf:
             - $ref: "#/components/schemas/ChatMessage"
@@ -5412,20 +5420,16 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
-        path:
-          type: string
-          title: Prompt path
-          description: Path of the Prompt, including the name, which is used as a unique identifier.
-        id:
-          type: string
-          title: Prompt ID
-          description: Prompt ID associated to the log.
       additionalProperties: false
       type: object
       title: PromptLogRequest
       description: Request for creating a Prompt log.
     PromptLogResponse:
       properties:
+        id:
+          type: string
+          title: Log ID
+          description: Unique identifier for the Log.
         output_message:
           allOf:
             - $ref: "#/components/schemas/ChatMessage"
@@ -5549,19 +5553,23 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
-        id:
-          type: string
-          title: Log ID
-          description: Unique identifier for the Log.
       additionalProperties: false
       type: object
       required:
-        - prompt
         - id
+        - prompt
       title: PromptLogResponse
       description: Request for creating a Prompt log.
     PromptRequest:
       properties:
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Prompt ID
+          description: ID for an existing Prompt to update.
         model:
           type: string
           title: Model instance used
@@ -5645,14 +5653,6 @@ components:
           type: array
           title: Linked tools
           description: The IDs of the Tools in your organization that the model can choose to call if Tool calling is supported. The default deployed version of that tool is called.
-        path:
-          type: string
-          title: Prompt path
-          description: Path of the Prompt, including the name, which is used as a unique identifier.
-        id:
-          type: string
-          title: Prompt ID
-          description: ID for an existing Prompt to update.
         commit_message:
           type: string
           title: Commit message
@@ -5707,6 +5707,10 @@ components:
           type: string
           format: date-time
           title: Last Used At
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
         model:
           type: string
           title: Model instance used
@@ -5790,10 +5794,6 @@ components:
           type: array
           title: Linked Tools
           description: The tools linked to your prompt that the model can call.
-        path:
-          type: string
-          title: Prompt path
-          description: Path of the Prompt, including the name, which is used as a unique identifier.
         commit_message:
           type: string
           title: Commit message
@@ -5821,8 +5821,8 @@ components:
         - updated_at
         - status
         - last_used_at
-        - model
         - path
+        - model
         - version_logs_count
         - total_logs_count
         - inputs
@@ -6153,6 +6153,14 @@ components:
       title: ToolKernelRequest
     ToolLogRequest:
       properties:
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Tool ID
+          description: ID for an existing Tool to update.
         output:
           type: string
           title: Model output
@@ -6231,20 +6239,20 @@ components:
             - $ref: "#/components/schemas/ToolKernelRequest"
           title: Tool
           description: Details of your Tool. A new Tool version will be created if the provided details are new.
-        path:
-          type: string
-          title: Tool path
-          description: Path of the Tool, including the name, which is used as a unique identifier.
-        id:
-          type: string
-          title: Tool ID
-          description: Tool ID associated to the log.
       additionalProperties: false
       type: object
       title: ToolLogRequest
       description: Request for creating a Tool log.
     ToolRequest:
       properties:
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool including the Tool name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Tool ID
+          description: ID for an existing Tool to update.
         function:
           allOf:
             - $ref: "#/components/schemas/ToolFunction"
@@ -6258,18 +6266,10 @@ components:
           type: object
           title: Setup values
           description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
-        path:
-          type: string
-          title: Tool path
-          description: Path of the Tool, including the name, which is used as a unique identifier.
         name:
           type: string
           title: Tool Name
           description: Name of the Tool, which is used as a unique identifier.
-        id:
-          type: string
-          title: Tool ID
-          description: ID for an existing Tool to update.
         tool_type:
           allOf:
             - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
@@ -6606,7 +6606,11 @@ components:
         path:
           type: string
           title: Dataset path
-          description: Path of the Dataset, including the name, which is used as a unique identifier.
+          description: Path of the Dataset including the Dataset name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Dataset ID
+          description: ID for an existing Dataset to update.
         name:
           type: string
           title: Dataset name
@@ -6627,10 +6631,6 @@ components:
           title: Action
           description: "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided."
           default: set
-        id:
-          type: string
-          title: Dataset ID
-          description: ID for an existing Dataset to update.
       type: object
       required:
         - datapoints
@@ -6665,15 +6665,15 @@ components:
         path:
           type: string
           title: Evaluator path
-          description: Path of the Evaluator, including the name, which is used as a unique identifier.
-        name:
-          type: string
-          title: Evaluator Name
-          description: Name of the Evaluator, which is used as a unique identifier.
+          description: Path of the Evaluator including the Evaluator name, which is used as a unique identifier.
         id:
           type: string
           title: Evaluator ID
           description: ID for an existing Evaluator to update.
+        name:
+          type: string
+          title: Evaluator Name
+          description: Name of the Evaluator, which is used as a unique identifier.
         commit_message:
           type: string
           title: Commit message
@@ -6750,6 +6750,10 @@ components:
           type: string
           format: date-time
           title: Last Used At
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
         function:
           allOf:
             - $ref: "#/components/schemas/ToolFunction"
@@ -6763,10 +6767,6 @@ components:
           type: object
           title: Setup values
           description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
-        path:
-          type: string
-          title: Tool path
-          description: Path of the Tool, including the name, which is used as a unique identifier.
         tool_type:
           allOf:
             - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
