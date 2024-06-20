@@ -34,9 +34,9 @@ paths:
     get:
       tags:
         - Prompts
-      summary: "List "
+      summary: List Prompts
       description: Get a list of Prompts.
-      operationId: Prompts_list
+      operationId: Prompts_list_prompts
       parameters:
         - description: Page number for pagination.
           required: false
@@ -112,17 +112,17 @@ paths:
     post:
       tags:
         - Prompts
-      summary: Create Prompt
+      summary: Upsert Prompt
       description: |-
-        Create a Prompt.
+        Upsert a Prompt based on path or id.
 
-        When you call this endpoint with the same Prompt name but different parameters,
-        a new version of the Prompt will be created.
+        When you call this endpoint with the same Prompt path, but different parameters,
+        a new version of the Prompt will be inserted.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Prompts_create
+      operationId: Prompts_upsert
       requestBody:
         content:
           application/json:
@@ -224,9 +224,9 @@ paths:
     patch:
       tags:
         - Prompts
-      summary: Update Prompt
-      description: Update the Prompt with the given ID.
-      operationId: Prompts_update
+      summary: Move Prompt
+      description: Move the Prompt to a different path or change the name.
+      operationId: Prompts_move
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -406,7 +406,7 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /prompts/{id}/log:
+  /prompts/log:
     post:
       tags:
         - Prompts
@@ -423,14 +423,6 @@ paths:
         in the case where you are storing or deriving your Prompt details in code.
       operationId: Prompts_log
       parameters:
-        - description: Unique identifier for Prompt.
-          required: true
-          schema:
-            type: string
-            title: Prompt ID
-            description: Unique identifier for Prompt.
-          name: id
-          in: path
         - description: A specific version Id of the Prompt to log to.
           required: false
           schema:
@@ -468,7 +460,7 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /prompts/{id}/call:
+  /prompts/call:
     post:
       tags:
         - Prompts
@@ -488,14 +480,6 @@ paths:
         in the case where you are storing or deriving your Prompt details in code.
       operationId: Prompts_call
       parameters:
-        - description: Unique identifier for Prompt.
-          required: true
-          schema:
-            type: string
-            title: Prompt ID
-            description: Unique identifier for Prompt.
-          name: id
-          in: path
         - description: A specific version Id of the Prompt to log to.
           required: false
           schema:
@@ -656,18 +640,18 @@ paths:
     post:
       tags:
         - Tools
-      summary: Create Tool
+      summary: Upsert Tool
       description: |-
-        Create a Tool.
+        Upsert a Tool based on path or id.
 
         Tools have immutable versions. When you call this endpoint
-        with the same Tool name but different parameters, a new version of
+        with the same Tool path but different parameters, a new version of
         the Tool will be created.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Tools_create
+      operationId: Tools_upsert
       requestBody:
         content:
           application/json:
@@ -769,9 +753,9 @@ paths:
     patch:
       tags:
         - Tools
-      summary: Update Tool
-      description: Update the Tool with the given ID.
-      operationId: Tools_update
+      summary: Move Tool
+      description: Move the Tool to a different path or change the name.
+      operationId: Tools_move
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -951,7 +935,7 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /tools/{id}/log:
+  /tools/log:
     post:
       tags:
         - Tools
@@ -968,14 +952,6 @@ paths:
         in the case where you are storing or deriving your Tool details in code.
       operationId: Tools_log
       parameters:
-        - description: Unique identifier for Tool.
-          required: true
-          schema:
-            type: string
-            title: Tool ID
-            description: Unique identifier for Tool.
-          name: id
-          in: path
         - description: A specific version Id of the Tool to log to.
           required: false
           schema:
@@ -1168,13 +1144,13 @@ paths:
     post:
       tags:
         - Datasets
-      summary: Create Dataset
+      summary: Upsert Dataset
       description: |-
-        Create a Dataset.
+        Upsert a Dataset based on path or id.
 
         Dataset have immutable versions. When you call this endpoint
         with the same Dataset name but different parameters, a new version of
-        the Dataset will be created.
+        the Dataset will be inserted.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
@@ -1189,7 +1165,7 @@ paths:
 
         Humanloop also deduplicates Datapoints. If you try to add a Datapoint that already
         exists, it will be ignored.
-      operationId: Datasets_create
+      operationId: Datasets_upsert
       parameters:
         - description: ID of the specific Dataset version to base the created Version on. Only used when `action` is `"add"` or `"remove"`.
           required: false
@@ -1322,9 +1298,9 @@ paths:
     patch:
       tags:
         - Datasets
-      summary: Update Dataset
+      summary: Move Dataset
       description: Update the Dataset with the given ID.
-      operationId: Datasets_update
+      operationId: Datasets_move
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1919,18 +1895,18 @@ paths:
     post:
       tags:
         - Evaluators
-      summary: Create Evaluator
+      summary: Upsert Evaluator
       description: |-
-        Create an Evaluator.
+        Upsert an Evaluator based on path or id.
 
         Evaluators have immutable versions. When you call this endpoint
         with the same Evaluator name but different spec, a new version of
-        the Evaluator will be created.
+        the Evaluator will be inserted.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Evaluators_create
+      operationId: Evaluators_upsert
       requestBody:
         content:
           application/json:
@@ -2032,9 +2008,9 @@ paths:
     patch:
       tags:
         - Evaluators
-      summary: Update Evaluator
-      description: Update the Evaluator with the given ID.
-      operationId: Evaluators_update
+      summary: Move Evaluator
+      description: Move the Evaluator to a different path or change the name.
+      operationId: Evaluators_move
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2921,7 +2897,7 @@ components:
         tool_id:
           type: string
           title: Tool ID
-          description: ID of the Prompt the log belongs to.
+          description: ID of the Tool the log belongs to.
         version_id:
           type: string
           title: Tool Version ID
@@ -3004,6 +2980,9 @@ components:
           type: string
           title: Version ID
           description: Unique identifier for the specific Dataset Version. If no query params provided, the default deployed Dataset Version is returned. Starts with `dsv_`.
+        directory_id:
+          type: string
+          title: Directory Id
         environments:
           items:
             $ref: "#/components/schemas/EnvironmentResponse"
@@ -3032,6 +3011,10 @@ components:
           type: string
           format: date-time
           title: Last Used At
+        path:
+          type: string
+          title: Dataset path
+          description: Path of the Dataset, including the name, which is used as a unique identifier.
         commit_message:
           type: string
           title: Commit message
@@ -3055,6 +3038,7 @@ components:
         - updated_at
         - status
         - last_used_at
+        - path
         - datapoints_count
       title: DatasetResponse
       description: |-
@@ -3412,8 +3396,7 @@ components:
           description: Unique identifier for the specific Evaluator Version. If no query params provided, the default deployed Evaluator Version is returned.
         directory_id:
           type: string
-          title: Directory ID
-          description: Unique identifier for the Directory of the Evaluator.
+          title: Directory Id
         environments:
           items:
             $ref: "#/components/schemas/EnvironmentResponse"
@@ -3439,6 +3422,10 @@ components:
           type: string
           format: date-time
           title: Last Used At
+        path:
+          type: string
+          title: Dataset path
+          description: Path of the Dataset including the Dataset name, which is used as a unique identifier.
         commit_message:
           type: string
           title: Commit message
@@ -3478,6 +3465,7 @@ components:
         - updated_at
         - status
         - last_used_at
+        - path
         - spec
         - version_logs_count
         - total_logs_count
@@ -4763,6 +4751,14 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt including the name to call.
+        id:
+          type: string
+          title: Prompt ID
+          description: Prompt ID to call.
         provider_api_keys:
           allOf:
             - $ref: "#/components/schemas/ProviderApiKeys"
@@ -5170,6 +5166,14 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Prompt ID
+          description: Prompt ID associated to the log.
       additionalProperties: false
       type: object
       title: PromptLogRequest
@@ -5312,14 +5316,6 @@ components:
       description: Request for creating a Prompt log.
     PromptRequest:
       properties:
-        name:
-          type: string
-          title: Prompt name
-          description: Name of the Prompt, which is used as a unique identifier.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
         model:
           type: string
           title: Model instance used
@@ -5403,6 +5399,14 @@ components:
           type: array
           title: Linked tools
           description: The IDs of the Tools in your organization that the model can choose to call if Tool calling is supported. The default deployed version of that tool is called.
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Prompt ID
+          description: Prompt ID associated to the log.
         commit_message:
           type: string
           title: Commit message
@@ -5421,15 +5425,14 @@ components:
         name:
           type: string
           title: Prompt name
-          description: Name of the Prompt, which is used as a unique identifier.
+          description: Name of the Prompt.
         version_id:
           type: string
           title: Version ID
           description: Unique identifier for the specific Prompt Version. If no query params provided, the default deployed Prompt Version is returned.
         directory_id:
           type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
+          title: Directory Id
         environments:
           items:
             $ref: "#/components/schemas/EnvironmentResponse"
@@ -5540,7 +5543,11 @@ components:
             $ref: "#/components/schemas/LinkedToolResponse"
           type: array
           title: Linked Tools
-          description: The IDs of the Tools in your organization that the model can choose to call if Tool calling is supported. The default deployed version of that tool is called.
+          description: The tools linked to your prompt that the model can call.
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt, including the name, which is used as a unique identifier.
         commit_message:
           type: string
           title: Commit message
@@ -5569,6 +5576,7 @@ components:
         - status
         - last_used_at
         - model
+        - path
         - version_logs_count
         - total_logs_count
         - inputs
@@ -5977,6 +5985,14 @@ components:
             - $ref: "#/components/schemas/ToolKernelRequest"
           title: Tool
           description: Details of your Tool. A new Tool version will be created if the provided details are new.
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
+        id:
+          type: string
+          title: Tool ID
+          description: Tool ID associated to the log.
       additionalProperties: false
       type: object
       title: ToolLogRequest
@@ -5996,14 +6012,18 @@ components:
           type: object
           title: Setup values
           description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
         name:
           type: string
           title: Tool Name
           description: Name of the Tool, which is used as a unique identifier.
-        directory_id:
+        id:
           type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
+          title: Tool ID
+          description: Tool ID associated to the log.
         tool_type:
           allOf:
             - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
@@ -6079,6 +6099,10 @@ components:
       description: Template for a Humanloop runnable tool.
     UpdateDatasetRequest:
       properties:
+        path:
+          type: string
+          title: Dataset path
+          description: Path of the Dataset including the Dataset name, which is used as a unique identifier.
         name:
           type: string
           title: Dataset name
@@ -6095,38 +6119,38 @@ components:
       description: An enumeration.
     UpdateEvaluatorRequest:
       properties:
+        path:
+          type: string
+          title: Evaluator path
+          description: Path of the Evaluator including the Evaluator name, which is used as a unique identifier.
         name:
           type: string
           title: Evaluator Name
           description: Name of the Evaluator, which is used as a unique identifier.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: Unique identifier for the Directory of the Evaluator.
       type: object
       title: UpdateEvaluatorRequest
     UpdatePromptRequest:
       properties:
+        path:
+          type: string
+          title: Prompt path
+          description: Path of the Prompt including the Prompt name, which is used as a unique identifier.
         name:
           type: string
           title: Prompt name
-          description: Name of the Prompt, which is used as a unique identifier.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
+          description: Name of the Prompt.
       type: object
       title: UpdatePromptRequest
     UpdateToolRequest:
       properties:
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool including the Tool name, which is used as a unique identifier.
         name:
           type: string
           title: Tool Name
           description: Name of the Tool, which is used as a unique identifier.
-        directory_id:
-          type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
       type: object
       title: UpdateToolRequest
     ValidationError:
@@ -6321,6 +6345,10 @@ components:
       title: UserResponse
     src__external__app__models__v5__datasets__DatasetRequest:
       properties:
+        path:
+          type: string
+          title: Dataset path
+          description: Path of the Dataset, including the name, which is used as a unique identifier.
         name:
           type: string
           title: Dataset name
@@ -6341,6 +6369,10 @@ components:
           title: Action
           description: "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided."
           default: set
+        id:
+          type: string
+          title: Dataset ID
+          description: Dataset ID associated to the log.
       type: object
       required:
         - datapoints
@@ -6372,14 +6404,18 @@ components:
       title: EvaluatorRequest
     src__external__app__models__v5__evaluators__EvaluatorRequest:
       properties:
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
         name:
           type: string
           title: Evaluator Name
           description: Name of the Evaluator, which is used as a unique identifier.
-        directory_id:
+        id:
           type: string
-          title: Directory ID
-          description: Unique identifier for the Directory of the Evaluator.
+          title: Tool ID
+          description: Tool ID associated to the log.
         commit_message:
           type: string
           title: Commit message
@@ -6427,14 +6463,13 @@ components:
           description: Unique identifier for the specific Tool Version. If no query params provided, the default deployed Tool Version is returned.
         directory_id:
           type: string
-          title: Directory ID
-          description: "Unique identifier for the Directory of the Prompt. "
+          title: Directory Id
         environments:
           items:
             $ref: "#/components/schemas/EnvironmentResponse"
           type: array
           title: Environments
-          description: The list of environments the Prompt Version is deployed to.
+          description: The list of environments the Tool Version is deployed to.
         created_at:
           type: string
           format: date-time
@@ -6447,12 +6482,12 @@ components:
           allOf:
             - $ref: "#/components/schemas/src__external__app__models__v5__users__UserResponse"
           title: Created by
-          description: The user who created the Prompt.
+          description: The user who created the Tool.
         status:
           allOf:
             - $ref: "#/components/schemas/VersionStatus"
           title: Status
-          description: The status of the Prompt Version.
+          description: The status of the Tool Version.
         last_used_at:
           type: string
           format: date-time
@@ -6470,6 +6505,10 @@ components:
           type: object
           title: Setup values
           description: "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+        path:
+          type: string
+          title: Tool path
+          description: Path of the Tool, including the name, which is used as a unique identifier.
         tool_type:
           allOf:
             - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
@@ -6480,24 +6519,24 @@ components:
           type: string
           title: Commit message
           description: Message describing the changes made.
-        signature:
-          type: string
-          title: Signature
-          description: Signature of the Tool.
         version_logs_count:
           type: integer
           title: Number of logs for this version
-          description: The number of logs that have been generated for this Prompt Version
+          description: The number of logs that have been generated for this Tool Version
         total_logs_count:
           type: integer
           title: Total number of logs across all versions
-          description: The number of logs that have been generated across all Prompt Versions
+          description: The number of logs that have been generated across all Tool Versions
         inputs:
           items:
             $ref: "#/components/schemas/InputResponse"
           type: array
           title: Prompt inputs
-          description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+          description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Tool template.
+        signature:
+          type: string
+          title: Signature
+          description: Signature of the Tool.
       type: object
       required:
         - id
@@ -6507,6 +6546,7 @@ components:
         - updated_at
         - status
         - last_used_at
+        - path
         - version_logs_count
         - total_logs_count
         - inputs
