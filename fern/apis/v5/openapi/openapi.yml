@@ -114,10 +114,9 @@ paths:
         - Prompts
       summary: Upsert Prompt
       description: |-
-        Upsert a Prompt based on path or id.
+        Create a Prompt or update it with a new version if it already exists.
 
-        When you call this endpoint with the same Prompt path, but different parameters,
-        a new version of the Prompt will be inserted.
+        Prompts are identified by the `ID` or their `path`. The parameters (i.e. the prompt template, temperature, model etc.) determine the versions of the Prompt.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
@@ -642,11 +641,9 @@ paths:
         - Tools
       summary: Upsert Tool
       description: |-
-        Upsert a Tool based on path or id.
+        Create a Tool or update it with a new version if it already exists.
 
-        Tools have immutable versions. When you call this endpoint
-        with the same Tool path but different parameters, a new version of
-        the Tool will be created.
+        Tools are identified by the `ID` or their `path`. The name, description and parameters determine the versions of the Tool.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
@@ -1146,25 +1143,23 @@ paths:
         - Datasets
       summary: Upsert Dataset
       description: |-
-        Upsert a Dataset based on path or id.
+        Create a Dataset or update it with a new version if it already exists.
 
-        Dataset have immutable versions. When you call this endpoint
-        with the same Dataset name but different parameters, a new version of
-        the Dataset will be inserted.
+        Datasets are identified by the `ID` or their `path`. The datapoints determine the versions of the Dataset.
+
+        By default, the new Dataset version will be set to the list of Datapoints provided in
+        the request. You can also create a new version by adding or removing Datapoints from an existing version
+        by specifying `action` as `add` or `remove` respectively. In this case, you may specify
+        the `version_id` or `environment` query parameters to identify the existing version to base
+        the new version on. If neither is provided, the default deployed version will be used.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
 
-        By default, the new Dataset version will be set to the list of Datapoints provided in
-        the request.
-        You can create a new version by adding or removing Datapoints from an existing version
-        by specifying `action` as `add` or `remove` respectively. In this case, you may specify
-        the `version_id` or `environment` query parameters to identify the existing version to base
-        the new version on. If neither is provided, the default deployed version will be used.
-
         Humanloop also deduplicates Datapoints. If you try to add a Datapoint that already
-        exists, it will be ignored.
+        exists, it will be ignored. If you intentionally want to add a duplicate Datapoint,
+        you can add a unique identifier to the Datapoint's inputs such as `{_dedupe_id: <unique ID>}`.
       operationId: Datasets_upsert
       parameters:
         - description: ID of the specific Dataset version to base the created Version on. Only used when `action` is `"add"` or `"remove"`.
@@ -2045,11 +2040,9 @@ paths:
         - Evaluators
       summary: Upsert Evaluator
       description: |-
-        Upsert an Evaluator based on path or id.
+        Create an Evaluator or update it with a new version if it already exists.
 
-        Evaluators have immutable versions. When you call this endpoint
-        with the same Evaluator name but different spec, a new version of
-        the Evaluator will be inserted.
+        Evaluators are identified by the `ID` or their `path`. The spec provided determines the version of the Evaluator.
 
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
@@ -6900,13 +6893,15 @@ tags:
 
       #### What is a Prompt?
 
-      A Prompt on Humanloop encapsulates the instructions and other configuration for how a large language model should
+      A Prompt on Humanloop encapsulates the base instructions and other configuration for how a large language model should
       perform a specific task.
 
       Prompts have immutable versions that you can **Commit** and **Deploy**.
       To use a Prompt, you can **Call** it to create a generation and you can **Log** generations manually.
 
-      #### Referencing a Prompt version
+      #### Referencing Prompts
+
+      Prompts are referenced by their unique ID or path.
 
       You can perform actions on a specific Prompt version by specifying either the `version_id`
       or `environment` query parameter in the request. If you provide a `version_id`, Humanloop will
