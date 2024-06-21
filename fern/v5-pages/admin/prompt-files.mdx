@@ -1,0 +1,138 @@
+---
+subtitle: Our file format for serialising prompts to store alongside your source code.
+description: The `.prompt` file format is a human-readable and version-control-friendly format for storing model configurations.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code.
+
+## Format
+
+The .prompt file is heavily inspired by [MDX](https://mdxjs.com/), with model and hyperparameters specified in a YAML header alongside a JSX-inspired format for your Chat Template.
+
+### Basic examples
+
+<CodeBlocks>
+```jsx Chat
+---
+model: gpt-4
+temperature: 1.0
+max_tokens: -1
+provider: openai
+endpoint: chat
+---
+<system>
+  You are a friendly assistant.
+</system>
+```
+```jsx Completion
+---
+model: claude-2
+temperature: 0.7
+max_tokens: 256
+top_p: 1.0
+provider: anthropic
+endpoint: complete
+---
+Autocomplete the sentence.
+
+Context: {{context}}
+
+{{sentence}}
+
+````
+</CodeBlocks>
+
+### Multi-modality and Images
+
+Images can be specified using nested `<image>` tags within a `<user>` message. To specify text alongside the image, use a `<text>` tag.
+
+```jsx Image and Text
+---
+model: gpt-4-vision-preview
+temperature: 0.7
+max_tokens: 256
+provider: openai
+endpoint: chat
+tools: []
+---
+<system>
+  You are a friendly assistant.
+</system>
+
+<user>
+  <text>
+    What is in this image?
+  </text>
+  <image url="https://upload.wikimedia.org/wikipedia/commons/8/89/Antidorcas_marsupialis%2C_male_%28Etosha%2C_2012%29.jpg" />
+</user>
+```
+
+### Tools, tool calls and tool responses
+
+Specify the tools available to the model as a JSON list in the YAML header.
+
+Tool calls in assistant messages can be added with nested `<tool>` tags. A `<tool>` tag within an `<assistant>` tag denotes a tool call of `type: "function"`, and requires the attributes `name` and `id`. The text wrapped in a `<tool>` tag should be a JSON-formatted string containing the tool call's arguments.
+
+Tool call responses can then be added with `<tool>` tags after the `<assistant>` message.
+
+```jsx
+---
+model: gpt-4
+temperature: 0.7
+max_tokens: 256
+top_p: 1.0
+presence_penalty: 0.0
+frequency_penalty: 0.0
+provider: openai
+endpoint: chat
+tools: [
+  {
+    "name": "get_current_weather",
+    "description": "Get the current weather in a given location",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "name": "Location",
+          "description": "The city and state, e.g. San Francisco, CA"
+        },
+        "unit": {
+          "type": "string",
+          "name": "Unit",
+          "enum": [
+            "celsius",
+            "fahrenheit"
+          ]
+        }
+      },
+      "required": [
+        "location"
+      ]
+    }
+  }
+]
+---
+<system>
+  You are a friendly assistant.
+</system>
+
+<user>
+  What is the weather in SF?
+</user>
+
+<assistant>
+  <tool name="get_current_weather" id="call_1ZUCTfyeDnpqiZbIwpF6fLGt">
+    {
+      "location": "San Francisco, CA"
+    }
+  </tool>
+</assistant>
+
+
+<tool name="get_current_weather" id="call_1ZUCTfyeDnpqiZbIwpF6fLGt">
+  Cloudy with a chance of meatballs.
+</tool>
+```
+````
