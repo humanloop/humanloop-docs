@@ -24,8 +24,8 @@ navigation:
       - section: Tutorials
         contents:
           - page: Quickstart Tutorial
-            path: ../v5-pages/getting-started/quickstart-tutorial.mdx
-          - page: Tracing and versioning your LLM application
+            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+          - page: Tracing and versioning your LLM calls
             path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
           - page: Debugging an issue
             path: ../v5-pages/tutorials/debugging-issue.mdx
