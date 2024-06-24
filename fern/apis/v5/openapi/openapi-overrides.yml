@@ -41,22 +41,6 @@ paths:
       x-fern-sdk-group-name:
         - prompts
       x-fern-sdk-method-name: commit
-  /prompts/{id}/log:
-    post:
-      x-fern-sdk-group-name:
-        - prompts
-      x-fern-sdk-method-name: log
-  /prompts/{id}/call:
-    post:
-      x-fern-streaming:
-        stream-condition: $request.stream
-        response-stream: 
-          $ref: "#/components/schemas/PromptCallStreamResponse"
-        response: 
-          $ref: "#/components/schemas/PromptCallResponse"
-      x-fern-sdk-group-name:
-        - prompts
-      x-fern-sdk-method-name: call
   /prompts/{id}/evaluators:
     post:
       x-fern-sdk-group-name:
@@ -100,11 +84,6 @@ paths:
       x-fern-sdk-group-name:
         - tools
       x-fern-sdk-method-name: commit
-  /tools/{id}/log:
-    post:
-      x-fern-sdk-group-name:
-        - tools
-      x-fern-sdk-method-name: log
   /tools/{id}/evaluators:
     post:
       x-fern-sdk-group-name:
