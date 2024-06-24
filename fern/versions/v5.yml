@@ -17,14 +17,14 @@ navigation:
             path: ../v5-pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../v5-pages/getting-started/why-humanloop.mdx
-          - page: Quickstart Tutorial
-            path: ../v5-pages/getting-started/quickstart-tutorial.mdx
           - page: Architecture
             path: ../v5-pages/getting-started/architecture.mdx
           - page: Core Concepts
             path: ../v5-pages/getting-started/core-concepts.mdx
       - section: Tutorials
         contents:
+          - page: Quickstart Tutorial
+            path: ../v5-pages/getting-started/quickstart-tutorial.mdx
           - page: Tracing and versioning your LLM application
             path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
           - page: Debugging an issue
