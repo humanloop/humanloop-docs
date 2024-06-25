@@ -1,12 +1,16 @@
 tabs:
   docs:
     display-name: Docs
-    slug: docs
+    skip-slug: true
     icon: light book-open
   api:
     display-name: API Reference
-    slug: docs/api-reference
+    slug: api-reference
     icon: light code
+  changelog:
+    display-name: Changelog
+    icon: light clock
+    changelog: ../changelog
 navigation:
   - tab: docs
     layout:
@@ -199,3 +203,5 @@ navigation:
         api-name: v4
         display-errors: true
         summary: ../apis/v4/summary.md
+
+  - tab: changelog
