@@ -1,6 +1,7 @@
 api:
   path: openapi/openapi.json
   overrides: openapi/openapi-overrides.yml
+  origin: https://devapi.humanloop.ml/v5/openapi.json
   settings:
     use-title: false
     unions: v1
