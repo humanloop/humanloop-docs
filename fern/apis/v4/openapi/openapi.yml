@@ -2480,7 +2480,7 @@ paths:
         - Projects
       summary: Delete Deployed Config
       description: |-
-        Remove the verion deployed to environment.
+        Remove the version deployed to environment.
 
         This has no effect if the project does not have an active version set.
       operationId: Projects_deleteDeployedConfig
