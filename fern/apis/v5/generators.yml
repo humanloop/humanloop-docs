@@ -9,7 +9,7 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 2.10.2
+        version: 2.14.0-rc0
         output:
           location: pypi
           package-name: 'humanloop'
