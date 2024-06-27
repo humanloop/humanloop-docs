@@ -31,11 +31,6 @@ paths:
       x-fern-sdk-group-name:
         - prompts
       x-fern-sdk-method-name: list_versions
-  /prompts/{id}/versions/{version_id}/deploy:
-    post:
-      x-fern-sdk-group-name:
-        - prompts
-      x-fern-sdk-method-name: deploy
   /prompts/{id}/versions/{version_id}/commit:
     post:
       x-fern-sdk-group-name:
@@ -74,11 +69,6 @@ paths:
       x-fern-sdk-group-name:
         - tools
       x-fern-sdk-method-name: list_versions
-  /tools/{id}/versions/{version_id}/deploy:
-    post:
-      x-fern-sdk-group-name:
-        - tools
-      x-fern-sdk-method-name: deploy
   /tools/{id}/versions/{version_id}/commit:
     post:
       x-fern-sdk-group-name:
@@ -133,11 +123,6 @@ paths:
       x-fern-sdk-group-name:
         - datasets
       x-fern-sdk-method-name: commit
-  /datasets/{id}/versions/{version_id}/deploy:
-    post:
-      x-fern-sdk-group-name:
-        - datasets
-      x-fern-sdk-method-name: deploy
   /evaluations:
     get:
       x-fern-pagination: true
@@ -199,11 +184,6 @@ paths:
       x-fern-sdk-group-name:
         - evaluators
       x-fern-sdk-method-name: list_versions
-  /evaluators/{id}/versions/{version_id}/deploy:
-    post:
-      x-fern-sdk-group-name:
-        - evaluators
-      x-fern-sdk-method-name: deploy
   /evaluators/{id}/versions/{version_id}/commit:
     post:
       x-fern-sdk-group-name:

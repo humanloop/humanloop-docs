@@ -1,0 +1,52 @@
+---
+subtitle: "Deployment environments enable you to control the deployment lifecycle of your Prompts and other files between development and production environments."
+description: "Deployment environments enable you to control the deployment lifecycle of your Prompts and other files between development and production environments."
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Feba7b10-small-SCR-20230515-phdb.png&w=3840&q=75
+---
+
+Environments enable you to deploy your model configurations to specific environments, allowing you to separately manage the deployment workflow between testing and production. With environments, you have the control required to manage the full LLM deployment lifecycle.
+
+### Managing your environments
+
+Every organisation automatically receives a default production environment. You can create additional environments with custom names by visiting your organisation's [environments page](https://app.humanloop.com/account/environments).
+
+<Warning>
+  Only Enterprise customers can create more than one environment
+</Warning>
+
+The environments you define for your organisation will be available for each project and can be viewed in the project dashboard once created.
+
+![](../../assets/images/0197f5b-Screenshot_2023-06-28_at_00.15.32.png)
+
+#### The default environment
+
+By default, the production environment is marked as the Default environment. This means that all API calls targeting the "Active Deployment," such as [Get Active Config](/doc/reference/projects_getactiveconfig) or [Chat Deployed](/api-reference/chats/createdeployed) will use this environment. You can update the default environment on the [organisation's environments](https://app.humanloop.com/account/environments) page.
+
+<Warning>
+  Changing the default environment will take immediate effect, so ensure that
+  this change is planned and does not disrupt your production workflows.
+</Warning>
+
+The same caution should be exercised when renaming environments. Renaming will affect each project, so plan the change carefully to avoid any impact on your production workflows.
+
+### Using environments
+
+Once created on the environments page, environments can be used for each project and are visible in the respective project dashboards.
+
+You can deploy directly to a specific environment by selecting it in the **Deployments** section.
+
+![](../../assets/images/68854e6-Screenshot_2023-06-28_at_00.20.52.png)
+
+Alternatively, you can deploy to multiple environments simultaneously by deploying a Model Config from either the Editor or the Model Configs table.
+
+### Using environments via API
+
+![](../../assets/images/35cd1d2-Screenshot_2023-06-28_at_00.21.45.png)
+
+For v4.0 API endpoints that support Active Deployments, such as [Get Active Config](/api-reference/projects/getactiveconfig) or [Chat Deployed](/api-reference/chats/createdeployed), you can now optionally point to a model configuration deployed in a specific environment by including an optional additional `environment` field.
+
+You can find this information in our v4.0 API Documentation or within the environment card in the Project Dashboard under the "Use API" option.
+
+Clicking on the "Use API" option will provide code snippets that demonstrate the usage of the `environment` variable in practice.
+
+![](../../assets/images/f7d0aff-Screenshot_2023-06-28_at_00.04.13.png)

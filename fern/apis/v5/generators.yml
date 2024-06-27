@@ -1,5 +1,5 @@
 api:
-  path: openapi/openapi.json
+  path: openapi/openapi.yml
   overrides: openapi/openapi-overrides.yml
   origin: https://devapi.humanloop.ml/v5/openapi.json
   settings:
@@ -32,11 +32,11 @@ groups:
           package-name: humanloop
           # Uncomment when we'd like to publish to NPM
           # token: ${NPM_TOKEN}
-        github: 
+        github:
           repository: fern-demo/humanloop-typescript
           # mode: pull-request
         smart-casing: true
-        config: 
+        config:
           namespaceExport: Humanloop
           allowCustomFetcher: true
           skipResponseValidation: true

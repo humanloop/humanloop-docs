@@ -1,0 +1,97 @@
+---
+description: Humanloop supports all the major large language model providers, including OpenAI, Anthropic, Google, Azure, and more. Additionally, you can use your own custom models with with the API and still benefit from the Humanloop platform.
+image: /assets/images/social-image.png
+---
+
+Humanloop supports all the major large language model providers, including OpenAI, Anthropic, Google, Azure, and more. Additionally, you can use your own custom models with with the API and still benefit from the Humanloop platform.
+
+## Providers
+
+Here is a summary of which providers we support and whether
+
+| Provider    | Models     | Cost information | Token information |
+| ----------- | ---------- | ---------------- | ----------------- |
+| OpenAI      | ✅         | ✅               | ✅                |
+| Anthropic   | ✅         | ✅               | ✅                |
+| Google      | ✅         | ✅               | ✅                |
+| Azure       | ✅         | ✅               | ✅                |
+| Cohere      | ✅         | ✅               | ✅                |
+| Llama       | ✅         |                  |                   |
+| Groq        | ✅         |                  |                   |
+| AWS Bedrock | By request |                  |                   |
+| Custom      | ✅         | User-defined     | User-defined      |
+
+Adding in more providers is driven by customer demand. If you have a specific provider or model you would like to see supported, please reach out to us at [support@humanloop.com](mailto:support@humanloop.com).
+
+## Models
+
+| Provider     | Key                       | Max Prompt Tokens | Max Output Tokens | Cost per Prompt Token | Cost per Output Token | Tool Support | Image Support |
+| ------------ | ------------------------- | ----------------- | ----------------- | --------------------- | --------------------- | ------------ | ------------- |
+| OpenAI       | gpt-4                     | 8192              | 4096              | $0.00003              | $0.00006              | ✅           | ❌            |
+| OpenAI       | gpt-4o                    | 128000            | 4096              | $0.000005             | $0.000015             | ✅           | ✅            |
+| OpenAI       | gpt-4-turbo               | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ✅            |
+| OpenAI       | gpt-4-turbo-2024-04-09    | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI       | gpt-4-0                   | 8192              | 4096              | $0.00003              | $0.00003              | ✅           | ❌            |
+| OpenAI       | gpt-4-32k                 | 32768             | 4096              | $0.00003              | $0.00003              | ✅           | ❌            |
+| OpenAI       | gpt-4-1106-preview        | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI       | gpt-4-0125-preview        | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI       | gpt-4-vision              | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ✅            |
+| OpenAI       | gpt-4-1106-vision-preview | 16385             | 4096              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI       | gpt-3.5-turbo             | 16385             | 4096              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI       | gpt-3.5-turbo-instruct    | 8192              | 4097              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI       | baggage-002               | 16384             | 16384             | $0.0000004            | $0.0000004            | ✅           | ❌            |
+| OpenAI       | davinci-002               | 16384             | 16384             | $0.000002             | $0.000002             | ✅           | ❌            |
+| OpenAI       | ft:gpt-3.5-turbo          | 4097              | 4096              | $0.000003             | $0.000006             | ✅           | ❌            |
+| OpenAI       | ft:davinci-002            | 16384             | 16384             | $0.000002             | $0.000002             | ✅           | ❌            |
+| OpenAI       | text-moderation           | 32768             | 32768             | $0.000003             | $0.000004             | ✅           | ❌            |
+| Anthropic    | claude-3-opus-20240229    | 200000            | 4096              | $0.000015             | $0.000075             | ✅           | ❌            |
+| Anthropic    | claude-3-sonnet-20240229  | 200000            | 4096              | $0.000003             | $0.000015             | ✅           | ❌            |
+| Anthropic    | claude-3-haiku-20240307   | 200000            | 4096              | $0.00000025           | $0.00000125           | ✅           | ❌            |
+| Anthropic    | claude-2.1                | 100000            | 4096              | $0.00000025           | $0.000024             | ❌           | ❌            |
+| Anthropic    | claude-2                  | 100000            | 4096              | $0.000008             | $0.000024             | ❌           | ❌            |
+| Anthropic    | claude-instant-1.2        | 100000            | 4096              | $0.000008             | $0.000024             | ❌           | ❌            |
+| Anthropic    | claude-instant-1          | 100000            | 4096              | $0.0000008            | $0.0000024            | ❌           | ❌            |
+| Groq         | mixtral-8x7b-32768        | 32768             | 32768             | $0.0                  | $0.0                  | ❌           | ❌            |
+| Groq         | llama3-8b-8192            | 8192              | 8192              | $0.0                  | $0.0                  | ❌           | ❌            |
+| Groq         | llama3-70b-8192           | 8192              | 8192              | $0.0                  | $0.0                  | ❌           | ❌            |
+| Groq         | llama2-70b-4096           | 4096              | 4096              | $0.0                  | $0.0                  | ❌           | ❌            |
+| Groq         | gemma-7b-it               | 8192              | 8192              | $0.0                  | $0.0                  | ❌           | ❌            |
+| Replicate    | llama-3-70b-instruct      | 8192              | 8192              | $0.00000065           | $0.00000275           | ❌           | ❌            |
+| Replicate    | llama-3-70b               | 8192              | 8192              | $0.00000065           | $0.00000275           | ❌           | ❌            |
+| Replicate    | llama-3-8b-instruct       | 8192              | 8192              | $0.00000005           | $0.00000025           | ❌           | ❌            |
+| Replicate    | llama-3-8b                | 8192              | 8192              | $0.00000005           | $0.00000025           | ❌           | ❌            |
+| Replicate    | llama-2-70b               | 4096              | 4096              | $0.00003              | $0.00006              | ❌           | ❌            |
+| Replicate    | llama70b-v2               | 4096              | 4096              | N/A                   | N/A                   | ❌           | ❌            |
+| Replicate    | mixtral-8x7b              | 4096              | 4096              | N/A                   | N/A                   | ❌           | ❌            |
+| OpenAI_Azure | gpt-4o                    | 128000            | 4096              | $0.000005             | $0.000015             | ✅           | ✅            |
+| OpenAI_Azure | gpt-4o-2024-05-13         | 128000            | 4096              | $0.000005             | $0.000015             | ✅           | ✅            |
+| OpenAI_Azure | gpt-4-turbo-2024-04-09    | 128000            | 4096              | $0.00003              | $0.00006              | ✅           | ✅            |
+| OpenAI_Azure | gpt-4                     | 8192              | 4096              | $0.00003              | $0.00006              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-0314                | 8192              | 4096              | $0.00003              | $0.00006              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-32k                 | 32768             | 4096              | $0.00006              | $0.00012              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-0125                | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-1106                | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-0613                | 8192              | 4096              | $0.00003              | $0.00006              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-turbo               | 128000            | 4096              | $0.00001              | $0.00003              | ✅           | ❌            |
+| OpenAI_Azure | gpt-4-turbo-vision        | 128000            | 4096              | $0.000003             | $0.000004             | ✅           | ✅            |
+| OpenAI_Azure | gpt-4-vision              | 128000            | 4096              | $0.000003             | $0.000004             | ✅           | ✅            |
+| OpenAI_Azure | gpt-35-turbo-1106         | 16384             | 4096              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI_Azure | gpt-35-turbo-0125         | 16384             | 4096              | $0.0000005            | $0.0000015            | ✅           | ❌            |
+| OpenAI_Azure | gpt-35-turbo-16k          | 16384             | 4096              | $0.000003             | $0.000004             | ✅           | ❌            |
+| OpenAI_Azure | gpt-35-turbo              | 4097              | 4096              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI_Azure | gpt-3.5-turbo-instruct    | 4097              | 4096              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| OpenAI_Azure | gpt-35-turbo-instruct     | 4097              | 4097              | $0.0000015            | $0.000002             | ✅           | ❌            |
+| Cohere       | command-r                 | 128000            | 4000              | $0.0000005            | $0.0000015            | ❌           | ❌            |
+| Cohere       | command-light             | 4096              | 4096              | $0.000015             | $0.000015             | ❌           | ❌            |
+| Cohere       | command-r-plus            | 128000            | 4000              | $0.000003             | $0.000015             | ❌           | ❌            |
+| Cohere       | command-nightly           | 4096              | 4096              | $0.000015             | $0.000015             | ❌           | ❌            |
+| Cohere       | command                   | 4096              | 4096              | $0.000015             | $0.000015             | ❌           | ❌            |
+| Cohere       | command-medium-beta       | 4096              | 4096              | $0.000015             | $0.000015             | ❌           | ❌            |
+| Cohere       | command-xlarge-beta       | 4096              | 4096              | $0.000015             | $0.000015             | ❌           | ❌            |
+| Google       | gemini-pro-vision         | 16384             | 2048              | $0.00000025           | $0.0000005            | ❌           | ✅            |
+| Google       | gemini-1.0-pro-vision     | 16384             | 2048              | $0.00000025           | $0.0000005            | ❌           | ✅            |
+| Google       | gemini-pro                | 32760             | 8192              | $0.00000025           | $0.0000005            | ❌           | ❌            |
+| Google       | gemini-1.0-pro            | 32760             | 8192              | $0.00000025           | $0.0000005            | ❌           | ❌            |
+| Google       | gemini-1.5-pro-latest     | 1000000           | 8192              | $0.00000025           | $0.0000005            | ❌           | ❌            |
+| Google       | gemini-1.5-pro            | 1000000           | 8192              | $0.00000025           | $0.0000005            | ❌           | ❌            |
+| Google       | gemini-experimental       | 1000000           | 8192              | $0.00000025           | $0.0000005            | ❌           | ❌            |
