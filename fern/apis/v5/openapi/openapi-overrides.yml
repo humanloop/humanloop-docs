@@ -1,0 +1,293 @@
+x-fern-pagination: 
+  offset: $request.page
+  results: $response.records
+
+paths:
+  /prompts:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: create
+  /prompts/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: update
+  /prompts/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: list_versions
+  /prompts/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: deploy
+  /prompts/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: commit
+  /prompts/{id}/evaluators:
+    post:
+      x-fern-sdk-group-name:
+        - prompts
+      x-fern-sdk-method-name: update_evaluators
+  /tools:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: create
+  /tools/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: update
+  /tools/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: list_versions
+  /tools/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: deploy
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: commit
+  /tools/{id}/evaluators:
+    post:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: update_evaluators
+  /tools/templates:
+    get:
+      x-fern-sdk-group-name:
+        - tools
+      x-fern-sdk-method-name: list_templates
+  /datasets:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: create
+  /datasets/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: update
+  /datasets/{id}/datapoints:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: list_datapoints
+  /datasets/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: list_versions
+  /datasets/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: commit
+  /datasets/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - datasets
+      x-fern-sdk-method-name: deploy
+  /evaluations:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: create
+  /evaluations/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: update
+  /evaluations/{id}/status:
+    patch:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: update_status
+  /evaluations/{id}/stats:
+    get:
+      x-fern-sdk-group-name:
+        - evaluations
+      x-fern-sdk-method-name: get_stats
+  /evaluators:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: list
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: create
+  /evaluators/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: delete
+    patch:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: update
+  /evaluators/{id}/versions:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: list_versions
+  /evaluators/{id}/versions/{version_id}/deploy:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: deploy
+  /evaluators/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: commit
+  /evaluators/default:
+    get:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: list_default
+  /evaluators/debug:
+    post:
+      x-fern-sdk-group-name:
+        - evaluators
+      x-fern-sdk-method-name: debug
+  /logs:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: list
+    delete:
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: delete
+  /logs/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - logs
+      x-fern-sdk-method-name: get
+  /sessions/{id}:
+    get:
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: get
+    delete:
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: delete
+  /sessions:
+    get:
+      x-fern-pagination: true
+      x-fern-sdk-group-name:
+        - sessions
+      x-fern-sdk-method-name: list
+components:
+  schemas:
+    Body_Evaluations_updateStatus:
+      x-fern-type-name: UpdateEvaluationStatusRequest
+    PaginatedData_DatapointResponse_:
+      x-fern-type-name: PaginatedDatapointResponse
+    PaginatedData_DatasetResponse_:
+      x-fern-type-name: PaginatedDatasetResponse
+    PaginatedData_EvaluationResponse_:
+      x-fern-type-name: PaginatedEvaluationResponse
+    PaginatedData_PromptLogResponse_:
+      x-fern-type-name: PaginatedPromptLogResponse
+    PaginatedData_SessionResponse_:
+      x-fern-type-name: PaginatedSessionResponse
+    src__domain__chat_types__enums__ToolType:
+      x-fern-type-name: ChatToolType
+    src__domain__files__tool__ToolType:
+      x-fern-type-name: FilesToolType
+    src__external__app__models__v4__configs__ToolResponse:
+      x-fern-type-name: ConfigToolResponse
+    src__external__app__models__v4__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v4__orgs__base_models__UserResponse:
+      x-fern-type-name: BaseModelsUserResponse
+    src__external__app__models__v5__datasets__DatasetRequest:
+      x-fern-type-name: DatasetsRequest
+    src__external__app__models__v5__evaluations__DatasetRequest:
+      x-fern-type-name: EvaluationsDatasetRequest
+    src__external__app__models__v5__evaluations__EvaluatorRequest:
+      x-fern-type-name: EvaluationsRequest
+    src__external__app__models__v5__evaluators__EvaluatorRequest:
+      x-fern-type-name: EvaluatorsRequest
+    src__external__app__models__v5__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v5__tools__ToolResponse:
+      x-fern-type-name: ToolResponse
+    src__external__app__models__v5__users__UserResponse:
+      x-fern-type-name: UserResponse
+  securitySchemes: 
+    APIKeyHeader: 
+      x-fern-header: 
+        env: HUMANLOOP_API_KEY

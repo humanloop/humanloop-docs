@@ -7,6 +7,10 @@ tabs:
     display-name: API Reference
     slug: api-reference
     icon: light code
+  changelog:
+    display-name: Changelog
+    icon: light clock
+    changelog: ../changelog
 navigation:
   - tab: docs
     layout:
@@ -199,3 +203,5 @@ navigation:
         api-name: v4
         display-errors: true
         summary: ../apis/v4/summary.md
+
+  - tab: changelog
