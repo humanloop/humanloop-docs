@@ -163,8 +163,6 @@ navigation:
             path: ../pages/core-entities/logs.mdx
           - page: Environments
             path: ../pages/core-entities/environments.mdx
-          - page: Key Concepts
-            path: ../pages/core-entities/key-concepts.mdx
       - section: Examples
         skip-slug: true
         contents:
