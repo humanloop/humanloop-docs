@@ -47,7 +47,7 @@ navigation:
                 path: ../v5-pages/development/guides/create-prompt.mdx
               - page: Create a Directory
                 path: ../v5-pages/development/guides/create-directory.mdx
-              - page: Call a Prompt’s API
+              - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
               - page: Logging data async
                 path: ../v5-pages/development/guides/logging-async.mdx
