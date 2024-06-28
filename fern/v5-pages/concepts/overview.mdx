@@ -1,7 +1,19 @@
 ---
-subtitle: Prompts, Tools and Evaluators are the core building blocks of your AI features on Humanloop.
+subtitle: Humanloop provides a set of simple, canonical building blocks for your AI applications and avoids complex abstractions.
 description: Discover how Humanloop manages datasets, with version control and collaboration to enable you to evaluate and fine-tune your models.
 ---
+
+
+Prompts, Tools and Evaluators are the core building blocks of your AI features on Humanloop:
+
+- [**Prompts**](): Prompts define how a large language model behaves.
+- [**Tools**](): Tools are functions that can extend your LLMs with access to external data sources and enabling them to take actions.
+- [**Evaluators**](): Evaluators on Humanloop are functions that can be used to judge the output of Prompts, Tools or other Evaluators.
+
+
+<img src="../../assets/images/concepts-overview.png" />
+
+
 
 These core building blocks are represented as different file types within a flexible filesystem in the Humanloop IDE. All file types share the following key properties:
 - **UI first or code first**: You can create and manage these files in the Humanloop UI,
@@ -19,4 +31,4 @@ Using the Humanloop runtime is generally the simpler option and allows you to ca
 
 <br />
 
-Humanloop also has the concept of Datasets that are used within Evaluation workflows. Datasets share all the same properties, except they do not have a runtime consideration.
+Humanloop also has the concept of [Datasets]() that are used within [Evaluation]() workflows. Datasets share all the same properties, except they do not have a runtime consideration.
