@@ -1,0 +1,34 @@
+---
+subtitle: Humanloop provides a set of simple, canonical building blocks for your AI applications and avoids complex abstractions.
+description: Discover how Humanloop manages datasets, with version control and collaboration to enable you to evaluate and fine-tune your models.
+---
+
+
+Prompts, Tools and Evaluators are the core building blocks of your AI features on Humanloop:
+
+- [**Prompts**](): Prompts define how a large language model behaves.
+- [**Tools**](): Tools are functions that can extend your LLMs with access to external data sources and enabling them to take actions.
+- [**Evaluators**](): Evaluators on Humanloop are functions that can be used to judge the output of Prompts, Tools or other Evaluators.
+
+
+<img src="../../assets/images/concepts-overview.png" />
+
+
+
+These core building blocks are represented as different file types within a flexible filesystem in the Humanloop IDE. All file types share the following key properties:
+- **UI first or code first**: You can create and manage these files in the Humanloop UI,
+or via the API. Product teams and their subject matter experts may prefer utilising the UI first workflows for convenience, whereas AI teams and engineers may prefer to use the API for greater control and customisation.
+- **Strict version control**: Files have immutable versions that are uniquely determined by
+their parameters. Each version is semantically different and characterises the behaviour of the system. For example, a Prompt version is determined by the prompt template, base model and hyperparameters chosen.
+Within the Humanloop Editor, you can commit new versions of a file, view the history of changes and revert to a previous version.
+- **Deployment workflow**: You can tag file versions with specific environments and target these environments via the UI and API to facilitate robust deployment workflows.
+- **Composable into sessions**: Files can be combined with other files to create more complex systems. For example, a Prompt can call a Tool, which can then be evaluated by Evaluator.
+The orchestration of more complex systems is best done in code using the SDK.
+- **Serializable**: All files can be exported and imported in a serialized form. For example, Prompts are serialized to our [.prompt]() format. This is to allow teams to store their artefacts in their own version control systems like git.
+- **Flexible runtime**: All files can be called (if you use the Humanloop runtime) or logged to (where you manage the runtime yourself). For example,
+with Prompts, Humanloop integrates to all the major [model providers](). You can choose to call a Prompt, where Humanloop acts as a proxy to the model provider. Alternatively, you can choose the manage the model calls yourself and log the results to the Prompt on Humanloop.
+Using the Humanloop runtime is generally the simpler option and allows you to call the file natively within the Humanloop UI, whereas owning the runtime yourself allows you to have more fine-grained control.
+
+<br />
+
+Humanloop also has the concept of [Datasets]() that are used within [Evaluation]() workflows. Datasets share all the same properties, except they do not have a runtime consideration.
