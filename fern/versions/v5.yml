@@ -11,16 +11,36 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
-        skip-slug: true
         contents:
           - page: Overview
             path: ../v5-pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../v5-pages/getting-started/why-humanloop.mdx
-          - page: Architecture
-            path: ../v5-pages/getting-started/architecture.mdx
-          - page: Core Concepts
-            path: ../v5-pages/getting-started/core-concepts.mdx
+          - section: Concepts
+            contents:
+              - page: Overview
+                path: ../v5-pages/concepts/overview.mdx
+              - page: Prompts
+                path: ../v5-pages/concepts/prompts.mdx
+              - page: Tools
+                path: ../v5-pages/concepts/tools.mdx
+              - page: Datasets
+                path: ../v5-pages/concepts/datasets.mdx
+              - page: Evaluators
+                path: ../v5-pages/concepts/evaluators.mdx
+              - page: Logs
+                path: ../v5-pages/concepts/logs.mdx
+              - page: Environments
+                path: ../v5-pages/concepts/environments.mdx
+          - section: Platform
+            contents:
+              - page: Architecture
+                path: ../v5-pages/getting-started/architecture.mdx
+              - page: Security
+                path: ../v5-pages/getting-started/architecture.mdx
+              - page: Hosting
+                path: ../v5-pages/getting-started/hosting.mdx
+
       - section: Tutorials
         contents:
           - page: Quickstart Tutorial
@@ -33,7 +53,7 @@ navigation:
             path: ../v5-pages/tutorials/evaluating-rag.mdx
           - page: Observability
             path: ../v5-pages/tutorials/observability.mdx
-      - section: Prompt Management
+      - section: Prompt and Tool Management
         contents:
           - page: Collaboration and Version Control
             path: ../v5-pages/development/version-control.mdx
@@ -47,7 +67,7 @@ navigation:
                 path: ../v5-pages/development/guides/create-prompt.mdx
               - page: Create a Directory
                 path: ../v5-pages/development/guides/create-directory.mdx
-              - page: Call a Prompt’s API
+              - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
               - page: Logging data async
                 path: ../v5-pages/development/guides/logging-async.mdx
