@@ -29,11 +29,11 @@ groups:
         version: 0.23.3
         output:
           location: npm
-          package-name: humanloop
+          package-name: 'humanloop'
           # Uncomment when we'd like to publish to NPM
           # token: ${NPM_TOKEN}
         github:
-          repository: fern-demo/humanloop-typescript
+          repository: humanloop/humanloop-node-beta
           # mode: pull-request
         smart-casing: true
         config:
