@@ -1,10 +1,10 @@
-name: Release Typescript SDK
+name: Release TypeScript SDK
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: "The version of the Typescript SDK that you would like to release"
+        description: "The version of the TypeScript SDK that you would like to release"
         required: true
         type: string
       makePR:
@@ -26,7 +26,7 @@ jobs:
       - name: Download Fern
         run: npm install -g fern-api
 
-      - name: Release Typescript SDK
+      - name: Release TypeScript SDK
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
