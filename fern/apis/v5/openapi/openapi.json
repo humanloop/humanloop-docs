@@ -3183,6 +3183,98 @@
         ]
       }
     },
+    "/evaluators/default": {
+      "get": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "List Default Evaluators",
+        "description": "Get a list of default evaluators for the organization.",
+        "operationId": "Evaluators_listDefault",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EvaluatorResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Evaluators Listdefault"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluators/debug": {
+      "post": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "Debug",
+        "description": "Run a synchronous evaluator execution on a collection of datapoints.",
+        "operationId": "debug_evaluators_debug_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunSyncEvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EvaluationDebugResultResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Debug Evaluators Debug Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/evaluators": {
       "get": {
         "tags": [
@@ -3650,98 +3742,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EvaluatorResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluators/default": {
-      "get": {
-        "tags": [
-          "Evaluators"
-        ],
-        "summary": "List Default Evaluators",
-        "description": "Get a list of default evaluators for the organization.",
-        "operationId": "Evaluators_listDefault",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/EvaluatorResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Evaluators Listdefault"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluators/debug": {
-      "post": {
-        "tags": [
-          "Evaluators"
-        ],
-        "summary": "Debug",
-        "description": "Run a synchronous evaluator execution on a collection of datapoints.",
-        "operationId": "debug_evaluators_debug_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunSyncEvaluationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/EvaluationDebugResultResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Debug Evaluators Debug Post"
                 }
               }
             }
@@ -5910,6 +5910,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Spec",
@@ -5918,7 +5921,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           },
@@ -6118,6 +6122,48 @@
           "updated_at"
         ],
         "title": "ExperimentVersionResponse"
+      },
+      "ExternalEvaluatorRequest": {
+        "properties": {
+          "arguments_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
+            ],
+            "title": "Arguments type",
+            "description": "Whether this evaluator is target-free or target-required."
+          },
+          "return_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
+            ],
+            "title": "Return type",
+            "description": "The type of the return value of the evaluator."
+          },
+          "evaluator_type": {
+            "type": "string",
+            "enum": [
+              "external"
+            ],
+            "title": "Evaluator type",
+            "description": "The type of the evaluator.",
+            "default": "external"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata describing the external Evaluator."
+          }
+        },
+        "type": "object",
+        "required": [
+          "arguments_type",
+          "return_type"
+        ],
+        "title": "ExternalEvaluatorRequest"
       },
       "FeedbackClass": {
         "type": "string",
@@ -9145,6 +9191,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Evaluator",
@@ -9153,7 +9202,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           },
@@ -10185,6 +10235,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Spec",
@@ -10193,7 +10246,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           }
