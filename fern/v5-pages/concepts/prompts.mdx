@@ -8,7 +8,7 @@ image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs
 
 A Prompt on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
 
-- the template such as `Write a song about {{topic}}`
+- the template such as `Write a song about {{topic}}`. For chat models, your template will contain an array of messages.
 - the model e.g. `gpt-4o`
 - all the parameters to the model such as `temperature`, `max_tokens`, `top_p` etc.
 - any tools available to the model
@@ -17,13 +17,8 @@ A Prompt is callable in that if you supply the necessary inputs, it will return 
 
 Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 
-This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes. The Prompt stores the configuration and the query time data are stored in [Logs](./logs), which can then be re-used in Datasets.
+This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes. The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be re-used in Datasets.
 
-<Warning>
-  FYI: Prompts have recently been renamed from 'Projects'. The Project's "Model
-  Configs" are now just each version of a Prompt. Some of the documentation and
-  APIs may still refer to Projects and Model Configs.
-</Warning>
 
 <Callout>
   Note that we use a capitalized "[Prompt](/docs/prompts)" to refer to the
