@@ -17,7 +17,8 @@ groups:
           # token: ${PYPI_TOKEN}
         github:
           repository: humanloop/humanloop-python-beta
-          # mode: pull-request
+          mode: push
+          branch: master
         config:
           client_class_name: Humanloop
           pydantic_config:
@@ -34,7 +35,8 @@ groups:
           # token: ${NPM_TOKEN}
         github:
           repository: humanloop/humanloop-node-beta
-          # mode: pull-request
+          mode: push
+          branch: master
         smart-casing: true
         config:
           namespaceExport: Humanloop
