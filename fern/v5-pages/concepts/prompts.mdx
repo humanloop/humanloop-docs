@@ -17,7 +17,8 @@ A Prompt is callable in that if you supply the necessary inputs, it will return 
 
 Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 
-This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes. The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be re-used in Datasets.
+This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
+The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
 
 
 <Callout>
@@ -51,7 +52,7 @@ By versioning your Prompts, you can track how adjustments to the template or par
 
 ### When to create a new Prompt
 
-You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: extractive summary, title creator, outline generator etc.
+You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: Writing Copilot, Personal Assistant, Summariser, etc.
 
 We've seen people find it useful to also create a Prompt called 'Playground' where they can free form experiment without concern of breaking anything or making a mess of their other Prompts.
 
@@ -59,14 +60,27 @@ We've seen people find it useful to also create a Prompt called 'Playground' whe
 
 Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output.
 
+
+<CodeBlocks>
 ```javascript TypeScript
-const chatResponse = await humanloop.chatDeployed({
-  project: "song writer",
+const response = await humanloop.prompts.call({
+  path: "Code Assistant",
   inputs: {
     topic: "debugging compiler errors",
   },
 });
 ```
+```python Python
+response = humanloop.prompts.call(
+  path="Code Assistant",
+  inputs={
+    "topic": "debugging compiler errors",
+  }
+);
+```
+</CodeBlocks>
+
+
 
 You can also use Prompts without proxying all requests through Humanloop.
 
