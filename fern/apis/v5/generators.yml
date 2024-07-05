@@ -13,8 +13,7 @@ groups:
         output:
           location: pypi
           package-name: 'humanloop'
-          # Uncomment when we'd like to publish to PyPI
-          # token: ${PYPI_TOKEN}
+          token: ${PYPI_TOKEN}
         github:
           repository: humanloop/humanloop-python-beta
           mode: push
