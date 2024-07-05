@@ -21,7 +21,7 @@ All file types share the following key properties:
 - **UI first or code first**: You can create and manage these files in the [Humanloop UI](https://app.humanloop.com/),
 or via the [API](http://humanloop.com/docs/v5/api-reference/sd-ks). Product teams and their subject matter experts may prefer utilising the UI first workflows for convenience, whereas AI teams and engineers may prefer to use the API for greater control and customisation.
 - **Strict version control**: Files have immutable versions that are uniquely determined by
-their parameters. Each version is semantically different and characterises the behaviour of the system. For example, a Prompt version is determined by the prompt template, base model and hyperparameters chosen.
+their parameters that characterise the behaviour of the system. For example, a Prompt version is determined by the prompt template, base model and hyperparameters chosen.
 Within the Humanloop Editor and via  the API, you can commit new versions of a file, view the history of changes and revert to a previous version.
 - **Flexible runtime**: All files can be called (if you use the Humanloop runtime) or logged to (where you manage the runtime yourself). For example,
 with Prompts, Humanloop integrates to all the major [model providers](http://humanloop.com/docs/v5/reference/supported-models). You can choose to call a Prompt, where Humanloop acts as a proxy to the model provider. Alternatively, you can choose to manage the model calls yourself and log the results to the Prompt on Humanloop.
