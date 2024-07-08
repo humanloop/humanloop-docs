@@ -182,7 +182,7 @@
           "Prompts"
         ],
         "summary": "Get Prompt",
-        "description": "Retrieve the Prompt with the given ID.\n\nBy default the deployed version of the Prompt is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Prompt.",
+        "description": "Retrieve the Prompt with the given ID.\n\nBy default, the deployed version of the Prompt is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Prompt.",
         "operationId": "Prompts_get",
         "parameters": [
           {
@@ -197,23 +197,23 @@
             "in": "path"
           },
           {
-            "description": "A specific Version Id  of the Prompt to retrieve.",
+            "description": "A specific Version ID of the Prompt to retrieve.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific Version Id  of the Prompt to retrieve."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Prompt to retrieve."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag to retrieve a deployed Version from.",
+            "description": "Name of the Environment to retrieve a deployed Version from.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to retrieve a deployed Version from."
+              "description": "Name of the Environment to retrieve a deployed Version from."
             },
             "name": "environment",
             "in": "query"
@@ -382,12 +382,12 @@
             "in": "query"
           },
           {
-            "description": "Filter versions by environment tag. If no environment is provided, all versions are returned.",
+            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "Filter versions by environment tag. If no environment is provided, all versions are returned."
+              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
             },
             "name": "environment",
             "in": "query"
@@ -396,9 +396,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluation Aggregates"
+              "title": "Evaluator Aggregates"
             },
-            "name": "evaluation_aggregates",
+            "name": "evaluator_aggregates",
             "in": "query"
           }
         ],
@@ -409,78 +409,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListPrompts"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/prompts/{id}/versions/{version_id}/deploy": {
-      "post": {
-        "tags": [
-          "Prompts"
-        ],
-        "summary": "Deploy",
-        "description": "Deploy Prompt to Environment.\n\nSet the deployed Version for the specified Environment. This Prompt Version\nwill be used for calls made to the Prompt in this Environment.",
-        "operationId": "deploy_prompts__id__versions__version_id__deploy_post",
-        "parameters": [
-          {
-            "description": "Unique identifier for Prompt.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Prompt ID",
-              "description": "Unique identifier for Prompt."
-            },
-            "name": "id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the specific version of the Prompt.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "Unique identifier for the specific version of the Prompt."
-            },
-            "name": "version_id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the Environment to deploy the Version to.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Environment ID",
-              "description": "Unique identifier for the Environment to deploy the Version to."
-            },
-            "name": "environment_id",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PromptResponse"
                 }
               }
             }
@@ -584,23 +512,23 @@
         "operationId": "Prompts_log",
         "parameters": [
           {
-            "description": "A specific version Id of the Prompt to log to.",
+            "description": "A specific Version ID of the Prompt to log to.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific version Id of the Prompt to log to."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Prompt to log to."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag of the deployed version to log to.",
+            "description": "Name of the Environment identifying a deployed version to log to.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag of the deployed version to log to."
+              "description": "Name of the Environment identifying a deployed version to log to."
             },
             "name": "environment",
             "in": "query"
@@ -655,23 +583,23 @@
         "operationId": "Prompts_call",
         "parameters": [
           {
-            "description": "A specific version Id of the Prompt to log to.",
+            "description": "A specific Version ID of the Prompt to log to.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific version Id of the Prompt to log to."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Prompt to log to."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag of the deployed version to log to.",
+            "description": "Name of the Environment identifying a deployed version to log to.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag of the deployed version to log to."
+              "description": "Name of the Environment identifying a deployed version to log to."
             },
             "name": "environment",
             "in": "query"
@@ -760,6 +688,184 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PromptResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/prompts/{id}/environments/{environment_id}": {
+      "post": {
+        "tags": [
+          "Prompts"
+        ],
+        "summary": "Deploy",
+        "description": "Deploy Prompt to Environment.\n\nSet the deployed Version for the specified Environment. This Prompt Version\nwill be used for calls made to the Prompt in this Environment.",
+        "operationId": "deploy_prompts__id__environments__environment_id__post",
+        "parameters": [
+          {
+            "description": "Unique identifier for Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Prompt ID",
+              "description": "Unique identifier for Prompt."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to deploy the Version to.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to deploy the Version to."
+            },
+            "name": "environment_id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Prompt."
+            },
+            "name": "version_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Prompts"
+        ],
+        "summary": "Remove Deployment",
+        "description": "Remove deployment of Prompt from Environment.\n\nRemove the deployed Version for the specified Environment. This Prompt Version\nwill no longer be used for calls made to the Prompt in this Environment.",
+        "operationId": "remove_deployment_prompts__id__environments__environment_id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Prompt ID",
+              "description": "Unique identifier for Prompt."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to remove the deployment from.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to remove the deployment from."
+            },
+            "name": "environment_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/prompts/{id}/environments": {
+      "get": {
+        "tags": [
+          "Prompts"
+        ],
+        "summary": "List Environments",
+        "description": "List all Environments and their deployed versions for the Prompt.",
+        "operationId": "list_environments_prompts__id__environments_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Prompt ID",
+              "description": "Unique identifier for Prompt."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FileEnvironmentResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Environments Prompts  Id  Environments Get"
                 }
               }
             }
@@ -951,7 +1057,7 @@
           "Tools"
         ],
         "summary": "Get Tool",
-        "description": "Retrieve the Tool with the given ID.\n\nBy default the deployed version of the Tool is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Tool.",
+        "description": "Retrieve the Tool with the given ID.\n\nBy default, the deployed version of the Tool is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Tool.",
         "operationId": "Tools_get",
         "parameters": [
           {
@@ -966,23 +1072,23 @@
             "in": "path"
           },
           {
-            "description": "A specific Version Id  of the Tool to retrieve.",
+            "description": "A specific Version ID of the Tool to retrieve.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific Version Id  of the Tool to retrieve."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Tool to retrieve."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag to retrieve a deployed Version from.",
+            "description": "Name of the Environment to retrieve a deployed Version from.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to retrieve a deployed Version from."
+              "description": "Name of the Environment to retrieve a deployed Version from."
             },
             "name": "environment",
             "in": "query"
@@ -1151,12 +1257,12 @@
             "in": "query"
           },
           {
-            "description": "Filter versions by environment tag. If no environment is provided, all versions are returned.",
+            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "Filter versions by environment tag. If no environment is provided, all versions are returned."
+              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
             },
             "name": "environment",
             "in": "query"
@@ -1165,9 +1271,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluation Aggregates"
+              "title": "Evaluator Aggregates"
             },
-            "name": "evaluation_aggregates",
+            "name": "evaluator_aggregates",
             "in": "query"
           }
         ],
@@ -1178,78 +1284,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListTools"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/tools/{id}/versions/{version_id}/deploy": {
-      "post": {
-        "tags": [
-          "Tools"
-        ],
-        "summary": "Deploy",
-        "description": "Deploy Tool to Environment.\n\nSet the deployed Version for the specified Environment. This Tool Version\nwill be used for calls made to the Tool in this Environment.",
-        "operationId": "deploy_tools__id__versions__version_id__deploy_post",
-        "parameters": [
-          {
-            "description": "Unique identifier for Tool.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Tool ID",
-              "description": "Unique identifier for Tool."
-            },
-            "name": "id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the specific version of the Tool.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "Unique identifier for the specific version of the Tool."
-            },
-            "name": "version_id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the Environment to deploy the Version to.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Environment ID",
-              "description": "Unique identifier for the Environment to deploy the Version to."
-            },
-            "name": "environment_id",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
                 }
               }
             }
@@ -1353,23 +1387,23 @@
         "operationId": "Tools_log",
         "parameters": [
           {
-            "description": "A specific version Id of the Tool to log to.",
+            "description": "A specific Version ID of the Tool to log to.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific version Id of the Tool to log to."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Tool to log to."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag of the deployed version to log to.",
+            "description": "Name of the Environment identifying a deployed version to log to.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag of the deployed version to log to."
+              "description": "Name of the Environment identifying a deployed version to log to."
             },
             "name": "environment",
             "in": "query"
@@ -1472,27 +1506,46 @@
         ]
       }
     },
-    "/tools/templates": {
-      "get": {
+    "/tools/{id}/environments/{environment_id}": {
+      "post": {
         "tags": [
           "Tools"
         ],
-        "summary": "List Templates",
-        "operationId": "list_templates_tools_templates_get",
+        "summary": "Deploy",
+        "description": "Deploy Tool to Environment.\n\nSet the deployed Version for the specified Environment. This Tool Version\nwill be used for calls made to the Tool in this Environment.",
+        "operationId": "deploy_tools__id__environments__environment_id__post",
         "parameters": [
           {
-            "description": "Type of tool to return the template",
-            "required": false,
+            "description": "Unique identifier for Tool.",
+            "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/src__domain__files__tool__ToolType"
-                }
-              ],
-              "title": "Specific tool type template",
-              "description": "Type of tool to return the template"
+              "type": "string",
+              "title": "Tool ID",
+              "description": "Unique identifier for Tool."
             },
-            "name": "tool_type",
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to deploy the Version to.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to deploy the Version to."
+            },
+            "name": "environment_id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Tool.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Tool."
+            },
+            "name": "version_id",
             "in": "query"
           }
         ],
@@ -1502,11 +1555,113 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Tools"
+        ],
+        "summary": "Remove Deployment",
+        "description": "Remove deployment of Tool from Environment.\n\nRemove the deployed Version for the specified Environment. This Tool Version\nwill no longer be used for calls made to the Tool in this Environment.",
+        "operationId": "remove_deployment_tools__id__environments__environment_id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Tool.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tool ID",
+              "description": "Unique identifier for Tool."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to remove the deployment from.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to remove the deployment from."
+            },
+            "name": "environment_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/tools/{id}/environments": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "summary": "List Environments",
+        "description": "List all Environments and their deployed versions for the Tool.",
+        "operationId": "list_environments_tools__id__environments_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Tool.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tool ID",
+              "description": "Unique identifier for Tool."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ToolTemplateResponse"
+                    "$ref": "#/components/schemas/FileEnvironmentResponse"
                   },
                   "type": "array",
-                  "title": "Response List Templates Tools Templates Get"
+                  "title": "Response List Environments Tools  Id  Environments Get"
                 }
               }
             }
@@ -1667,12 +1822,12 @@
             "in": "query"
           },
           {
-            "description": "An environment tag to identify a deployed Version to base the created Version on. Only used when `action` is `\"add\"` or `\"remove\"`.",
+            "description": "Name of the Environment identifying a deployed Version to base the created Version on. Only used when `action` is `\"add\"` or `\"remove\"`.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to identify a deployed Version to base the created Version on. Only used when `action` is `\"add\"` or `\"remove\"`."
+              "description": "Name of the Environment identifying a deployed Version to base the created Version on. Only used when `action` is `\"add\"` or `\"remove\"`."
             },
             "name": "environment",
             "in": "query"
@@ -1723,7 +1878,7 @@
           "Datasets"
         ],
         "summary": "Get Dataset",
-        "description": "Retrieve the Dataset with the given ID.\n\nUnless `include_datapoints` is set to `true`, the response will not include\nthe Datapoints.\nUse the List Datapoints endpoint (`GET /{id}/datapoints`) to efficiently\nretrieve Datapoints for a large Dataset.\n\nBy default the deployed version of the Dataset is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Dataset.",
+        "description": "Retrieve the Dataset with the given ID.\n\nUnless `include_datapoints` is set to `true`, the response will not include\nthe Datapoints.\nUse the List Datapoints endpoint (`GET /{id}/datapoints`) to efficiently\nretrieve Datapoints for a large Dataset.\n\nBy default, the deployed version of the Dataset is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Dataset.",
         "operationId": "Datasets_get",
         "parameters": [
           {
@@ -1742,19 +1897,19 @@
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
+              "title": "Version ID",
               "description": "A specific Version ID of the Dataset to retrieve."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag to retrieve a deployed Version from.",
+            "description": "Name of the Environment to retrieve a deployed Version from.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to retrieve a deployed Version from."
+              "description": "Name of the Environment to retrieve a deployed Version from."
             },
             "name": "environment",
             "in": "query"
@@ -1932,12 +2087,12 @@
             "in": "query"
           },
           {
-            "description": "An environment tag to retrieve a deployed Version from.",
+            "description": "Name of the Environment to retrieve a deployed Version from.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to retrieve a deployed Version from."
+              "description": "Name of the Environment to retrieve a deployed Version from."
             },
             "name": "environment",
             "in": "query"
@@ -2033,12 +2188,12 @@
             "in": "query"
           },
           {
-            "description": "Filter versions by environment tag. If no environment is provided, all versions are returned.",
+            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "Filter versions by environment tag. If no environment is provided, all versions are returned."
+              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
             },
             "name": "environment",
             "in": "query"
@@ -2153,14 +2308,96 @@
         ]
       }
     },
-    "/datasets/{id}/versions/{version_id}/deploy": {
+    "/datasets/{id}/datapoints/logs": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Add Datapoints From Logs",
+        "description": "Add Datapoints from Logs to a Dataset.\n\nThis will create a new committed version of the Dataset with the Datapoints from the Logs.\n\nIf either `version_id` or `environment` is provided, the new version will be based on the specified version,\nwith the Datapoints from the Logs added to the existing Datapoints in the version.\nIf neither `version_id` nor `environment` is provided, the new version will be based on the version\nof the Dataset that is deployed to the default Environment.",
+        "operationId": "Datasets_createDatapointsFromLogs",
+        "parameters": [
+          {
+            "description": "Unique identifier for the Dataset",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataset ID",
+              "description": "Unique identifier for the Dataset"
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "ID of the specific Dataset version to base the created Version on.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "ID of the specific Dataset version to base the created Version on."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed Version to base the created Version on.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed Version to base the created Version on."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_Datasets_createDatapointsFromLogs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/datasets/{id}/environments/{environment_id}": {
       "post": {
         "tags": [
           "Datasets"
         ],
         "summary": "Deploy",
         "description": "Deploy Dataset to Environment.\n\nSet the deployed Version for the specified Environment.",
-        "operationId": "deploy_datasets__id__versions__version_id__deploy_post",
+        "operationId": "deploy_datasets__id__environments__environment_id__post",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2174,17 +2411,6 @@
             "in": "path"
           },
           {
-            "description": "Unique identifier for the specific version of the Dataset.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "Unique identifier for the specific version of the Dataset."
-            },
-            "name": "version_id",
-            "in": "path"
-          },
-          {
             "description": "Unique identifier for the Environment to deploy the Version to.",
             "required": true,
             "schema": {
@@ -2193,6 +2419,17 @@
               "description": "Unique identifier for the Environment to deploy the Version to."
             },
             "name": "environment_id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Dataset.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Dataset."
+            },
+            "name": "version_id",
             "in": "query"
           }
         ],
@@ -2203,6 +2440,112 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DatasetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Remove Deployment",
+        "description": "Remove deployment of Dataset from Environment.\n\nRemove the deployed Version for the specified Environment.",
+        "operationId": "remove_deployment_datasets__id__environments__environment_id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Dataset.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataset ID",
+              "description": "Unique identifier for Dataset."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to remove the deployment from.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to remove the deployment from."
+            },
+            "name": "environment_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/datasets/{id}/environments": {
+      "get": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "List Environments",
+        "description": "List all Environments and their deployed versions for the Dataset.",
+        "operationId": "list_environments_datasets__id__environments_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Dataset.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataset ID",
+              "description": "Unique identifier for Dataset."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FileEnvironmentResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Environments Datasets  Id  Environments Get"
                 }
               }
             }
@@ -2840,6 +3183,98 @@
         ]
       }
     },
+    "/evaluators/default": {
+      "get": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "List Default Evaluators",
+        "description": "Get a list of default evaluators for the organization.",
+        "operationId": "Evaluators_listDefault",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EvaluatorResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Evaluators Listdefault"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluators/debug": {
+      "post": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "Debug",
+        "description": "Run a synchronous evaluator execution on a collection of datapoints.",
+        "operationId": "debug_evaluators_debug_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunSyncEvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EvaluationDebugResultResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Debug Evaluators Debug Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/evaluators": {
       "get": {
         "tags": [
@@ -3009,7 +3444,7 @@
           "Evaluators"
         ],
         "summary": "Get Evaluator",
-        "description": "Retrieve the Evaluator with the given ID.\n\nBy default the deployed version of the Evaluator is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Evaluator.",
+        "description": "Retrieve the Evaluator with the given ID.\n\nBy default, the deployed version of the Evaluator is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Evaluator.",
         "operationId": "Evaluators_get",
         "parameters": [
           {
@@ -3024,23 +3459,23 @@
             "in": "path"
           },
           {
-            "description": "A specific Version Id  of the Evaluator to retrieve.",
+            "description": "A specific Version ID of the Evaluator to retrieve.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version Id",
-              "description": "A specific Version Id  of the Evaluator to retrieve."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Evaluator to retrieve."
             },
             "name": "version_id",
             "in": "query"
           },
           {
-            "description": "An environment tag to retrieve a deployed Version from.",
+            "description": "Name of the Environment to retrieve a deployed Version from.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "An environment tag to retrieve a deployed Version from."
+              "description": "Name of the Environment to retrieve a deployed Version from."
             },
             "name": "environment",
             "in": "query"
@@ -3209,12 +3644,12 @@
             "in": "query"
           },
           {
-            "description": "Filter versions by environment tag. If no environment is provided, all versions are returned.",
+            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment",
-              "description": "Filter versions by environment tag. If no environment is provided, all versions are returned."
+              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
             },
             "name": "environment",
             "in": "query"
@@ -3223,9 +3658,9 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluation Aggregates"
+              "title": "Evaluator Aggregates"
             },
-            "name": "evaluation_aggregates",
+            "name": "evaluator_aggregates",
             "in": "query"
           }
         ],
@@ -3236,78 +3671,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListEvaluators"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluators/{id}/versions/{version_id}/deploy": {
-      "post": {
-        "tags": [
-          "Evaluators"
-        ],
-        "summary": "Deploy",
-        "description": "Deploy Evaluator to Environment.\n\nSet the deployed Version for the specified Environment. This Evaluator Version\nwill be used for calls made to the Evaluator in this Environment.",
-        "operationId": "deploy_evaluators__id__versions__version_id__deploy_post",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluator.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluator ID",
-              "description": "Unique identifier for Evaluator."
-            },
-            "name": "id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the specific version of the Evaluator.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "Unique identifier for the specific version of the Evaluator."
-            },
-            "name": "version_id",
-            "in": "path"
-          },
-          {
-            "description": "Unique identifier for the Environment to deploy the Version to.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Environment ID",
-              "description": "Unique identifier for the Environment to deploy the Version to."
-            },
-            "name": "environment_id",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluatorResponse"
                 }
               }
             }
@@ -3401,25 +3764,56 @@
         ]
       }
     },
-    "/evaluators/default": {
-      "get": {
+    "/evaluators/{id}/environments/{environment_id}": {
+      "post": {
         "tags": [
           "Evaluators"
         ],
-        "summary": "List Default Evaluators",
-        "description": "Get a list of default evaluators for the organization.",
-        "operationId": "Evaluators_listDefault",
+        "summary": "Deploy",
+        "description": "Deploy Evaluator to Environment.\n\nSet the deployed Version for the specified Environment. This Evaluator Version\nwill be used for calls made to the Evaluator in this Environment.",
+        "operationId": "deploy_evaluators__id__environments__environment_id__post",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluator.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluator ID",
+              "description": "Unique identifier for Evaluator."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to deploy the Version to.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to deploy the Version to."
+            },
+            "name": "environment_id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Evaluator.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Evaluator."
+            },
+            "name": "version_id",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/EvaluatorResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Evaluators Listdefault"
+                  "$ref": "#/components/schemas/EvaluatorResponse"
                 }
               }
             }
@@ -3440,26 +3834,81 @@
             "APIKeyHeader": []
           }
         ]
-      }
-    },
-    "/evaluators/debug": {
-      "post": {
+      },
+      "delete": {
         "tags": [
           "Evaluators"
         ],
-        "summary": "Debug",
-        "description": "Run a synchronous evaluator execution on a collection of datapoints.",
-        "operationId": "debug_evaluators_debug_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunSyncEvaluationRequest"
+        "summary": "Remove Deployment",
+        "description": "Remove deployment of Evaluator from Environment.\n\nRemove the deployed Version for the specified Environment. This Evaluator Version\nwill no longer be used for calls made to the Evaluator in this Environment.",
+        "operationId": "remove_deployment_evaluators__id__environments__environment_id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluator.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluator ID",
+              "description": "Unique identifier for Evaluator."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to remove the deployment from.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to remove the deployment from."
+            },
+            "name": "environment_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
-          },
-          "required": true
+          }
         },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluators/{id}/environments": {
+      "get": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "List Environments",
+        "description": "List all Environments and their deployed versions for the Evaluator.",
+        "operationId": "list_environments_evaluators__id__environments_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluator.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluator ID",
+              "description": "Unique identifier for Evaluator."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -3467,10 +3916,10 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/EvaluationDebugResultResponse"
+                    "$ref": "#/components/schemas/FileEnvironmentResponse"
                   },
                   "type": "array",
-                  "title": "Response Debug Evaluators Debug Post"
+                  "title": "Response List Environments Evaluators  Id  Environments Get"
                 }
               }
             }
@@ -3993,6 +4442,85 @@
           "model_config"
         ],
         "title": "AgentConfigResponse"
+      },
+      "BaseMetricResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Metric ID",
+            "description": "ID of the metric. Starts with 'metric_'."
+          },
+          "name": {
+            "type": "string",
+            "title": "Metric name",
+            "description": "The name of the metric."
+          },
+          "description": {
+            "type": "string",
+            "title": "Metric description",
+            "description": "A description of what the metric measures."
+          },
+          "code": {
+            "type": "string",
+            "title": "Metric code",
+            "description": "Python code used to calculate a metric value on each logged datapoint."
+          },
+          "default": {
+            "type": "boolean",
+            "title": "Metric default flag",
+            "description": "Whether the metric is a global default metric. Metrics with this flag enabled cannot be deleted or modified."
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Metric active flag",
+            "description": "If enabled, the metric is calculated for every logged datapoint."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "code",
+          "default",
+          "active",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "BaseMetricResponse"
+      },
+      "Body_Datasets_createDatapointsFromLogs": {
+        "properties": {
+          "log_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Log IDs",
+            "description": "List of Log IDs to create Datapoints from."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit Message",
+            "description": "Commit message for the new Dataset version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "log_ids",
+          "commit_message"
+        ],
+        "title": "Body_Datasets_createDatapointsFromLogs"
       },
       "Body_Evaluations_updateStatus": {
         "properties": {
@@ -4579,6 +5107,11 @@
       },
       "DatasetResponse": {
         "properties": {
+          "path": {
+            "type": "string",
+            "title": "Dataset path",
+            "description": "Path of the Dataset, including the name, which is used as a unique identifier."
+          },
           "id": {
             "type": "string",
             "title": "Dataset ID",
@@ -4594,9 +5127,13 @@
             "title": "Version ID",
             "description": "Unique identifier for the specific Dataset Version. If no query params provided, the default deployed Dataset Version is returned. Starts with `dsv_`."
           },
-          "directory_id": {
+          "type": {
             "type": "string",
-            "title": "Directory Id"
+            "enum": [
+              "dataset"
+            ],
+            "title": "Type",
+            "default": "dataset"
           },
           "environments": {
             "items": {
@@ -4639,11 +5176,6 @@
             "format": "date-time",
             "title": "Last Used At"
           },
-          "path": {
-            "type": "string",
-            "title": "Dataset path",
-            "description": "Path of the Dataset, including the name, which is used as a unique identifier."
-          },
           "commit_message": {
             "type": "string",
             "title": "Commit message",
@@ -4665,6 +5197,7 @@
         },
         "type": "object",
         "required": [
+          "path",
           "id",
           "name",
           "version_id",
@@ -4672,7 +5205,6 @@
           "updated_at",
           "status",
           "last_used_at",
-          "path",
           "datapoints_count"
         ],
         "title": "DatasetResponse",
@@ -5160,6 +5692,44 @@
         "type": "object",
         "title": "EvaluatorActivationDeactivationRequest"
       },
+      "EvaluatorAggregate": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Aggregated value",
+            "description": "The aggregated value of the evaluator."
+          },
+          "evaluator_id": {
+            "type": "string",
+            "title": "Evaluator ID",
+            "description": "ID of the evaluator."
+          },
+          "evaluator_version_id": {
+            "type": "string",
+            "title": "Evaluator version ID",
+            "description": "ID of the evaluator version."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "evaluator_id",
+          "evaluator_version_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "EvaluatorAggregate"
+      },
       "EvaluatorArgumentsType": {
         "type": "string",
         "enum": [
@@ -5262,6 +5832,11 @@
       },
       "EvaluatorResponse": {
         "properties": {
+          "path": {
+            "type": "string",
+            "title": "Dataset path",
+            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
+          },
           "id": {
             "type": "string",
             "title": "Evaluator ID",
@@ -5277,9 +5852,13 @@
             "title": "Version ID",
             "description": "Unique identifier for the specific Evaluator Version. If no query params provided, the default deployed Evaluator Version is returned."
           },
-          "directory_id": {
+          "type": {
             "type": "string",
-            "title": "Directory Id"
+            "enum": [
+              "evaluator"
+            ],
+            "title": "Type",
+            "default": "evaluator"
           },
           "environments": {
             "items": {
@@ -5316,11 +5895,6 @@
             "format": "date-time",
             "title": "Last Used At"
           },
-          "path": {
-            "type": "string",
-            "title": "Dataset path",
-            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
-          },
           "commit_message": {
             "type": "string",
             "title": "Commit message",
@@ -5336,6 +5910,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Spec",
@@ -5344,7 +5921,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           },
@@ -5365,10 +5943,19 @@
             "type": "array",
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
+          },
+          "evaluator_aggregates": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorAggregate"
+            },
+            "type": "array",
+            "title": "Evaluator aggregates",
+            "description": "Aggregation of Evaluator results for the Evaluator Version."
           }
         },
         "type": "object",
         "required": [
+          "path",
           "id",
           "name",
           "version_id",
@@ -5376,7 +5963,6 @@
           "updated_at",
           "status",
           "last_used_at",
-          "path",
           "spec",
           "version_logs_count",
           "total_logs_count",
@@ -5393,6 +5979,191 @@
         ],
         "title": "EvaluatorReturnTypeEnum",
         "description": "Enum representing the possible return types of an evaluator."
+      },
+      "ExperimentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Experiment ID",
+            "description": "String ID of experiment. Starts with `exp_`."
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "String ID of file the experiment belongs to."
+          },
+          "name": {
+            "type": "string",
+            "title": "Experiment name",
+            "description": "Name of experiment."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ExperimentStatus"
+              }
+            ],
+            "title": "Experiment status",
+            "description": "Status of experiment."
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/ExperimentVersionResponse"
+            },
+            "type": "array",
+            "title": "Experiment Versions",
+            "description": "List of Versions associated to the experiment."
+          },
+          "metric": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseMetricResponse"
+              }
+            ],
+            "title": "Experiment metric",
+            "description": "Metric used as the experiment's objective."
+          },
+          "positive_labels": {
+            "items": {
+              "$ref": "#/components/schemas/PositiveLabel"
+            },
+            "type": "array",
+            "title": "Positive labels",
+            "description": "Feedback labels to treat as positive user feedback. Used to monitor the performance of model configs in the experiment."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "file_id",
+          "name",
+          "status",
+          "metric",
+          "positive_labels",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ExperimentResponse"
+      },
+      "ExperimentStatus": {
+        "type": "string",
+        "enum": [
+          "Initialized",
+          "In progress"
+        ],
+        "title": "ExperimentStatus",
+        "description": "An enumeration."
+      },
+      "ExperimentVersionResponse": {
+        "properties": {
+          "mean": {
+            "type": "number",
+            "title": "Mean of experiment's metric",
+            "description": "The mean performance of the Version."
+          },
+          "spread": {
+            "type": "number",
+            "title": "Spread of experiment's metric",
+            "description": "The spread of performance of the Version."
+          },
+          "trials_count": {
+            "type": "integer",
+            "title": "Trials count",
+            "description": "Number of datapoints with feedback associated to the experiment."
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Version active",
+            "description": "Whether the Version is active in the experiment. Only active model configs can be sampled from the experiment."
+          },
+          "id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "String ID of Version."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Commit message of Version."
+          },
+          "version_id": {
+            "type": "string",
+            "title": "Version id",
+            "description": "Version of the Prompt or Tool."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "trials_count",
+          "active",
+          "id",
+          "version_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ExperimentVersionResponse"
+      },
+      "ExternalEvaluatorRequest": {
+        "properties": {
+          "arguments_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorArgumentsType"
+              }
+            ],
+            "title": "Arguments type",
+            "description": "Whether this evaluator is target-free or target-required."
+          },
+          "return_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
+              }
+            ],
+            "title": "Return type",
+            "description": "The type of the return value of the evaluator."
+          },
+          "evaluator_type": {
+            "type": "string",
+            "enum": [
+              "external"
+            ],
+            "title": "Evaluator type",
+            "description": "The type of the evaluator.",
+            "default": "external"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata describing the external Evaluator."
+          }
+        },
+        "type": "object",
+        "required": [
+          "arguments_type",
+          "return_type"
+        ],
+        "title": "ExternalEvaluatorRequest"
       },
       "FeedbackClass": {
         "type": "string",
@@ -5506,6 +6277,53 @@
         },
         "type": "array",
         "title": "FeedbackTypes"
+      },
+      "FileEnvironmentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "tag": {
+            "$ref": "#/components/schemas/EnvironmentTag"
+          },
+          "file": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              },
+              {
+                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+              },
+              {
+                "$ref": "#/components/schemas/DatasetResponse"
+              },
+              {
+                "$ref": "#/components/schemas/EvaluatorResponse"
+              }
+            ],
+            "title": "File",
+            "description": "The version of the File that is deployed to the Environment, if one is deployed."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "name",
+          "tag"
+        ],
+        "title": "FileEnvironmentResponse",
+        "description": "Response model for the List Environments endpoint under Files.\n\nContains the deployed version of the File, if one is deployed to the Environment."
       },
       "FunctionTool": {
         "properties": {
@@ -6939,6 +7757,24 @@
         "title": "PlatformAccessEnum",
         "description": "An enumeration."
       },
+      "PositiveLabel": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Feedback type"
+          },
+          "value": {
+            "type": "string",
+            "title": "Feedback value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "title": "PositiveLabel"
+      },
       "ProjectSortBy": {
         "type": "string",
         "enum": [
@@ -8047,6 +8883,11 @@
       },
       "PromptResponse": {
         "properties": {
+          "path": {
+            "type": "string",
+            "title": "Prompt path",
+            "description": "Path of the Prompt, including the name, which is used as a unique identifier."
+          },
           "id": {
             "type": "string",
             "title": "Prompt ID",
@@ -8062,9 +8903,13 @@
             "title": "Version ID",
             "description": "Unique identifier for the specific Prompt Version. If no query params provided, the default deployed Prompt Version is returned."
           },
-          "directory_id": {
+          "type": {
             "type": "string",
-            "title": "Directory Id"
+            "enum": [
+              "prompt"
+            ],
+            "title": "Type",
+            "default": "prompt"
           },
           "environments": {
             "items": {
@@ -8106,11 +8951,6 @@
             "type": "string",
             "format": "date-time",
             "title": "Last Used At"
-          },
-          "path": {
-            "type": "string",
-            "title": "Prompt path",
-            "description": "Path of the Prompt, including the name, which is used as a unique identifier."
           },
           "model": {
             "type": "string",
@@ -8255,10 +9095,19 @@
             "type": "array",
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
+          },
+          "evaluator_aggregates": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorAggregate"
+            },
+            "type": "array",
+            "title": "Evaluator aggregates",
+            "description": "Aggregation of Evaluator results for the Prompt Version."
           }
         },
         "type": "object",
         "required": [
+          "path",
           "id",
           "name",
           "version_id",
@@ -8266,7 +9115,6 @@
           "updated_at",
           "status",
           "last_used_at",
-          "path",
           "model",
           "version_logs_count",
           "total_logs_count",
@@ -8343,6 +9191,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Evaluator",
@@ -8351,7 +9202,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           },
@@ -8379,7 +9231,7 @@
           "prompt_version_id": {
             "type": "string",
             "title": "Prompt Version ID",
-            "description": "The ID of the Prompt Version to use generate datapoints for the evaluation datapoints. Only required if `datapoint` is provided; has no effect otherwise."
+            "description": "The ID of the Prompt Version to use generate datapoints for the evaluation datapoints. Only required if `datapoint_ids` is provided; has no effect otherwise."
           }
         },
         "type": "object",
@@ -8827,7 +9679,7 @@
           "path": {
             "type": "string",
             "title": "Tool path",
-            "description": "Path of the Tool including the Tool name, which is used as a unique identifier."
+            "description": "Path of the Tool, including the name, which is used as a unique identifier."
           },
           "id": {
             "type": "string",
@@ -8852,11 +9704,6 @@
             "type": "object",
             "title": "Setup values",
             "description": "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
-          },
-          "name": {
-            "type": "string",
-            "title": "Tool Name",
-            "description": "Name of the Tool, which is used as a unique identifier."
           },
           "tool_type": {
             "allOf": [
@@ -8915,42 +9762,6 @@
         ],
         "title": "ToolSource",
         "description": "Source of tool. Used to differentiate between tools and tool versions when they are combined in a list.\n\nV4 uses organization and inline. Those are deprecated and will be removed in favour of tool and tool_version."
-      },
-      "ToolTemplateResponse": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Name for the tool referenced by the model."
-          },
-          "description": {
-            "type": "string",
-            "title": "Description",
-            "description": "Description of the tool referenced by the model"
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Tool parameters",
-            "description": "Parameters needed to run the Tool, defined in JSON Schema format: https://json-schema.org/"
-          },
-          "signature": {
-            "type": "string",
-            "title": "Signature",
-            "description": "Signature of the Tool."
-          },
-          "setup_schema": {
-            "type": "object",
-            "title": "Setup schema",
-            "description": "Schema required to setup the Tool runtime, e.g. API keys."
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "description"
-        ],
-        "title": "ToolTemplateResponse",
-        "description": "Template for a Humanloop runnable tool."
       },
       "UpdateDatasetRequest": {
         "properties": {
@@ -9326,22 +10137,12 @@
           "path": {
             "type": "string",
             "title": "Dataset path",
-            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
+            "description": "Path of the Dataset, including the name, which is used as a unique identifier."
           },
           "id": {
             "type": "string",
             "title": "Dataset ID",
             "description": "ID for an existing Dataset to update."
-          },
-          "name": {
-            "type": "string",
-            "title": "Dataset name",
-            "description": "Name of the Dataset, which is used as a unique identifier."
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit message",
-            "description": "Message describing the changes made. If provided, a committed version of the Dataset is created. Otherwise, an uncommitted version is created."
           },
           "datapoints": {
             "items": {
@@ -9360,6 +10161,11 @@
             "title": "Action",
             "description": "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided.",
             "default": "set"
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Message describing the changes made. If provided, a committed version of the Dataset is created. Otherwise, an uncommitted version is created."
           }
         },
         "type": "object",
@@ -9407,17 +10213,12 @@
           "path": {
             "type": "string",
             "title": "Evaluator path",
-            "description": "Path of the Evaluator including the Evaluator name, which is used as a unique identifier."
+            "description": "Path of the Evaluator, including the name, which is used as a unique identifier."
           },
           "id": {
             "type": "string",
             "title": "Evaluator ID",
             "description": "ID for an existing Evaluator to update."
-          },
-          "name": {
-            "type": "string",
-            "title": "Evaluator Name",
-            "description": "Name of the Evaluator, which is used as a unique identifier."
           },
           "commit_message": {
             "type": "string",
@@ -9434,6 +10235,9 @@
               },
               {
                 "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
               }
             ],
             "title": "Spec",
@@ -9442,7 +10246,8 @@
               "mapping": {
                 "llm": "#/components/schemas/LLMEvaluatorRequest",
                 "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest"
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
               }
             }
           }
@@ -9468,6 +10273,11 @@
       },
       "src__external__app__models__v5__tools__ToolResponse": {
         "properties": {
+          "path": {
+            "type": "string",
+            "title": "Tool path",
+            "description": "Path of the Tool, including the name, which is used as a unique identifier."
+          },
           "id": {
             "type": "string",
             "title": "Tool ID",
@@ -9483,9 +10293,13 @@
             "title": "Version ID",
             "description": "Unique identifier for the specific Tool Version. If no query params provided, the default deployed Tool Version is returned."
           },
-          "directory_id": {
+          "type": {
             "type": "string",
-            "title": "Directory Id"
+            "enum": [
+              "tool"
+            ],
+            "title": "Type",
+            "default": "tool"
           },
           "environments": {
             "items": {
@@ -9527,11 +10341,6 @@
             "type": "string",
             "format": "date-time",
             "title": "Last Used At"
-          },
-          "path": {
-            "type": "string",
-            "title": "Tool path",
-            "description": "Path of the Tool, including the name, which is used as a unique identifier."
           },
           "function": {
             "allOf": [
@@ -9589,10 +10398,19 @@
             "type": "string",
             "title": "Signature",
             "description": "Signature of the Tool."
+          },
+          "evaluator_aggregates": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorAggregate"
+            },
+            "type": "array",
+            "title": "Evaluator aggregates",
+            "description": "Aggregation of Evaluator results for the Tool Version."
           }
         },
         "type": "object",
         "required": [
+          "path",
           "id",
           "name",
           "version_id",
@@ -9600,7 +10418,6 @@
           "updated_at",
           "status",
           "last_used_at",
-          "path",
           "version_logs_count",
           "total_logs_count",
           "inputs"
