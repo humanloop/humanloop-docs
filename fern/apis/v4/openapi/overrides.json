@@ -6,11 +6,10 @@
   "paths": {
     "/chat": {
       "post": {
-        "x-fern-sdk-method-name": "chat",
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
-          "response": {"$ref": "#/components/schemas/ChatResponse"}
+          "response-stream": { "$ref": "#/components/schemas/ChatResponse" },
+          "response": { "$ref": "#/components/schemas/ChatResponse" }
         },
         "x-fern-examples": [
           {
@@ -154,8 +153,8 @@
         "x-fern-sdk-method-name": "create_deployed",
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
-          "response": {"$ref": "#/components/schemas/ChatResponse"}
+          "response-stream": { "$ref": "#/components/schemas/ChatResponse" },
+          "response": { "$ref": "#/components/schemas/ChatResponse" }
         },
         "x-fern-examples": [
           {
@@ -359,8 +358,8 @@
         "x-fern-sdk-method-name": "create_experiment",
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
-          "response": {"$ref": "#/components/schemas/ChatResponse"}
+          "response-stream": { "$ref": "#/components/schemas/ChatResponse" },
+          "response": { "$ref": "#/components/schemas/ChatResponse" }
         }
       }
     },
@@ -370,18 +369,19 @@
         "x-fern-sdk-method-name": "create_config",
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/ChatResponse"},
-          "response": {"$ref": "#/components/schemas/ChatResponse"}
+          "response-stream": { "$ref": "#/components/schemas/ChatResponse" },
+          "response": { "$ref": "#/components/schemas/ChatResponse" }
         }
       }
     },
     "/completion": {
       "post": {
-        "x-fern-sdk-method-name": "completion",
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
-          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+          "response-stream": {
+            "$ref": "#/components/schemas/CompletionResponse"
+          },
+          "response": { "$ref": "#/components/schemas/CompletionResponse" }
         },
         "x-fern-examples": [
           {
@@ -568,8 +568,10 @@
       "post": {
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
-          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+          "response-stream": {
+            "$ref": "#/components/schemas/CompletionResponse"
+          },
+          "response": { "$ref": "#/components/schemas/CompletionResponse" }
         },
         "x-fern-sdk-group-name": "completions",
         "x-fern-sdk-method-name": "create_deployed"
@@ -579,8 +581,10 @@
       "post": {
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
-          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+          "response-stream": {
+            "$ref": "#/components/schemas/CompletionResponse"
+          },
+          "response": { "$ref": "#/components/schemas/CompletionResponse" }
         },
         "x-fern-sdk-group-name": "completions",
         "x-fern-sdk-method-name": "create_experiment"
@@ -590,8 +594,10 @@
       "post": {
         "x-fern-streaming": {
           "stream-condition": "$request.stream",
-          "response-stream": {"$ref": "#/components/schemas/CompletionResponse"},
-          "response": {"$ref": "#/components/schemas/CompletionResponse"}
+          "response-stream": {
+            "$ref": "#/components/schemas/CompletionResponse"
+          },
+          "response": { "$ref": "#/components/schemas/CompletionResponse" }
         },
         "x-fern-sdk-group-name": "completions",
         "x-fern-sdk-method-name": "create_config"
