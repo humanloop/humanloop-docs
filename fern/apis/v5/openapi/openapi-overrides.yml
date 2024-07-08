@@ -6,29 +6,192 @@ paths:
   /prompts:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List prompts
+          response:
+            body:
+              records:
+                - id: "pr_123abc"
+                  path: "customer-service"
+                  name: "customer-service"
+                  version_id: "pv_456def"
+                  type: "prompt"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "committed"
+                  last_used_at: "2024-05-01T12:00:00Z"
+                  model: "gpt-4"
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                    - name: "customer_query"
   /tools:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List tools
+          response:
+            body:
+              records:
+                - id: "tl_789ghi"
+                  path: "math-tool"
+                  name: "math-tool"
+                  version_id: "tv_012jkl"
+                  type: "tool"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "committed"
+                  last_used_at: "2024-05-01T12:00:00Z"
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                    - name: "operation"
   /datasets:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List datasets
+          response:
+            body:
+              records:
+                - id: "ds_345mno"
+                  path: "test-questions"
+                  name: "test-questions"
+                  version_id: "dsv_678pqr"
+                  type: "dataset"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "committed"
+                  last_used_at: "2024-05-01T12:00:00Z"
+                  datapoints_count: 2
   /datasets/{id}/datapoints:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List datapoints
+          path-parameters:
+            id: "ds_345mno"
+          response:
+            body:
+              records:
+                - id: "dp_901stu"
+                  inputs:
+                    question: "What is the capital of France?"
+                  target:
+                    answer: "Paris"
+                - id: "dp_234vwx"
+                  inputs:
+                    question: "Who wrote Hamlet?"
+                  target:
+                    answer: "William Shakespeare"
+              page: 1
+              size: 10
+              total: 2
   /evaluations:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List evaluations
+          query-parameters:
+            file_id: "file_123abc"
+          response:
+            body:
+              records:
+                - id: "ev_567yza"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "completed"
+                  dataset:
+                    id: "ds_345mno"
+                    name: "Test Dataset"
+                    path: "test-dataset"
+                    version_id: "dsv_678pqr"
+                    created_at: "2024-05-01T12:00:00Z"
+                    updated_at: "2024-05-01T12:00:00Z"
+                    status: "committed"
+                    last_used_at: "2024-05-01T12:00:00Z"
+                    datapoints_count: 100
+                  evaluatees:
+                    - version: {}
+                      orchestrated: false
+                  evaluators:
+                    - version: {}
+                      orchestrated: false
+              page: 1
+              size: 10
+              total: 1
   /evaluators:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List evaluators
+          response:
+            body:
+              records:
+                - id: "evr_890bcd"
+                  name: "Accuracy Evaluator"
+                  path: "accuracy-evaluator"
+                  version_id: "ev_012def"
+                  type: "evaluator"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "committed"
+                  last_used_at: "2024-05-01T12:00:00Z"
+                  spec:
+                    arguments_type: "target_required"
+                    return_type: "number"
+                    prompt:
+                      content: "Evaluate the accuracy of the answer."
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                    - name: "answer"
   /logs:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List logs
+          query-parameters:
+            file_id: "file_123abc"
+          response:
+            body:
+              records:
+                - id: "log_123efg"
+                  created_at: "2024-05-01T12:00:00Z"
+                  output: "This is a sample output."
+                  prompt:
+                    id: "pr_123abc"
+                    name: "Test Prompt"
+                    path: "test-prompt"
+                    version_id: "pv_456def"
+                    created_at: "2024-05-01T12:00:00Z"
+                    updated_at: "2024-05-01T12:00:00Z"
+                    status: "committed"
+                    last_used_at: "2024-05-01T12:00:00Z"
+                    model: "gpt-4"
+                    version_logs_count: 1
+                    total_logs_count: 1
+                    inputs:
+                      - name: "question"
+              page: 1
+              size: 10
+              total: 1
   /sessions:
     get:
       x-fern-pagination: true
+      x-fern-examples:
+        - name: List sessions
+          response:
+            body:
+              records:
+                - id: "sess_456hij"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  logs: []
+              page: 1
+              size: 10
+              total: 1
 
-paths:
   /prompts/call:
     post:
       x-fern-examples:
@@ -54,10 +217,10 @@ paths:
                 name: "persona"
                 version_id: "pv_Wu6zx1lAWJRqOyL8nWuZk"
                 type: "prompt"
-                created_at: "2023-05-01T12:00:00Z"
-                updated_at: "2023-05-01T12:00:00Z"
+                created_at: "2024-05-01T12:00:00Z"
+                updated_at: "2024-05-01T12:00:00Z"
                 status: "committed"
-                last_used_at: "2023-05-01T12:00:00Z"
+                last_used_at: "2024-05-01T12:00:00Z"
                 model: "gpt-4"
                 template:
                   - role: "system"
@@ -71,7 +234,7 @@ paths:
               logs:
                 - output: "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!"
                   raw_output: "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!"
-                  created_at: "2023-05-01T12:00:00Z"
+                  created_at: "2024-05-01T12:00:00Z"
                   finish_reason: "stop"
                   output_message:
                     content: "Well, let me tell you, there are a lot of stories about Roswell, and I hear them all the time. People love to talk about Roswell. So many theories, so many ideas. Some folks believe it was a weather balloon, others say it was something out of this world. Believe me, there's plenty that we don't know. Very interesting to look into, but the truth, well, it might still be out there. Could be a great story, who knows? But what I do know, folks, is that we have to keep our eyes open and always be on the lookout for the truth!"
@@ -132,10 +295,10 @@ paths:
               name: "test-questions" 
               version_id: "dsv_pqr678"
               type: "dataset"
-              created_at: "2023-05-01T12:00:00Z"
-              updated_at: "2023-05-01T12:00:00Z"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
               status: "committed"
-              last_used_at: "2023-05-01T12:00:00Z"
+              last_used_at: "2024-05-01T12:00:00Z"
               datapoints_count: 2
 
 components:
