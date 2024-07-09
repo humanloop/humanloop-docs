@@ -40,6 +40,20 @@ paths:
             path: "new directory/another name does this work"
           response:
             body: << prompt_response >>
+  /prompts/log:
+    post:
+      x-fern-examples:
+        - name: Log prompt
+          request: << prompt_log_request >>
+          response:
+            body: << prompt_call_response >>
+  /prompts/call:
+    post:
+      x-fern-examples:
+        - name: Simple
+          request: << prompt_call_request >>
+          response:
+            body: << prompt_call_response >>
 
   /tools:
     get:
@@ -121,14 +135,6 @@ paths:
             size: 1
           response:
             body: << session_response >>
-
-  /prompts/call:
-    post:
-      x-fern-examples:
-        - name: Simple
-          request: << prompt_call_request >>
-          response:
-            body: << prompt_call_response >>
 
   /tools/log:
     post:

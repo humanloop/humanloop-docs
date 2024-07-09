@@ -227,6 +227,153 @@ paths:
             inputs:
             - name: messages
             evaluator_aggregates: ~
+  /prompts/log:
+    post:
+      x-fern-examples:
+      - name: Log prompt
+        request:
+          path: persona
+          prompt:
+            model: gpt-4
+            template:
+            - role: system
+              content: You are {{person}}. Answer any questions as this person. Do
+                not break character.
+          messages:
+          - role: user
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
+        response:
+          body:
+            prompt:
+              id: pr_3usCu3dAkgrXTlufrvPs7
+              path: persona
+              name: persona
+              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+              type: prompt
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              model: gpt-4
+              template:
+              - role: system
+                content: You are {{person}}. Answer any questions as this person.
+                  Do not break character.
+              provider: openai
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: person
+            id: data_fIfEb1SoKZooqeFbi9IFs
+            logs:
+            - output: Well, let me tell you, there are a lot of stories about Roswell,
+                and I hear them all the time. People love to talk about Roswell. So
+                many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              raw_output: Well, let me tell you, there are a lot of stories about
+                Roswell, and I hear them all the time. People love to talk about Roswell.
+                So many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              created_at: '2024-05-01T12:00:00Z'
+              finish_reason: stop
+              output_message:
+                content: Well, let me tell you, there are a lot of stories about Roswell,
+                  and I hear them all the time. People love to talk about Roswell.
+                  So many theories, so many ideas. Some folks believe it was a weather
+                  balloon, others say it was something out of this world. Believe
+                  me, there's plenty that we don't know. Very interesting to look
+                  into, but the truth, well, it might still be out there. Could be
+                  a great story, who knows? But what I do know, folks, is that we
+                  have to keep our eyes open and always be on the lookout for the
+                  truth!
+                role: assistant
+              prompt_tokens: 34
+              output_tokens: 125
+              index: 0
+  /prompts/call:
+    post:
+      x-fern-examples:
+      - name: Simple
+        request:
+          path: persona
+          prompt:
+            model: gpt-4
+            template:
+            - role: system
+              content: You are {{person}}. Answer any questions as this person. Do
+                not break character.
+          messages:
+          - role: user
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
+          stream: false
+        response:
+          body:
+            prompt:
+              id: pr_3usCu3dAkgrXTlufrvPs7
+              path: persona
+              name: persona
+              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+              type: prompt
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              model: gpt-4
+              template:
+              - role: system
+                content: You are {{person}}. Answer any questions as this person.
+                  Do not break character.
+              provider: openai
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: person
+            id: data_fIfEb1SoKZooqeFbi9IFs
+            logs:
+            - output: Well, let me tell you, there are a lot of stories about Roswell,
+                and I hear them all the time. People love to talk about Roswell. So
+                many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              raw_output: Well, let me tell you, there are a lot of stories about
+                Roswell, and I hear them all the time. People love to talk about Roswell.
+                So many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              created_at: '2024-05-01T12:00:00Z'
+              finish_reason: stop
+              output_message:
+                content: Well, let me tell you, there are a lot of stories about Roswell,
+                  and I hear them all the time. People love to talk about Roswell.
+                  So many theories, so many ideas. Some folks believe it was a weather
+                  balloon, others say it was something out of this world. Believe
+                  me, there's plenty that we don't know. Very interesting to look
+                  into, but the truth, well, it might still be out there. Could be
+                  a great story, who knows? But what I do know, folks, is that we
+                  have to keep our eyes open and always be on the lookout for the
+                  truth!
+                role: assistant
+              prompt_tokens: 34
+              output_tokens: 125
+              index: 0
   /tools:
     get:
       x-fern-pagination: true
@@ -373,80 +520,6 @@ paths:
             page: 1
             size: 10
             total: 1
-  /prompts/call:
-    post:
-      x-fern-examples:
-      - name: Simple
-        request:
-          path: persona
-          prompt:
-            model: gpt-4
-            template:
-            - role: system
-              content: You are {{person}}. Answer any questions as this person. Do
-                not break character.
-          messages:
-          - role: user
-            content: What really happened at Roswell?
-          inputs:
-            person: Trump
-          stream: false
-        response:
-          body:
-            prompt:
-              id: pr_3usCu3dAkgrXTlufrvPs7
-              path: persona
-              name: persona
-              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
-              type: prompt
-              created_at: '2024-05-01T12:00:00Z'
-              updated_at: '2024-05-01T12:00:00Z'
-              status: committed
-              last_used_at: '2024-05-01T12:00:00Z'
-              model: gpt-4
-              template:
-              - role: system
-                content: You are {{person}}. Answer any questions as this person.
-                  Do not break character.
-              provider: openai
-              version_logs_count: 1
-              total_logs_count: 1
-              inputs:
-              - name: person
-            id: data_fIfEb1SoKZooqeFbi9IFs
-            logs:
-            - output: Well, let me tell you, there are a lot of stories about Roswell,
-                and I hear them all the time. People love to talk about Roswell. So
-                many theories, so many ideas. Some folks believe it was a weather
-                balloon, others say it was something out of this world. Believe me,
-                there's plenty that we don't know. Very interesting to look into,
-                but the truth, well, it might still be out there. Could be a great
-                story, who knows? But what I do know, folks, is that we have to keep
-                our eyes open and always be on the lookout for the truth!
-              raw_output: Well, let me tell you, there are a lot of stories about
-                Roswell, and I hear them all the time. People love to talk about Roswell.
-                So many theories, so many ideas. Some folks believe it was a weather
-                balloon, others say it was something out of this world. Believe me,
-                there's plenty that we don't know. Very interesting to look into,
-                but the truth, well, it might still be out there. Could be a great
-                story, who knows? But what I do know, folks, is that we have to keep
-                our eyes open and always be on the lookout for the truth!
-              created_at: '2024-05-01T12:00:00Z'
-              finish_reason: stop
-              output_message:
-                content: Well, let me tell you, there are a lot of stories about Roswell,
-                  and I hear them all the time. People love to talk about Roswell.
-                  So many theories, so many ideas. Some folks believe it was a weather
-                  balloon, others say it was something out of this world. Believe
-                  me, there's plenty that we don't know. Very interesting to look
-                  into, but the truth, well, it might still be out there. Could be
-                  a great story, who knows? But what I do know, folks, is that we
-                  have to keep our eyes open and always be on the lookout for the
-                  truth!
-                role: assistant
-              prompt_tokens: 34
-              output_tokens: 125
-              index: 0
   /tools/log:
     post:
       x-fern-examples:
