@@ -7,7 +7,8 @@ paths:
     get:
       x-fern-pagination: true
       x-fern-examples:
-        - name: List prompts
+        - query-parameters:
+            size: 1
           response:
             body: { "records": [<<prompt_response>>] }
 
@@ -16,6 +17,8 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
         - name: List tools
+          query-parameters:
+            size: 1
           response:
             body: << tool_response >>
 
@@ -24,6 +27,8 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
         - name: List datasets
+          query-parameters:
+            size: 1
           response:
             body: << dataset_response >>
     post:
@@ -40,6 +45,8 @@ paths:
         - name: List datapoints
           path-parameters:
             id: "ds_345mno"
+          query-parameters:
+            size: 1
           response:
             body: << datapoint_response >>
 
@@ -50,6 +57,7 @@ paths:
   #       - name: List evaluations
   #         query-parameters:
   #           file_id: "file_123abc"
+  #           size: 10
   #         response:
   #           body: << evaluation_response >>
 
@@ -58,6 +66,9 @@ paths:
   #     x-fern-pagination: true
   #     x-fern-examples:
   #       - name: List evaluators
+  #         request:
+  #           query-parameters:
+  #             size: 10
   #         response:
   #           body: << evaluator_response >>
 
@@ -68,6 +79,7 @@ paths:
         - name: List logs
           query-parameters:
             file_id: "file_123abc"
+            size: 1
           response:
             body: << log_response >>
 
@@ -76,6 +88,8 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
         - name: List sessions
+          query-parameters:
+            size: 1
           response:
             body: << session_response >>
 

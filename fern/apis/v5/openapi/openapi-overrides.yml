@@ -9,7 +9,9 @@ paths:
     get:
       x-fern-pagination: true
       x-fern-examples:
-      - name: List prompts
+      - query-parameters:
+          page: 1
+          size: 10
         response:
           body:
             records:
@@ -59,6 +61,9 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
       - name: List tools
+        query-parameters:
+          page: 1
+          size: 1
         response:
           body:
             records:
@@ -80,6 +85,9 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
       - name: List datasets
+        query-parameters:
+          page: 1
+          size: 1
         response:
           body:
             records:
@@ -130,6 +138,9 @@ paths:
       - name: List datapoints
         path-parameters:
           id: ds_345mno
+        query-parameters:
+          page: 1
+          size: 1
         response:
           body:
             records:
@@ -153,6 +164,8 @@ paths:
       - name: List logs
         query-parameters:
           file_id: file_123abc
+          page: 1
+          size: 1
         response:
           body:
             records:
@@ -181,6 +194,9 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
       - name: List sessions
+        query-parameters:
+          page: 1
+          size: 1
         response:
           body:
             records:
