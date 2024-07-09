@@ -80,6 +80,18 @@ paths:
           request: << prompt_call_request >>
           response:
             body: << prompt_call_response >>
+  /prompts/{id}/evaluators:
+    post:
+      x-fern-examples:
+        - name: Add evaluator
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          request:
+            evaluators_to_activate:
+              - evaluator_version_id: "evv_1abc4308abd"
+          response:
+            body: << prompt_response >>
+
   /tools:
     get:
       x-fern-pagination: true
