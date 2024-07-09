@@ -40,6 +40,32 @@ paths:
             path: "new directory/another name does this work"
           response:
             body: << prompt_response >>
+  /prompts/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          query-parameters:
+            status: "committed"
+            environment:
+          response:
+            body:
+              records:
+                - <<prompt_response>>
+
+  /prompts/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+            version_id: "prv_F34aba5f3asp0"
+          request:
+            commit_message: "Reiterated point about not discussing sentience"
+          response:
+            body: << prompt_response >>
+
   /prompts/log:
     post:
       x-fern-examples:
@@ -54,7 +80,6 @@ paths:
           request: << prompt_call_request >>
           response:
             body: << prompt_call_response >>
-
   /tools:
     get:
       x-fern-pagination: true
