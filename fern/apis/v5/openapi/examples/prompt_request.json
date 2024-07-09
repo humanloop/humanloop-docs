@@ -1,6 +1,5 @@
 {
   "path": "Personal Projects/Coding Assistant",
-  "id": "pr_30gco7dx6JDq4200GVOHa",
   "model": "gpt-4o",
   "endpoint": "chat",
   "template": [
