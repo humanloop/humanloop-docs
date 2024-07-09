@@ -25,6 +25,21 @@ paths:
             id: "pr_30gco7dx6JDq4200GVOHa"
           response:
             body: << prompt_response >>
+    delete:
+      x-fern-examples:
+        - name: Delete prompt
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+    patch:
+      x-fern-examples:
+        - name: Move prompt
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          request:
+            name: "my new name"
+            path: "new directory/another name does this work"
+          response:
+            body: << prompt_response >>
 
   /tools:
     get:
