@@ -46,7 +46,7 @@ paths:
         - name: Log prompt
           request: << prompt_log_request >>
           response:
-            body: << prompt_call_response >>
+            body: << prompt_log_response >>
   /prompts/call:
     post:
       x-fern-examples:
