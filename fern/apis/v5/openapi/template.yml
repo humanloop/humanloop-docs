@@ -1,0 +1,139 @@
+x-fern-pagination:
+  offset: $request.page
+  results: $response.records
+
+paths:
+  /prompts:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List prompts
+          response:
+            body: { "records": [<<prompt_response>>] }
+
+  /tools:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List tools
+          response:
+            body: << tool_response >>
+
+  /datasets:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List datasets
+          response:
+            body: << dataset_response >>
+    post:
+      x-fern-examples:
+        - name: Create dataset
+          request: << create_dataset_request >>
+          response:
+            body: << create_dataset_response >>
+
+  /datasets/{id}/datapoints:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List datapoints
+          path-parameters:
+            id: "ds_345mno"
+          response:
+            body: << datapoint_response >>
+
+  # /evaluations:
+  #   get:
+  #     x-fern-pagination: true
+  #     x-fern-examples:
+  #       - name: List evaluations
+  #         query-parameters:
+  #           file_id: "file_123abc"
+  #         response:
+  #           body: << evaluation_response >>
+
+  # /evaluators:
+  #   get:
+  #     x-fern-pagination: true
+  #     x-fern-examples:
+  #       - name: List evaluators
+  #         response:
+  #           body: << evaluator_response >>
+
+  /logs:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List logs
+          query-parameters:
+            file_id: "file_123abc"
+          response:
+            body: << log_response >>
+
+  /sessions:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List sessions
+          response:
+            body: << session_response >>
+
+  /prompts/call:
+    post:
+      x-fern-examples:
+        - name: Simple
+          request: << prompt_call_request >>
+          response:
+            body: << prompt_call_response >>
+
+  /tools/log:
+    post:
+      x-fern-examples:
+        - name: Tool log
+          request: << tool_log_request >>
+          response:
+            body: << tool_log_response >>
+
+components:
+  schemas:
+    Body_Evaluations_updateStatus:
+      x-fern-type-name: UpdateEvaluationStatusRequest
+    PaginatedData_DatapointResponse_:
+      x-fern-type-name: PaginatedDatapointResponse
+    PaginatedData_DatasetResponse_:
+      x-fern-type-name: PaginatedDatasetResponse
+    PaginatedData_EvaluationResponse_:
+      x-fern-type-name: PaginatedEvaluationResponse
+    PaginatedData_PromptLogResponse_:
+      x-fern-type-name: PaginatedPromptLogResponse
+    PaginatedData_SessionResponse_:
+      x-fern-type-name: PaginatedSessionResponse
+    src__domain__chat_types__enums__ToolType:
+      x-fern-type-name: ChatToolType
+    src__domain__files__tool__ToolType:
+      x-fern-type-name: FilesToolType
+    src__external__app__models__v4__configs__ToolResponse:
+      x-fern-type-name: ConfigToolResponse
+    src__external__app__models__v4__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v4__orgs__base_models__UserResponse:
+      x-fern-type-name: BaseModelsUserResponse
+    src__external__app__models__v5__datasets__DatasetRequest:
+      x-fern-type-name: DatasetsRequest
+    src__external__app__models__v5__evaluations__DatasetRequest:
+      x-fern-type-name: EvaluationsDatasetRequest
+    src__external__app__models__v5__evaluations__EvaluatorRequest:
+      x-fern-type-name: EvaluationsRequest
+    src__external__app__models__v5__evaluators__EvaluatorRequest:
+      x-fern-type-name: EvaluatorsRequest
+    src__external__app__models__v5__feedback__FeedbackType:
+      x-fern-type-name: FeedbackType
+    src__external__app__models__v5__tools__ToolResponse:
+      x-fern-type-name: ToolResponse
+    src__external__app__models__v5__users__UserResponse:
+      x-fern-type-name: UserResponse
+  securitySchemes:
+    APIKeyHeader:
+      x-fern-header:
+        env: HUMANLOOP_API_KEY
