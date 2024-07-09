@@ -11,6 +11,20 @@ paths:
             size: 1
           response:
             body: { "records": [<<prompt_response>>] }
+    post:
+      x-fern-examples:
+        - name: Upsert prompt
+          request: << prompt_request >>
+          response:
+            body: << prompt_response >>
+  /prompts/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific prompt
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          response:
+            body: << prompt_response >>
 
   /tools:
     get:

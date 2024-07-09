@@ -10,8 +10,7 @@ paths:
       x-fern-pagination: true
       x-fern-examples:
       - query-parameters:
-          page: 1
-          size: 10
+          size: 1
         response:
           body:
             records:
@@ -56,13 +55,128 @@ paths:
               inputs:
               - name: messages
               evaluator_aggregates: ~
+    post:
+      x-fern-examples:
+      - name: Upsert prompt
+        request:
+          path: Personal Projects/Coding Assistant
+          id: pr_30gco7dx6JDq4200GVOHa
+          model: gpt-4o
+          endpoint: chat
+          template:
+          - content: You are a helpful coding assistant specialising in {{language}}
+            role: system
+          provider: openai
+          max_tokens: -1
+          temperature: 0.7
+          top_p: 1
+          stop: ~
+          presence_penalty: 0
+          frequency_penalty: 0
+          other: {}
+          seed: ~
+          response_format: ~
+          tools: []
+          linked_tools: []
+          commit_message: Initial commit
+        response:
+          body:
+            path: Personal Projects/Coding Assistant
+            id: pr_30gco7dx6JDq4200GVOHa
+            name: Coding Assistant
+            version_id: prv_7ZlQREDScH0xkhUwtXruN
+            type: prompt
+            environments:
+            - id: env_ffSVxEBzJcBZ1H5jcNMVj
+              created_at: '2023-06-27T23:16:07.992339'
+              name: development
+              tag: default
+            created_at: '2024-07-08T22:40:35.656915'
+            updated_at: '2024-07-08T22:40:35.656915'
+            created_by:
+              id: usr_01RJO1k2spBVqNUt1ASef
+              email_address: raza@humanloop.com
+              full_name: Raza Habib
+            status: committed
+            last_used_at: '2024-07-08T22:40:35.656915'
+            model: gpt-4o
+            endpoint: chat
+            template:
+            - content: You are a helpful coding assistant specialising in {{language}}
+              role: system
+            provider: openai
+            max_tokens: -1
+            temperature: 0.7
+            top_p: 1
+            stop: ~
+            presence_penalty: 0
+            frequency_penalty: 0
+            other: {}
+            seed: ~
+            response_format: ~
+            tools: []
+            linked_tools: []
+            commit_message: Initial commit
+            version_logs_count: 0
+            total_logs_count: 0
+            inputs:
+            - name: messages
+            evaluator_aggregates: ~
+  /prompts/{id}:
+    get:
+      x-fern-examples:
+      - name: Get specific prompt
+        path-parameters:
+          id: pr_30gco7dx6JDq4200GVOHa
+        response:
+          body:
+            path: Personal Projects/Coding Assistant
+            id: pr_30gco7dx6JDq4200GVOHa
+            name: Coding Assistant
+            version_id: prv_7ZlQREDScH0xkhUwtXruN
+            type: prompt
+            environments:
+            - id: env_ffSVxEBzJcBZ1H5jcNMVj
+              created_at: '2023-06-27T23:16:07.992339'
+              name: development
+              tag: default
+            created_at: '2024-07-08T22:40:35.656915'
+            updated_at: '2024-07-08T22:40:35.656915'
+            created_by:
+              id: usr_01RJO1k2spBVqNUt1ASef
+              email_address: raza@humanloop.com
+              full_name: Raza Habib
+            status: committed
+            last_used_at: '2024-07-08T22:40:35.656915'
+            model: gpt-4o
+            endpoint: chat
+            template:
+            - content: You are a helpful coding assistant specialising in {{language}}
+              role: system
+            provider: openai
+            max_tokens: -1
+            temperature: 0.7
+            top_p: 1
+            stop: ~
+            presence_penalty: 0
+            frequency_penalty: 0
+            other: {}
+            seed: ~
+            response_format: ~
+            tools: []
+            linked_tools: []
+            commit_message: Initial commit
+            version_logs_count: 0
+            total_logs_count: 0
+            inputs:
+            - name: messages
+            evaluator_aggregates: ~
   /tools:
     get:
       x-fern-pagination: true
       x-fern-examples:
       - name: List tools
         query-parameters:
-          page: 1
           size: 1
         response:
           body:
@@ -86,7 +200,6 @@ paths:
       x-fern-examples:
       - name: List datasets
         query-parameters:
-          page: 1
           size: 1
         response:
           body:
@@ -139,7 +252,6 @@ paths:
         path-parameters:
           id: ds_345mno
         query-parameters:
-          page: 1
           size: 1
         response:
           body:
@@ -164,7 +276,6 @@ paths:
       - name: List logs
         query-parameters:
           file_id: file_123abc
-          page: 1
           size: 1
         response:
           body:
@@ -195,7 +306,6 @@ paths:
       x-fern-examples:
       - name: List sessions
         query-parameters:
-          page: 1
           size: 1
         response:
           body:
