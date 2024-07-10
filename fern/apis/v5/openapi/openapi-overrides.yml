@@ -181,8 +181,7 @@ paths:
         path-parameters:
           id: pr_30gco7dx6JDq4200GVOHa
         request:
-          name: my new name
-          path: new directory/another name does this work
+          path: new directory/new name
         response:
           body:
             path: Personal Projects/Coding Assistant
@@ -520,7 +519,12 @@ paths:
               type: dataset
               created_at: '2024-05-01T12:00:00Z'
               updated_at: '2024-05-01T12:00:00Z'
+              created_by:
+                id: usr_v23rSVAgas2a
+                full_name: Jordan Burges
+                email_address: jordan@humanloop.com
               status: committed
+              commit_message: initial commit
               last_used_at: '2024-05-01T12:00:00Z'
               datapoints_count: 2
             page: 0
@@ -540,7 +544,8 @@ paths:
               question: Who wrote Hamlet?
             target:
               answer: William Shakespeare
-          commit_message: Initial dataset creation
+          action: add
+          commit_message: Add two new questions and answers
         response:
           body:
             id: ds_mno345
@@ -552,32 +557,194 @@ paths:
             updated_at: '2024-05-01T12:00:00Z'
             status: committed
             last_used_at: '2024-05-01T12:00:00Z'
+            datapoints_count: 4
+  /datasets/{id}:
+    get:
+      x-fern-examples:
+      - name: Get dataset
+        path-parameters:
+          id: ds_b0baF1ca7652
+        query-parameters:
+          version_id: dsv_6L78pqrdFi2xa
+          include_datapoints: true
+        response:
+          body:
+            id: ds_345mno
+            path: test-questions
+            name: test-questions
+            version_id: dsv_678pqr
+            type: dataset
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
             datapoints_count: 2
+            datapoints:
+            - id: dp_123456
+              inputs:
+                question: What is the capital of France?
+              target:
+                answer: Paris
+            - id: dp_789012
+              inputs:
+                question: Who wrote Hamlet?
+              target:
+                answer: William Shakespeare
+  delete:
+    x-fern-examples:
+    - name: Delete dataset
+      path-parameters:
+        id: ds_b0baF1ca7652
+  patch:
+    x-fern-examples:
+    - name: Move dataset
+      path-parameters:
+        id: ds_b0baF1ca7652
+      request:
+        path: new directory/new name
+      response:
+        body: ~
   /datasets/{id}/datapoints:
     get:
       x-fern-pagination: true
       x-fern-examples:
       - name: List datapoints
         path-parameters:
-          id: ds_345mno
+          id: ds_b0baF1ca7652
         query-parameters:
           size: 1
         response:
           body:
             records:
             - id: dp_901stu
-              inputs:
-                question: What is the capital of France?
+              messages:
+              - role: user
+                content: What is the capital of France?
               target:
                 answer: Paris
             - id: dp_234vwx
-              inputs:
-                question: Who wrote Hamlet?
+              messages:
+              - role: user
+                content: Who wrote Hamlet?
               target:
                 answer: William Shakespeare
             page: 1
             size: 10
             total: 2
+  /datasets/{id}/versions:
+    get:
+      x-fern-examples:
+      - name: List versions
+        path-parameters:
+          id: ds_b0baF1ca7652
+        query-parameters:
+          status: committed
+        response:
+          body:
+            records:
+            - id: ds_345mno
+              path: test-questions
+              name: test-questions
+              version_id: dsv_678pqr
+              type: dataset
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              created_by:
+                id: usr_v23rSVAgas2a
+                full_name: Jordan Burges
+                email_address: jordan@humanloop.com
+              status: committed
+              commit_message: initial commit
+              last_used_at: '2024-05-01T12:00:00Z'
+              datapoints_count: 2
+  /datasets/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+      - name: Commit version
+        path-parameters:
+          id: ds_b0baF1ca7652
+          version_id: dsv_6L78pqrdFi2xa
+        request:
+          commit_message: initial commit
+        response:
+          body:
+            id: ds_345mno
+            path: test-questions
+            name: test-questions
+            version_id: dsv_678pqr
+            type: dataset
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            created_by:
+              id: usr_v23rSVAgas2a
+              full_name: Jordan Burges
+              email_address: jordan@humanloop.com
+            status: committed
+            commit_message: initial commit
+            last_used_at: '2024-05-01T12:00:00Z'
+            datapoints_count: 2
+  /datasets/{id}/datapoints/logs:
+    post:
+      x-fern-examples:
+      - name: Add datapoints from logs
+        path-parameters:
+          id: ds_b0baF1ca7652
+        query-parameters:
+          version_id: dsv_6L78pqrdFi2xa
+        request:
+          log_ids:
+          - log_11bWuC239S0h
+          - log_4d52GH6da2eGf
+          commit_message: initial commit
+        response:
+          body:
+            id: ds_345mno
+            path: test-questions
+            name: test-questions
+            version_id: dsv_678pqr
+            type: dataset
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            created_by:
+              id: usr_v23rSVAgas2a
+              full_name: Jordan Burges
+              email_address: jordan@humanloop.com
+            status: committed
+            commit_message: initial commit
+            last_used_at: '2024-05-01T12:00:00Z'
+            datapoints_count: 2
+  /datasets/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+      - name: Deploy
+        path-parameters:
+          id: ds_b0baF1ca7652
+          environment_id: staging
+        request:
+          version_id: dsv_6L78pqrdFi2xa
+        response:
+          body:
+            id: ds_345mno
+            path: test-questions
+            name: test-questions
+            version_id: dsv_678pqr
+            type: dataset
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            created_by:
+              id: usr_v23rSVAgas2a
+              full_name: Jordan Burges
+              email_address: jordan@humanloop.com
+            status: committed
+            commit_message: initial commit
+            last_used_at: '2024-05-01T12:00:00Z'
+            datapoints_count: 2
+    delete:
+      x-fern-examples:
+      - name: Delete environment
+        path-parameters:
+          id: ds_b0baF1ca7652
+          environment_id: staging
   /logs:
     get:
       x-fern-pagination: true

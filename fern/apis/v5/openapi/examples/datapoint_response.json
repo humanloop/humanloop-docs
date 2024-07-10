@@ -2,18 +2,24 @@
   "records": [
     {
       "id": "dp_901stu",
-      "inputs": {
-        "question": "What is the capital of France?"
-      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the capital of France?"
+        }
+      ],
       "target": {
         "answer": "Paris"
       }
     },
     {
       "id": "dp_234vwx",
-      "inputs": {
-        "question": "Who wrote Hamlet?"
-      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "Who wrote Hamlet?"
+        }
+      ],
       "target": {
         "answer": "William Shakespeare"
       }

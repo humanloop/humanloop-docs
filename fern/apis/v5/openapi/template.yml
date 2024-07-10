@@ -36,8 +36,7 @@ paths:
           path-parameters:
             id: "pr_30gco7dx6JDq4200GVOHa"
           request:
-            name: "my new name"
-            path: "new directory/another name does this work"
+            path: "new directory/new name"
           response:
             body: << prompt_response >>
   /prompts/{id}/versions:
@@ -110,7 +109,13 @@ paths:
           query-parameters:
             size: 1
           response:
-            body: << dataset_response >>
+            body:
+              {
+                "records": [<< dataset_response >>],
+                "page": 0,
+                "size": 1,
+                "total": 1,
+              }
     post:
       x-fern-examples:
         - name: Create dataset
@@ -118,17 +123,111 @@ paths:
           response:
             body: << create_dataset_response >>
 
+  /datasets/{id}:
+    get:
+      x-fern-examples:
+        - name: Get dataset
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+          query-parameters:
+            version_id: "dsv_6L78pqrdFi2xa"
+            include_datapoints: true
+          response:
+            body: << dataset_with_datapoints_response >>
+  delete:
+    x-fern-examples:
+      - name: Delete dataset
+        path-parameters:
+          id: "ds_b0baF1ca7652"
+  patch:
+    x-fern-examples:
+      - name: Move dataset
+        path-parameters:
+          id: "ds_b0baF1ca7652"
+        request:
+          path: "new directory/new name"
+        response:
+          body: << update_dataset_response >>
+
   /datasets/{id}/datapoints:
     get:
       x-fern-pagination: true
       x-fern-examples:
         - name: List datapoints
           path-parameters:
-            id: "ds_345mno"
+            id: "ds_b0baF1ca7652"
           query-parameters:
             size: 1
           response:
             body: << datapoint_response >>
+
+  /datasets/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+          query-parameters:
+            status: "committed"
+          response:
+            body:
+              records: [<< dataset_response >>]
+
+  /datasets/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+            version_id: "dsv_6L78pqrdFi2xa"
+          request:
+            commit_message: "initial commit"
+          response:
+            body: << dataset_response >>
+
+  /datasets/{id}/datapoints/logs:
+    post:
+      x-fern-examples:
+        - name: Add datapoints from logs
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+          query-parameters:
+            version_id: "dsv_6L78pqrdFi2xa"
+          request:
+            log_ids: ["log_11bWuC239S0h", "log_4d52GH6da2eGf"]
+            commit_message: "initial commit"
+          response:
+            body: << dataset_response >>
+
+  /datasets/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+        - name: Deploy
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+            environment_id: "staging"
+          request:
+            version_id: "dsv_6L78pqrdFi2xa"
+          response:
+            body: << dataset_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+            environment_id: "staging"
+
+  /datasets/{id}/environments
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "ds_b0baF1ca7652"
+          response:
+            body:
+              records:
+                - << environment_response >>
 
   # /evaluations:
   #   get:
