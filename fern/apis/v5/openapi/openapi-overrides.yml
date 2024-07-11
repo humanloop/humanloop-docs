@@ -720,7 +720,7 @@ paths:
         path-parameters:
           id: ds_b0baF1ca7652
           environment_id: staging
-        request:
+        query-parameters:
           version_id: dsv_6L78pqrdFi2xa
         response:
           body:
