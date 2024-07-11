@@ -28,8 +28,7 @@ groups:
         output:
           location: npm
           package-name: 'humanloop'
-          # Uncomment when we'd like to publish to NPM
-          # token: ${NPM_TOKEN}
+          token: ${NPM_TOKEN}
         github:
           repository: humanloop/humanloop-node-beta
         smart-casing: true
