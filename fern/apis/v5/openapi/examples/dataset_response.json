@@ -1,0 +1,18 @@
+{
+  "id": "ds_345mno",
+  "path": "test-questions",
+  "name": "test-questions",
+  "version_id": "dsv_678pqr",
+  "type": "dataset",
+  "created_at": "2024-05-01T12:00:00Z",
+  "updated_at": "2024-05-01T12:00:00Z",
+  "created_by": {
+    "id": "usr_v23rSVAgas2a",
+    "full_name": "Jordan Burges",
+    "email_address": "jordan@humanloop.com"
+  },
+  "status": "committed",
+  "commit_message": "initial commit",
+  "last_used_at": "2024-05-01T12:00:00Z",
+  "datapoints_count": 2
+}

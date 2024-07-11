@@ -31,7 +31,7 @@ versions:
   - display-name: v4.0
     path: ./versions/v4.yml
     slug: v4
-  - display-name: v5.0
+  - display-name: v5.0 (Beta)
     path: ./versions/v5.yml
     slug: v5
     availability: beta

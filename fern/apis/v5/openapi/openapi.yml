@@ -27,16 +27,16 @@ info:
     Guides and further details about key concepts can be found in [our docs](https://docs.humanloop.com/).
   version: 5.0.0
 servers:
-  - url: https://api.humanloop.com/v5
-    description: Production server
+  - url: https://neostaging.humanloop.ml/v5
+    description: Staging server (change me)
 paths:
   /prompts:
     get:
       tags:
         - Prompts
-      summary: "List "
+      summary: List Prompts
       description: Get a list of Prompts.
-      operationId: list__prompts_get
+      operationId: Prompts_list_prompts
       parameters:
         - description: Page number for pagination.
           required: false
@@ -112,7 +112,7 @@ paths:
     post:
       tags:
         - Prompts
-      summary: Upsert
+      summary: Upsert Prompt
       description: |-
         Create a Prompt or update it with a new version if it already exists.
 
@@ -121,7 +121,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: upsert_prompts_post
+      operationId: Prompts_upsert
       requestBody:
         content:
           application/json:
@@ -147,13 +147,13 @@ paths:
     get:
       tags:
         - Prompts
-      summary: Get
+      summary: Get Prompt
       description: |-
         Retrieve the Prompt with the given ID.
 
         By default, the deployed version of the Prompt is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Prompt.
-      operationId: get_prompts__id__get
+      operationId: Prompts_get
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -197,9 +197,9 @@ paths:
     delete:
       tags:
         - Prompts
-      summary: Delete
+      summary: Delete Prompt
       description: Delete the Prompt with the given ID.
-      operationId: delete_prompts__id__delete
+      operationId: Prompts_delete
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -223,9 +223,9 @@ paths:
     patch:
       tags:
         - Prompts
-      summary: Move
+      summary: Move Prompt
       description: Move the Prompt to a different path or change the name.
-      operationId: move_prompts__id__patch
+      operationId: Prompts_move
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -262,7 +262,7 @@ paths:
         - Prompts
       summary: List Versions
       description: Get a list of all the versions of a Prompt.
-      operationId: list_versions_prompts__id__versions_get
+      operationId: Prompts_listVersions
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -315,7 +315,7 @@ paths:
         - Prompts
       summary: Commit
       description: Commit the Prompt Version with the given ID.
-      operationId: commit_prompts__id__versions__version_id__commit_post
+      operationId: Prompts_commit
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -369,7 +369,7 @@ paths:
         Prompt details in the request body. In this case, we will check if the details correspond
         to an existing version of the Prompt, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Prompt details in code.
-      operationId: log_prompts_log_post
+      operationId: Prompts_log
       parameters:
         - description: A specific Version ID of the Prompt to log to.
           required: false
@@ -426,7 +426,7 @@ paths:
         Prompt details in the request body. In this case, we will check if the details correspond
         to an existing version of the Prompt, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Prompt details in code.
-      operationId: call_prompts_call_post
+      operationId: Prompts_call
       parameters:
         - description: A specific Version ID of the Prompt to log to.
           required: false
@@ -459,7 +459,7 @@ paths:
                 anyOf:
                   - $ref: "#/components/schemas/PromptCallResponse"
                   - $ref: "#/components/schemas/PromptCallStreamResponse"
-                title: Response Call Prompts Call Post
+                title: Response Prompts Call
         "422":
           description: Validation Error
           content:
@@ -636,7 +636,7 @@ paths:
         - Tools
       summary: "List "
       description: Get a list of Tools.
-      operationId: list__tools_get
+      operationId: Tools_list
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -711,7 +711,7 @@ paths:
     post:
       tags:
         - Tools
-      summary: Upsert
+      summary: Upsert Tool
       description: |-
         Create a Tool or update it with a new version if it already exists.
 
@@ -720,7 +720,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: upsert_tools_post
+      operationId: Tools_upsert
       requestBody:
         content:
           application/json:
@@ -746,13 +746,13 @@ paths:
     get:
       tags:
         - Tools
-      summary: Get
+      summary: Get Tool
       description: |-
         Retrieve the Tool with the given ID.
 
         By default, the deployed version of the Tool is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Tool.
-      operationId: get_tools__id__get
+      operationId: Tools_get
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -796,9 +796,9 @@ paths:
     delete:
       tags:
         - Tools
-      summary: Delete
+      summary: Delete Tool
       description: Delete the Tool with the given ID.
-      operationId: delete_tools__id__delete
+      operationId: Tools_delete
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -822,9 +822,9 @@ paths:
     patch:
       tags:
         - Tools
-      summary: Move
+      summary: Move Tool
       description: Move the Tool to a different path or change the name.
-      operationId: move_tools__id__patch
+      operationId: Tools_move
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -861,7 +861,7 @@ paths:
         - Tools
       summary: List Versions
       description: Get a list of all the versions of a Tool.
-      operationId: list_versions_tools__id__versions_get
+      operationId: Tools_listVersions
       parameters:
         - description: Unique identifier for the Tool.
           required: true
@@ -914,7 +914,7 @@ paths:
         - Tools
       summary: Commit
       description: Commit the Tool Version with the given ID.
-      operationId: commit_tools__id__versions__version_id__commit_post
+      operationId: Tools_commit
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -968,7 +968,7 @@ paths:
         Tool details in the request body. In this case, we will check if the details correspond
         to an existing version of the Tool, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Tool details in code.
-      operationId: log_tools_log_post
+      operationId: Tools_log
       parameters:
         - description: A specific Version ID of the Tool to log to.
           required: false
@@ -1175,7 +1175,7 @@ paths:
         - Datasets
       summary: "List "
       description: Get a list of Datasets.
-      operationId: list__datasets_get
+      operationId: Datasets_list
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -1251,7 +1251,7 @@ paths:
     post:
       tags:
         - Datasets
-      summary: Upsert
+      summary: Upsert Dataset
       description: |-
         Create a Dataset or update it with a new version if it already exists.
 
@@ -1270,7 +1270,7 @@ paths:
         Humanloop also deduplicates Datapoints. If you try to add a Datapoint that already
         exists, it will be ignored. If you intentionally want to add a duplicate Datapoint,
         you can add a unique identifier to the Datapoint's inputs such as `{_dedupe_id: <unique ID>}`.
-      operationId: upsert_datasets_post
+      operationId: Datasets_upsert
       parameters:
         - description: ID of the specific Dataset version to base the created Version on. Only used when `action` is `"add"` or `"remove"`.
           required: false
@@ -1313,7 +1313,7 @@ paths:
     get:
       tags:
         - Datasets
-      summary: Get
+      summary: Get Dataset
       description: |-
         Retrieve the Dataset with the given ID.
 
@@ -1324,7 +1324,7 @@ paths:
 
         By default, the deployed version of the Dataset is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Dataset.
-      operationId: get_datasets__id__get
+      operationId: Datasets_get
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1377,9 +1377,9 @@ paths:
     delete:
       tags:
         - Datasets
-      summary: Delete
+      summary: Delete Dataset
       description: Delete the Dataset with the given ID.
-      operationId: delete_datasets__id__delete
+      operationId: Datasets_delete
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1403,9 +1403,9 @@ paths:
     patch:
       tags:
         - Datasets
-      summary: Move
+      summary: Move Dataset
       description: Update the Dataset with the given ID.
-      operationId: move_datasets__id__patch
+      operationId: Datasets_move
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1442,7 +1442,7 @@ paths:
         - Datasets
       summary: List Datapoints
       description: List all Datapoints for the Dataset with the given ID.
-      operationId: list_datapoints_datasets__id__datapoints_get
+      operationId: Datasets_listDatapoints
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1509,7 +1509,7 @@ paths:
         - Datasets
       summary: List Versions
       description: Get a list of the versions for a Dataset.
-      operationId: list_versions_datasets__id__versions_get
+      operationId: Datasets_listVersions
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1562,7 +1562,7 @@ paths:
         - Datasets
       summary: Commit
       description: Commit the Dataset Version with the given ID.
-      operationId: commit_datasets__id__versions__version_id__commit_post
+      operationId: Datasets_commit
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1601,72 +1601,11 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /datasets/{id}/datapoints/csv:
-    post:
-      tags:
-        - Datasets
-      summary: Upload Csv
-      description: |-
-        Add Datapoints from a CSV file to a Dataset.
-
-        This will create a new committed version of the Dataset with the Datapoints from the CSV file.
-
-        If either `version_id` or `environment` is provided, the new version will be based on the specified version,
-        with the Datapoints from the CSV file added to the existing Datapoints in the version.
-        If neither `version_id` nor `environment` is provided, the new version will be based on the version
-        of the Dataset that is deployed to the default Environment.
-      operationId: upload_csv_datasets__id__datapoints_csv_post
-      parameters:
-        - description: Unique identifier for the Dataset
-          required: true
-          schema:
-            type: string
-            title: Dataset ID
-            description: Unique identifier for the Dataset
-          name: id
-          in: path
-        - description: ID of the specific Dataset version to base the created Version on.
-          required: false
-          schema:
-            type: string
-            title: Version ID
-            description: ID of the specific Dataset version to base the created Version on.
-          name: version_id
-          in: query
-        - description: Name of the Environment identifying a deployed Version to base the created Version on.
-          required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the Environment identifying a deployed Version to base the created Version on.
-          name: environment
-          in: query
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: "#/components/schemas/Body_upload_csv_datasets__id__datapoints_csv_post"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatasetResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /datasets/{id}/datapoints/logs:
     post:
       tags:
         - Datasets
-      summary: From Logs
+      summary: Add Datapoints From Logs
       description: |-
         Add Datapoints from Logs to a Dataset.
 
@@ -1676,7 +1615,7 @@ paths:
         with the Datapoints from the Logs added to the existing Datapoints in the version.
         If neither `version_id` nor `environment` is provided, the new version will be based on the version
         of the Dataset that is deployed to the default Environment.
-      operationId: from_logs_datasets__id__datapoints_logs_post
+      operationId: Datasets_createDatapointsFromLogs
       parameters:
         - description: Unique identifier for the Dataset
           required: true
@@ -1706,7 +1645,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Body_from_logs_datasets__id__datapoints_logs_post"
+              $ref: "#/components/schemas/Body_Datasets_createDatapointsFromLogs"
         required: true
       responses:
         "200":
@@ -1848,9 +1787,9 @@ paths:
     get:
       tags:
         - Directories
-      summary: "List "
+      summary: List Directories
       description: Retrieve a list of all Directories.
-      operationId: list__directories_get
+      operationId: Directories_list
       responses:
         "200":
           description: Successful Response
@@ -1860,7 +1799,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/DirectoryResponse"
                 type: array
-                title: Response List  Directories Get
+                title: Response Directories List
         "422":
           description: Validation Error
           content:
@@ -1872,9 +1811,9 @@ paths:
     post:
       tags:
         - Directories
-      summary: Create
+      summary: "Create Directory "
       description: Creates a Directory.
-      operationId: create_directories_post
+      operationId: Directories_create
       requestBody:
         content:
           application/json:
@@ -1900,7 +1839,7 @@ paths:
     get:
       tags:
         - Directories
-      summary: Get
+      summary: Get Directory
       description: Fetches a directory by ID.
       operationId: Directories_get
       parameters:
@@ -1930,7 +1869,7 @@ paths:
     delete:
       tags:
         - Directories
-      summary: Delete
+      summary: "Delete Directory "
       description: |-
         Delete the Directory with the given ID.
 
@@ -1959,7 +1898,7 @@ paths:
     patch:
       tags:
         - Directories
-      summary: Update
+      summary: "Update Directory "
       description: Update the Directory with the given ID.
       operationId: Directories_update
       parameters:
@@ -2001,7 +1940,7 @@ paths:
         List Evaluations for the given File.
 
         Retrieve a list of Evaluations that evaluate versions of the specified File.
-      operationId: list__evaluations_get
+      operationId: Evaluations_list
       parameters:
         - description: Filter by File ID. If provided, only Evaluation for the specified File will be returned.
           required: true
@@ -2058,7 +1997,7 @@ paths:
 
         To keep updated on the progress of the Evaluation, you can poll the Evaluation
         and check its status.
-      operationId: create_evaluations_post
+      operationId: Evaluations_create
       requestBody:
         content:
           application/json:
@@ -2089,7 +2028,7 @@ paths:
         Get an Evaluation.
 
         Retrieve the Evaluation with the given ID.
-      operationId: get_evaluations__id__get
+      operationId: Evaluations_get
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2123,7 +2062,7 @@ paths:
 
         Remove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation
         will not be deleted.
-      operationId: delete_evaluations__id__delete
+      operationId: Evaluations_delete
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2152,7 +2091,7 @@ paths:
         Update an Evaluation.
 
         Update the setup of an Evaluation by specifying the Dataset, Evaluatees, and Evaluators.
-      operationId: update_evaluations__id__patch
+      operationId: Evaluations_update
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2193,7 +2132,7 @@ paths:
 
         Can be used to cancel a running Evaluation, or mark an Evaluation that uses external or human evaluators
         as completed.
-      operationId: update_status_evaluations__id__status_patch
+      operationId: Evaluations_updateStatus
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2207,7 +2146,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Body_update_status_evaluations__id__status_patch"
+              $ref: "#/components/schemas/Body_Evaluations_updateStatus"
         required: true
       responses:
         "200":
@@ -2235,7 +2174,7 @@ paths:
         Retrieve aggregate stats for the specified Evaluation.
         This includes the number of generated Logs for every evaluatee and Evaluator metrics
         (such as the mean and percentiles for numeric Evaluators for every evaluatee).
-      operationId: get_stats_evaluations__id__stats_get
+      operationId: Evaluations_getStats
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2260,68 +2199,13 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluations/{id}/logs:
-    get:
-      tags:
-        - Evaluations
-      summary: Get Logs
-      description: |-
-        Get Logs by Evaluation ID.
-
-        Each Evaluation Log corresponds to a (Datapoint, Evaluated Version) pair.
-        It has an optional generated Log and a list of Evaluator Logs.
-      operationId: get_logs_evaluations__id__logs_get
-      parameters:
-        - description: String ID of evaluation. Starts with `ev_` or `evr_`.
-          required: true
-          schema:
-            type: string
-            title: Evaluation ID
-            description: String ID of evaluation. Starts with `ev_` or `evr_`.
-          name: id
-          in: path
-        - description: Page number for pagination.
-          required: false
-          schema:
-            type: integer
-            minimum: 1.0
-            title: Page number
-            description: Page number for pagination.
-            default: 1
-          name: page
-          in: query
-        - description: Page size for pagination. Number of Logs to fetch.
-          required: false
-          schema:
-            type: integer
-            minimum: 0.0
-            title: Page size
-            description: Page size for pagination. Number of Logs to fetch.
-            default: 10
-          name: size
-          in: query
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedData_EvaluationReportLogResponse_"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /evaluators/default:
     get:
       tags:
         - Evaluators
-      summary: List Default
+      summary: List Default Evaluators
       description: Get a list of default evaluators for the organization.
-      operationId: list_default_evaluators_default_get
+      operationId: Evaluators_listDefault
       responses:
         "200":
           description: Successful Response
@@ -2331,7 +2215,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/EvaluatorResponse"
                 type: array
-                title: Response List Default Evaluators Default Get
+                title: Response Evaluators Listdefault
         "422":
           description: Validation Error
           content:
@@ -2377,7 +2261,7 @@ paths:
         - Evaluators
       summary: "List "
       description: Get a list of Evaluators.
-      operationId: list__evaluators_get
+      operationId: Evaluators_list
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -2452,7 +2336,7 @@ paths:
     post:
       tags:
         - Evaluators
-      summary: Upsert
+      summary: Upsert Evaluator
       description: |-
         Create an Evaluator or update it with a new version if it already exists.
 
@@ -2461,7 +2345,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: upsert_evaluators_post
+      operationId: Evaluators_upsert
       requestBody:
         content:
           application/json:
@@ -2487,13 +2371,13 @@ paths:
     get:
       tags:
         - Evaluators
-      summary: Get
+      summary: Get Evaluator
       description: |-
         Retrieve the Evaluator with the given ID.
 
         By default, the deployed version of the Evaluator is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Evaluator.
-      operationId: get_evaluators__id__get
+      operationId: Evaluators_get
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2537,9 +2421,9 @@ paths:
     delete:
       tags:
         - Evaluators
-      summary: Delete
+      summary: Delete Evaluator
       description: Delete the Evaluator with the given ID.
-      operationId: delete_evaluators__id__delete
+      operationId: Evaluators_delete
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2563,9 +2447,9 @@ paths:
     patch:
       tags:
         - Evaluators
-      summary: Move
+      summary: Move Evaluator
       description: Move the Evaluator to a different path or change the name.
-      operationId: move_evaluators__id__patch
+      operationId: Evaluators_move
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2602,7 +2486,7 @@ paths:
         - Evaluators
       summary: List Versions
       description: Get a list of all the versions of an Evaluator.
-      operationId: list_versions_evaluators__id__versions_get
+      operationId: Evaluators_listVersions
       parameters:
         - description: Unique identifier for the Evaluator.
           required: true
@@ -2655,7 +2539,7 @@ paths:
         - Evaluators
       summary: Commit
       description: Commit the Evaluator Version with the given ID.
-      operationId: commit_evaluators__id__versions__version_id__commit_post
+      operationId: Evaluators_commit
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -2821,9 +2705,9 @@ paths:
     get:
       tags:
         - Logs
-      summary: "List "
+      summary: List
       description: List Logs.
-      operationId: list__logs_get
+      operationId: list_logs_for_file_logs_get
       parameters:
         - description: Unique identifier for the File to list Logs for.
           required: true
@@ -2953,7 +2837,7 @@ paths:
         - Logs
       summary: Get Log
       description: Retrieve the Log with the given ID.
-      operationId: get_logs__id__get
+      operationId: Logs_get
       parameters:
         - description: Unique identifier for Log.
           required: true
@@ -2984,7 +2868,7 @@ paths:
         - Sessions
       summary: Get
       description: Retrieve the Session with the given ID.
-      operationId: get_sessions__id__get
+      operationId: Sessions_get
       parameters:
         - description: Unique identifier for Session.
           required: true
@@ -3014,7 +2898,7 @@ paths:
         - Sessions
       summary: Delete
       description: Delete the Session with the given ID.
-      operationId: delete_sessions__id__delete
+      operationId: Sessions_delete
       parameters:
         - description: Unique identifier for Session.
           required: true
@@ -3041,7 +2925,7 @@ paths:
         - Sessions
       summary: "List "
       description: Get a list of Sessions.
-      operationId: list__sessions_get
+      operationId: Sessions_list
       parameters:
         - description: Unique identifier for File to return Sessions for. Sessions that contain any Logs associated to this File will be returned.
           required: false
@@ -3198,7 +3082,7 @@ components:
         - created_at
         - updated_at
       title: BaseMetricResponse
-    Body_from_logs_datasets__id__datapoints_logs_post:
+    Body_Datasets_createDatapointsFromLogs:
       properties:
         log_ids:
           items:
@@ -3214,31 +3098,15 @@ components:
       required:
         - log_ids
         - commit_message
-      title: Body_from_logs_datasets__id__datapoints_logs_post
-    Body_update_status_evaluations__id__status_patch:
+      title: Body_Datasets_createDatapointsFromLogs
+    Body_Evaluations_updateStatus:
       properties:
         status:
           $ref: "#/components/schemas/EvaluationStatus"
       type: object
       required:
         - status
-      title: Body_update_status_evaluations__id__status_patch
-    Body_upload_csv_datasets__id__datapoints_csv_post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: A CSV file containing Datapoints to be added to the Dataset.
-        commit_message:
-          type: string
-          title: Commit Message
-          description: Commit message for the new Dataset version.
-      type: object
-      required:
-        - file
-        - commit_message
-      title: Body_upload_csv_datasets__id__datapoints_csv_post
+      title: Body_Evaluations_updateStatus
     BooleanEvaluatorVersionStats:
       properties:
         evaluator_version_id:
@@ -3907,25 +3775,6 @@ components:
         - version
         - orchestrated
       title: EvaluationEvaluatorResponse
-    EvaluationReportLogResponse:
-      properties:
-        evaluated_version:
-          $ref: "#/components/schemas/EvaluatedVersionResponse"
-        datapoint:
-          $ref: "#/components/schemas/DatapointResponse"
-        log:
-          $ref: "#/components/schemas/LogResponse"
-        evaluator_logs:
-          items:
-            $ref: "#/components/schemas/LogResponse"
-          type: array
-          title: Evaluator Logs
-      type: object
-      required:
-        - evaluated_version
-        - datapoint
-        - evaluator_logs
-      title: EvaluationReportLogResponse
     EvaluationResponse:
       properties:
         id:
@@ -5518,29 +5367,6 @@ components:
         - size
         - total
       title: PaginatedData[DatasetResponse]
-    PaginatedData_EvaluationReportLogResponse_:
-      properties:
-        records:
-          items:
-            $ref: "#/components/schemas/EvaluationReportLogResponse"
-          type: array
-          title: Records
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        total:
-          type: integer
-          title: Total
-      type: object
-      required:
-        - records
-        - page
-        - size
-        - total
-      title: PaginatedData[EvaluationReportLogResponse]
     PaginatedData_EvaluationResponse_:
       properties:
         records:

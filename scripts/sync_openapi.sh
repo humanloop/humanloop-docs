@@ -46,3 +46,6 @@ curl -s $API_URL/v5/openapi.json | yq eval -P - >> $PROJECT_ROOT/fern/apis/v5/op
 
 # Run prettier on the file
 prettier --write $PROJECT_ROOT/fern/apis/v5/openapi/openapi.yml
+
+# Run the populate script to fill in the overrides
+python $PROJECT_ROOT/fern/apis/v5/openapi/populate_template.py
