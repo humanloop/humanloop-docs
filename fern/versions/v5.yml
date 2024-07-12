@@ -188,3 +188,4 @@ navigation:
         snippets:
           python: humanloop
           typescript: humanloop
+  - tab: changelog
