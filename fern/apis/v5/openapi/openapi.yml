@@ -45,7 +45,7 @@ paths:
         Prompt details in the request body. In this case, we will check if the details correspond
         to an existing version of the Prompt, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Prompt details in code.
-      operationId: Prompts_log
+      operationId: log_prompts_log_post
       parameters:
         - description: A specific Version ID of the Prompt to log to.
           required: false
@@ -102,7 +102,7 @@ paths:
         Prompt details in the request body. In this case, we will check if the details correspond
         to an existing version of the Prompt, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Prompt details in code.
-      operationId: Prompts_call
+      operationId: call_prompts_call_post
       parameters:
         - description: A specific Version ID of the Prompt to log to.
           required: false
@@ -135,7 +135,7 @@ paths:
                 anyOf:
                   - $ref: "#/components/schemas/PromptCallResponse"
                   - $ref: "#/components/schemas/PromptCallStreamResponse"
-                title: Response Prompts Call
+                title: Response Call Prompts Call Post
         "422":
           description: Validation Error
           content:
@@ -149,7 +149,7 @@ paths:
       tags:
         - Prompts
       summary: "List "
-      description: Get a list of Prompts.
+      description: Get a list of all Prompts.
       operationId: list__prompts_get
       parameters:
         - description: Page number for pagination.
@@ -214,7 +214,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListPrompts"
+                $ref: "#/components/schemas/PaginatedData_PromptResponse_"
         "422":
           description: Validation Error
           content:
@@ -422,7 +422,10 @@ paths:
       tags:
         - Prompts
       summary: Commit
-      description: Commit the Prompt Version with the given ID.
+      description: |-
+        Commit a version of the Prompt with a commit message.
+
+        If the version is already committed, an exception will be raised.
       operationId: commit_prompts__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Prompt.
@@ -639,7 +642,7 @@ paths:
         Tool details in the request body. In this case, we will check if the details correspond
         to an existing version of the Tool, if not we will create a new version. This is helpful
         in the case where you are storing or deriving your Tool details in code.
-      operationId: Tools_log
+      operationId: log_tools_log_post
       parameters:
         - description: A specific Version ID of the Tool to log to.
           required: false
@@ -683,7 +686,7 @@ paths:
       tags:
         - Tools
       summary: "List "
-      description: Get a list of Tools.
+      description: Get a list of all Tools.
       operationId: list__tools_get
       parameters:
         - description: Page offset for pagination.
@@ -747,7 +750,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListTools"
+                $ref: "#/components/schemas/PaginatedData_ToolResponse_"
         "422":
           description: Validation Error
           content:
@@ -955,7 +958,10 @@ paths:
       tags:
         - Tools
       summary: Commit
-      description: Commit the Tool Version with the given ID.
+      description: |-
+        Commit a version of the Tool with a commit message.
+
+        If the version is already committed, an exception will be raised.
       operationId: commit_tools__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Tool.
@@ -1162,7 +1168,7 @@ paths:
       tags:
         - Datasets
       summary: "List "
-      description: List all Datasets.
+      description: List a list of all Datasets.
       operationId: list__datasets_get
       parameters:
         - description: Page offset for pagination.
@@ -1535,7 +1541,10 @@ paths:
       tags:
         - Datasets
       summary: Commit
-      description: Commit the Dataset Version with the given ID.
+      description: |-
+        Commit a version of the Dataset with a commit message.
+
+        If the version is already committed, an exception will be raised.
       operationId: commit_datasets__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Dataset.
@@ -1757,171 +1766,23 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /directories:
-    get:
-      tags:
-        - Directories
-      summary: "List "
-      description: Retrieve a list of all Directories.
-      operationId: list__directories_get
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/DirectoryResponse"
-                type: array
-                title: Response List  Directories Get
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-    post:
-      tags:
-        - Directories
-      summary: Create
-      description: Creates a Directory.
-      operationId: create_directories_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateDirectoryRequest"
-        required: true
-      responses:
-        "201":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DirectoryResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /directories/{id}:
-    get:
-      tags:
-        - Directories
-      summary: Get
-      description: Fetches a directory by ID.
-      operationId: Directories_get
-      parameters:
-        - description: String ID of directory. Starts with `dir_`.
-          required: true
-          schema:
-            type: string
-            title: Directory ID
-            description: String ID of directory. Starts with `dir_`.
-          name: id
-          in: path
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DirectoryWithParentsAndChildrenResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-    delete:
-      tags:
-        - Directories
-      summary: Delete
-      description: |-
-        Delete the Directory with the given ID.
-
-        The Directory must be empty (i.e. contain no Directories or Files).
-      operationId: Directories_delete
-      parameters:
-        - description: Unique identifier for Directory. Starts with `dir_`.
-          required: true
-          schema:
-            type: string
-            title: Directory ID
-            description: Unique identifier for Directory. Starts with `dir_`.
-          name: id
-          in: path
-      responses:
-        "204":
-          description: Successful Response
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-    patch:
-      tags:
-        - Directories
-      summary: Update
-      description: Update the Directory with the given ID.
-      operationId: Directories_update
-      parameters:
-        - description: Unique identifier for Directory. Starts with `dir_`.
-          required: true
-          schema:
-            type: string
-            title: Directory ID
-            description: Unique identifier for Directory. Starts with `dir_`.
-          name: id
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateDirectoryRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DirectoryResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /evaluations:
     get:
       tags:
         - Evaluations
-      summary: List Evaluations for File
+      summary: "List "
       description: |-
-        List Evaluations for the given File.
+        List all Evaluations for the specified `file_id`.
 
         Retrieve a list of Evaluations that evaluate versions of the specified File.
       operationId: list__evaluations_get
       parameters:
-        - description: Filter by File ID. If provided, only Evaluation for the specified File will be returned.
+        - description: Filter by File ID. Only Evaluations for the specified File will be returned.
           required: true
           schema:
             type: string
             title: File ID
-            description: Filter by File ID. If provided, only Evaluation for the specified File will be returned.
+            description: Filter by File ID. Only Evaluations for the specified File will be returned.
           name: file_id
           in: query
         - description: Page number for pagination.
@@ -1962,15 +1823,20 @@ paths:
     post:
       tags:
         - Evaluations
-      summary: Create Evaluation
+      summary: Create
       description: |-
         Create an Evaluation.
 
-        Create a new Evaluation by specifying the Dataset, Evaluatees, and Evaluators.
-        Humanloop will automatically start generating Logs and running Evaluators.
+        Create a new Evaluation by specifying the Dataset, versions to be
+        evaluated (Evaluatees), and which Evaluators to provide judgments.
 
-        To keep updated on the progress of the Evaluation, you can poll the Evaluation
-        and check its status.
+        Humanloop will automatically start generating Logs and running Evaluators where
+        `orchestrated=true`. If you own the runtime for the Evaluatee or Evaluator, you
+        can set `orchestrated=false` and then generate and submit the required logs using
+        your runtime.
+
+        To keep updated on the progress of the Evaluation, you can poll the Evaluation using
+        the GET /evaluations/{id} endpoint and check its status.
       operationId: create_evaluations_post
       requestBody:
         content:
@@ -1997,11 +1863,8 @@ paths:
     get:
       tags:
         - Evaluations
-      summary: Get Evaluation
-      description: |-
-        Get an Evaluation.
-
-        Retrieve the Evaluation with the given ID.
+      summary: Get
+      description: Get an Evaluation.
       operationId: get_evaluations__id__get
       parameters:
         - description: Unique identifier for Evaluation.
@@ -2030,7 +1893,7 @@ paths:
     delete:
       tags:
         - Evaluations
-      summary: Delete Evaluation
+      summary: Delete
       description: |-
         Delete an Evaluation.
 
@@ -2060,12 +1923,13 @@ paths:
     patch:
       tags:
         - Evaluations
-      summary: Update Evaluation
+      summary: Update Setup
       description: |-
         Update an Evaluation.
 
-        Update the setup of an Evaluation by specifying the Dataset, Evaluatees, and Evaluators.
-      operationId: update_evaluations__id__patch
+        Update the setup of an Evaluation by specifying the Dataset, versions to be
+        evaluated (Evaluatees), and which Evaluators to provide judgments.
+      operationId: update_setup_evaluations__id__patch
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2104,8 +1968,8 @@ paths:
       description: |-
         Update the status of an Evaluation.
 
-        Can be used to cancel a running Evaluation, or mark an Evaluation that uses external or human evaluators
-        as completed.
+        Can be used to cancel a running Evaluation, or mark an Evaluation that uses
+        external or human evaluators as completed.
       operationId: update_status_evaluations__id__status_patch
       parameters:
         - description: Unique identifier for Evaluation.
@@ -2141,13 +2005,13 @@ paths:
     get:
       tags:
         - Evaluations
-      summary: Get Evaluation Stats
+      summary: Get Stats
       description: |-
         Get Evaluation Stats.
 
         Retrieve aggregate stats for the specified Evaluation.
-        This includes the number of generated Logs for every evaluatee and Evaluator metrics
-        (such as the mean and percentiles for numeric Evaluators for every evaluatee).
+        This includes the number of generated Logs for each evaluated version and the
+        corresponding Evaluator statistics (such as the mean and percentiles).
       operationId: get_stats_evaluations__id__stats_get
       parameters:
         - description: Unique identifier for Evaluation.
@@ -2179,10 +2043,10 @@ paths:
         - Evaluations
       summary: Get Logs
       description: |-
-        Get Logs by Evaluation ID.
+        Get the Logs associated to a specific Evaluation.
 
-        Each Evaluation Log corresponds to a (Datapoint, Evaluated Version) pair.
-        It has an optional generated Log and a list of Evaluator Logs.
+        Each Datapoint in your Dataset will have a corresponding Log for each File version evaluated.
+        e.g. If you have 50 Datapoints and are evaluating 2 Prompts, there will be 100 Logs associated with the Evaluation.
       operationId: get_logs_evaluations__id__logs_get
       parameters:
         - description: String ID of evaluation. Starts with `ev_` or `evr_`.
@@ -2233,7 +2097,7 @@ paths:
       tags:
         - Evaluators
       summary: "List "
-      description: Get a list of Evaluators.
+      description: Get a list of all Evaluators.
       operationId: list__evaluators_get
       parameters:
         - description: Page offset for pagination.
@@ -2297,7 +2161,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListEvaluators"
+                $ref: "#/components/schemas/PaginatedData_EvaluatorResponse_"
         "422":
           description: Validation Error
           content:
@@ -2505,7 +2369,10 @@ paths:
       tags:
         - Evaluators
       summary: Commit
-      description: Commit the Evaluator Version with the given ID.
+      description: |-
+        Commit a version of the Evaluator with a commit message.
+
+        If the version is already committed, an exception will be raised.
       operationId: commit_evaluators__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Prompt.
@@ -2673,7 +2540,7 @@ paths:
       tags:
         - Logs
       summary: "List "
-      description: List Logs.
+      description: List all Logs for the given filter criteria.
       operationId: list__logs_get
       parameters:
         - description: Unique identifier for the File to list Logs for.
@@ -3315,21 +3182,6 @@ components:
           description: Object with criteria necessary to evaluate generations with this Datapoint. This is passed in as an argument to Evaluators when used in an Evaluation.
       type: object
       title: CreateDatapointRequest
-    CreateDirectoryRequest:
-      properties:
-        name:
-          type: string
-          title: Directory name
-          description: Name of the directory to create.
-        parent_id:
-          type: string
-          title: Parent directory ID
-          description: ID of the parent directory. Starts with `dir_`.
-      type: object
-      required:
-        - name
-        - parent_id
-      title: CreateDirectoryRequest
     CreateEvaluationRequest:
       properties:
         dataset:
@@ -3547,89 +3399,6 @@ components:
 
         Attributes defined here are common to all File Responses and should be overridden
         in the inheriting classes with documentation and appropriate Field definitions.
-    DirectoryResponse:
-      properties:
-        name:
-          type: string
-          title: Directory name
-          description: Name of the directory to create.
-        parent_id:
-          type: string
-          title: Parent directory ID
-          description: ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`.
-        id:
-          type: string
-          title: Directory ID
-          description: String ID of directory. Starts with `dir_`.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-        - name
-        - id
-        - created_at
-        - updated_at
-      title: DirectoryResponse
-    DirectoryWithParentsAndChildrenResponse:
-      properties:
-        name:
-          type: string
-          title: Directory name
-          description: Name of the directory to create.
-        parent_id:
-          type: string
-          title: Parent directory ID
-          description: ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`.
-        id:
-          type: string
-          title: Directory ID
-          description: String ID of directory. Starts with `dir_`.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        subdirectories:
-          items:
-            $ref: "#/components/schemas/DirectoryResponse"
-          type: array
-          title: Subdirectories
-          description: List of subdirectories in the directory.
-        files:
-          items:
-            anyOf:
-              - $ref: "#/components/schemas/PromptResponse"
-              - $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
-              - $ref: "#/components/schemas/EvaluatorResponse"
-              - $ref: "#/components/schemas/DatasetResponse"
-          type: array
-          title: Files
-          description: List of files in the directory.
-        parents:
-          items:
-            $ref: "#/components/schemas/DirectoryResponse"
-          type: array
-          title: Parent directories
-          description: List of parent directories of the directory.
-      type: object
-      required:
-        - name
-        - id
-        - created_at
-        - updated_at
-        - subdirectories
-        - files
-        - parents
-      title: DirectoryWithParentsAndChildrenResponse
     EnvironmentResponse:
       properties:
         id:
@@ -3700,6 +3469,7 @@ components:
         - version
         - orchestrated
       title: EvaluateeResponse
+      description: Version of the Evaluatee being evaluated.
     EvaluationEvaluatorResponse:
       properties:
         version:
@@ -3716,16 +3486,26 @@ components:
     EvaluationReportLogResponse:
       properties:
         evaluated_version:
-          $ref: "#/components/schemas/EvaluatedVersionResponse"
+          allOf:
+            - $ref: "#/components/schemas/EvaluatedVersionResponse"
+          title: Evaluated version
+          description: The version of the Prompt, Tool or Evaluator that the Log belongs to.
         datapoint:
-          $ref: "#/components/schemas/DatapointResponse"
+          allOf:
+            - $ref: "#/components/schemas/DatapointResponse"
+          title: Datapoint
+          description: The Datapoint used to generate the log
         log:
-          $ref: "#/components/schemas/LogResponse"
+          allOf:
+            - $ref: "#/components/schemas/LogResponse"
+          title: Log
+          description: The Log that was evaluated by the Evaluator.
         evaluator_logs:
           items:
             $ref: "#/components/schemas/LogResponse"
           type: array
           title: Evaluator Logs
+          description: The Evaluator logs containing the judgments for the Log.
       type: object
       required:
         - evaluated_version
@@ -3742,7 +3522,7 @@ components:
           allOf:
             - $ref: "#/components/schemas/DatasetResponse"
           title: Dataset
-          description: The Dataset Version used in the Evaluation.
+          description: The Dataset used in the Evaluation.
         evaluatees:
           items:
             $ref: "#/components/schemas/EvaluateeResponse"
@@ -3867,7 +3647,7 @@ components:
       description: Status of an evaluation.
     EvaluatorActivationDeactivationRequest:
       properties:
-        activate_evaluators:
+        activate:
           items:
             anyOf:
               - $ref: "#/components/schemas/MonitoringEvaluatorVersionRequest"
@@ -3875,7 +3655,7 @@ components:
           type: array
           title: Evaluators to activate
           description: Evaluators to activate on Monitoring. These will be automatically run on new Logs.
-        deactivate_evaluators:
+        deactivate:
           items:
             anyOf:
               - $ref: "#/components/schemas/MonitoringEvaluatorVersionRequest"
@@ -3989,8 +3769,8 @@ components:
       properties:
         path:
           type: string
-          title: Dataset path
-          description: Path of the Dataset including the Dataset name, which is used as a unique identifier.
+          title: Evaluator path
+          description: Path of the Evaluator including the Evaluator name, which is used as a unique identifier.
         id:
           type: string
           title: Evaluator ID
@@ -4093,7 +3873,7 @@ components:
         - total_logs_count
         - inputs
       title: EvaluatorResponse
-      description: Request model for creating a new Evaluator
+      description: Version of the Evaluator used to provide judgments.
     EvaluatorReturnTypeEnum:
       type: string
       enum:
@@ -5374,6 +5154,29 @@ components:
         - size
         - total
       title: PaginatedData[EvaluationResponse]
+    PaginatedData_EvaluatorResponse_:
+      properties:
+        records:
+          items:
+            $ref: "#/components/schemas/EvaluatorResponse"
+          type: array
+          title: Records
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+        - records
+        - page
+        - size
+        - total
+      title: PaginatedData[EvaluatorResponse]
     PaginatedData_PromptLogResponse_:
       properties:
         records:
@@ -5397,6 +5200,29 @@ components:
         - size
         - total
       title: PaginatedData[PromptLogResponse]
+    PaginatedData_PromptResponse_:
+      properties:
+        records:
+          items:
+            $ref: "#/components/schemas/PromptResponse"
+          type: array
+          title: Records
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+        - records
+        - page
+        - size
+        - total
+      title: PaginatedData[PromptResponse]
     PaginatedData_SessionResponse_:
       properties:
         records:
@@ -5420,6 +5246,29 @@ components:
         - size
         - total
       title: PaginatedData[SessionResponse]
+    PaginatedData_ToolResponse_:
+      properties:
+        records:
+          items:
+            $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+          type: array
+          title: Records
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+        - records
+        - page
+        - size
+        - total
+      title: PaginatedData[ToolResponse]
     PlatformAccessEnum:
       type: string
       enum:
@@ -6876,18 +6725,6 @@ components:
         - remove
       title: UpdateDatesetAction
       description: An enumeration.
-    UpdateDirectoryRequest:
-      properties:
-        name:
-          type: string
-          title: Directory name
-          description: Name to set for the directory.
-        parent_id:
-          type: string
-          title: Parent directory ID
-          description: ID of the parent directory. Specify this to move directories. Starts with `dir_`.
-      type: object
-      title: UpdateDirectoryRequest
     UpdateEvaluatorRequest:
       properties:
         path:
@@ -7201,7 +7038,6 @@ components:
       required:
         - spec
       title: EvaluatorRequest
-      description: Request model for creating a new Evaluator
     src__external__app__models__v5__feedback__FeedbackType:
       type: string
       enum:

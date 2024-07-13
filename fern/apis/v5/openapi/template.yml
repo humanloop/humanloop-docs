@@ -26,7 +26,12 @@ paths:
         - query-parameters:
             size: 1
           response:
-            body: { "records": [<<prompt_response>>] }
+            body: {
+                "records": [<< prompt_response >>],
+                "page": 0,
+                "size": 1,
+                "total": 1,
+              }
     post:
       x-fern-examples:
         - name: Upsert prompt
@@ -90,7 +95,7 @@ paths:
           path-parameters:
             id: "pr_30gco7dx6JDq4200GVOHa"
           request:
-            activate_evaluators:
+            activate:
               - evaluator_version_id: "evv_1abc4308abd"
           response:
             body: << prompt_response >>
@@ -118,8 +123,12 @@ paths:
           query-parameters:
             size: 1
           response:
-            body:
-              records: [<< tool_response >>]
+            body: {
+                "records": [<< tool_response >>],
+                "page": 0,
+                "size": 1,
+                "total": 1,
+              }
 
     post:
       x-fern-examples:
@@ -211,7 +220,7 @@ paths:
           path-parameters:
             id: "tl_789ghi"
           request:
-            activate_evaluators:
+            activate:
               - evaluator_version_id: "evv_1abc4308abd"
           response:
             body: << tool_response >>
@@ -345,8 +354,12 @@ paths:
           query-parameters:
             size: 1
           response:
-            body:
-              records: [<< evaluator_response >>]
+            body: {
+                "records": [<< evaluator_response >>],
+                "page": 0,
+                "size": 1,
+                "total": 1,
+              }
     post:
       x-fern-examples:
         - name: Create evaluator
@@ -656,64 +669,65 @@ paths:
               logs: [<< prompt_log_object >>]
 
   # DIRECTORIES
-
-  /directories:
-    get:
-      x-fern-examples:
-        - name: List directories
-          response:
-            body:
-              - << directory_response >>
-    post:
-      x-fern-examples:
-        - name: Create directory
-          request:
-            name: "my directory"
-            parent_id: "dir_456def"
-          response:
-            body: << directory_response >>
-
-  /directories/{id}:
-    get:
-      x-fern-examples:
-        - name: Get specific directory
-          path-parameters:
-            id: "dir_123abc"
-          response:
-            body:
-              id: "dir_456def"
-              name: "my parent directory"
-              created_at: "2024-05-01T12:00:00Z"
-              updated_at: "2024-05-01T12:00:00Z"
-              parent_id: "dir_789ghi"
-              subdirectories: [<<directory_response>>]
-              files: [<<prompt_response>>, <<tool_response>>]
-              parents:
-                [
-                  {
-                    "id": "dir_789ghi",
-                    "name": "another parent directory",
-                    "created_at": "2024-05-01T12:00:00Z",
-                    "updated_at": "2024-05-01T12:00:00Z",
-                  },
-                ]
-    delete:
-      x-fern-examples:
-        - name: Delete directory
-          path-parameters:
-            id: "dir_123abc"
-
-    patch:
-      x-fern-examples:
-        - name: Move directory
-          path-parameters:
-            id: "dir_123abc"
-          request:
-            name: "my new name"
-            parent_id: "dir_456def"
-            # path: "new_parent_directory/new_name"
-          response:
-            body: << directory_response >>
+# TODO: Endpoint needs to be cleaned up before exposing publically
+#
+#  /directories:
+#    get:
+#      x-fern-examples:
+#        - name: List directories
+#          response:
+#            body:
+#              - << directory_response >>
+#    post:
+#      x-fern-examples:
+#        - name: Create directory
+#          request:
+#            name: "my directory"
+#            parent_id: "dir_456def"
+#          response:
+#            body: << directory_response >>
+#
+#  /directories/{id}:
+#    get:
+#      x-fern-examples:
+#        - name: Get specific directory
+#          path-parameters:
+#            id: "dir_123abc"
+#          response:
+#            body:
+#              id: "dir_456def"
+#              name: "my parent directory"
+#              created_at: "2024-05-01T12:00:00Z"
+#              updated_at: "2024-05-01T12:00:00Z"
+#              parent_id: "dir_789ghi"
+#              subdirectories: [<<directory_response>>]
+#              files: [<<prompt_response>>, <<tool_response>>]
+#              parents:
+#                [
+#                  {
+#                    "id": "dir_789ghi",
+#                    "name": "another parent directory",
+#                    "created_at": "2024-05-01T12:00:00Z",
+#                    "updated_at": "2024-05-01T12:00:00Z",
+#                  },
+#                ]
+#    delete:
+#      x-fern-examples:
+#        - name: Delete directory
+#          path-parameters:
+#            id: "dir_123abc"
+#
+#    patch:
+#      x-fern-examples:
+#        - name: Move directory
+#          path-parameters:
+#            id: "dir_123abc"
+#          request:
+#            name: "my new name"
+#            parent_id: "dir_456def"
+#            # path: "new_parent_directory/new_name"
+#          response:
+#            body: << directory_response >>
 
 components:
   schemas:

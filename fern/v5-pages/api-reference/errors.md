@@ -45,7 +45,7 @@ The service is temporarily overloaded and you should try again.
 
 ## Error details
 
-Our `/chat` and `/completion` endpoints act as a unified interface across all popular model providers. The error returned by these endpoints may be raised by the model provider's system. Details of the error are returned in the `detail` object of the response.
+Our `prompt/call` endpoint acts as a unified interface across all popular model providers. The error returned by this endpoint may be raised by the model provider's system. Details of the error are returned in the `detail` object of the response.
 
 ```json
 {
