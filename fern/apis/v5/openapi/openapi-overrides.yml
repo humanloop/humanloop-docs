@@ -1009,6 +1009,239 @@ paths:
         path-parameters:
           id: ds_b0baF1ca7652
           environment_id: staging
+  /evaluators:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+      - name: List evaluators
+        query-parameters:
+          size: 1
+        response:
+          body:
+            records:
+            - id: ev_890bcd
+              name: Accuracy Evaluator
+              path: Shared Evaluators/Accuracy Evaluator
+              version_id: evv_012def
+              type: evaluator
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              spec:
+                arguments_type: target_required
+                return_type: number
+                evaluator_type: python
+                code: def evaluate(answer, target):\n    return 0.5
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: answer
+    post:
+      x-fern-examples:
+      - name: Create evaluator
+        request:
+          path: Shared Evaluators/Accuracy Evaluator
+          spec:
+            arguments_type: target_required
+            return_type: number
+            evaluator_type: python
+            code: def evaluate(answer, target):\n    return 0.5
+          commit_message: Initial commit
+        response:
+          body:
+            id: ev_890bcd
+            name: Accuracy Evaluator
+            path: Shared Evaluators/Accuracy Evaluator
+            version_id: evv_012def
+            type: evaluator
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            spec:
+              arguments_type: target_required
+              return_type: number
+              evaluator_type: python
+              code: def evaluate(answer, target):\n    return 0.5
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: answer
+  /evaluators/{id}:
+    get:
+      x-fern-examples:
+      - name: Get specific evaluator
+        path-parameters:
+          id: ev_890bcd
+        response:
+          body:
+            id: ev_890bcd
+            name: Accuracy Evaluator
+            path: Shared Evaluators/Accuracy Evaluator
+            version_id: evv_012def
+            type: evaluator
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            spec:
+              arguments_type: target_required
+              return_type: number
+              evaluator_type: python
+              code: def evaluate(answer, target):\n    return 0.5
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: answer
+    delete:
+      x-fern-examples:
+      - name: Delete evaluator
+        path-parameters:
+          id: ev_890bcd
+    patch:
+      x-fern-examples:
+      - name: Move evaluator
+        path-parameters:
+          id: ev_890bcd
+        request:
+          path: new directory/new name
+        response:
+          body:
+            id: ev_890bcd
+            name: Accuracy Evaluator
+            path: Shared Evaluators/Accuracy Evaluator
+            version_id: evv_012def
+            type: evaluator
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            spec:
+              arguments_type: target_required
+              return_type: number
+              evaluator_type: python
+              code: def evaluate(answer, target):\n    return 0.5
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: answer
+  /evaluators/{id}/versions:
+    get:
+      x-fern-examples:
+      - name: List versions
+        path-parameters:
+          id: ev_890bcd
+        response:
+          body:
+            records:
+            - id: ev_890bcd
+              name: Accuracy Evaluator
+              path: Shared Evaluators/Accuracy Evaluator
+              version_id: evv_012def
+              type: evaluator
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              spec:
+                arguments_type: target_required
+                return_type: number
+                evaluator_type: python
+                code: def evaluate(answer, target):\n    return 0.5
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: answer
+  /evaluators/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+      - name: Commit version
+        path-parameters:
+          id: ev_890bcd
+          version_id: evv_012def
+        request:
+          commit_message: Initial commit
+        response:
+          body:
+            id: ev_890bcd
+            name: Accuracy Evaluator
+            path: Shared Evaluators/Accuracy Evaluator
+            version_id: evv_012def
+            type: evaluator
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            spec:
+              arguments_type: target_required
+              return_type: number
+              evaluator_type: python
+              code: def evaluate(answer, target):\n    return 0.5
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: answer
+  /evaluators/{id}/environments:
+    get:
+      x-fern-examples:
+      - name: List environments
+        path-parameters:
+          id: ev_890bcd
+        response:
+          body:
+          - id: env_abc123
+            created_at: '2024-05-01T12:00:00Z'
+            name: production
+            tag: default
+            file:
+              id: ev_890bcd
+              name: Accuracy Evaluator
+              path: Shared Evaluators/Accuracy Evaluator
+              version_id: evv_012def
+              type: evaluator
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              spec:
+                arguments_type: target_required
+                return_type: number
+                evaluator_type: python
+                code: def evaluate(answer, target):\n    return 0.5
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: answer
+  /evaluators/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+      - name: Deploy
+        path-parameters:
+          id: ev_890bcd
+          environment_id: staging
+        query-parameters:
+          version_id: evv_012def
+        response:
+          body:
+            id: ev_890bcd
+            name: Accuracy Evaluator
+            path: Shared Evaluators/Accuracy Evaluator
+            version_id: evv_012def
+            type: evaluator
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            spec:
+              arguments_type: target_required
+              return_type: number
+              evaluator_type: python
+              code: def evaluate(answer, target):\n    return 0.5
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: answer
   /logs:
     get:
       x-fern-pagination: true
