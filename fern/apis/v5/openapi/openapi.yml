@@ -27,16 +27,130 @@ info:
     Guides and further details about key concepts can be found in [our docs](https://docs.humanloop.com/).
   version: 5.0.0
 servers:
-  - url: https://neostaging.humanloop.ml/v5
-    description: Staging server (change me)
+  - url: https://api.humanloop.com/v5
+    description: Production server
 paths:
+  /prompts/log:
+    post:
+      tags:
+        - Prompts
+      summary: Log
+      description: |-
+        Log to a Prompt.
+
+        You can use query parameters `version_id`, or `environment`, to target
+        an existing version of the Prompt. Otherwise the default deployed version will be chosen.
+
+        Instead of targeting an existing version explicitly, you can instead pass in
+        Prompt details in the request body. In this case, we will check if the details correspond
+        to an existing version of the Prompt, if not we will create a new version. This is helpful
+        in the case where you are storing or deriving your Prompt details in code.
+      operationId: Prompts_log
+      parameters:
+        - description: A specific Version ID of the Prompt to log to.
+          required: false
+          schema:
+            type: string
+            title: Version ID
+            description: A specific Version ID of the Prompt to log to.
+          name: version_id
+          in: query
+        - description: Name of the Environment identifying a deployed version to log to.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: Name of the Environment identifying a deployed version to log to.
+          name: environment
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptLogRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatePromptLogResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
+  /prompts/call:
+    post:
+      tags:
+        - Prompts
+      summary: Call
+      description: |-
+        Call a Prompt.
+
+        Calling a Prompt subsequently calls the model provider before logging
+        the request, responses and metadata to Humanloop.
+
+        You can use query parameters `version_id`, or `environment`, to target
+        an existing version of the Prompt. Otherwise the default deployed version will be chosen.
+
+        Instead of targeting an existing version explicitly, you can instead pass in
+        Prompt details in the request body. In this case, we will check if the details correspond
+        to an existing version of the Prompt, if not we will create a new version. This is helpful
+        in the case where you are storing or deriving your Prompt details in code.
+      operationId: Prompts_call
+      parameters:
+        - description: A specific Version ID of the Prompt to log to.
+          required: false
+          schema:
+            type: string
+            title: Version ID
+            description: A specific Version ID of the Prompt to log to.
+          name: version_id
+          in: query
+        - description: Name of the Environment identifying a deployed version to log to.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: Name of the Environment identifying a deployed version to log to.
+          name: environment
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptCallRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: "#/components/schemas/PromptCallResponse"
+                  - $ref: "#/components/schemas/PromptCallStreamResponse"
+                title: Response Prompts Call
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
   /prompts:
     get:
       tags:
         - Prompts
-      summary: List Prompts
+      summary: "List "
       description: Get a list of Prompts.
-      operationId: Prompts_list_prompts
+      operationId: list__prompts_get
       parameters:
         - description: Page number for pagination.
           required: false
@@ -112,7 +226,7 @@ paths:
     post:
       tags:
         - Prompts
-      summary: Upsert Prompt
+      summary: Upsert
       description: |-
         Create a Prompt or update it with a new version if it already exists.
 
@@ -121,7 +235,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Prompts_upsert
+      operationId: upsert_prompts_post
       requestBody:
         content:
           application/json:
@@ -147,13 +261,13 @@ paths:
     get:
       tags:
         - Prompts
-      summary: Get Prompt
+      summary: Get
       description: |-
         Retrieve the Prompt with the given ID.
 
         By default, the deployed version of the Prompt is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Prompt.
-      operationId: Prompts_get
+      operationId: get_prompts__id__get
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -197,9 +311,9 @@ paths:
     delete:
       tags:
         - Prompts
-      summary: Delete Prompt
+      summary: Delete
       description: Delete the Prompt with the given ID.
-      operationId: Prompts_delete
+      operationId: delete_prompts__id__delete
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -223,9 +337,9 @@ paths:
     patch:
       tags:
         - Prompts
-      summary: Move Prompt
+      summary: Move
       description: Move the Prompt to a different path or change the name.
-      operationId: Prompts_move
+      operationId: move_prompts__id__patch
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -262,7 +376,7 @@ paths:
         - Prompts
       summary: List Versions
       description: Get a list of all the versions of a Prompt.
-      operationId: Prompts_listVersions
+      operationId: list_versions_prompts__id__versions_get
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -280,18 +394,12 @@ paths:
             description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
           name: status
           in: query
-        - description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
+        - description: Whether to include Evaluator aggregate results for the versions in the response
           required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
-          name: environment
-          in: query
-        - required: false
           schema:
             type: boolean
             title: Evaluator Aggregates
+            description: Whether to include Evaluator aggregate results for the versions in the response
           name: evaluator_aggregates
           in: query
       responses:
@@ -315,7 +423,7 @@ paths:
         - Prompts
       summary: Commit
       description: Commit the Prompt Version with the given ID.
-      operationId: Prompts_commit
+      operationId: commit_prompts__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -354,131 +462,17 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /prompts/log:
-    post:
-      tags:
-        - Prompts
-      summary: Log
-      description: |-
-        Log to a Prompt.
-
-        You can use query parameters version_id, or environment, to target
-        an existing version of the Prompt. Otherwise the default deployed version will be chosen.
-
-        Instead of targeting an existing version explicitly, you can instead pass in
-        Prompt details in the request body. In this case, we will check if the details correspond
-        to an existing version of the Prompt, if not we will create a new version. This is helpful
-        in the case where you are storing or deriving your Prompt details in code.
-      operationId: Prompts_log
-      parameters:
-        - description: A specific Version ID of the Prompt to log to.
-          required: false
-          schema:
-            type: string
-            title: Version ID
-            description: A specific Version ID of the Prompt to log to.
-          name: version_id
-          in: query
-        - description: Name of the Environment identifying a deployed version to log to.
-          required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the Environment identifying a deployed version to log to.
-          name: environment
-          in: query
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PromptLogRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreatePromptLogResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /prompts/call:
-    post:
-      tags:
-        - Prompts
-      summary: Call
-      description: |-
-        Call a Prompt.
-
-        Calling a Prompt subsequently calls the model provider before logging
-        the data to Humanloop.
-
-        You can use query parameters version_id, or environment, to target
-        an existing version of the Prompt. Otherwise the default deployed version will be chosen.
-
-        Instead of targeting an existing version explicitly, you can instead pass in
-        Prompt details in the request body. In this case, we will check if the details correspond
-        to an existing version of the Prompt, if not we will create a new version. This is helpful
-        in the case where you are storing or deriving your Prompt details in code.
-      operationId: Prompts_call
-      parameters:
-        - description: A specific Version ID of the Prompt to log to.
-          required: false
-          schema:
-            type: string
-            title: Version ID
-            description: A specific Version ID of the Prompt to log to.
-          name: version_id
-          in: query
-        - description: Name of the Environment identifying a deployed version to log to.
-          required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the Environment identifying a deployed version to log to.
-          name: environment
-          in: query
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PromptCallRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: "#/components/schemas/PromptCallResponse"
-                  - $ref: "#/components/schemas/PromptCallStreamResponse"
-                title: Response Prompts Call
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /prompts/{id}/evaluators:
     post:
       tags:
         - Prompts
-      summary: Update Evaluators
+      summary: Update Monitoring
       description: |-
-        Activate and deactivate Evaluators for the Prompt.
+        Activate and deactivate Evaluators for monitoring the Prompt.
 
         An activated Evaluator will automatically be run on all new Logs
         within the Prompt for monitoring purposes.
-      operationId: update_evaluators_prompts__id__evaluators_post
+      operationId: update_monitoring_prompts__id__evaluators_post
       parameters:
         - required: true
           schema:
@@ -511,13 +505,13 @@ paths:
     post:
       tags:
         - Prompts
-      summary: Deploy
+      summary: Set Deployment
       description: |-
-        Deploy Prompt to Environment.
+        Deploy Prompt to an Environment.
 
-        Set the deployed Version for the specified Environment. This Prompt Version
+        Set the deployed version for the specified Environment. This Prompt
         will be used for calls made to the Prompt in this Environment.
-      operationId: deploy_prompts__id__environments__environment_id__post
+      operationId: set_deployment_prompts__id__environments__environment_id__post
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -563,9 +557,9 @@ paths:
         - Prompts
       summary: Remove Deployment
       description: |-
-        Remove deployment of Prompt from Environment.
+        Remove deployed Prompt from the Environment.
 
-        Remove the deployed Version for the specified Environment. This Prompt Version
+        Remove the deployed version for the specified Environment. This Prompt
         will no longer be used for calls made to the Prompt in this Environment.
       operationId: remove_deployment_prompts__id__environments__environment_id__delete
       parameters:
@@ -630,13 +624,67 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
+  /tools/log:
+    post:
+      tags:
+        - Tools
+      summary: Log
+      description: |-
+        Log to a Tool.
+
+        You can use query parameters `version_id`, or `environment`, to target
+        an existing version of the Tool. Otherwise the default deployed version will be chosen.
+
+        Instead of targeting an existing version explicitly, you can instead pass in
+        Tool details in the request body. In this case, we will check if the details correspond
+        to an existing version of the Tool, if not we will create a new version. This is helpful
+        in the case where you are storing or deriving your Tool details in code.
+      operationId: Tools_log
+      parameters:
+        - description: A specific Version ID of the Tool to log to.
+          required: false
+          schema:
+            type: string
+            title: Version ID
+            description: A specific Version ID of the Tool to log to.
+          name: version_id
+          in: query
+        - description: Name of the Environment identifying a deployed version to log to.
+          required: false
+          schema:
+            type: string
+            title: Environment
+            description: Name of the Environment identifying a deployed version to log to.
+          name: environment
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToolLogRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateToolLogResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+      security:
+        - APIKeyHeader: []
   /tools:
     get:
       tags:
         - Tools
       summary: "List "
       description: Get a list of Tools.
-      operationId: Tools_list
+      operationId: list__tools_get
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -711,7 +759,7 @@ paths:
     post:
       tags:
         - Tools
-      summary: Upsert Tool
+      summary: Upsert
       description: |-
         Create a Tool or update it with a new version if it already exists.
 
@@ -720,7 +768,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Tools_upsert
+      operationId: upsert_tools_post
       requestBody:
         content:
           application/json:
@@ -746,13 +794,13 @@ paths:
     get:
       tags:
         - Tools
-      summary: Get Tool
+      summary: Get
       description: |-
         Retrieve the Tool with the given ID.
 
         By default, the deployed version of the Tool is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Tool.
-      operationId: Tools_get
+      operationId: get_tools__id__get
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -796,9 +844,9 @@ paths:
     delete:
       tags:
         - Tools
-      summary: Delete Tool
+      summary: Delete
       description: Delete the Tool with the given ID.
-      operationId: Tools_delete
+      operationId: delete_tools__id__delete
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -822,9 +870,9 @@ paths:
     patch:
       tags:
         - Tools
-      summary: Move Tool
+      summary: Move
       description: Move the Tool to a different path or change the name.
-      operationId: Tools_move
+      operationId: move_tools__id__patch
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -861,7 +909,7 @@ paths:
         - Tools
       summary: List Versions
       description: Get a list of all the versions of a Tool.
-      operationId: Tools_listVersions
+      operationId: list_versions_tools__id__versions_get
       parameters:
         - description: Unique identifier for the Tool.
           required: true
@@ -879,18 +927,12 @@ paths:
             description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
           name: status
           in: query
-        - description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
+        - description: Whether to include Evaluator aggregate results for the versions in the response
           required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
-          name: environment
-          in: query
-        - required: false
           schema:
             type: boolean
             title: Evaluator Aggregates
+            description: Whether to include Evaluator aggregate results for the versions in the response
           name: evaluator_aggregates
           in: query
       responses:
@@ -914,7 +956,7 @@ paths:
         - Tools
       summary: Commit
       description: Commit the Tool Version with the given ID.
-      operationId: Tools_commit
+      operationId: commit_tools__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -953,71 +995,17 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /tools/log:
-    post:
-      tags:
-        - Tools
-      summary: Log
-      description: |-
-        Log to a Tool.
-
-        You can use query parameters version_id, or environment, to target
-        an existing version of the Tool. Otherwise the default deployed version will be chosen.
-
-        Instead of targeting an existing version explicitly, you can instead pass in
-        Tool details in the request body. In this case, we will check if the details correspond
-        to an existing version of the Tool, if not we will create a new version. This is helpful
-        in the case where you are storing or deriving your Tool details in code.
-      operationId: Tools_log
-      parameters:
-        - description: A specific Version ID of the Tool to log to.
-          required: false
-          schema:
-            type: string
-            title: Version ID
-            description: A specific Version ID of the Tool to log to.
-          name: version_id
-          in: query
-        - description: Name of the Environment identifying a deployed version to log to.
-          required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the Environment identifying a deployed version to log to.
-          name: environment
-          in: query
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ToolLogRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateToolLogResponse"
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
   /tools/{id}/evaluators:
     post:
       tags:
         - Tools
-      summary: Update Evaluators
+      summary: Update Monitoring
       description: |-
-        Activate and deactivate Evaluators for the Tool.
+        Activate and deactivate Evaluators for monitoring the Tool.
 
         An activated Evaluator will automatically be run on all new Logs
         within the Tool for monitoring purposes.
-      operationId: update_evaluators_tools__id__evaluators_post
+      operationId: update_monitoring_tools__id__evaluators_post
       parameters:
         - required: true
           schema:
@@ -1050,13 +1038,13 @@ paths:
     post:
       tags:
         - Tools
-      summary: Deploy
+      summary: Set Deployment
       description: |-
-        Deploy Tool to Environment.
+        Deploy Tool to an Environment.
 
-        Set the deployed Version for the specified Environment. This Tool Version
+        Set the deployed version for the specified Environment. This Prompt
         will be used for calls made to the Tool in this Environment.
-      operationId: deploy_tools__id__environments__environment_id__post
+      operationId: set_deployment_tools__id__environments__environment_id__post
       parameters:
         - description: Unique identifier for Tool.
           required: true
@@ -1102,9 +1090,9 @@ paths:
         - Tools
       summary: Remove Deployment
       description: |-
-        Remove deployment of Tool from Environment.
+        Remove deployed Tool from the Environment.
 
-        Remove the deployed Version for the specified Environment. This Tool Version
+        Remove the deployed version for the specified Environment. This Tool
         will no longer be used for calls made to the Tool in this Environment.
       operationId: remove_deployment_tools__id__environments__environment_id__delete
       parameters:
@@ -1174,8 +1162,8 @@ paths:
       tags:
         - Datasets
       summary: "List "
-      description: Get a list of Datasets.
-      operationId: Datasets_list
+      description: List all Datasets.
+      operationId: list__datasets_get
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -1251,7 +1239,7 @@ paths:
     post:
       tags:
         - Datasets
-      summary: Upsert Dataset
+      summary: Upsert
       description: |-
         Create a Dataset or update it with a new version if it already exists.
 
@@ -1270,7 +1258,7 @@ paths:
         Humanloop also deduplicates Datapoints. If you try to add a Datapoint that already
         exists, it will be ignored. If you intentionally want to add a duplicate Datapoint,
         you can add a unique identifier to the Datapoint's inputs such as `{_dedupe_id: <unique ID>}`.
-      operationId: Datasets_upsert
+      operationId: upsert_datasets_post
       parameters:
         - description: ID of the specific Dataset version to base the created Version on. Only used when `action` is `"add"` or `"remove"`.
           required: false
@@ -1313,7 +1301,7 @@ paths:
     get:
       tags:
         - Datasets
-      summary: Get Dataset
+      summary: Get
       description: |-
         Retrieve the Dataset with the given ID.
 
@@ -1324,7 +1312,7 @@ paths:
 
         By default, the deployed version of the Dataset is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Dataset.
-      operationId: Datasets_get
+      operationId: get_datasets__id__get
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1377,9 +1365,9 @@ paths:
     delete:
       tags:
         - Datasets
-      summary: Delete Dataset
+      summary: Delete
       description: Delete the Dataset with the given ID.
-      operationId: Datasets_delete
+      operationId: delete_datasets__id__delete
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1403,9 +1391,9 @@ paths:
     patch:
       tags:
         - Datasets
-      summary: Move Dataset
+      summary: Move
       description: Update the Dataset with the given ID.
-      operationId: Datasets_move
+      operationId: move_datasets__id__patch
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1442,7 +1430,7 @@ paths:
         - Datasets
       summary: List Datapoints
       description: List all Datapoints for the Dataset with the given ID.
-      operationId: Datasets_listDatapoints
+      operationId: list_datapoints_datasets__id__datapoints_get
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1509,7 +1497,7 @@ paths:
         - Datasets
       summary: List Versions
       description: Get a list of the versions for a Dataset.
-      operationId: Datasets_listVersions
+      operationId: list_versions_datasets__id__versions_get
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1526,20 +1514,6 @@ paths:
               - $ref: "#/components/schemas/VersionStatus"
             description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
           name: status
-          in: query
-        - description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
-          required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
-          name: environment
-          in: query
-        - required: false
-          schema:
-            type: boolean
-            title: Evaluation Aggregates
-          name: evaluation_aggregates
           in: query
       responses:
         "200":
@@ -1562,7 +1536,7 @@ paths:
         - Datasets
       summary: Commit
       description: Commit the Dataset Version with the given ID.
-      operationId: Datasets_commit
+      operationId: commit_datasets__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1601,21 +1575,21 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /datasets/{id}/datapoints/logs:
+  /datasets/{id}/datapoints/csv:
     post:
       tags:
         - Datasets
-      summary: Add Datapoints From Logs
+      summary: Upload Csv
       description: |-
-        Add Datapoints from Logs to a Dataset.
+        Add Datapoints from a CSV file to a Dataset.
 
-        This will create a new committed version of the Dataset with the Datapoints from the Logs.
+        This will create a new committed version of the Dataset with the Datapoints from the CSV file.
 
         If either `version_id` or `environment` is provided, the new version will be based on the specified version,
-        with the Datapoints from the Logs added to the existing Datapoints in the version.
+        with the Datapoints from the CSV file added to the existing Datapoints in the version.
         If neither `version_id` nor `environment` is provided, the new version will be based on the version
         of the Dataset that is deployed to the default Environment.
-      operationId: Datasets_createDatapointsFromLogs
+      operationId: upload_csv_datasets__id__datapoints_csv_post
       parameters:
         - description: Unique identifier for the Dataset
           required: true
@@ -1643,9 +1617,9 @@ paths:
           in: query
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Body_Datasets_createDatapointsFromLogs"
+              $ref: "#/components/schemas/Body_upload_csv_datasets__id__datapoints_csv_post"
         required: true
       responses:
         "200":
@@ -1666,12 +1640,12 @@ paths:
     post:
       tags:
         - Datasets
-      summary: Deploy
+      summary: Set Deployment
       description: |-
         Deploy Dataset to Environment.
 
-        Set the deployed Version for the specified Environment.
-      operationId: deploy_datasets__id__environments__environment_id__post
+        Set the deployed version for the specified Environment.
+      operationId: set_deployment_datasets__id__environments__environment_id__post
       parameters:
         - description: Unique identifier for Dataset.
           required: true
@@ -1717,9 +1691,9 @@ paths:
         - Datasets
       summary: Remove Deployment
       description: |-
-        Remove deployment of Dataset from Environment.
+        Remove deployed Dataset from Environment.
 
-        Remove the deployed Version for the specified Environment.
+        Remove the deployed version for the specified Environment.
       operationId: remove_deployment_datasets__id__environments__environment_id__delete
       parameters:
         - description: Unique identifier for Dataset.
@@ -1787,9 +1761,9 @@ paths:
     get:
       tags:
         - Directories
-      summary: List Directories
+      summary: "List "
       description: Retrieve a list of all Directories.
-      operationId: Directories_list
+      operationId: list__directories_get
       responses:
         "200":
           description: Successful Response
@@ -1799,7 +1773,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/DirectoryResponse"
                 type: array
-                title: Response Directories List
+                title: Response List  Directories Get
         "422":
           description: Validation Error
           content:
@@ -1811,9 +1785,9 @@ paths:
     post:
       tags:
         - Directories
-      summary: "Create Directory "
+      summary: Create
       description: Creates a Directory.
-      operationId: Directories_create
+      operationId: create_directories_post
       requestBody:
         content:
           application/json:
@@ -1839,7 +1813,7 @@ paths:
     get:
       tags:
         - Directories
-      summary: Get Directory
+      summary: Get
       description: Fetches a directory by ID.
       operationId: Directories_get
       parameters:
@@ -1869,7 +1843,7 @@ paths:
     delete:
       tags:
         - Directories
-      summary: "Delete Directory "
+      summary: Delete
       description: |-
         Delete the Directory with the given ID.
 
@@ -1898,7 +1872,7 @@ paths:
     patch:
       tags:
         - Directories
-      summary: "Update Directory "
+      summary: Update
       description: Update the Directory with the given ID.
       operationId: Directories_update
       parameters:
@@ -1940,7 +1914,7 @@ paths:
         List Evaluations for the given File.
 
         Retrieve a list of Evaluations that evaluate versions of the specified File.
-      operationId: Evaluations_list
+      operationId: list__evaluations_get
       parameters:
         - description: Filter by File ID. If provided, only Evaluation for the specified File will be returned.
           required: true
@@ -1997,7 +1971,7 @@ paths:
 
         To keep updated on the progress of the Evaluation, you can poll the Evaluation
         and check its status.
-      operationId: Evaluations_create
+      operationId: create_evaluations_post
       requestBody:
         content:
           application/json:
@@ -2028,7 +2002,7 @@ paths:
         Get an Evaluation.
 
         Retrieve the Evaluation with the given ID.
-      operationId: Evaluations_get
+      operationId: get_evaluations__id__get
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2062,7 +2036,7 @@ paths:
 
         Remove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation
         will not be deleted.
-      operationId: Evaluations_delete
+      operationId: delete_evaluations__id__delete
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2091,7 +2065,7 @@ paths:
         Update an Evaluation.
 
         Update the setup of an Evaluation by specifying the Dataset, Evaluatees, and Evaluators.
-      operationId: Evaluations_update
+      operationId: update_evaluations__id__patch
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2132,7 +2106,7 @@ paths:
 
         Can be used to cancel a running Evaluation, or mark an Evaluation that uses external or human evaluators
         as completed.
-      operationId: Evaluations_updateStatus
+      operationId: update_status_evaluations__id__status_patch
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2146,7 +2120,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Body_Evaluations_updateStatus"
+              $ref: "#/components/schemas/Body_update_status_evaluations__id__status_patch"
         required: true
       responses:
         "200":
@@ -2174,7 +2148,7 @@ paths:
         Retrieve aggregate stats for the specified Evaluation.
         This includes the number of generated Logs for every evaluatee and Evaluator metrics
         (such as the mean and percentiles for numeric Evaluators for every evaluatee).
-      operationId: Evaluations_getStats
+      operationId: get_stats_evaluations__id__stats_get
       parameters:
         - description: Unique identifier for Evaluation.
           required: true
@@ -2199,54 +2173,53 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - APIKeyHeader: []
-  /evaluators/default:
+  /evaluations/{id}/logs:
     get:
       tags:
-        - Evaluators
-      summary: List Default Evaluators
-      description: Get a list of default evaluators for the organization.
-      operationId: Evaluators_listDefault
+        - Evaluations
+      summary: Get Logs
+      description: |-
+        Get Logs by Evaluation ID.
+
+        Each Evaluation Log corresponds to a (Datapoint, Evaluated Version) pair.
+        It has an optional generated Log and a list of Evaluator Logs.
+      operationId: get_logs_evaluations__id__logs_get
+      parameters:
+        - description: String ID of evaluation. Starts with `ev_` or `evr_`.
+          required: true
+          schema:
+            type: string
+            title: Evaluation ID
+            description: String ID of evaluation. Starts with `ev_` or `evr_`.
+          name: id
+          in: path
+        - description: Page number for pagination.
+          required: false
+          schema:
+            type: integer
+            minimum: 1.0
+            title: Page number
+            description: Page number for pagination.
+            default: 1
+          name: page
+          in: query
+        - description: Page size for pagination. Number of Logs to fetch.
+          required: false
+          schema:
+            type: integer
+            minimum: 0.0
+            title: Page size
+            description: Page size for pagination. Number of Logs to fetch.
+            default: 10
+          name: size
+          in: query
       responses:
         "200":
           description: Successful Response
           content:
             application/json:
               schema:
-                items:
-                  $ref: "#/components/schemas/EvaluatorResponse"
-                type: array
-                title: Response Evaluators Listdefault
-        "422":
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HTTPValidationError"
-      security:
-        - APIKeyHeader: []
-  /evaluators/debug:
-    post:
-      tags:
-        - Evaluators
-      summary: Debug
-      description: Run a synchronous evaluator execution on a collection of datapoints.
-      operationId: debug_evaluators_debug_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RunSyncEvaluationRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/EvaluationDebugResultResponse"
-                type: array
-                title: Response Debug Evaluators Debug Post
+                $ref: "#/components/schemas/PaginatedData_EvaluationReportLogResponse_"
         "422":
           description: Validation Error
           content:
@@ -2261,7 +2234,7 @@ paths:
         - Evaluators
       summary: "List "
       description: Get a list of Evaluators.
-      operationId: Evaluators_list
+      operationId: list__evaluators_get
       parameters:
         - description: Page offset for pagination.
           required: false
@@ -2336,7 +2309,7 @@ paths:
     post:
       tags:
         - Evaluators
-      summary: Upsert Evaluator
+      summary: Upsert
       description: |-
         Create an Evaluator or update it with a new version if it already exists.
 
@@ -2345,7 +2318,7 @@ paths:
         If you provide a commit message, then the new version will be committed;
         otherwise it will be uncommitted. If you try to commit an already committed version,
         an exception will be raised.
-      operationId: Evaluators_upsert
+      operationId: upsert_evaluators_post
       requestBody:
         content:
           application/json:
@@ -2371,13 +2344,13 @@ paths:
     get:
       tags:
         - Evaluators
-      summary: Get Evaluator
+      summary: Get
       description: |-
         Retrieve the Evaluator with the given ID.
 
         By default, the deployed version of the Evaluator is returned. Use the query parameters
         `version_id` or `environment` to target a specific version of the Evaluator.
-      operationId: Evaluators_get
+      operationId: get_evaluators__id__get
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2421,9 +2394,9 @@ paths:
     delete:
       tags:
         - Evaluators
-      summary: Delete Evaluator
+      summary: Delete
       description: Delete the Evaluator with the given ID.
-      operationId: Evaluators_delete
+      operationId: delete_evaluators__id__delete
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2447,9 +2420,9 @@ paths:
     patch:
       tags:
         - Evaluators
-      summary: Move Evaluator
+      summary: Move
       description: Move the Evaluator to a different path or change the name.
-      operationId: Evaluators_move
+      operationId: move_evaluators__id__patch
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2486,7 +2459,7 @@ paths:
         - Evaluators
       summary: List Versions
       description: Get a list of all the versions of an Evaluator.
-      operationId: Evaluators_listVersions
+      operationId: list_versions_evaluators__id__versions_get
       parameters:
         - description: Unique identifier for the Evaluator.
           required: true
@@ -2504,18 +2477,12 @@ paths:
             description: "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
           name: status
           in: query
-        - description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
+        - description: Whether to include Evaluator aggregate results for the versions in the response
           required: false
-          schema:
-            type: string
-            title: Environment
-            description: Name of the environment to filter versions by. If no environment is provided, all versions are returned.
-          name: environment
-          in: query
-        - required: false
           schema:
             type: boolean
             title: Evaluator Aggregates
+            description: Whether to include Evaluator aggregate results for the versions in the response
           name: evaluator_aggregates
           in: query
       responses:
@@ -2539,7 +2506,7 @@ paths:
         - Evaluators
       summary: Commit
       description: Commit the Evaluator Version with the given ID.
-      operationId: Evaluators_commit
+      operationId: commit_evaluators__id__versions__version_id__commit_post
       parameters:
         - description: Unique identifier for Prompt.
           required: true
@@ -2582,13 +2549,13 @@ paths:
     post:
       tags:
         - Evaluators
-      summary: Deploy
+      summary: Set Deployment
       description: |-
-        Deploy Evaluator to Environment.
+        Deploy Evaluator to an Environment.
 
-        Set the deployed Version for the specified Environment. This Evaluator Version
+        Set the deployed version for the specified Environment. This Evaluator
         will be used for calls made to the Evaluator in this Environment.
-      operationId: deploy_evaluators__id__environments__environment_id__post
+      operationId: set_deployment_evaluators__id__environments__environment_id__post
       parameters:
         - description: Unique identifier for Evaluator.
           required: true
@@ -2634,9 +2601,9 @@ paths:
         - Evaluators
       summary: Remove Deployment
       description: |-
-        Remove deployment of Evaluator from Environment.
+        Remove deployed Evaluator from the Environment.
 
-        Remove the deployed Version for the specified Environment. This Evaluator Version
+        Remove the deployed version for the specified Environment. This Evaluator
         will no longer be used for calls made to the Evaluator in this Environment.
       operationId: remove_deployment_evaluators__id__environments__environment_id__delete
       parameters:
@@ -2705,9 +2672,9 @@ paths:
     get:
       tags:
         - Logs
-      summary: List
+      summary: "List "
       description: List Logs.
-      operationId: list_logs_for_file_logs_get
+      operationId: list__logs_get
       parameters:
         - description: Unique identifier for the File to list Logs for.
           required: true
@@ -2837,7 +2804,7 @@ paths:
         - Logs
       summary: Get Log
       description: Retrieve the Log with the given ID.
-      operationId: Logs_get
+      operationId: get_logs__id__get
       parameters:
         - description: Unique identifier for Log.
           required: true
@@ -2868,7 +2835,7 @@ paths:
         - Sessions
       summary: Get
       description: Retrieve the Session with the given ID.
-      operationId: Sessions_get
+      operationId: get_sessions__id__get
       parameters:
         - description: Unique identifier for Session.
           required: true
@@ -2898,7 +2865,7 @@ paths:
         - Sessions
       summary: Delete
       description: Delete the Session with the given ID.
-      operationId: Sessions_delete
+      operationId: delete_sessions__id__delete
       parameters:
         - description: Unique identifier for Session.
           required: true
@@ -2925,7 +2892,7 @@ paths:
         - Sessions
       summary: "List "
       description: Get a list of Sessions.
-      operationId: Sessions_list
+      operationId: list__sessions_get
       parameters:
         - description: Unique identifier for File to return Sessions for. Sessions that contain any Logs associated to this File will be returned.
           required: false
@@ -3082,31 +3049,30 @@ components:
         - created_at
         - updated_at
       title: BaseMetricResponse
-    Body_Datasets_createDatapointsFromLogs:
-      properties:
-        log_ids:
-          items:
-            type: string
-          type: array
-          title: Log IDs
-          description: List of Log IDs to create Datapoints from.
-        commit_message:
-          type: string
-          title: Commit Message
-          description: Commit message for the new Dataset version.
-      type: object
-      required:
-        - log_ids
-        - commit_message
-      title: Body_Datasets_createDatapointsFromLogs
-    Body_Evaluations_updateStatus:
+    Body_update_status_evaluations__id__status_patch:
       properties:
         status:
           $ref: "#/components/schemas/EvaluationStatus"
       type: object
       required:
         - status
-      title: Body_Evaluations_updateStatus
+      title: Body_update_status_evaluations__id__status_patch
+    Body_upload_csv_datasets__id__datapoints_csv_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: A CSV file containing Datapoints to be added to the Dataset.
+        commit_message:
+          type: string
+          title: Commit Message
+          description: Commit message for the new Dataset version.
+      type: object
+      required:
+        - file
+        - commit_message
+      title: Body_upload_csv_datasets__id__datapoints_csv_post
     BooleanEvaluatorVersionStats:
       properties:
         evaluator_version_id:
@@ -3696,6 +3662,7 @@ components:
       anyOf:
         - $ref: "#/components/schemas/PromptResponse"
         - $ref: "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+        - $ref: "#/components/schemas/EvaluatorResponse"
       title: EvaluatedVersionResponse
     EvaluateeRequest:
       properties:
@@ -3733,35 +3700,6 @@ components:
         - version
         - orchestrated
       title: EvaluateeResponse
-    EvaluationDebugResultResponse:
-      properties:
-        log_id:
-          type: string
-          title: Log Id
-        log:
-          $ref: "#/components/schemas/LogResponse"
-        datapoint_id:
-          type: string
-          title: Datapoint Id
-        llm_evaluation_log:
-          $ref: "#/components/schemas/LogResponse"
-        value:
-          anyOf:
-            - type: boolean
-            - type: number
-          title: Value
-        error:
-          type: string
-          title: Error
-      type: object
-      required:
-        - log_id
-        - log
-      title: EvaluationDebugResultResponse
-      description: |-
-        This is similar to an `EvaluationResult` but is ephemeral as it is only for synchronous
-        debug runs. It does not have an ID, or a reference to an evaluation run or even an evaluation
-        function.
     EvaluationEvaluatorResponse:
       properties:
         version:
@@ -3775,6 +3713,25 @@ components:
         - version
         - orchestrated
       title: EvaluationEvaluatorResponse
+    EvaluationReportLogResponse:
+      properties:
+        evaluated_version:
+          $ref: "#/components/schemas/EvaluatedVersionResponse"
+        datapoint:
+          $ref: "#/components/schemas/DatapointResponse"
+        log:
+          $ref: "#/components/schemas/LogResponse"
+        evaluator_logs:
+          items:
+            $ref: "#/components/schemas/LogResponse"
+          type: array
+          title: Evaluator Logs
+      type: object
+      required:
+        - evaluated_version
+        - datapoint
+        - evaluator_logs
+      title: EvaluationReportLogResponse
     EvaluationResponse:
       properties:
         id:
@@ -3910,15 +3867,15 @@ components:
       description: Status of an evaluation.
     EvaluatorActivationDeactivationRequest:
       properties:
-        evaluators_to_activate:
+        activate_evaluators:
           items:
             anyOf:
               - $ref: "#/components/schemas/MonitoringEvaluatorVersionRequest"
               - $ref: "#/components/schemas/MonitoringEvaluatorEnvironmentRequest"
           type: array
           title: Evaluators to activate
-          description: Monitoring Evaluators to activate. These will be automatically run on new Logs.
-        evaluators_to_deactivate:
+          description: Evaluators to activate on Monitoring. These will be automatically run on new Logs.
+        deactivate_evaluators:
           items:
             anyOf:
               - $ref: "#/components/schemas/MonitoringEvaluatorVersionRequest"
@@ -4109,6 +4066,12 @@ components:
           type: array
           title: Prompt inputs
           description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+        evaluators:
+          items:
+            $ref: "#/components/schemas/MonitoringEvaluatorResponse"
+          type: array
+          title: Monitoring Evaluators
+          description: Evaluators that have been attached to this Prompt that are used for monitoring logs.
         evaluator_aggregates:
           items:
             $ref: "#/components/schemas/EvaluatorAggregate"
@@ -5161,10 +5124,8 @@ components:
       enum:
         - openai
         - openai_azure
-        - ai21
         - mock
         - anthropic
-        - langchain
         - cohere
         - replicate
         - google
@@ -5367,6 +5328,29 @@ components:
         - size
         - total
       title: PaginatedData[DatasetResponse]
+    PaginatedData_EvaluationReportLogResponse_:
+      properties:
+        records:
+          items:
+            $ref: "#/components/schemas/EvaluationReportLogResponse"
+          type: array
+          title: Records
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+        - records
+        - page
+        - size
+        - total
+      title: PaginatedData[EvaluationReportLogResponse]
     PaginatedData_EvaluationResponse_:
       properties:
         records:
@@ -6411,6 +6395,12 @@ components:
           type: array
           title: Prompt inputs
           description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template.
+        evaluators:
+          items:
+            $ref: "#/components/schemas/MonitoringEvaluatorResponse"
+          type: array
+          title: Monitoring Evaluators
+          description: Evaluators that have been attached to this Prompt that are used for monitoring logs.
         evaluator_aggregates:
           items:
             $ref: "#/components/schemas/EvaluatorAggregate"
@@ -6470,58 +6460,6 @@ components:
         - type
       title: ResponseFormat
       description: Response format of the model.
-    RunSyncEvaluationRequest:
-      properties:
-        file_id:
-          type: string
-          title: Dataset ID
-          description: The ID of the Dataset that the datapoints belong to.
-        evaluator:
-          oneOf:
-            - $ref: "#/components/schemas/LLMEvaluatorRequest"
-            - $ref: "#/components/schemas/CodeEvaluatorRequest"
-            - $ref: "#/components/schemas/HumanEvaluatorRequest"
-            - $ref: "#/components/schemas/ExternalEvaluatorRequest"
-          title: Evaluator
-          discriminator:
-            propertyName: evaluator_type
-            mapping:
-              llm: "#/components/schemas/LLMEvaluatorRequest"
-              python: "#/components/schemas/CodeEvaluatorRequest"
-              human: "#/components/schemas/HumanEvaluatorRequest"
-              external: "#/components/schemas/ExternalEvaluatorRequest"
-        evaluator_version_id:
-          type: string
-          title: Evaluator Version ID
-          description: The ID of the Evaluator Version being debugged if it already exists and is being edited.
-        log_ids:
-          items:
-            type: string
-          type: array
-          title: Log IDs
-          description: The IDs of the logs on which to run the draft evaluator.Provide one of `log_ids` or `datapoint_ids`.
-        datapoint_ids:
-          items:
-            type: string
-          type: array
-          title: Evaluation datapoint IDs
-          description: "The IDs of the evaluation datapoints on which to run the draft evaluator. "
-        prompt_version_id:
-          type: string
-          title: Prompt Version ID
-          description: The ID of the Prompt Version to use generate datapoints for the evaluation datapoints. Only required if `datapoint_ids` is provided; has no effect otherwise.
-      type: object
-      required:
-        - file_id
-        - evaluator
-      title: RunSyncEvaluationRequest
-      description: |-
-        Request model for a synchronous evaluator execution on a collection
-        of datapoints in a file.
-
-        The evaluator is defined in the request, rather than refering to a
-        previously saved evaluator, as this is used for debugging in the evaluation
-        function creation debug console.
     SessionResponse:
       properties:
         id:
@@ -7363,6 +7301,12 @@ components:
           type: array
           title: Prompt inputs
           description: Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Tool template.
+        evaluators:
+          items:
+            $ref: "#/components/schemas/MonitoringEvaluatorResponse"
+          type: array
+          title: Monitoring Evaluators
+          description: Evaluators that have been attached to this Tool that are used for monitoring logs.
         signature:
           type: string
           title: Signature

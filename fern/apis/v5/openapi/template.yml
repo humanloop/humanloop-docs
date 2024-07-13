@@ -3,6 +3,22 @@ x-fern-pagination:
   results: $response.records
 
 paths:
+  /prompts/log:
+    post:
+      x-fern-examples:
+        - name: Log prompt
+          request: << prompt_log_request >>
+          response:
+            body: << prompt_log_response >>
+
+  /prompts/call:
+    post:
+      x-fern-examples:
+        - name: Simple
+          request: << prompt_call_request >>
+          response:
+            body: << prompt_call_response >>
+
   /prompts:
     get:
       x-fern-pagination: true
@@ -17,6 +33,7 @@ paths:
           request: << prompt_request >>
           response:
             body: << prompt_response >>
+
   /prompts/{id}:
     get:
       x-fern-examples:
@@ -39,6 +56,7 @@ paths:
             path: "new directory/new name"
           response:
             body: << prompt_response >>
+
   /prompts/{id}/versions:
     get:
       x-fern-examples:
@@ -65,20 +83,6 @@ paths:
           response:
             body: << prompt_response >>
 
-  /prompts/log:
-    post:
-      x-fern-examples:
-        - name: Log prompt
-          request: << prompt_log_request >>
-          response:
-            body: << prompt_log_response >>
-  /prompts/call:
-    post:
-      x-fern-examples:
-        - name: Simple
-          request: << prompt_call_request >>
-          response:
-            body: << prompt_call_response >>
   /prompts/{id}/evaluators:
     post:
       x-fern-examples:
@@ -86,11 +90,26 @@ paths:
           path-parameters:
             id: "pr_30gco7dx6JDq4200GVOHa"
           request:
-            evaluators_to_activate:
+            activate_evaluators:
               - evaluator_version_id: "evv_1abc4308abd"
           response:
             body: << prompt_response >>
 
+  /prompts/{id}/environments:
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          response:
+            body:
+              - id: "pr_30gco7dx6JDq4200GVOHa"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: <<prompt_response>>
+
+  # TOOLS
   /tools:
     get:
       x-fern-pagination: true
@@ -99,7 +118,119 @@ paths:
           query-parameters:
             size: 1
           response:
+            body:
+              records: [<< tool_response >>]
+
+    post:
+      x-fern-examples:
+        - name: Create tool
+          request: << tool_request >>
+          response:
             body: << tool_response >>
+
+  /tools/log:
+    post:
+      x-fern-examples:
+        - name: Tool log
+          request: << tool_log_request >>
+          response:
+            body: << tool_log_response >>
+
+  /tools/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific tool
+          path-parameters:
+            id: "tl_789ghi"
+          response:
+            body: << tool_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete tool
+          path-parameters:
+            id: "tl_789ghi"
+
+    patch:
+      x-fern-examples:
+        - name: Move tool
+          path-parameters:
+            id: "tl_789ghi"
+          request:
+            path: "new directory/new name"
+          response:
+            body: << tool_response >>
+
+  /tools/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "tl_789ghi"
+          query-parameters:
+            status: "committed"
+          response:
+            body:
+              records: [<< tool_response >>]
+
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "tl_789ghi"
+            version_id: "tv_012jkl"
+          request:
+            commit_message: "Initial commit"
+          response:
+            body: << tool_response >>
+
+  /tools/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+        - name: Deploy
+          path-parameters:
+            id: "tl_789ghi"
+            environment_id: "staging"
+          query-parameters:
+            version_id: "tv_012jkl"
+          response:
+            body: << tool_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "tl_789ghi"
+            environment_id: "staging"
+
+  /tools/{id}/evaluators:
+    post:
+      x-fern-examples:
+        - name: Update monitoring
+          path-parameters:
+            id: "tl_789ghi"
+          request:
+            activate_evaluators:
+              - evaluator_version_id: "evv_1abc4308abd"
+          response:
+            body: << tool_response >>
+
+  /tools/{id}/environments:
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "tl_789ghi"
+          response:
+            body:
+              - id: "tl_789ghi"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: <<tool_response>>
+
+  # DATASETS
 
   /datasets:
     get:
@@ -185,20 +316,6 @@ paths:
           response:
             body: << dataset_response >>
 
-  /datasets/{id}/datapoints/logs:
-    post:
-      x-fern-examples:
-        - name: Add datapoints from logs
-          path-parameters:
-            id: "ds_b0baF1ca7652"
-          query-parameters:
-            version_id: "dsv_6L78pqrdFi2xa"
-          request:
-            log_ids: ["log_11bWuC239S0h", "log_4d52GH6da2eGf"]
-            commit_message: "initial commit"
-          response:
-            body: << dataset_response >>
-
   /datasets/{id}/environments/{environment_id}:
     post:
       x-fern-examples:
@@ -218,38 +335,262 @@ paths:
             id: "ds_b0baF1ca7652"
             environment_id: "staging"
 
-  # /datasets/{id}/environments:
+  # EVALUATORS
+
+  /evaluators:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List evaluators
+          query-parameters:
+            size: 1
+          response:
+            body:
+              records: [<< evaluator_response >>]
+    post:
+      x-fern-examples:
+        - name: Create evaluator
+          request: << evaluator_request >>
+          response:
+            body: << evaluator_response >>
+
+  /evaluators/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific evaluator
+          path-parameters:
+            id: "ev_890bcd"
+          response:
+            body: << evaluator_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete evaluator
+          path-parameters:
+            id: "ev_890bcd"
+    patch:
+      x-fern-examples:
+        - name: Move evaluator
+          path-parameters:
+            id: "ev_890bcd"
+          request:
+            path: "new directory/new name"
+          response:
+            body: << evaluator_response >>
+
+  /evaluators/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "ev_890bcd"
+          response:
+            body:
+              records: [<< evaluator_response >>]
+
+  /evaluators/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "ev_890bcd"
+            version_id: "evv_012def"
+          request:
+            commit_message: "Initial commit"
+          response:
+            body: << evaluator_response >>
+
+  /evaluators/{id}/environments:
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "ev_890bcd"
+          response:
+            body:
+              - id: "env_abc123"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: << evaluator_response >>
+
+  /evaluators/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+        - name: Deploy
+          path-parameters:
+            id: "ev_890bcd"
+            environment_id: "staging"
+          query-parameters:
+            version_id: "evv_012def"
+          response:
+            body: << evaluator_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "ev_890bcd"
+            environment_id: "staging"
+
+  # EVALUATIONS
+
+  /evaluations:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List evaluations for file
+          query-parameters:
+            file_id: "pr_30gco7dx6JDq4200GVOHa"
+            size: 1
+          response:
+            body:
+              page: 1
+              size: 10
+              total: 1
+              records:
+                - id: "ev_567yza"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "completed"
+                  dataset: << dataset_response >>
+                  evaluatees:
+                    - version: <<prompt_response>>
+                      orchestrated: false
+                  evaluators:
+                    - version: <<evaluator_response>>
+                      orchestrated: false
+    post:
+      x-fern-examples:
+        - name: Create evaluation
+          request:
+            dataset:
+              version_id: dsv_6L78pqrdFi2xa
+            evaluatees:
+              - version_id: prv_7ZlQREDScH0xkhUwtXruN
+                orchestrated: false
+            evaluators:
+              - version_id: evv_012def
+                orchestrated: false
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+  /evaluations/{id}:
+    get:
+      x-fern-examples:
+        - name: Get evaluation
+          path-parameters:
+            id: "ev_567yza"
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+    delete:
+      x-fern-examples:
+        - name: Delete evaluation
+          path-parameters:
+            id: "ev_567yza"
+
+    patch:
+      x-fern-examples:
+        - name: Update evaluation
+          path-parameters:
+            id: "ev_567yza"
+          request:
+            dataset:
+              version_id: dsv_6L78pqrdFi2xa
+            evaluatees:
+              - version_id: prv_7ZlQREDScH0xkhUwtXruN
+                orchestrated: false
+            evaluators:
+              - version_id: evv_012def
+                orchestrated: false
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+    /evaluations/{id}/status:
+      patch:
+        x-fern-examples:
+          - name: Update evaluation status
+            path-parameters:
+              id: "ev_567yza"
+            request:
+              status: "completed"
+            response:
+              body:
+                id: "ev_567yza"
+                created_at: "2024-05-01T12:00:00Z"
+                updated_at: "2024-05-01T12:00:00Z"
+                status: "completed"
+                dataset: << dataset_response >>
+                evaluatees:
+                  - version: <<prompt_response>>
+                    orchestrated: false
+                evaluators:
+                  - version: <<evaluator_response>>
+                    orchestrated: false
+
+  # Default example response seems to handle this quite well. Won't hardcode a specific example.
+  # /evaluationrs/{id}/stats:
   #   get:
   #     x-fern-examples:
-  #       - name: List environments
+  #       - name: Get evaluation stats
   #         path-parameters:
-  #           id: "ds_b0baF1ca7652"
+  #           id: "ev_567yza"
+
+  # This response model is INTENSE and CONFUSING. Giving up trying to make it for now.
+  # /evaluations/{id}/logs:
+  #   get:
+  #     x-fern-pagination: true
+  #     x-fern-examples:
+  #       - name: List datapoints
+  #         path-parameters:
+  #           id: "ev_567yza"
+  #         query-parameters:
+  #           size: 1
+  #           page: 1
   #         response:
   #           body:
   #             records:
-  #               - << environment_response >>
-
-  # /evaluations:
-  #   get:
-  #     x-fern-pagination: true
-  #     x-fern-examples:
-  #       - name: List evaluations
-  #         query-parameters:
-  #           file_id: "file_123abc"
-  #           size: 10
-  #         response:
-  #           body: << evaluation_response >>
-
-  # /evaluators:
-  #   get:
-  #     x-fern-pagination: true
-  #     x-fern-examples:
-  #       - name: List evaluators
-  #         request:
-  #           query-parameters:
-  #             size: 10
-  #         response:
-  #           body: << evaluator_response >>
+  #               - datapoint: <<datapoint_response>>
+  #                 evaluated_version: <<prompt_response>>
+  #                 evaluator_logs: #TODO
+  #                   -
+  #             page: 1
+  #             size: 1
+  #             total: 1
 
   /logs:
     get:
@@ -260,7 +601,22 @@ paths:
             file_id: "file_123abc"
             size: 1
           response:
-            body: << log_response >>
+            body:
+              page: 1
+              size: 1
+              total: 1
+              records:
+                - << prompt_log_object >>
+  /logs/{id}:
+    get:
+      x-fern-examples:
+        - name: Get log
+          path-parameters:
+            id: "prv_Wu6zx1lAWJRqOyL8nWuZk"
+          response:
+            body: << prompt_log_object >>
+
+  # SESSIONS
 
   /sessions:
     get:
@@ -269,16 +625,95 @@ paths:
         - name: List sessions
           query-parameters:
             size: 1
+            file_id: "pr_123abc"
           response:
-            body: << session_response >>
+            body:
+              records:
+                - id: "sesh_456hij"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  logs: [<< prompt_log_object >>]
+              page: 1
+              size: 11
+              total: 1
 
-  /tools/log:
+  /sessions/{id}:
+    delete:
+      x-fern-examples:
+        - name: Delete session
+          path-parameters:
+            id: "sesh_123abc"
+    get:
+      x-fern-examples:
+        - name: Get session
+          path-parameters:
+            id: "sesh_123abc"
+          response:
+            body:
+              id: "sesh_456hij"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              logs: [<< prompt_log_object >>]
+
+  # DIRECTORIES
+
+  /directories:
+    get:
+      x-fern-examples:
+        - name: List directories
+          response:
+            body:
+              - << directory_response >>
     post:
       x-fern-examples:
-        - name: Tool log
-          request: << tool_log_request >>
+        - name: Create directory
+          request:
+            name: "my directory"
+            parent_id: "dir_456def"
           response:
-            body: << tool_log_response >>
+            body: << directory_response >>
+
+  /directories/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific directory
+          path-parameters:
+            id: "dir_123abc"
+          response:
+            body:
+              id: "dir_456def"
+              name: "my parent directory"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              parent_id: "dir_789ghi"
+              subdirectories: [<<directory_response>>]
+              files: [<<prompt_response>>, <<tool_response>>]
+              parents:
+                [
+                  {
+                    "id": "dir_789ghi",
+                    "name": "another parent directory",
+                    "created_at": "2024-05-01T12:00:00Z",
+                    "updated_at": "2024-05-01T12:00:00Z",
+                  },
+                ]
+    delete:
+      x-fern-examples:
+        - name: Delete directory
+          path-parameters:
+            id: "dir_123abc"
+
+    patch:
+      x-fern-examples:
+        - name: Move directory
+          path-parameters:
+            id: "dir_123abc"
+          request:
+            name: "my new name"
+            parent_id: "dir_456def"
+            # path: "new_parent_directory/new_name"
+          response:
+            body: << directory_response >>
 
 components:
   schemas:
