@@ -434,7 +434,7 @@ paths:
         path-parameters:
           id: pr_30gco7dx6JDq4200GVOHa
         request:
-          evaluators_to_activate:
+          activate_evaluators:
           - evaluator_version_id: evv_1abc4308abd
         response:
           body:
@@ -502,6 +502,196 @@ paths:
               total_logs_count: 1
               inputs:
               - name: operation
+    post:
+      x-fern-examples:
+      - name: Create tool
+        request:
+          path: math-tool
+          function:
+            name: multiply
+            description: Multiply two numbers
+            parameters:
+              type: object
+              properties:
+                a:
+                  type: number
+                b:
+                  type: number
+              required:
+              - a
+              - b
+          commit_message: Initial commit
+        response:
+          body:
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+  /tools/{id}:
+    get:
+      x-fern-examples:
+      - name: Get specific tool
+        path-parameters:
+          id: tl_789ghi
+        response:
+          body:
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+    delete:
+      x-fern-examples:
+      - name: Delete tool
+        path-parameters:
+          id: tl_789ghi
+    patch:
+      x-fern-examples:
+      - name: Move tool
+        path-parameters:
+          id: tl_789ghi
+        request:
+          path: new directory/new name
+        response:
+          body:
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+  /tools/{id}/versions:
+    get:
+      x-fern-examples:
+      - name: List versions
+        path-parameters:
+          id: tl_789ghi
+        query-parameters:
+          status: committed
+        response:
+          body:
+            records:
+            - id: tl_789ghi
+              path: math-tool
+              name: math-tool
+              version_id: tv_012jkl
+              type: tool
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: operation
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+      - name: Commit version
+        path-parameters:
+          id: tl_789ghi
+          version_id: tv_012jkl
+        request:
+          commit_message: Initial commit
+        response:
+          body:
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+  /tools/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+      - name: Deploy
+        path-parameters:
+          id: tl_789ghi
+          environment_id: staging
+        query-parameters:
+          version_id: tv_012jkl
+        response:
+          body:
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+    delete:
+      x-fern-examples:
+      - name: Delete environment
+        path-parameters:
+          id: tl_789ghi
+          environment_id: staging
+  /tools/log:
+    post:
+      x-fern-examples:
+      - name: Tool log
+        request:
+          path: math-tool
+          tool:
+            function:
+              name: multiply
+              description: Multiply two numbers
+              parameters:
+                type: object
+                properties:
+                  a:
+                    type: number
+                  b:
+                    type: number
+                required:
+                - a
+                - b
+          inputs:
+            a: 5
+            b: 7
+          output: '35'
+        response:
+          body:
+            id: data_abc123
+            tool_id: tl_def456
+            version_id: tv_ghi789
+            session_id: sesh_hw012
   /datasets:
     get:
       x-fern-pagination: true
@@ -683,36 +873,6 @@ paths:
             commit_message: initial commit
             last_used_at: '2024-05-01T12:00:00Z'
             datapoints_count: 2
-  /datasets/{id}/datapoints/logs:
-    post:
-      x-fern-examples:
-      - name: Add datapoints from logs
-        path-parameters:
-          id: ds_b0baF1ca7652
-        query-parameters:
-          version_id: dsv_6L78pqrdFi2xa
-        request:
-          log_ids:
-          - log_11bWuC239S0h
-          - log_4d52GH6da2eGf
-          commit_message: initial commit
-        response:
-          body:
-            id: ds_345mno
-            path: test-questions
-            name: test-questions
-            version_id: dsv_678pqr
-            type: dataset
-            created_at: '2024-05-01T12:00:00Z'
-            updated_at: '2024-05-01T12:00:00Z'
-            created_by:
-              id: usr_v23rSVAgas2a
-              full_name: Jordan Burges
-              email_address: jordan@humanloop.com
-            status: committed
-            commit_message: initial commit
-            last_used_at: '2024-05-01T12:00:00Z'
-            datapoints_count: 2
   /datasets/{id}/environments/{environment_id}:
     post:
       x-fern-examples:
@@ -793,36 +953,6 @@ paths:
             page: 1
             size: 10
             total: 1
-  /tools/log:
-    post:
-      x-fern-examples:
-      - name: Tool log
-        request:
-          path: math-tool
-          tool:
-            function:
-              name: multiply
-              description: Multiply two numbers
-              parameters:
-                type: object
-                properties:
-                  a:
-                    type: number
-                  b:
-                    type: number
-                required:
-                - a
-                - b
-          inputs:
-            a: 5
-            b: 7
-          output: '35'
-        response:
-          body:
-            id: data_abc123
-            tool_id: tl_def456
-            version_id: tv_ghi789
-            session_id: sess_jkl012
 components:
   schemas:
     Body_Evaluations_updateStatus:

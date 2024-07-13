@@ -39,6 +39,7 @@ paths:
             path: "new directory/new name"
           response:
             body: << prompt_response >>
+
   /prompts/{id}/versions:
     get:
       x-fern-examples:
@@ -86,10 +87,12 @@ paths:
           path-parameters:
             id: "pr_30gco7dx6JDq4200GVOHa"
           request:
-            evaluators_to_activate:
+            activate_evaluators:
               - evaluator_version_id: "evv_1abc4308abd"
           response:
             body: << prompt_response >>
+
+  # TOOLS
 
   /tools:
     get:
@@ -99,7 +102,94 @@ paths:
           query-parameters:
             size: 1
           response:
+            body:
+              records: [<< tool_response >>]
+
+    post:
+      x-fern-examples:
+        - name: Create tool
+          request: << tool_request >>
+          response:
             body: << tool_response >>
+
+  /tools/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific tool
+          path-parameters:
+            id: "tl_789ghi"
+          response:
+            body: << tool_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete tool
+          path-parameters:
+            id: "tl_789ghi"
+
+    patch:
+      x-fern-examples:
+        - name: Move tool
+          path-parameters:
+            id: "tl_789ghi"
+          request:
+            path: "new directory/new name"
+          response:
+            body: << tool_response >>
+
+  /tools/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "tl_789ghi"
+          query-parameters:
+            status: "committed"
+          response:
+            body:
+              records: [<< tool_response >>]
+
+  /tools/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "tl_789ghi"
+            version_id: "tv_012jkl"
+          request:
+            commit_message: "Initial commit"
+          response:
+            body: << tool_response >>
+
+  /tools/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+        - name: Deploy
+          path-parameters:
+            id: "tl_789ghi"
+            environment_id: "staging"
+          query-parameters:
+            version_id: "tv_012jkl"
+          response:
+            body: << tool_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "tl_789ghi"
+            environment_id: "staging"
+
+  /tools/log:
+    post:
+      x-fern-examples:
+        - name: Tool log
+          request: << tool_log_request >>
+          response:
+            body: << tool_log_response >>
+
+
+  # DATASETS
 
   /datasets:
     get:
@@ -181,20 +271,6 @@ paths:
             id: "ds_b0baF1ca7652"
             version_id: "dsv_6L78pqrdFi2xa"
           request:
-            commit_message: "initial commit"
-          response:
-            body: << dataset_response >>
-
-  /datasets/{id}/datapoints/logs:
-    post:
-      x-fern-examples:
-        - name: Add datapoints from logs
-          path-parameters:
-            id: "ds_b0baF1ca7652"
-          query-parameters:
-            version_id: "dsv_6L78pqrdFi2xa"
-          request:
-            log_ids: ["log_11bWuC239S0h", "log_4d52GH6da2eGf"]
             commit_message: "initial commit"
           response:
             body: << dataset_response >>
