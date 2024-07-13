@@ -479,6 +479,60 @@ paths:
             inputs:
             - name: messages
             evaluator_aggregates: ~
+  /prompts/{id}/environments:
+    get:
+      x-fern-examples:
+      - name: List environments
+        path-parameters:
+          id: pr_30gco7dx6JDq4200GVOHa
+        response:
+          body:
+          - id: pr_30gco7dx6JDq4200GVOHa
+            created_at: '2024-05-01T12:00:00Z'
+            name: production
+            tag: default
+            file:
+              path: Personal Projects/Coding Assistant
+              id: pr_30gco7dx6JDq4200GVOHa
+              name: Coding Assistant
+              version_id: prv_7ZlQREDScH0xkhUwtXruN
+              type: prompt
+              environments:
+              - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                created_at: '2023-06-27T23:16:07.992339'
+                name: development
+                tag: default
+              created_at: '2024-07-08T22:40:35.656915'
+              updated_at: '2024-07-08T22:40:35.656915'
+              created_by:
+                id: usr_01RJO1k2spBVqNUt1ASef
+                email_address: raza@humanloop.com
+                full_name: Raza Habib
+              status: committed
+              last_used_at: '2024-07-08T22:40:35.656915'
+              model: gpt-4o
+              endpoint: chat
+              template:
+              - content: You are a helpful coding assistant specialising in {{language}}
+                role: system
+              provider: openai
+              max_tokens: -1
+              temperature: 0.7
+              top_p: 1
+              stop: ~
+              presence_penalty: 0
+              frequency_penalty: 0
+              other: {}
+              seed: ~
+              response_format: ~
+              tools: []
+              linked_tools: []
+              commit_message: Initial commit
+              version_logs_count: 0
+              total_logs_count: 0
+              inputs:
+              - name: messages
+              evaluator_aggregates: ~
   /tools:
     get:
       x-fern-pagination: true
@@ -536,6 +590,36 @@ paths:
             total_logs_count: 1
             inputs:
             - name: operation
+  /tools/log:
+    post:
+      x-fern-examples:
+      - name: Tool log
+        request:
+          path: math-tool
+          tool:
+            function:
+              name: multiply
+              description: Multiply two numbers
+              parameters:
+                type: object
+                properties:
+                  a:
+                    type: number
+                  b:
+                    type: number
+                required:
+                - a
+                - b
+          inputs:
+            a: 5
+            b: 7
+          output: '35'
+        response:
+          body:
+            id: data_abc123
+            tool_id: tl_def456
+            version_id: tv_ghi789
+            session_id: sesh_hw012
   /tools/{id}:
     get:
       x-fern-examples:
@@ -662,36 +746,56 @@ paths:
         path-parameters:
           id: tl_789ghi
           environment_id: staging
-  /tools/log:
+  /tools/{id}/evaluators:
     post:
       x-fern-examples:
-      - name: Tool log
+      - name: Update monitoring
+        path-parameters:
+          id: tl_789ghi
         request:
-          path: math-tool
-          tool:
-            function:
-              name: multiply
-              description: Multiply two numbers
-              parameters:
-                type: object
-                properties:
-                  a:
-                    type: number
-                  b:
-                    type: number
-                required:
-                - a
-                - b
-          inputs:
-            a: 5
-            b: 7
-          output: '35'
+          activate_evaluators:
+          - evaluator_version_id: evv_1abc4308abd
         response:
           body:
-            id: data_abc123
-            tool_id: tl_def456
-            version_id: tv_ghi789
-            session_id: sesh_hw012
+            id: tl_789ghi
+            path: math-tool
+            name: math-tool
+            version_id: tv_012jkl
+            type: tool
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            version_logs_count: 1
+            total_logs_count: 1
+            inputs:
+            - name: operation
+  /tools/{id}/environments:
+    get:
+      x-fern-examples:
+      - name: List environments
+        path-parameters:
+          id: tl_789ghi
+        response:
+          body:
+          - id: tl_789ghi
+            created_at: '2024-05-01T12:00:00Z'
+            name: production
+            tag: default
+            file:
+              id: tl_789ghi
+              path: math-tool
+              name: math-tool
+              version_id: tv_012jkl
+              type: tool
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: operation
   /datasets:
     get:
       x-fern-pagination: true

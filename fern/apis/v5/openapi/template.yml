@@ -17,6 +17,7 @@ paths:
           request: << prompt_request >>
           response:
             body: << prompt_response >>
+
   /prompts/{id}:
     get:
       x-fern-examples:
@@ -80,6 +81,7 @@ paths:
           request: << prompt_call_request >>
           response:
             body: << prompt_call_response >>
+
   /prompts/{id}/evaluators:
     post:
       x-fern-examples:
@@ -92,8 +94,21 @@ paths:
           response:
             body: << prompt_response >>
 
-  # TOOLS
+  /prompts/{id}/environments:
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "pr_30gco7dx6JDq4200GVOHa"
+          response:
+            body:
+              - id: "pr_30gco7dx6JDq4200GVOHa"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: <<prompt_response>>
 
+  # TOOLS
   /tools:
     get:
       x-fern-pagination: true
@@ -112,6 +127,14 @@ paths:
           response:
             body: << tool_response >>
 
+  /tools/log:
+    post:
+      x-fern-examples:
+        - name: Tool log
+          request: << tool_log_request >>
+          response:
+            body: << tool_log_response >>
+            
   /tools/{id}:
     get:
       x-fern-examples:
@@ -161,6 +184,7 @@ paths:
           response:
             body: << tool_response >>
 
+
   /tools/{id}/environments/{environment_id}:
     post:
       x-fern-examples:
@@ -180,14 +204,33 @@ paths:
             id: "tl_789ghi"
             environment_id: "staging"
 
-  /tools/log:
+  
+  /tools/{id}/evaluators:
     post:
       x-fern-examples:
-        - name: Tool log
-          request: << tool_log_request >>
+        - name: Update monitoring
+          path-parameters:
+            id: "tl_789ghi"
+          request:
+            activate_evaluators:
+              - evaluator_version_id: "evv_1abc4308abd"
           response:
-            body: << tool_log_response >>
+            body: << tool_response >>
 
+
+  /tools/{id}/environments:
+    get:
+      x-fern-examples:
+        - name: List environments
+          path-parameters:
+            id: "tl_789ghi"
+          response:
+            body:
+              - id: "tl_789ghi"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: <<tool_response>>
 
   # DATASETS
 
