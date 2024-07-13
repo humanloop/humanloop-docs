@@ -5450,6 +5450,14 @@
           "error": {
             "type": "string",
             "title": "Error"
+          },
+          "stderr": {
+            "type": "string",
+            "title": "Stderr"
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Stdout"
           }
         },
         "type": "object",
