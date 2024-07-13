@@ -53,7 +53,7 @@ To update the OpenAPI spec, follow these steps:
 1. Make sure the backend is running at localhost:80
 2. Run the following npm command to synchronize the OpenAPI spec:
    ```sh
-   npm run start
+   npm run dev-api
    ```
    This will execute the `sync_openapi.sh` script to synchronize the OpenAPI spec.
    This will simultaneously watch for changes to the `template.yml` file and the OpenAPI spec file(s) for updates.
