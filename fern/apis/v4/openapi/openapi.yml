@@ -6053,10 +6053,8 @@ components:
       enum:
         - openai
         - openai_azure
-        - ai21
         - mock
         - anthropic
-        - langchain
         - cohere
         - replicate
         - google
