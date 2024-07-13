@@ -26,7 +26,7 @@ paths:
           body:
             id: data_fIfEb1SoKZooqeFbi9IFs
             prompt_id: pr_3usCu3dAkgrXTlufrvPs7
-            version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+            version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
             session_id: ~
   /prompts/call:
     post:
@@ -52,7 +52,7 @@ paths:
               id: pr_3usCu3dAkgrXTlufrvPs7
               path: persona
               name: persona
-              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+              version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
               type: prompt
               created_at: '2024-05-01T12:00:00Z'
               updated_at: '2024-05-01T12:00:00Z'
@@ -1242,6 +1242,504 @@ paths:
             total_logs_count: 1
             inputs:
             - name: answer
+    delete:
+      x-fern-examples:
+      - name: Delete environment
+        path-parameters:
+          id: ev_890bcd
+          environment_id: staging
+  /evaluations:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+      - name: List evaluations for file
+        query-parameters:
+          file_id: pr_30gco7dx6JDq4200GVOHa
+          size: 1
+        response:
+          body:
+            page: 1
+            size: 10
+            total: 1
+            records:
+            - id: ev_567yza
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: completed
+              dataset:
+                id: ds_345mno
+                path: test-questions
+                name: test-questions
+                version_id: dsv_678pqr
+                type: dataset
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                created_by:
+                  id: usr_v23rSVAgas2a
+                  full_name: Jordan Burges
+                  email_address: jordan@humanloop.com
+                status: committed
+                commit_message: initial commit
+                last_used_at: '2024-05-01T12:00:00Z'
+                datapoints_count: 2
+              evaluatees:
+              - version:
+                  path: Personal Projects/Coding Assistant
+                  id: pr_30gco7dx6JDq4200GVOHa
+                  name: Coding Assistant
+                  version_id: prv_7ZlQREDScH0xkhUwtXruN
+                  type: prompt
+                  environments:
+                  - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                    created_at: '2023-06-27T23:16:07.992339'
+                    name: development
+                    tag: default
+                  created_at: '2024-07-08T22:40:35.656915'
+                  updated_at: '2024-07-08T22:40:35.656915'
+                  created_by:
+                    id: usr_01RJO1k2spBVqNUt1ASef
+                    email_address: raza@humanloop.com
+                    full_name: Raza Habib
+                  status: committed
+                  last_used_at: '2024-07-08T22:40:35.656915'
+                  model: gpt-4o
+                  endpoint: chat
+                  template:
+                  - content: You are a helpful coding assistant specialising in {{language}}
+                    role: system
+                  provider: openai
+                  max_tokens: -1
+                  temperature: 0.7
+                  top_p: 1
+                  stop: ~
+                  presence_penalty: 0
+                  frequency_penalty: 0
+                  other: {}
+                  seed: ~
+                  response_format: ~
+                  tools: []
+                  linked_tools: []
+                  commit_message: Initial commit
+                  version_logs_count: 0
+                  total_logs_count: 0
+                  inputs:
+                  - name: messages
+                  evaluator_aggregates: ~
+                orchestrated: false
+              evaluators:
+              - version:
+                  id: ev_890bcd
+                  name: Accuracy Evaluator
+                  path: Shared Evaluators/Accuracy Evaluator
+                  version_id: evv_012def
+                  type: evaluator
+                  created_at: '2024-05-01T12:00:00Z'
+                  updated_at: '2024-05-01T12:00:00Z'
+                  status: committed
+                  last_used_at: '2024-05-01T12:00:00Z'
+                  spec:
+                    arguments_type: target_required
+                    return_type: number
+                    evaluator_type: python
+                    code: def evaluate(answer, target):\n    return 0.5
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                  - name: answer
+                orchestrated: false
+    post:
+      x-fern-examples:
+      - name: Create evaluation
+        request:
+          dataset:
+            version_id: dsv_6L78pqrdFi2xa
+          evaluatees:
+          - version_id: prv_7ZlQREDScH0xkhUwtXruN
+            orchestrated: false
+          evaluators:
+          - version_id: evv_012def
+            orchestrated: false
+        response:
+          body:
+            id: ev_567yza
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: completed
+            dataset:
+              id: ds_345mno
+              path: test-questions
+              name: test-questions
+              version_id: dsv_678pqr
+              type: dataset
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              created_by:
+                id: usr_v23rSVAgas2a
+                full_name: Jordan Burges
+                email_address: jordan@humanloop.com
+              status: committed
+              commit_message: initial commit
+              last_used_at: '2024-05-01T12:00:00Z'
+              datapoints_count: 2
+            evaluatees:
+            - version:
+                path: Personal Projects/Coding Assistant
+                id: pr_30gco7dx6JDq4200GVOHa
+                name: Coding Assistant
+                version_id: prv_7ZlQREDScH0xkhUwtXruN
+                type: prompt
+                environments:
+                - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                  created_at: '2023-06-27T23:16:07.992339'
+                  name: development
+                  tag: default
+                created_at: '2024-07-08T22:40:35.656915'
+                updated_at: '2024-07-08T22:40:35.656915'
+                created_by:
+                  id: usr_01RJO1k2spBVqNUt1ASef
+                  email_address: raza@humanloop.com
+                  full_name: Raza Habib
+                status: committed
+                last_used_at: '2024-07-08T22:40:35.656915'
+                model: gpt-4o
+                endpoint: chat
+                template:
+                - content: You are a helpful coding assistant specialising in {{language}}
+                  role: system
+                provider: openai
+                max_tokens: -1
+                temperature: 0.7
+                top_p: 1
+                stop: ~
+                presence_penalty: 0
+                frequency_penalty: 0
+                other: {}
+                seed: ~
+                response_format: ~
+                tools: []
+                linked_tools: []
+                commit_message: Initial commit
+                version_logs_count: 0
+                total_logs_count: 0
+                inputs:
+                - name: messages
+                evaluator_aggregates: ~
+              orchestrated: false
+            evaluators:
+            - version:
+                id: ev_890bcd
+                name: Accuracy Evaluator
+                path: Shared Evaluators/Accuracy Evaluator
+                version_id: evv_012def
+                type: evaluator
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                status: committed
+                last_used_at: '2024-05-01T12:00:00Z'
+                spec:
+                  arguments_type: target_required
+                  return_type: number
+                  evaluator_type: python
+                  code: def evaluate(answer, target):\n    return 0.5
+                version_logs_count: 1
+                total_logs_count: 1
+                inputs:
+                - name: answer
+              orchestrated: false
+  /evaluations/{id}:
+    get:
+      x-fern-examples:
+      - name: Get evaluation
+        path-parameters:
+          id: ev_567yza
+        response:
+          body:
+            id: ev_567yza
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: completed
+            dataset:
+              id: ds_345mno
+              path: test-questions
+              name: test-questions
+              version_id: dsv_678pqr
+              type: dataset
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              created_by:
+                id: usr_v23rSVAgas2a
+                full_name: Jordan Burges
+                email_address: jordan@humanloop.com
+              status: committed
+              commit_message: initial commit
+              last_used_at: '2024-05-01T12:00:00Z'
+              datapoints_count: 2
+            evaluatees:
+            - version:
+                path: Personal Projects/Coding Assistant
+                id: pr_30gco7dx6JDq4200GVOHa
+                name: Coding Assistant
+                version_id: prv_7ZlQREDScH0xkhUwtXruN
+                type: prompt
+                environments:
+                - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                  created_at: '2023-06-27T23:16:07.992339'
+                  name: development
+                  tag: default
+                created_at: '2024-07-08T22:40:35.656915'
+                updated_at: '2024-07-08T22:40:35.656915'
+                created_by:
+                  id: usr_01RJO1k2spBVqNUt1ASef
+                  email_address: raza@humanloop.com
+                  full_name: Raza Habib
+                status: committed
+                last_used_at: '2024-07-08T22:40:35.656915'
+                model: gpt-4o
+                endpoint: chat
+                template:
+                - content: You are a helpful coding assistant specialising in {{language}}
+                  role: system
+                provider: openai
+                max_tokens: -1
+                temperature: 0.7
+                top_p: 1
+                stop: ~
+                presence_penalty: 0
+                frequency_penalty: 0
+                other: {}
+                seed: ~
+                response_format: ~
+                tools: []
+                linked_tools: []
+                commit_message: Initial commit
+                version_logs_count: 0
+                total_logs_count: 0
+                inputs:
+                - name: messages
+                evaluator_aggregates: ~
+              orchestrated: false
+            evaluators:
+            - version:
+                id: ev_890bcd
+                name: Accuracy Evaluator
+                path: Shared Evaluators/Accuracy Evaluator
+                version_id: evv_012def
+                type: evaluator
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                status: committed
+                last_used_at: '2024-05-01T12:00:00Z'
+                spec:
+                  arguments_type: target_required
+                  return_type: number
+                  evaluator_type: python
+                  code: def evaluate(answer, target):\n    return 0.5
+                version_logs_count: 1
+                total_logs_count: 1
+                inputs:
+                - name: answer
+              orchestrated: false
+    delete:
+      x-fern-examples:
+      - name: Delete evaluation
+        path-parameters:
+          id: ev_567yza
+    patch:
+      x-fern-examples:
+      - name: Update evaluation
+        path-parameters:
+          id: ev_567yza
+        request:
+          dataset:
+            version_id: dsv_6L78pqrdFi2xa
+          evaluatees:
+          - version_id: prv_7ZlQREDScH0xkhUwtXruN
+            orchestrated: false
+          evaluators:
+          - version_id: evv_012def
+            orchestrated: false
+        response:
+          body:
+            id: ev_567yza
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: completed
+            dataset:
+              id: ds_345mno
+              path: test-questions
+              name: test-questions
+              version_id: dsv_678pqr
+              type: dataset
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              created_by:
+                id: usr_v23rSVAgas2a
+                full_name: Jordan Burges
+                email_address: jordan@humanloop.com
+              status: committed
+              commit_message: initial commit
+              last_used_at: '2024-05-01T12:00:00Z'
+              datapoints_count: 2
+            evaluatees:
+            - version:
+                path: Personal Projects/Coding Assistant
+                id: pr_30gco7dx6JDq4200GVOHa
+                name: Coding Assistant
+                version_id: prv_7ZlQREDScH0xkhUwtXruN
+                type: prompt
+                environments:
+                - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                  created_at: '2023-06-27T23:16:07.992339'
+                  name: development
+                  tag: default
+                created_at: '2024-07-08T22:40:35.656915'
+                updated_at: '2024-07-08T22:40:35.656915'
+                created_by:
+                  id: usr_01RJO1k2spBVqNUt1ASef
+                  email_address: raza@humanloop.com
+                  full_name: Raza Habib
+                status: committed
+                last_used_at: '2024-07-08T22:40:35.656915'
+                model: gpt-4o
+                endpoint: chat
+                template:
+                - content: You are a helpful coding assistant specialising in {{language}}
+                  role: system
+                provider: openai
+                max_tokens: -1
+                temperature: 0.7
+                top_p: 1
+                stop: ~
+                presence_penalty: 0
+                frequency_penalty: 0
+                other: {}
+                seed: ~
+                response_format: ~
+                tools: []
+                linked_tools: []
+                commit_message: Initial commit
+                version_logs_count: 0
+                total_logs_count: 0
+                inputs:
+                - name: messages
+                evaluator_aggregates: ~
+              orchestrated: false
+            evaluators:
+            - version:
+                id: ev_890bcd
+                name: Accuracy Evaluator
+                path: Shared Evaluators/Accuracy Evaluator
+                version_id: evv_012def
+                type: evaluator
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                status: committed
+                last_used_at: '2024-05-01T12:00:00Z'
+                spec:
+                  arguments_type: target_required
+                  return_type: number
+                  evaluator_type: python
+                  code: def evaluate(answer, target):\n    return 0.5
+                version_logs_count: 1
+                total_logs_count: 1
+                inputs:
+                - name: answer
+              orchestrated: false
+    /evaluations/{id}/status:
+      patch:
+        x-fern-examples:
+        - name: Update evaluation status
+          path-parameters:
+            id: ev_567yza
+          request:
+            status: completed
+          response:
+            body:
+              id: ev_567yza
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: completed
+              dataset:
+                id: ds_345mno
+                path: test-questions
+                name: test-questions
+                version_id: dsv_678pqr
+                type: dataset
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                created_by:
+                  id: usr_v23rSVAgas2a
+                  full_name: Jordan Burges
+                  email_address: jordan@humanloop.com
+                status: committed
+                commit_message: initial commit
+                last_used_at: '2024-05-01T12:00:00Z'
+                datapoints_count: 2
+              evaluatees:
+              - version:
+                  path: Personal Projects/Coding Assistant
+                  id: pr_30gco7dx6JDq4200GVOHa
+                  name: Coding Assistant
+                  version_id: prv_7ZlQREDScH0xkhUwtXruN
+                  type: prompt
+                  environments:
+                  - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                    created_at: '2023-06-27T23:16:07.992339'
+                    name: development
+                    tag: default
+                  created_at: '2024-07-08T22:40:35.656915'
+                  updated_at: '2024-07-08T22:40:35.656915'
+                  created_by:
+                    id: usr_01RJO1k2spBVqNUt1ASef
+                    email_address: raza@humanloop.com
+                    full_name: Raza Habib
+                  status: committed
+                  last_used_at: '2024-07-08T22:40:35.656915'
+                  model: gpt-4o
+                  endpoint: chat
+                  template:
+                  - content: You are a helpful coding assistant specialising in {{language}}
+                    role: system
+                  provider: openai
+                  max_tokens: -1
+                  temperature: 0.7
+                  top_p: 1
+                  stop: ~
+                  presence_penalty: 0
+                  frequency_penalty: 0
+                  other: {}
+                  seed: ~
+                  response_format: ~
+                  tools: []
+                  linked_tools: []
+                  commit_message: Initial commit
+                  version_logs_count: 0
+                  total_logs_count: 0
+                  inputs:
+                  - name: messages
+                  evaluator_aggregates: ~
+                orchestrated: false
+              evaluators:
+              - version:
+                  id: ev_890bcd
+                  name: Accuracy Evaluator
+                  path: Shared Evaluators/Accuracy Evaluator
+                  version_id: evv_012def
+                  type: evaluator
+                  created_at: '2024-05-01T12:00:00Z'
+                  updated_at: '2024-05-01T12:00:00Z'
+                  status: committed
+                  last_used_at: '2024-05-01T12:00:00Z'
+                  spec:
+                    arguments_type: target_required
+                    return_type: number
+                    evaluator_type: python
+                    code: def evaluate(answer, target):\n    return 0.5
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                  - name: answer
+                orchestrated: false
   /logs:
     get:
       x-fern-pagination: true
@@ -1252,6 +1750,9 @@ paths:
           size: 1
         response:
           body:
+            page: 1
+            size: 1
+            total: 1
             records:
             - id: log_123efg
               created_at: '2024-05-01T12:00:00Z'
@@ -1270,9 +1771,31 @@ paths:
                 total_logs_count: 1
                 inputs:
                 - name: question
-            page: 1
-            size: 10
-            total: 1
+  /logs/{id}:
+    get:
+      x-fern-examples:
+      - name: Get log
+        path-parameters:
+          id: prv_Wu6zx1lAWJRqOyL8nWuZk
+        response:
+          body:
+            id: log_123efg
+            created_at: '2024-05-01T12:00:00Z'
+            output: This is a sample output.
+            prompt:
+              id: pr_123abc
+              name: Test Prompt
+              path: test-prompt
+              version_id: pv_456def
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              model: gpt-4
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: question
   /sessions:
     get:
       x-fern-pagination: true
@@ -1280,16 +1803,68 @@ paths:
       - name: List sessions
         query-parameters:
           size: 1
+          file_id: pr_123abc
         response:
           body:
             records:
-            - id: sess_456hij
+            - id: sesh_456hij
               created_at: '2024-05-01T12:00:00Z'
               updated_at: '2024-05-01T12:00:00Z'
-              logs: []
+              logs:
+              - id: log_123efg
+                created_at: '2024-05-01T12:00:00Z'
+                output: This is a sample output.
+                prompt:
+                  id: pr_123abc
+                  name: Test Prompt
+                  path: test-prompt
+                  version_id: pv_456def
+                  created_at: '2024-05-01T12:00:00Z'
+                  updated_at: '2024-05-01T12:00:00Z'
+                  status: committed
+                  last_used_at: '2024-05-01T12:00:00Z'
+                  model: gpt-4
+                  version_logs_count: 1
+                  total_logs_count: 1
+                  inputs:
+                  - name: question
             page: 1
-            size: 10
+            size: 11
             total: 1
+  /sessions/{id}:
+    delete:
+      x-fern-examples:
+      - name: Delete session
+        path-parameters:
+          id: sesh_123abc
+    get:
+      x-fern-examples:
+      - name: Get session
+        path-parameters:
+          id: sesh_123abc
+        response:
+          body:
+            id: sesh_456hij
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            logs:
+            - id: log_123efg
+              created_at: '2024-05-01T12:00:00Z'
+              output: This is a sample output.
+              prompt:
+                id: pr_123abc
+                name: Test Prompt
+                path: test-prompt
+                version_id: pv_456def
+                created_at: '2024-05-01T12:00:00Z'
+                updated_at: '2024-05-01T12:00:00Z'
+                status: committed
+                last_used_at: '2024-05-01T12:00:00Z'
+                model: gpt-4
+                version_logs_count: 1
+                total_logs_count: 1
+                inputs:
+                - name: question
   /directories:
     get:
       x-fern-examples:

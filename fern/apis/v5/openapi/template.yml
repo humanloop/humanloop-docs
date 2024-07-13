@@ -426,18 +426,171 @@ paths:
           response:
             body: << evaluator_response >>
 
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "ev_890bcd"
+            environment_id: "staging"
+
   # EVALUATIONS
 
-  # /evaluations:
+  /evaluations:
+    get:
+      x-fern-pagination: true
+      x-fern-examples:
+        - name: List evaluations for file
+          query-parameters:
+            file_id: "pr_30gco7dx6JDq4200GVOHa"
+            size: 1
+          response:
+            body:
+              page: 1
+              size: 10
+              total: 1
+              records:
+                - id: "ev_567yza"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  status: "completed"
+                  dataset: << dataset_response >>
+                  evaluatees:
+                    - version: <<prompt_response>>
+                      orchestrated: false
+                  evaluators:
+                    - version: <<evaluator_response>>
+                      orchestrated: false
+    post:
+      x-fern-examples:
+        - name: Create evaluation
+          request:
+            dataset:
+              version_id: dsv_6L78pqrdFi2xa
+            evaluatees:
+              - version_id: prv_7ZlQREDScH0xkhUwtXruN
+                orchestrated: false
+            evaluators:
+              - version_id: evv_012def
+                orchestrated: false
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+  /evaluations/{id}:
+    get:
+      x-fern-examples:
+        - name: Get evaluation
+          path-parameters:
+            id: "ev_567yza"
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+    delete:
+      x-fern-examples:
+        - name: Delete evaluation
+          path-parameters:
+            id: "ev_567yza"
+
+    patch:
+      x-fern-examples:
+        - name: Update evaluation
+          path-parameters:
+            id: "ev_567yza"
+          request:
+            dataset:
+              version_id: dsv_6L78pqrdFi2xa
+            evaluatees:
+              - version_id: prv_7ZlQREDScH0xkhUwtXruN
+                orchestrated: false
+            evaluators:
+              - version_id: evv_012def
+                orchestrated: false
+          response:
+            body:
+              id: "ev_567yza"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              status: "completed"
+              dataset: << dataset_response >>
+              evaluatees:
+                - version: <<prompt_response>>
+                  orchestrated: false
+              evaluators:
+                - version: <<evaluator_response>>
+                  orchestrated: false
+
+    /evaluations/{id}/status:
+      patch:
+        x-fern-examples:
+          - name: Update evaluation status
+            path-parameters:
+              id: "ev_567yza"
+            request:
+              status: "completed"
+            response:
+              body:
+                id: "ev_567yza"
+                created_at: "2024-05-01T12:00:00Z"
+                updated_at: "2024-05-01T12:00:00Z"
+                status: "completed"
+                dataset: << dataset_response >>
+                evaluatees:
+                  - version: <<prompt_response>>
+                    orchestrated: false
+                evaluators:
+                  - version: <<evaluator_response>>
+                    orchestrated: false
+
+  # Default example response seems to handle this quite well. Won't hardcode a specific example.
+  # /evaluationrs/{id}/stats:
+  #   get:
+  #     x-fern-examples:
+  #       - name: Get evaluation stats
+  #         path-parameters:
+  #           id: "ev_567yza"
+
+  # This response model is INTENSE and CONFUSING. Giving up trying to make it for now.
+  # /evaluations/{id}/logs:
   #   get:
   #     x-fern-pagination: true
   #     x-fern-examples:
-  #       - name: List evaluations
+  #       - name: List datapoints
+  #         path-parameters:
+  #           id: "ev_567yza"
   #         query-parameters:
-  #           file_id: "file_123abc"
-  #           size: 10
+  #           size: 1
+  #           page: 1
   #         response:
-  #           body: << evaluation_response >>
+  #           body:
+  #             records:
+  #               - datapoint: <<datapoint_response>>
+  #                 evaluated_version: <<prompt_response>>
+  #                 evaluator_logs: #TODO
+  #                   -
+  #             page: 1
+  #             size: 1
+  #             total: 1
 
   /logs:
     get:
@@ -448,7 +601,22 @@ paths:
             file_id: "file_123abc"
             size: 1
           response:
-            body: << log_response >>
+            body:
+              page: 1
+              size: 1
+              total: 1
+              records:
+                - << prompt_log_object >>
+  /logs/{id}:
+    get:
+      x-fern-examples:
+        - name: Get log
+          path-parameters:
+            id: "prv_Wu6zx1lAWJRqOyL8nWuZk"
+          response:
+            body: << prompt_log_object >>
+
+  # SESSIONS
 
   /sessions:
     get:
@@ -457,8 +625,35 @@ paths:
         - name: List sessions
           query-parameters:
             size: 1
+            file_id: "pr_123abc"
           response:
-            body: << session_response >>
+            body:
+              records:
+                - id: "sesh_456hij"
+                  created_at: "2024-05-01T12:00:00Z"
+                  updated_at: "2024-05-01T12:00:00Z"
+                  logs: [<< prompt_log_object >>]
+              page: 1
+              size: 11
+              total: 1
+
+  /sessions/{id}:
+    delete:
+      x-fern-examples:
+        - name: Delete session
+          path-parameters:
+            id: "sesh_123abc"
+    get:
+      x-fern-examples:
+        - name: Get session
+          path-parameters:
+            id: "sesh_123abc"
+          response:
+            body:
+              id: "sesh_456hij"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              logs: [<< prompt_log_object >>]
 
   # DIRECTORIES
 
