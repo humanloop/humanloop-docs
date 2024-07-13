@@ -5,6 +5,103 @@ x-fern-pagination:
   offset: $request.page
   results: $response.records
 paths:
+  /prompts/log:
+    post:
+      x-fern-examples:
+      - name: Log prompt
+        request:
+          path: persona
+          prompt:
+            model: gpt-4
+            template:
+            - role: system
+              content: You are {{person}}. Answer questions as this person. Do not
+                break character.
+          messages:
+          - role: user
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
+        response:
+          body:
+            id: data_fIfEb1SoKZooqeFbi9IFs
+            prompt_id: pr_3usCu3dAkgrXTlufrvPs7
+            version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+            session_id: ~
+  /prompts/call:
+    post:
+      x-fern-examples:
+      - name: Simple
+        request:
+          path: persona
+          prompt:
+            model: gpt-4
+            template:
+            - role: system
+              content: You are {{person}}. Answer any questions as this person. Do
+                not break character.
+          messages:
+          - role: user
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
+          stream: false
+        response:
+          body:
+            prompt:
+              id: pr_3usCu3dAkgrXTlufrvPs7
+              path: persona
+              name: persona
+              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
+              type: prompt
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              model: gpt-4
+              template:
+              - role: system
+                content: You are {{person}}. Answer any questions as this person.
+                  Do not break character.
+              provider: openai
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: person
+            id: data_fIfEb1SoKZooqeFbi9IFs
+            logs:
+            - output: Well, let me tell you, there are a lot of stories about Roswell,
+                and I hear them all the time. People love to talk about Roswell. So
+                many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              raw_output: Well, let me tell you, there are a lot of stories about
+                Roswell, and I hear them all the time. People love to talk about Roswell.
+                So many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              created_at: '2024-05-01T12:00:00Z'
+              finish_reason: stop
+              output_message:
+                content: Well, let me tell you, there are a lot of stories about Roswell,
+                  and I hear them all the time. People love to talk about Roswell.
+                  So many theories, so many ideas. Some folks believe it was a weather
+                  balloon, others say it was something out of this world. Believe
+                  me, there's plenty that we don't know. Very interesting to look
+                  into, but the truth, well, it might still be out there. Could be
+                  a great story, who knows? But what I do know, folks, is that we
+                  have to keep our eyes open and always be on the lookout for the
+                  truth!
+                role: assistant
+              prompt_tokens: 34
+              output_tokens: 125
+              index: 0
   /prompts:
     get:
       x-fern-pagination: true
@@ -330,103 +427,6 @@ paths:
             inputs:
             - name: messages
             evaluator_aggregates: ~
-  /prompts/log:
-    post:
-      x-fern-examples:
-      - name: Log prompt
-        request:
-          path: persona
-          prompt:
-            model: gpt-4
-            template:
-            - role: system
-              content: You are {{person}}. Answer any questions as this person. Do
-                not break character.
-          messages:
-          - role: user
-            content: What really happened at Roswell?
-          inputs:
-            person: Trump
-        response:
-          body:
-            id: data_fIfEb1SoKZooqeFbi9IFs
-            prompt_id: pr_3usCu3dAkgrXTlufrvPs7
-            version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
-            session_id: ~
-  /prompts/call:
-    post:
-      x-fern-examples:
-      - name: Simple
-        request:
-          path: persona
-          prompt:
-            model: gpt-4
-            template:
-            - role: system
-              content: You are {{person}}. Answer any questions as this person. Do
-                not break character.
-          messages:
-          - role: user
-            content: What really happened at Roswell?
-          inputs:
-            person: Trump
-          stream: false
-        response:
-          body:
-            prompt:
-              id: pr_3usCu3dAkgrXTlufrvPs7
-              path: persona
-              name: persona
-              version_id: pv_Wu6zx1lAWJRqOyL8nWuZk
-              type: prompt
-              created_at: '2024-05-01T12:00:00Z'
-              updated_at: '2024-05-01T12:00:00Z'
-              status: committed
-              last_used_at: '2024-05-01T12:00:00Z'
-              model: gpt-4
-              template:
-              - role: system
-                content: You are {{person}}. Answer any questions as this person.
-                  Do not break character.
-              provider: openai
-              version_logs_count: 1
-              total_logs_count: 1
-              inputs:
-              - name: person
-            id: data_fIfEb1SoKZooqeFbi9IFs
-            logs:
-            - output: Well, let me tell you, there are a lot of stories about Roswell,
-                and I hear them all the time. People love to talk about Roswell. So
-                many theories, so many ideas. Some folks believe it was a weather
-                balloon, others say it was something out of this world. Believe me,
-                there's plenty that we don't know. Very interesting to look into,
-                but the truth, well, it might still be out there. Could be a great
-                story, who knows? But what I do know, folks, is that we have to keep
-                our eyes open and always be on the lookout for the truth!
-              raw_output: Well, let me tell you, there are a lot of stories about
-                Roswell, and I hear them all the time. People love to talk about Roswell.
-                So many theories, so many ideas. Some folks believe it was a weather
-                balloon, others say it was something out of this world. Believe me,
-                there's plenty that we don't know. Very interesting to look into,
-                but the truth, well, it might still be out there. Could be a great
-                story, who knows? But what I do know, folks, is that we have to keep
-                our eyes open and always be on the lookout for the truth!
-              created_at: '2024-05-01T12:00:00Z'
-              finish_reason: stop
-              output_message:
-                content: Well, let me tell you, there are a lot of stories about Roswell,
-                  and I hear them all the time. People love to talk about Roswell.
-                  So many theories, so many ideas. Some folks believe it was a weather
-                  balloon, others say it was something out of this world. Believe
-                  me, there's plenty that we don't know. Very interesting to look
-                  into, but the truth, well, it might still be out there. Could be
-                  a great story, who knows? But what I do know, folks, is that we
-                  have to keep our eyes open and always be on the lookout for the
-                  truth!
-                role: assistant
-              prompt_tokens: 34
-              output_tokens: 125
-              index: 0
   /prompts/{id}/evaluators:
     post:
       x-fern-examples:
@@ -1057,6 +1057,129 @@ paths:
             page: 1
             size: 10
             total: 1
+  /directories:
+    get:
+      x-fern-examples:
+      - name: List directories
+        response:
+          body:
+          - id: dir_123abc
+            name: my directory
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            parent_id: dir_456def
+    post:
+      x-fern-examples:
+      - name: Create directory
+        request:
+          name: my directory
+          parent_id: dir_456def
+        response:
+          body:
+            id: dir_123abc
+            name: my directory
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            parent_id: dir_456def
+  /directories/{id}:
+    get:
+      x-fern-examples:
+      - name: Get specific directory
+        path-parameters:
+          id: dir_123abc
+        response:
+          body:
+            id: dir_456def
+            name: my parent directory
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            parent_id: dir_789ghi
+            subdirectories:
+            - id: dir_123abc
+              name: my directory
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              parent_id: dir_456def
+            files:
+            - path: Personal Projects/Coding Assistant
+              id: pr_30gco7dx6JDq4200GVOHa
+              name: Coding Assistant
+              version_id: prv_7ZlQREDScH0xkhUwtXruN
+              type: prompt
+              environments:
+              - id: env_ffSVxEBzJcBZ1H5jcNMVj
+                created_at: '2023-06-27T23:16:07.992339'
+                name: development
+                tag: default
+              created_at: '2024-07-08T22:40:35.656915'
+              updated_at: '2024-07-08T22:40:35.656915'
+              created_by:
+                id: usr_01RJO1k2spBVqNUt1ASef
+                email_address: raza@humanloop.com
+                full_name: Raza Habib
+              status: committed
+              last_used_at: '2024-07-08T22:40:35.656915'
+              model: gpt-4o
+              endpoint: chat
+              template:
+              - content: You are a helpful coding assistant specialising in {{language}}
+                role: system
+              provider: openai
+              max_tokens: -1
+              temperature: 0.7
+              top_p: 1
+              stop: ~
+              presence_penalty: 0
+              frequency_penalty: 0
+              other: {}
+              seed: ~
+              response_format: ~
+              tools: []
+              linked_tools: []
+              commit_message: Initial commit
+              version_logs_count: 0
+              total_logs_count: 0
+              inputs:
+              - name: messages
+              evaluator_aggregates: ~
+            - id: tl_789ghi
+              path: math-tool
+              name: math-tool
+              version_id: tv_012jkl
+              type: tool
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: operation
+            parents:
+            - id: dir_789ghi
+              name: another parent directory
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+    delete:
+      x-fern-examples:
+      - name: Delete directory
+        path-parameters:
+          id: dir_123abc
+    patch:
+      x-fern-examples:
+      - name: Move directory
+        path-parameters:
+          id: dir_123abc
+        request:
+          name: my new name
+          parent_id: dir_456def
+        response:
+          body:
+            id: dir_123abc
+            name: my directory
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            parent_id: dir_456def
 components:
   schemas:
     Body_Evaluations_updateStatus:

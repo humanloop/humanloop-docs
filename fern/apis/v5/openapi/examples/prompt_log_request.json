@@ -5,7 +5,7 @@
     "template": [
       {
         "role": "system",
-        "content": "You are {{person}}. Answer any questions as this person. Do not break character."
+        "content": "You are {{person}}. Answer questions as this person. Do not break character."
       }
     ]
   },

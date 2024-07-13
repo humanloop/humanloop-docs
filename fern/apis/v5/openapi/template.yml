@@ -3,6 +3,22 @@ x-fern-pagination:
   results: $response.records
 
 paths:
+  /prompts/log:
+    post:
+      x-fern-examples:
+        - name: Log prompt
+          request: << prompt_log_request >>
+          response:
+            body: << prompt_log_response >>
+
+  /prompts/call:
+    post:
+      x-fern-examples:
+        - name: Simple
+          request: << prompt_call_request >>
+          response:
+            body: << prompt_call_response >>
+
   /prompts:
     get:
       x-fern-pagination: true
@@ -67,21 +83,6 @@ paths:
           response:
             body: << prompt_response >>
 
-  /prompts/log:
-    post:
-      x-fern-examples:
-        - name: Log prompt
-          request: << prompt_log_request >>
-          response:
-            body: << prompt_log_response >>
-  /prompts/call:
-    post:
-      x-fern-examples:
-        - name: Simple
-          request: << prompt_call_request >>
-          response:
-            body: << prompt_call_response >>
-
   /prompts/{id}/evaluators:
     post:
       x-fern-examples:
@@ -134,7 +135,7 @@ paths:
           request: << tool_log_request >>
           response:
             body: << tool_log_response >>
-            
+
   /tools/{id}:
     get:
       x-fern-examples:
@@ -184,7 +185,6 @@ paths:
           response:
             body: << tool_response >>
 
-
   /tools/{id}/environments/{environment_id}:
     post:
       x-fern-examples:
@@ -204,7 +204,6 @@ paths:
             id: "tl_789ghi"
             environment_id: "staging"
 
-  
   /tools/{id}/evaluators:
     post:
       x-fern-examples:
@@ -216,7 +215,6 @@ paths:
               - evaluator_version_id: "evv_1abc4308abd"
           response:
             body: << tool_response >>
-
 
   /tools/{id}/environments:
     get:
@@ -391,13 +389,65 @@ paths:
           response:
             body: << session_response >>
 
-  /tools/log:
+  # DIRECTORIES
+
+  /directories:
+    get:
+      x-fern-examples:
+        - name: List directories
+          response:
+            body:
+              - << directory_response >>
     post:
       x-fern-examples:
-        - name: Tool log
-          request: << tool_log_request >>
+        - name: Create directory
+          request:
+            name: "my directory"
+            parent_id: "dir_456def"
           response:
-            body: << tool_log_response >>
+            body: << directory_response >>
+
+  /directories/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific directory
+          path-parameters:
+            id: "dir_123abc"
+          response:
+            body:
+              id: "dir_456def"
+              name: "my parent directory"
+              created_at: "2024-05-01T12:00:00Z"
+              updated_at: "2024-05-01T12:00:00Z"
+              parent_id: "dir_789ghi"
+              subdirectories: [<<directory_response>>]
+              files: [<<prompt_response>>, <<tool_response>>]
+              parents:
+                [
+                  {
+                    "id": "dir_789ghi",
+                    "name": "another parent directory",
+                    "created_at": "2024-05-01T12:00:00Z",
+                    "updated_at": "2024-05-01T12:00:00Z",
+                  },
+                ]
+    delete:
+      x-fern-examples:
+        - name: Delete directory
+          path-parameters:
+            id: "dir_123abc"
+
+    patch:
+      x-fern-examples:
+        - name: Move directory
+          path-parameters:
+            id: "dir_123abc"
+          request:
+            name: "my new name"
+            parent_id: "dir_456def"
+            # path: "new_parent_directory/new_name"
+          response:
+            body: << directory_response >>
 
 components:
   schemas:
