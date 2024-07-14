@@ -81,23 +81,10 @@ Continue in the same Python interpreter (where you have run `humanloop = Humanlo
 <Warning>Note: Prompts are still called 'projects' in the SDK and versions of Prompts are called 'model configs'</Warning>
 <Steps>
 
-### Create the Prompt "project"
+### Create the Prompt
 
-```python
-project_response = humanloop.projects.create(name="sdk-tutorial")
-project_id = project_response.id
-```
+<EndpointRequestSnippet endpoint="POST /prompts" />
 
-### Register your version ("model config")
-
-```python
-humanloop.model_configs.register(
-    project_id=project_id,
-    model="gpt-3.5-turbo",
-    prompt_template="Write a snappy introduction about {{topic}}:",
-    temperature=0.8,
-)
-```
 
 ### Go to the App
 
@@ -105,7 +92,7 @@ Go to the [Humanloop app](https://app.humanloop.com) and you will see your new p
 
 </Steps>
 
-You now have a project in Humanloop that contains your model config. You can view your project and invite team members by going to the **Project** page.
+You now have a Prompt in Humanloop that contains your initial version. You can call the Prompt in Editor and invite team members by going to your organization's members page.
 
 ## Next Steps
 
