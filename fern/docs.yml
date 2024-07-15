@@ -1,8 +1,8 @@
 instances:
   - url: https://humanloop.docs.buildwithfern.com/docs
     custom-domain:
-      - fern.humanloop.com/docs
       - humanloop.com/docs
+      - fern.humanloop.com/docs
     edit-this-page:
       github:
         owner: humanloop
