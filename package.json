@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "fern docs dev",
     "check": "fern check",
-    "watch": "chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/openapi*.yml' -c 'python ./scripts/populate_template.py && npm run check'",
-    "dev-api": "./scripts/sync_openapi.sh && concurrently \"npm run dev\" \"npm run watch\""
+    "watch-template": "chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/openapi*.yml' -c 'python ./scripts/populate_template.py && npm run check'",
+    "watch": "./scripts/sync_openapi.sh && concurrently \"npm run dev\" \"npm run watch-template\""
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",

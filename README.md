@@ -35,7 +35,7 @@ fern check
 To see a preview of your docs as you write them, run:
 
 ```sh
-fern docs dev
+npm run dev
 ```
 
 To see a exact preview fully rendered, run:
@@ -53,14 +53,32 @@ To update the OpenAPI spec, follow these steps:
 1. Make sure the backend is running at localhost:80
 2. Run the following npm command to synchronize the OpenAPI spec:
    ```sh
-   npm run dev-api
+   npm run watch
    ```
    This will execute the `sync_openapi.sh` script to synchronize the OpenAPI spec.
    This will simultaneously watch for changes to the `template.yml` file and the OpenAPI spec file(s) for updates.
-3. Make any changes to the [`template.yml`](fern/apis/v4/openapi/template.yml) and the examples in the [`examples`](fern/apis/v4/openapi/examples/) directory as needed.
+3. Make any changes to the [`template.yml`](fern/apis/v5/openapi/template.yml) and the examples in the [`examples`](fern/apis/v5/openapi/examples/) directory as needed.
 4. Run `fern check` (in a seperate terminal to aid in debugging).
 
 For more details, refer to the [`sync_openapi.sh`](scripts/sync_openapi.sh) and [`populate_template.py`](scripts/populate_template.py) scripts in the `scripts` directory.
+
+#### How the Example templating works
+
+We've made out our jinja like syntax to be able to re-use API examples in multiple places.
+
+The [template.yml](fern/apis/v5/openapi/template.yml) file contains a yml overrides of the OpenAPI schema. If the JSON paths match, the objects will be upserted into the main spec. Use `<< example_name >>` syntax to be able to insert `examples/example_name.json` into the OpenAPI spec.
+
+```
+paths:
+  /prompts/log:
+    post:
+      x-fern-examples:
+        - name: Log prompt
+          request: << prompt_log_request >>
+          response:
+            body: << prompt_log_response >>
+
+```
 
 ### Deploying your Docs
 
