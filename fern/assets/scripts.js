@@ -3,7 +3,7 @@
 // and load the Segment snippet with the correct write key
 
 const CDN_URL = "https://humanloop.com/cdn/analytics.js/v1/";
-const EVENT_PROXY = "humanloop.com/edn/v1";
+const EVENT_PROXY = "app.humanloop.com/edn/v1";
 const WRITE_KEY = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs";
 
 // Disable existing Segment script
