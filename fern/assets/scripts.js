@@ -2,10 +2,6 @@
 // Adapted to disable Fern's existing Segment integration
 // and load the Segment snippet with the correct write key
 
-const CDN_URL = "https://humanloop.com/cdn/analytics.js/v1/";
-const EVENT_PROXY = "app.humanloop.com/edn/v1";
-const WRITE_KEY = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs";
-
 // Disable existing Segment script
 if (window.analytics) {
   window.analytics = null;
@@ -23,10 +19,7 @@ if (window.analytics) {
           "Segment snippet included twice. Carrying on regardless."
         );
     }
-  // The rest is default... except for using a proxy URL to avoid ad blockers.
-  // Edit: I'm not convinced the proxy logic is helping at all.
-  // The segment script is still blocked even on our CDN.
-  // And in my network tab, I can't see segment events being sent to a different location.
+  // The rest is default.
   analytics.invoked = !0;
   analytics.methods = [
     "trackSubmit",
@@ -86,24 +79,15 @@ if (window.analytics) {
     t.type = "text/javascript";
     t.async = !0;
     t.setAttribute("data-global-segment-analytics-key", i);
-    // CUSTOM: Proxy the CDN
-    // GET  /cdn/v1/project/<writekey>/settings -> http://cdn.segment.com/v1/projects/<writekey>/settings
-    // GET /cdn/next-integrations/actions/...js -> https://cdn.segment.com/next-integrations/actions/...js ->
-    t.src = CDN_URL + key + "/analytics.min.js";
+    t.src =
+      "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
     var r = document.getElementsByTagName("script")[0];
     r.parentNode.insertBefore(t, r);
     analytics._loadOptions = n;
   };
-  analytics._writeKey = WRITE_KEY;
+  analytics._writeKey = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs";
   analytics.SNIPPET_VERSION = "5.2.0";
-  // CUSTOM: proxy the events
-  analytics.load(WRITE_KEY, {
-    integrations: {
-      "Segment.io": {
-        apiHost: EVENT_PROXY,
-      },
-    },
-  });
+  analytics.load("hr64X7UjPFaeFeImP4SUNld9NDXDrFHs");
   analytics.page();
 })();
 // End Segment
