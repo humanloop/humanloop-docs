@@ -113,8 +113,8 @@ navigation:
             contents:
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
-              - page: Human Evaluation your prompts
-                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+#              - page: Human Evaluation your prompts
+#                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Set up LLM as a Judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
               - page: Set up a code based evaluator
