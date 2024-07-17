@@ -40,8 +40,7 @@ navigation:
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-          - page: Deployment Options
-            path: ../v5-pages/getting-started/deployment-options.mdx
+
           - page: Quickstart Tutorial
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       # - section: Tutorials
@@ -168,12 +167,14 @@ navigation:
             path: ../v5-pages/reference/postman-workspace.mdx
           - page: Security and compliance
             path: ../v5-pages/reference/security-compliance.mdx
+
   - tab: api
     layout:
       - section: Introduction
         skip-slug: true
         contents:
           - page: SDKs
+            slug: sdks
             path: ../v5-pages/api-reference/sdks.md
           - page: Errors
             path: ../v5-pages/api-reference/errors.md
