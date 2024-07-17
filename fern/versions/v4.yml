@@ -35,7 +35,6 @@ navigation:
           - page: ChatGPT clone with streaming
             slug: chatgpt-clone-in-nextjs
             path: ../pages/tutorials/clone.mdx
-
           - page: Debug a LangChain Agent
             slug: debug-a-langchain-agent
             hidden: true

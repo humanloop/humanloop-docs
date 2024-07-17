@@ -36,27 +36,24 @@ navigation:
                 path: ../v5-pages/concepts/logs.mdx
               - page: Environments
                 path: ../v5-pages/concepts/environments.mdx
-          - section: Platform
-            contents:
-              - page: Architecture
-                path: ../v5-pages/getting-started/architecture.mdx
-              - page: Security
-                path: ../v5-pages/getting-started/architecture.mdx
-              - page: Hosting
-                path: ../v5-pages/getting-started/hosting.mdx
-
-      - section: Tutorials
-        contents:
-          - page: Quickstart Tutorial
-            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
-          - page: Tracing and versioning your LLM calls
-            path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
-          - page: Debugging an issue
-            path: ../v5-pages/tutorials/debugging-issue.mdx
-          - page: Evaluating a RAG system
-            path: ../v5-pages/tutorials/evaluating-rag.mdx
-          - page: Observability
-            path: ../v5-pages/tutorials/observability.mdx
+              # - page: Architecture
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              # - page: Security
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              - page: Deployment Options
+                path: ../v5-pages/getting-started/deployment-options.mdx
+              - page: Quickstart Tutorial
+                path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+      # - section: Tutorials
+      #   contents:
+      # - page: Tracing and versioning your LLM calls
+      #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
+      # - page: Debugging an issue
+      #   path: ../v5-pages/tutorials/debugging-issue.mdx
+      # - page: Evaluating a RAG system
+      #   path: ../v5-pages/tutorials/evaluating-rag.mdx
+      # - page: Observability
+      #   path: ../v5-pages/tutorials/observability.mdx
       - section: Prompt and Tool Management
         contents:
           - page: Collaboration and Version Control
