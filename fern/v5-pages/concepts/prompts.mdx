@@ -59,26 +59,14 @@ We've seen people find it useful to also create a Prompt called 'Playground' whe
 
 Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output.
 
-<CodeBlocks>
-```javascript TypeScript
-const response = await humanloop.prompts.call({
-  path: "Code Assistant",
-  inputs: {
-    topic: "debugging compiler errors",
-  },
-});
-```
-```python Python
-response = humanloop.prompts.call(
-  path="Code Assistant",
-  inputs={
-    "topic": "debugging compiler errors",
-  }
-);
-```
-</CodeBlocks>
 
-You can also use Prompts without proxying all requests through Humanloop.
+<EndpointRequestSnippet endpoint="POST /prompts/call" />
+
+
+You can also use Prompts without proxying through Humanloop to the model provider and instead call the model yourself and explicitly log the results to your Prompt.
+
+<EndpointRequestSnippet endpoint="POST /prompts/log" />
+
 
 ## Serialization (`.prompt` file)
 
