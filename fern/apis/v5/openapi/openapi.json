@@ -3942,6 +3942,77 @@
         ]
       }
     },
+    "/evaluators/log": {
+      "post": {
+        "tags": [
+          "Evaluators"
+        ],
+        "summary": "Log",
+        "description": "Submit evalutor judgment for an existing Log. Creates a new Log and makes evaluated one its parent.",
+        "operationId": "log_evaluators_log_post",
+        "parameters": [
+          {
+            "description": "ID of the Evaluator version to log against.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID.",
+              "description": "ID of the Evaluator version to log against."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvaluatorLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEvaluatorLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/logs": {
       "get": {
         "tags": [
@@ -4958,6 +5029,170 @@
         ],
         "title": "CreateEvaluationRequest",
         "description": "Request model for creating an Evaluation.\n\nEvaluation benchmark your Prompt/Tool Versions. With the Datapoints in a Dataset Version,\nLogs corresponding to the Datapoint and each Evaluated Version are evaluated by the specified Evaluator Versions.\nAggregated statistics are then calculated and presented in the Evaluation."
+      },
+      "CreateEvaluatorLogRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Evaluator path",
+            "description": "Path of the Evaluator, including the name, which is used as a unique identifier."
+          },
+          "id": {
+            "type": "string",
+            "title": "Evaluator ID",
+            "description": "ID for an existing Evaluator to update."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "raw_output": {
+            "type": "string",
+            "title": "Raw output",
+            "description": "Raw output from the provider."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Identifier of the evaluated Log. The newly created Log will have this one set as parent."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "judgment": {
+            "title": "Judgment Value",
+            "description": "Evaluator assessment of the Log."
+          },
+          "spec": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LLMEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/CodeEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
+              }
+            ],
+            "title": "Spec"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "parent_id"
+        ],
+        "title": "CreateEvaluatorLogRequest",
+        "description": "Submit Evaluator judgment for another File's Log."
+      },
+      "CreateEvaluatorLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "String identifier of the new Log."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Identifier of the evaluated parent Log."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Identifier of the Session containing both the parent and the new child Log. If the parent Log does not belong to a Session, a new Session is created with this ID."
+          },
+          "version_id": {
+            "type": "string",
+            "title": "Evaluator Version ID",
+            "description": "Identifier of Evaluator Version for which the Log was registered."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "parent_id",
+          "version_id"
+        ],
+        "title": "CreateEvaluatorLogResponse"
       },
       "CreatePromptLogResponse": {
         "properties": {
