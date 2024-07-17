@@ -15,10 +15,13 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         contents:
           - page: Overview
+            slug: getting-started/overview
             path: ../v5-pages/getting-started/overview.mdx
           - page: Why Humanloop?
+            slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
           - section: Concepts
             contents:
@@ -40,8 +43,8 @@ navigation:
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-
           - page: Quickstart Tutorial
+            slug: tutorials/quickstart-tutorial
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       # - section: Tutorials
       #   contents:
@@ -53,14 +56,14 @@ navigation:
       #   path: ../v5-pages/tutorials/evaluating-rag.mdx
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
-      - section: Prompt and Tool Management
+      - section: Prompt Management
         contents:
-          - page: Collaboration and Version Control
-            path: ../v5-pages/development/version-control.mdx
-          - page: Managing releases
-            path: ../v5-pages/development/managing-releases.mdx
-          - page: Prompt Engineering
-            path: ../v5-pages/development/prompt-engineering.mdx
+          # '- page: Collaboration and Version Control
+          #   path: ../v5-pages/development/version-control.mdx
+          # - page: Managing releases
+          #   path: ../v5-pages/development/managing-releases.mdx
+          # - page: Prompt Engineering
+          #   path: ../v5-pages/development/prompt-engineering.mdx'
           - section: How-to guides
             contents:
               - page: Create a Prompt
@@ -159,7 +162,7 @@ navigation:
             path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
-          - page: Deployment options
+          - page: Deployment Options
             path: ../v5-pages/reference/deployment-options.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
