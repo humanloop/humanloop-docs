@@ -40,10 +40,10 @@ navigation:
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-              - page: Deployment Options
-                path: ../v5-pages/getting-started/deployment-options.mdx
-              - page: Quickstart Tutorial
-                path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+          - page: Deployment Options
+            path: ../v5-pages/getting-started/deployment-options.mdx
+          - page: Quickstart Tutorial
+            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       # - section: Tutorials
       #   contents:
       # - page: Tracing and versioning your LLM calls
