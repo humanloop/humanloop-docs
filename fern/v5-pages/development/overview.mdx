@@ -1,0 +1,111 @@
+---
+subtitle: Prompt and Tool management on Humanloop
+description: Discover how Humanloop manages prompts, with version control and rigorous evaluation for better performance.
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-30T22%3A44%3A51.828Z%2Fassets%2Fimages%2F1763dbe-Prompts.png&w=1920&q=75
+---
+
+Humanloop provides a comprehensive platform for developing, managing, and versioning Prompts, Tools and your other artifacts of you AI systems. This explainer will show you how to create, version and manage your Prompts, Tools and other artifacts.
+
+<img src="../../assets/images/1763dbe-Prompts.png" />
+
+A [Prompt](/docs/concepts/prompts) on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
+
+- the template such as `Write a song about {{topic}}`. For chat models, your template will contain an array of messages.
+- the model e.g. `gpt-4o`
+- all the parameters to the model such as `temperature`, `max_tokens`, `top_p` etc.
+- any tools available to the model
+
+A Prompt is callable in that if you supply the necessary inputs, it will return a response from the model.
+
+Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
+
+This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
+The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
+
+<Callout>
+  Note that we use a capitalized "[Prompt](/docs/prompts)" to refer to the
+  entity in Humanloop, and a lowercase "prompt" to refer to the general concept
+  of input to the model.
+</Callout>
+
+<Frame caption="An example Prompt, serialized as a Promptfile">
+
+```jsx
+---
+model: gpt-4
+temperature: 1.0
+max_tokens: -1
+provider: openai
+endpoint: chat
+---
+<system>
+  Write a song about {{topic}}
+</system>
+```
+
+</Frame>
+
+## Versioning
+
+A Prompt file will have multiple versions as you try out different models, params or templates, but they should all be doing the same task, and in general should be swappable with one-another.
+
+By versioning your Prompts, you can track how adjustments to the template or parameters influence the LLM's responses. This is crucial for iterative development, as you can pinpoint which versions produce the most relevant or accurate outputs for your specific use case.
+
+### When to create a new Prompt
+
+You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: Writing Copilot, Personal Assistant, Summariser, etc.
+
+We've seen people find it useful to also create a Prompt called 'Playground' where they can free form experiment without concern of breaking anything or making a mess of their other Prompts.
+
+## Using Prompts
+
+Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output.
+
+<EndpointRequestSnippet endpoint="POST /prompts/call" />
+
+You can also use Prompts without proxying through Humanloop to the model provider and instead call the model yourself and explicitly log the results to your Prompt.
+
+<EndpointRequestSnippet endpoint="POST /prompts/log" />
+
+## Serialization (`.prompt` file)
+
+Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](./prompt-file-format) reference for more details.
+
+### Format
+
+The .prompt file is heavily inspired by [MDX](https://mdxjs.com/), with model and hyperparameters specified in a YAML header alongside a JSX-inspired format for your Chat Template.
+
+### Basic examples
+
+<CodeBlocks>
+```jsx Chat
+---
+model: gpt-4
+temperature: 1.0
+max_tokens: -1
+provider: openai
+endpoint: chat
+---
+<system>
+  You are a friendly assistant.
+</system>
+```
+```jsx Completion
+---
+model: claude-2
+temperature: 0.7
+max_tokens: 256
+top_p: 1.0
+provider: anthropic
+endpoint: complete
+---
+Autocomplete the sentence.
+
+Context: {{context}}
+
+{{sentence}}
+
+```
+
+</CodeBlocks>
+```

@@ -15,10 +15,13 @@ navigation:
   - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         contents:
           - page: Overview
+            slug: getting-started/overview
             path: ../v5-pages/getting-started/overview.mdx
           - page: Why Humanloop?
+            slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
           - section: Concepts
             contents:
@@ -36,12 +39,14 @@ navigation:
                 path: ../v5-pages/concepts/logs.mdx
               - page: Environments
                 path: ../v5-pages/concepts/environments.mdx
+              - page: Directories
+                path: ../v5-pages/concepts/directories.mdx
               # - page: Architecture
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-
           - page: Quickstart Tutorial
+            slug: tutorials/quickstart-tutorial
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       # - section: Tutorials
       #   contents:
@@ -53,19 +58,22 @@ navigation:
       #   path: ../v5-pages/tutorials/evaluating-rag.mdx
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
-      - section: Prompt and Tool Management
+      - section: Prompt Management
         contents:
-          - page: Collaboration and Version Control
-            path: ../v5-pages/development/version-control.mdx
-          - page: Managing releases
-            path: ../v5-pages/development/managing-releases.mdx
-          - page: Prompt Engineering
-            path: ../v5-pages/development/prompt-engineering.mdx
+          - page: Overview
+            path: ../v5-pages/development/overview.mdx
+          # - page: Managing releases
+          #   path: ../v5-pages/development/managing-releases.mdx
+          # - page: Prompt Engineering
+          #   path: ../v5-pages/development/prompt-engineering.mdx'
           - section: How-to guides
+            slug: guides
             contents:
               - page: Create a Prompt
+                slug: create-prompt
                 path: ../v5-pages/development/guides/create-prompt.mdx
               - page: Create a Directory
+                slug: create-directory
                 path: ../v5-pages/development/guides/create-directory.mdx
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
@@ -128,6 +136,7 @@ navigation:
           - page: Alerts and Guardrails
             path: ../v5-pages/observability/alerts-guardrails.mdx
           - section: How-to guides
+            slug: guides
             contents:
               - page: Set up Monitoring
                 path: ../v5-pages/observability/guides/monitoring.mdx
@@ -144,6 +153,7 @@ navigation:
           - page: SSO and Authentication
             path: ../v5-pages/admin/sso-authentication.mdx
           - section: How tos
+            slug: guides
             contents:
               - page: Invite collaborators
                 path: ../v5-pages/admin/guides/invite-collaborators.mdx
@@ -159,7 +169,7 @@ navigation:
             path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
-          - page: Deployment options
+          - page: Deployment Options
             path: ../v5-pages/reference/deployment-options.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
