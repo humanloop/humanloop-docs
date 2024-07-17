@@ -99,7 +99,7 @@ navigation:
                 path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
       - section: Evaluation
         contents:
-          - page: Evaluating LLM applications
+          - page: Overview
             path: ../v5-pages/evaluation/overview.mdx
           - page: Collecting Feedback
             path: ../v5-pages/evaluation/collecting-feedback.mdx
