@@ -105,16 +105,16 @@ navigation:
         contents:
           - page: Overview
             path: ../v5-pages/evaluation/overview.mdx
-          - page: Collecting Feedback
-            path: ../v5-pages/evaluation/collecting-feedback.mdx
-          - page: Dataset management
-            path: ../v5-pages/evaluation/dataset-management.mdx
+#          - page: Collecting Feedback
+#            path: ../v5-pages/evaluation/collecting-feedback.mdx
+#          - page: Dataset management
+#            path: ../v5-pages/evaluation/dataset-management.mdx
           - section: How-to guides
             contents:
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
-              - page: Human Evaluation your prompts
-                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+#              - page: Human Evaluation your prompts
+#                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Set up LLM as a Judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
               - page: Set up a code based evaluator
@@ -127,23 +127,23 @@ navigation:
                 path: ../v5-pages/evaluation/guides/external-evaluators.mdx
               - page: Evaluating externally generated Logs
                 path: ../v5-pages/evaluation/guides/evaluating-externally-generated-logs.mdx
-      - section: Observability
-        contents:
-          - page: Monitoring in production
-            path: ../v5-pages/observability/monitoring-production.mdx
-          - page: Collecting feedback signals
-            path: ../v5-pages/observability/collecting-feedback-signals.mdx
-          - page: Alerts and Guardrails
-            path: ../v5-pages/observability/alerts-guardrails.mdx
-          - section: How-to guides
-            slug: guides
-            contents:
-              - page: Set up Monitoring
-                path: ../v5-pages/observability/guides/monitoring.mdx
-              - page: Using session tracing
-                path: ../v5-pages/observability/guides/session-tracing.mdx
-              - page: Capture user feedback
-                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
+#      - section: Observability
+#        contents:
+#          - page: Monitoring in production
+#            path: ../v5-pages/observability/monitoring-production.mdx
+#          - page: Collecting feedback signals
+#            path: ../v5-pages/observability/collecting-feedback-signals.mdx
+#          - page: Alerts and Guardrails
+#            path: ../v5-pages/observability/alerts-guardrails.mdx
+#          - section: How-to guides
+#            slug: guides
+#            contents:
+#              - page: Set up Monitoring
+#                path: ../v5-pages/observability/guides/monitoring.mdx
+#              - page: Using session tracing
+#                path: ../v5-pages/observability/guides/session-tracing.mdx
+#              - page: Capture user feedback
+#                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
         contents:
           - page: Org, Teamspaces, Folders
