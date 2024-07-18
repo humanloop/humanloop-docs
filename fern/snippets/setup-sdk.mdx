@@ -1,4 +1,6 @@
 <Accordion title="Install and initialize the SDK">
+<Tabs>
+<Tab title="Python">
 
 First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
@@ -15,5 +17,28 @@ First you need to install and initialize the SDK. If you have already done this,
    from humanloop import Humanloop
    humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
    ```
+
+</Tab>
+
+<Tab title="TypeScript">
+
+First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
+
+1. Install the Humanloop TypeScript SDK:
+   ```shell
+   npm install human loop
+   ```
+2. Import and initialize the SDK:
+
+   ```shell
+   import { Humanloop } from "humanloop";
+
+   const humanloop = new Humanloop({
+      apiKey: "YOUR_HUMANLOOP_API_KEY",
+   });
+   ```
+
+</Tab>
+</Tabs>
 
 </Accordion>
