@@ -114,20 +114,17 @@ navigation:
             contents:
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
-#              - page: Human Evaluation your prompts
-#                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+              - page: Set up a code based Evaluator
+                path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
-              - page: Set up a code based evaluator
-                path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
-              - page: Create a dataset and use a Dataset
-                path: ../v5-pages/evaluation/guides/manage-datasets.mdx
-              - page: Run an evaluation in the UI
-                path: ../v5-pages/evaluation/guides/run-evaluation-ui.mdx
-              - page: Use external evaluators
-                path: ../v5-pages/evaluation/guides/external-evaluators.mdx
-              - page: Evaluating externally generated Logs
-                path: ../v5-pages/evaluation/guides/evaluating-externally-generated-logs.mdx
+                # TODO: Harry to write as part of his work
+#              - page: Human Evaluation your prompts
+#                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+              - page: Create a Dataset
+                path: ../v5-pages/evaluation/guides/create-dataset.mdx
+              - page: Run an Evaluation
+                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
 #      - section: Observability
 #        contents:
 #          - page: Monitoring in production

@@ -87,58 +87,13 @@ You'll see a column with the input key-value pairs for each datapoint, a message
 
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
-<Steps>
-### First define some sample data
+First define some sample data, this should consist of template inputs and/or user messages target extraction pairs. This is where you could load up any existing data you wish to use for your evaluation.
 
-This should consist of user messages and target extraction pairs. This is where you could load up any existing data you wish to use for your evaluation:
+Then define a dataset using the datasets API:
 
-```python Python
-# Example test case data
-data = [
-    {
-        "messages": [
-            {
-                "role": "user",
-                "content": "Hi Humanloop support team, I'm having trouble understanding how to use the evaluations feature in your software. Can you provide a step-by-step guide or any resources to help me get started?",
-            }
-        ],
-        "target": {"feature": "evaluations", "issue": "needs step-by-step guide"},
-    },
-    {
-        "messages": [
-            {
-                "role": "user",
-                "content": "Hi there, I'm interested in fine-tuning a language model using your software. Can you explain the process and provide any best practices or guidelines?",
-            }
-        ],
-        "target": {
-            "feature": "fine-tuning",
-            "issue": "process explanation and best practices",
-        },
-    },
-]
-```
+<EndpointRequestSnippet endpoint="POST /datasets" example="CreateSupportDataset"/>
 
-### Then define a dataset and upload the datapoints
 
-```python Python
-# Create a dataset
-dataset = humanloop.datasets.create(
-    project_id=project_id,
-    name="Sample dataset",
-    description="Examples of featue requests extracted from user messages",
-)
-dataset_id = dataset.id
-
-# Create datapoints for the dataset
-datapoints = humanloop.datasets.create_datapoint(
-    dataset_id=dataset_id,
-    body=data,
-)
-```
-
-</Steps>
-
-On the datasets tab in your Humanloop project you will now see the dataset you just uploaded via the API.
+In your Humanloop workspace, you will now see a Dataset called `support-queries` with your example data.
 
 <img src="../../../assets/images/665e92a-image.png" />
