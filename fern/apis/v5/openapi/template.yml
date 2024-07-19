@@ -262,6 +262,8 @@ paths:
           request: << create_dataset_request >>
           response:
             body: << create_dataset_response >>
+        - name: CreateSupportDataset
+          request: << create_support_dataset_request >>
 
   /datasets/{id}:
     get:
