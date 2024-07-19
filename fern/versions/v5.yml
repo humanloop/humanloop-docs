@@ -77,8 +77,9 @@ navigation:
                 path: ../v5-pages/development/guides/create-directory.mdx
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
-              - page: Logging data async
-                path: ../v5-pages/development/guides/logging-async.mdx
+                slug: call-prompt
+              - page: Logging Generations
+                path: ../v5-pages/development/guides/logging.mdx
               - page: Use your own model
                 path: ../v5-pages/development/guides/use-your-own-model.mdx
               - page: Upload historic data
