@@ -1,42 +1,26 @@
 ---
-subtitle: Prompt and Tool management on Humanloop
+subtitle: How to develop and manage your Prompt and Tools on Humanloop
 description: Discover how Humanloop manages prompts, with version control and rigorous evaluation for better performance.
 image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-30T22%3A44%3A51.828Z%2Fassets%2Fimages%2F1763dbe-Prompts.png&w=1920&q=75
 ---
 
-Humanloop provides a comprehensive platform for developing, managing, and versioning Prompts, Tools and your other artifacts of you AI systems. This explainer will show you how to create, version and manage your Prompts, Tools and other artifacts.
+Your AI application can be broken down into Prompts, Tools, and Evaluators. Humanloop versions and manages each of these artifacts to enable team collaboration and evaluation of each component of your AI system.
+
+This overview will explain the basics of prompt development, versioning, and management, and how to best integrate your LLM calls with Humanloop.
+
+## Prompt Management
 
 <img src="../../assets/images/1763dbe-Prompts.png" />
 
-A [Prompt](/docs/concepts/prompts) on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
-
-- the template such as `Write a song about {{topic}}`. For chat models, your template will contain an array of messages.
-- the model e.g. `gpt-4o`
-- all the parameters to the model such as `temperature`, `max_tokens`, `top_p` etc.
-- any tools available to the model
-
-A Prompt is callable in that if you supply the necessary inputs, it will return a response from the model.
-
-Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
-
-This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
-The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
-
-<Callout>
-  Note that we use a capitalized "[Prompt](/docs/prompts)" to refer to the
-  entity in Humanloop, and a lowercase "prompt" to refer to the general concept
-  of input to the model.
-</Callout>
+[Prompts](/docs/concepts/prompts) are a fundamental part of interacting with large language models (LLMs). They define the instructions and parameters that guide the model's responses. In Humanloop, Prompts are managed with version control, allowing you to track changes and improvements over time.
 
 <Frame caption="An example Prompt, serialized as a Promptfile">
 
 ```jsx
 ---
-model: gpt-4
+model: gpt-4o
 temperature: 1.0
 max_tokens: -1
-provider: openai
-endpoint: chat
 ---
 <system>
   Write a song about {{topic}}
@@ -45,23 +29,77 @@ endpoint: chat
 
 </Frame>
 
-## Versioning
+A [Prompt](/docs/concepts/prompts) on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
 
-A Prompt file will have multiple versions as you try out different models, params or templates, but they should all be doing the same task, and in general should be swappable with one-another.
+- the template such as `Write a song about {{topic}}`. For chat models, your template will contain an array of messages.
+- the model e.g. `gpt-4o`
+- all the parameters to the model such as `temperature`, `max_tokens`, `top_p` etc.
+- any tools available to the model
+
+### Creating a Prompt
+
+You can create a Prompt explicitly [in the Prompt Editor](/docs/prompt-management/guides/create-prompt) or [via the API](/docs/reference/api-reference/prompts/create).
+
+New prompts can also be created automatically via the API if you specify the Prompt's `path` (its name and directory) while supplying the Prompt's parameters and template. This is useful if you are developing your prompts in code and want to be able to version them as you make changes to the code.
+
+### Versioning
+
+A Prompt will have multiple versions as you experiment with different models, parameters, or templates. However, all versions should perform the same task and generally be interchangeable with one another.
 
 By versioning your Prompts, you can track how adjustments to the template or parameters influence the LLM's responses. This is crucial for iterative development, as you can pinpoint which versions produce the most relevant or accurate outputs for your specific use case.
 
-### When to create a new Prompt
+As you edit your prompt, new versions of the Prompt are created automatically. Each version is timestamped and given a unique version ID which is deterministically based on the Prompt's contents. For every version that you want to "save", you commit that version and it will be recorded as a new committed version of the Prompt with a commit message.
 
-You should create a new Prompt for every different ‘task to be done’ with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: Writing Copilot, Personal Assistant, Summariser, etc.
+#### When to create a new Prompt
+
+You should create a new Prompt for every different 'task to be done' with the LLM. For example each of these tasks are things that can be done by an LLM and should be a separate Prompt File: Writing Copilot, Personal Assistant, Summariser, etc.
 
 We've seen people find it useful to also create a Prompt called 'Playground' where they can free form experiment without concern of breaking anything or making a mess of their other Prompts.
+
+## Prompt Engineering
+
+Understanding the best practices for working with large language models can significantly enhance your application's performance. Each model has its own failure modes, and the methods to address or mitigate these issues are not always straightforward. The field of "prompt engineering" has evolved beyond just crafting prompts to encompass designing systems that incorporate model queries as integral components.
+
+For a start, read our [Prompt Engineering 101](https://humanloop.com/blog/prompt-engineering-101) guide which covers techniques to improve model reasoning, reduce the chances of model hallucinations, and more.
+
+### Prompt templates
+
+Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
+
+```jsx
+---
+model: gpt-4o
+temperature: 1.0
+max_tokens: -1
+---
+<system>
+  Write a song about {{topic}}
+</system>
+```
+
+This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
+The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
 
 ## Using Prompts
 
 Prompts are callable as an API. You supply and query-time data such as input values or user messages, and the model will respond with its text output.
 
 <EndpointRequestSnippet endpoint="POST /prompts/call" />
+
+A Prompt is callable in that if you supply the necessary inputs, it will return a response from the model.
+
+Once you have created and versioned your Prompt, you can call it as an API to generate responses from the large language model directly. You can also fetch the log the data from your LLM calls, enabling you to evaluate and improve your models.
+
+## Proxying your LLM calls in Humanloop vs async logging
+
+The easiest way to both call the large language model with your Prompt and to log the data is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/development/guides/call-prompt)) which will do both in a single API request. However, there are two main reasons why you may wish to log the data seperately from generation:
+
+1. You are using your own model that is not natively supported in the Humanloop runtime.
+2. You wish to avoid relying on Humanloop runtime as the proxied calls adds a small additional latency, or
+
+The `prompt.call()` Api encapsulates the LLM provider calls (for example `openai.Completions.create()`), the model-config selection and logging steps in a single unified interface. There may be scenarios that you wish to manage the LLM provider calls directly in your own code instead of relying on Humanloop.
+
+Humanloop provides a comprehensive platform for developing, managing, and versioning Prompts, Tools and your other artifacts of you AI systems. This explainer will show you how to create, version and manage your Prompts, Tools and other artifacts.
 
 You can also use Prompts without proxying through Humanloop to the model provider and instead call the model yourself and explicitly log the results to your Prompt.
 
@@ -90,6 +128,7 @@ endpoint: chat
   You are a friendly assistant.
 </system>
 ```
+
 ```jsx Completion
 ---
 model: claude-2
@@ -104,8 +143,6 @@ Autocomplete the sentence.
 Context: {{context}}
 
 {{sentence}}
-
 ```
 
 </CodeBlocks>
-```

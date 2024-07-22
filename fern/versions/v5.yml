@@ -72,13 +72,11 @@ navigation:
               - page: Create a Prompt
                 slug: create-prompt
                 path: ../v5-pages/development/guides/create-prompt.mdx
-              - page: Create a Directory
-                slug: create-directory
-                path: ../v5-pages/development/guides/create-directory.mdx
+
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
-              - page: Logging Generations
+              - page: Logging LLM calls
                 path: ../v5-pages/development/guides/logging.mdx
               - page: Use your own model
                 path: ../v5-pages/development/guides/use-your-own-model.mdx
@@ -102,14 +100,17 @@ navigation:
                 path: ../v5-pages/development/guides/deploy-to-environments.mdx
               - page: How to debug a prompt
                 path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
+              - page: Create a Directory
+                slug: create-directory
+                path: ../v5-pages/development/guides/create-directory.mdx
       - section: Evaluation
         contents:
           - page: Overview
             path: ../v5-pages/evaluation/overview.mdx
-#          - page: Collecting Feedback
-#            path: ../v5-pages/evaluation/collecting-feedback.mdx
-#          - page: Dataset management
-#            path: ../v5-pages/evaluation/dataset-management.mdx
+          #          - page: Collecting Feedback
+          #            path: ../v5-pages/evaluation/collecting-feedback.mdx
+          #          - page: Dataset management
+          #            path: ../v5-pages/evaluation/dataset-management.mdx
           - section: How-to guides
             contents:
               - page: Comparing prompt outputs
@@ -119,29 +120,29 @@ navigation:
               - page: Set up LLM as a Judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
                 # TODO: Harry to write as part of his work
-#              - page: Human Evaluation your prompts
-#                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+              #              - page: Human Evaluation your prompts
+              #                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Create a Dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
               - page: Run an Evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
-#      - section: Observability
-#        contents:
-#          - page: Monitoring in production
-#            path: ../v5-pages/observability/monitoring-production.mdx
-#          - page: Collecting feedback signals
-#            path: ../v5-pages/observability/collecting-feedback-signals.mdx
-#          - page: Alerts and Guardrails
-#            path: ../v5-pages/observability/alerts-guardrails.mdx
-#          - section: How-to guides
-#            slug: guides
-#            contents:
-#              - page: Set up Monitoring
-#                path: ../v5-pages/observability/guides/monitoring.mdx
-#              - page: Using session tracing
-#                path: ../v5-pages/observability/guides/session-tracing.mdx
-#              - page: Capture user feedback
-#                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
+      #      - section: Observability
+      #        contents:
+      #          - page: Monitoring in production
+      #            path: ../v5-pages/observability/monitoring-production.mdx
+      #          - page: Collecting feedback signals
+      #            path: ../v5-pages/observability/collecting-feedback-signals.mdx
+      #          - page: Alerts and Guardrails
+      #            path: ../v5-pages/observability/alerts-guardrails.mdx
+      #          - section: How-to guides
+      #            slug: guides
+      #            contents:
+      #              - page: Set up Monitoring
+      #                path: ../v5-pages/observability/guides/monitoring.mdx
+      #              - page: Using session tracing
+      #                path: ../v5-pages/observability/guides/session-tracing.mdx
+      #              - page: Capture user feedback
+      #                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
         contents:
           - page: Org, Teamspaces, Folders
