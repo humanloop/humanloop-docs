@@ -12,12 +12,7 @@ This repository contains your Fern Configuration:
 
 ```sh
 npm install -g fern-api # only required once
-```
-
-And if you're updating the OpenAPI spec, you'll need to:
-
-```sh
-npm i -g chokidar-cli concurrently
+npm install
 ```
 
 ## Validating your API Definition
@@ -53,7 +48,7 @@ To update the OpenAPI spec, follow these steps:
 1. Make sure the backend is running at localhost:80
 2. Run the following npm command to synchronize the OpenAPI spec:
    ```sh
-   npm run watch
+   npm run sync
    ```
    This will execute the `sync_openapi.sh` script to synchronize the OpenAPI spec.
    This will simultaneously watch for changes to the `template.yml` file and the OpenAPI spec file(s) for updates.

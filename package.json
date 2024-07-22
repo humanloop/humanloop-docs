@@ -7,15 +7,12 @@
     "dev": "fern docs dev",
     "check": "fern check",
     "watch-template": "chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/openapi*.yml' -c 'python ./scripts/populate_template.py && npm run check'",
-    "watch": "./scripts/sync_openapi.sh && concurrently \"npm run dev\" \"npm run watch-template\""
+    "sync": "./scripts/sync_openapi.sh || true && concurrently \"npm run dev\" \"npm run watch-template\""
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.6.0"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "concurrently": "^8.2.2"
-  }
+  "license": "ISC"
 }
