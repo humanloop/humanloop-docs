@@ -1,0 +1,12 @@
+{
+  "path": "persona",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What really happened at Roswell?"
+    }
+  ],
+  "inputs": {
+    "person": "Trump"
+  }
+}

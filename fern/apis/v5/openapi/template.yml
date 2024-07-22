@@ -2,6 +2,8 @@ x-fern-pagination:
   offset: $request.page
   results: $response.records
 
+# PROMPTS
+
 paths:
   /prompts/log:
     post:
@@ -14,7 +16,13 @@ paths:
   /prompts/call:
     post:
       x-fern-examples:
-        - name: Simple
+        - name: PromptCallByID
+          query-parameters:
+            version_id: "prv_Wu6zx1lAWJRqOyL8nWuZk"
+          request: << prompt_call_id_request >>
+          response:
+            body: << prompt_call_response >>
+        - name: PromptCallWithPrompt
           request: << prompt_call_request >>
           response:
             body: << prompt_call_response >>
@@ -26,7 +34,8 @@ paths:
         - query-parameters:
             size: 1
           response:
-            body: {
+            body:
+              {
                 "records": [<< prompt_response >>],
                 "page": 0,
                 "size": 1,
@@ -123,7 +132,8 @@ paths:
           query-parameters:
             size: 1
           response:
-            body: {
+            body:
+              {
                 "records": [<< tool_response >>],
                 "page": 0,
                 "size": 1,
@@ -258,12 +268,14 @@ paths:
               }
     post:
       x-fern-examples:
-        - name: Create dataset
+        - name: AddToDataset
           request: << create_dataset_request >>
           response:
             body: << create_dataset_response >>
         - name: CreateSupportDataset
           request: << create_support_dataset_request >>
+          response:
+            body: << create_dataset_response >>
 
   /datasets/{id}:
     get:
@@ -356,7 +368,8 @@ paths:
           query-parameters:
             size: 1
           response:
-            body: {
+            body:
+              {
                 "records": [<< evaluator_response >>],
                 "page": 0,
                 "size": 1,

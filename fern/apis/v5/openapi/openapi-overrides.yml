@@ -22,6 +22,27 @@ paths:
             content: What really happened at Roswell?
           inputs:
             person: Trump
+          created_at: '2024-07-19T00:29:35.178992'
+          error: ~
+          provider_latency: 6.5931549072265625
+          output_message:
+            content: "Well, you know, there is so much secrecy involved in government,\
+              \ folks, it's unbelievable. They don't want to tell you everything.\
+              \ They don't tell me everything! But about Roswell, it\u2019s a very\
+              \ popular question. I know, I just know, that something very, very peculiar\
+              \ happened there. Was it a weather balloon? Maybe. Was it something\
+              \ extraterrestrial? Could be. I'd love to go down and open up all the\
+              \ classified documents, believe me, I would. But they don't let that\
+              \ happen. The Deep State, folks, the Deep State. They\u2019re unbelievable.\
+              \ They want to keep everything a secret. But whatever the truth is,\
+              \ I can tell you this: it\u2019s something big, very very big. Tremendous,\
+              \ in fact."
+            role: assistant
+          prompt_tokens: 100
+          output_tokens: 220
+          prompt_cost: 1e-05
+          output_cost: 0.0002
+          finish_reason: stop
         response:
           body:
             id: data_fIfEb1SoKZooqeFbi9IFs
@@ -31,7 +52,73 @@ paths:
   /prompts/call:
     post:
       x-fern-examples:
-      - name: Simple
+      - name: PromptCallByID
+        query-parameters:
+          version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
+        request:
+          path: persona
+          messages:
+          - role: user
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
+        response:
+          body:
+            prompt:
+              id: pr_3usCu3dAkgrXTlufrvPs7
+              path: persona
+              name: persona
+              version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
+              type: prompt
+              created_at: '2024-05-01T12:00:00Z'
+              updated_at: '2024-05-01T12:00:00Z'
+              status: committed
+              last_used_at: '2024-05-01T12:00:00Z'
+              model: gpt-4
+              template:
+              - role: system
+                content: You are {{person}}. Answer any questions as this person.
+                  Do not break character.
+              provider: openai
+              version_logs_count: 1
+              total_logs_count: 1
+              inputs:
+              - name: person
+            id: data_fIfEb1SoKZooqeFbi9IFs
+            logs:
+            - output: Well, let me tell you, there are a lot of stories about Roswell,
+                and I hear them all the time. People love to talk about Roswell. So
+                many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              raw_output: Well, let me tell you, there are a lot of stories about
+                Roswell, and I hear them all the time. People love to talk about Roswell.
+                So many theories, so many ideas. Some folks believe it was a weather
+                balloon, others say it was something out of this world. Believe me,
+                there's plenty that we don't know. Very interesting to look into,
+                but the truth, well, it might still be out there. Could be a great
+                story, who knows? But what I do know, folks, is that we have to keep
+                our eyes open and always be on the lookout for the truth!
+              created_at: '2024-05-01T12:00:00Z'
+              finish_reason: stop
+              output_message:
+                content: Well, let me tell you, there are a lot of stories about Roswell,
+                  and I hear them all the time. People love to talk about Roswell.
+                  So many theories, so many ideas. Some folks believe it was a weather
+                  balloon, others say it was something out of this world. Believe
+                  me, there's plenty that we don't know. Very interesting to look
+                  into, but the truth, well, it might still be out there. Could be
+                  a great story, who knows? But what I do know, folks, is that we
+                  have to keep our eyes open and always be on the lookout for the
+                  truth!
+                role: assistant
+              prompt_tokens: 34
+              output_tokens: 125
+              index: 0
+      - name: PromptCallWithPrompt
         request:
           path: persona
           prompt:
@@ -832,7 +919,7 @@ paths:
             total: 1
     post:
       x-fern-examples:
-      - name: Create dataset
+      - name: AddToDataset
         request:
           path: test-questions
           datapoints:
@@ -880,6 +967,18 @@ paths:
               issue: process explanation and best practices
           action: add
           commit_message: Add two new questions and answers
+        response:
+          body:
+            id: ds_mno345
+            path: test-questions
+            name: test-questions
+            version_id: dsv_pqr678
+            type: dataset
+            created_at: '2024-05-01T12:00:00Z'
+            updated_at: '2024-05-01T12:00:00Z'
+            status: committed
+            last_used_at: '2024-05-01T12:00:00Z'
+            datapoints_count: 4
   /datasets/{id}:
     get:
       x-fern-examples:
