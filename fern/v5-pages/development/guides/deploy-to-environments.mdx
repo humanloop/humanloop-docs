@@ -1,112 +1,130 @@
 ---
-subtitle: How to create, version and use a Prompt in Humanloop
-description: Learn how to create a Prompt in Humanloop using the UI or SDK, version it, and use it to generate responses from your AI models. Prompt management is a key part of the Humanloop platform.
-image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
+subtitle: In this guide we will demonstrate how to create and use environments.
+description: Environments enable you to deploy model configurations and experiments, making them accessible via API, while also maintaining a streamlined production workflow.
+image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-Humanloop acts as a registry of your [Prompts](/docs/prompts) so you can centrally manage all their versions and [Logs](/docs/logs), and evaluate and improve your AI systems.
+[Environments](/docs/environments) enable you to deploy model configurations and experiments, making them accessible via API, while also maintaining a streamlined production workflow. These environments are created at the organizational level and can be utilized on a per-project basis.
 
-This guide will show you how to create a Prompt [in the UI](#create-a-prompt-in-the-ui) or [via the SDK/API](#create-a-prompt-using-the-sdk).
-
-<Markdown src="../../../snippets/prereq-have-account.mdx" />
-
-## Create a Prompt in the UI
+## Create an environment
 
 <Steps>
-### Create a Prompt File
+### Go to your Organization's [Environments](https://app.humanloop.com/account/environments) page.
 
-When you first open Humanloop you’ll see your File navigation on the left. Click ‘**+ New**’ and create a **Prompt**.
+### Click the **+ Environment** button to open the new environment dialog.
 
-<img src="../../../assets/images/21c558d-Screenshot_2024-04-04_at_22.25.09.png" />
+### Assign a custom name to the environment.
 
-In the sidebar, rename this file to "Comedian Bot" now or later.
+### Click **Create**.
 
-### Create the Prompt template in the Editor
+</Steps>
 
-The left hand side of the screen defines your Prompt – the parameters such as model, temperature and template. The right hand side is a single chat session with this Prompt.
+<img src="../../../assets/images/cb0f398-image.png" />
 
-<img src="../../../assets/images/cafeccb-Screenshot_2024-04-04_at_22.39.48.png" />
+---
 
-Click the "**+ Message**" button within the chat template to add a system message to the chat template.
+## Deploying to an environment
 
-<img src="../../../assets/images/aae5149-Screenshot_2024-04-04_at_22.36.38.png" />
+### Prerequisites
 
-Add the following templated message to the chat template.
+- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
+- Ensure that your project has existing model configs that you wish to use.
 
-```
-You are a funny comedian. Write a joke about {{topic}}.
-```
+To deploy a model config to an environment:
 
-This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt.
+<Steps>
+### Navigate to the **Dashboard** of your project.
 
-On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`.
+### Click the dropdown menu of the environment.
 
-1. Add a value for`topic` e.g. music, jogging, whatever
-2. Click **Run** in the bottom right of the page
+<img src="../../../assets/images/1b04c4c-image.png" />
 
-This will call OpenAI’s model and return the assistant response. Feel free to try other values, the model is _very_ funny.
+### Click the **Change deployment** button
 
-You now have a first version of your prompt that you can use.
+### Select a version
 
-### Commit your first version of this Prompt
+From the model configs or experiments within that project, click on the one that you wish to deploy to the target environment
 
-1. Click the **Commit** button
-2. Put “initial version” in the commit message field
-3. Click **Commit**
+<img src="../../../assets/images/a4a5484-image.png" />
 
-<img src="../../../assets/images/ffeffce-Screenshot_2024-04-04_at_22.38.38.png" />
-
-### View the logs
-
-Under the Prompt File click ‘Logs’ to view all the generations from this Prompt
-
-Click on a row to see the details of what version of the prompt generated it. From here you can give feedback to that generation, see performance metrics, open up this example in the Editor, or add this log to a dataset.
-
-<img src="../../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
+### Click the **Deploy** button.
 
 </Steps>
 
 ---
 
-## Create a Prompt using the SDK
+## Calling the model in the environment
 
-The Humanloop Python SDK allows you to programmatically set up and version your [Prompts](/docs/prompts) in Humanloop, and log generations from your models. This guide will show you how to create a Prompt using the SDK.
+### Prerequisites
 
-<Markdown src="../../../snippets/prereq-have-api-key.mdx" />
+- You have already deployed either a chat or completion model config - if not, please follow the steps in either the [Generate chat responses](./chat-using-the-sdk) or [Generate completions](./completion-using-the-sdk) guides.
+- You have multiple environments, with a model config deployed in a non-default environment. See the [Deploying to an environment](#deploying-to-an-environment) section above.
 
-<Markdown src="../../../snippets/setup-sdk.mdx" />
+<Info>
+  The following steps assume you're using an OpenAI model and that you're
+  calling a `chat` workflow. The steps needed to target a specific environment
+  for a `completion` workflow are similar.
+</Info>
 
-Continue in the same Python interpreter (where you have run `humanloop = Humanloop(...)`).
-
-<Warning>Note: Prompts are still called 'projects' in the SDK and versions of Prompts are called 'model configs'</Warning>
 <Steps>
-
-### Create the Prompt "project"
-
-```python
-project_response = humanloop.projects.create(name="sdk-tutorial")
-project_id = project_response.id
-```
-
-### Register your version ("model config")
+### Navigate to the **Models** tab of your Humanloop project.
+### Click the dropdown menu of the environment you wish to use.
+### Click the **Use API** menu option. 
+A dialog will open with code snippets. 
+Select the language you wish to use (e.g. Python, TypeScript). The value of `environment` parameter is the name of environment you wish to target via the chat-deployed call.
+An example of this can be seen in the code below.
 
 ```python
-humanloop.model_configs.register(
-    project_id=project_id,
-    model="gpt-3.5-turbo",
-    prompt_template="Write a snappy introduction about {{topic}}:",
-    temperature=0.8,
+import os
+from humanloop import Humanloop
+
+HUMANLOOP_API_KEY = os.getenv("HUMANLOOP_API_KEY")
+
+humanloop = Humanloop(api_key=HUMANLOOP_API_KEY)
+
+response = humanloop.chat_deployed(
+    project="YOUR_PROJECT_NAME",
+    inputs={},
+    messages=[{ "role": "user", "content": "Tell a joke" }],
+    provider_api_keys={
+        "openai": "OPENAI_KEY_HERE"
+    },
+    environment="YOUR_ENVIRONMENT_NAME"
 )
+
+print(response.data[0]output)
 ```
 
-### Go to the App
+<img src="../../../assets/images/21369d3-image.png" />
 
-Go to the [Humanloop app](https://app.humanloop.com) and you will see your new project as a Prompt with the model config you just created.
+</Steps>
+***
+
+## Updating the default environment
+
+<Warning>
+  Only Enterprise customers can update their default environment
+</Warning>
+
+### Prerequisites
+
+- You have multiple environments - if not first go through the [Create an
+  environment](./deploy-to-an-environment) section.
+
+Every organization will have a default environment. This can be updated by the following:
+
+<Steps>
+
+### Go to your Organization's [Environments](https://app.humanloop.com/account/environments) page.
+
+### Click on the dropdown menu of an environment that is not already the default.
+
+### Click the **Make default** option
+
+A dialog will open asking you if you are certain this is a change you want to make. If so, click the **Make default** button.
+
+### Verify the default tag has moved to the environment you selected.
 
 </Steps>
 
-You now have a project in Humanloop that contains your model config. You can view your project and invite team members by going to the **Project** page.
-
-## Next Steps
-
-With the Prompt set up, you can now integrate it into your app by following the [uSDK/API integration guide](./generate-and-log-with-the-sdk).
+<img src="../../../assets/images/962074b-image.png" />
