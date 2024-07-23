@@ -1,77 +1,71 @@
 ---
-subtitle: In this guide we will demonstrate how to take advantage of OpenAI function calling in our Python SDK.
-description: Learn how to use OpenAI function calling in the Humanloop Python SDK.
-image: https://humanloop.com/assets/docs/social-image.png
+subtitle: How to use Tool Calling with the Humanloop SDK to have the model interact with external functions.
+description: Learn how to use tool calling in your large language models with the Humanloop SDK.
 ---
 
-The Humanloop SDK provides an easy way for you to integrate the functionality of [OpenAI function calling](https://platform.openai.com/docs/guides/function-calling/function-calling), which we refer to as JSON Schema tools, into your existing projects. Tools follow the same universal [JSON Schema syntax](https://json-schema.org/) definition as OpenAI function calling. In this guide, we'll walk you through the process of using tools with the Humanloop SDK via the chat endpoint.
+Humanloop's SDK supports Tool Calling functionality, enabling models to interact with external functions. This feature, akin to [OpenAI's function calling](https://platform.openai.com/docs/guides/function-calling/function-calling), is implemented through JSON Schema tools in Humanloop. These Tools adhere to the widely-used JSON Schema syntax, providing a standardized way to define data structures.
 
----
-
-# Creating a Tool
+In this guide, we'll explore how to leverage these tools within your code using the Humanloop SDK. We'll walk you through the process of defining a tool, making a chat request with the tool, and handling the model's response.
 
 ## Prerequisites
 
-- A Humanloop account - you can create one by going to our sign up page.
-- Python installed - you can download and install Python by following the steps on the [Python download page](https://www.python.org/downloads/).
-
-<Note title="Using other model providers">
-  This guide assumes you're using OpenAI with the `gpt-4` model. Only specific
-  models from OpenAI are supported for function calling.
-</Note>
-
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
-## Install and initialize the SDK
-
-<Warning>The SDK requires Python 3.8 or greater.</Warning>
-
 <Steps>
-### **Import the Humanloop SDK**: If you haven't done so already, you'll need to install and import the Humanloop SDK into your Python environment. You can do this using pip:
+
+### **Create a chat with the tool**
+
+We'll start with the general chat endpoint format.
 
 ```python
-pip install humanloop
-```
-
-_Note, this guide was built with `Humanloop==0.5.18`_.
-
-Then import the SDK in your script:
-
-```python
-from humanloop import Humanloop
-```
-
-### **Initialize the SDK**: Initialize the Humanloop SDK with your API key:
-
-```python
-from humanloop import Humanloop
-
-hl = Humanloop(api_key="<YOUR_HUMANLOOP_API_KEY>")
-```
-
-### **Create a chat with the tool**: We'll start with the general chat endpoint format.
-
-```python
-from humanloop import Humanloop
-
-hl = Humanloop(api_key="<YOUR_HUMANLOOP_API_KEY>")
-
-
 def run_conversation():
     # Step 1: send the conversation and available functions to GPT
     messages = [{"role": "user", "content": "What's the weather like in Boston?"}]
 
-    # TODO - Add tools definition here
-
-    response = hl.chat(
-        project="Assistant",
-        model_config={"model": "gpt-4", "max_tokens": 100},
+    response = hl.prompts.call(
+        path="WeatherBot",
+        prompt={
+            "template": "You are a weather assistant",
+            "model": "gpt-4o-mini",
+            "tools": [
+                {
+                    "name": "get_current_weather",
+                    "description": "Get the current weather in a given location",
+                    "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                        "type": "string",
+                        "name": "Location",
+                        "description": "The city and state, e.g. San Francisco, CA"
+                        },
+                        "unit": {
+                        "type": "string",
+                        "name": "Unit",
+                        "enum": [
+                            "celsius",
+                            "fahrenheit"
+                        ]
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ]
+                    },
+                    "source": "inline"
+                }
+            ]
+        },
         messages=messages,
     )
     response = response.data[0]
 ```
 
-### **Define the tool**: Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example.
+<Markdown src="../../../snippets/tool-calling-models.mdx" />
+
+### **Define the tool**
+
+Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example.
 
 ```python
 from humanloop import Humanloop

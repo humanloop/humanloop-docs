@@ -16,16 +16,17 @@ paths:
   /prompts/call:
     post:
       x-fern-examples:
-        - name: PromptCallByID
+      - name: Supplying Prompt
+          request: << prompt_call_request >>
+          response:
+            body: << prompt_call_response >>
+        - name: By ID
           query-parameters:
             version_id: "prv_Wu6zx1lAWJRqOyL8nWuZk"
           request: << prompt_call_id_request >>
           response:
             body: << prompt_call_response >>
-        - name: PromptCallWithPrompt
-          request: << prompt_call_request >>
-          response:
-            body: << prompt_call_response >>
+        
 
   /prompts:
     get:

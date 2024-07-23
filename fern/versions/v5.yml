@@ -81,8 +81,9 @@ navigation:
               #   path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool Calling in Editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
-              - page: Tool Calling with the SDK
-                path: ../v5-pages/development/guides/tool-calling-sdk.mdx
+              # Doesn't work in the SDK atm!
+              # - page: Tool Calling with the SDK
+              #   path: ../v5-pages/development/guides/tool-calling-sdk.mdx
               - page: Link a JSON Schema Tool
                 path: ../v5-pages/development/guides/link-json.mdx
               - page: Use the Snippet Tool
