@@ -77,8 +77,8 @@ navigation:
                 slug: call-prompt
               - page: Logging LLM calls
                 path: ../v5-pages/development/guides/logging.mdx
-              - page: Manage Tools
-                path: ../v5-pages/development/guides/manage-tools.mdx
+              # - page: Manage Tools
+              #   path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool Calling in Editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
               - page: Tool Calling with the SDK
