@@ -1,5 +1,5 @@
 ---
-subtitle: This guide explains how to use sequences of LLM calls to achieve a task in Humanloop. Humanloop allows you to trace through "sessions", enabling you to track sequences of actions taken by your LLM agent and troubleshoot where your LLM chain went wrong.
+subtitle: How to trace through "sessions" of LLM calls, enabling you to view the full context of actions taken by your LLM agent and troubleshoot issues.
 description: Learn how to log sequences of LLM calls to Humanloop, enabling you to trace through "sessions" and troubleshoot where your LLM chain went wrong or track sequences of actions taken by your LLM agent.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
@@ -18,15 +18,18 @@ By following this guide, you will:
 - You have a system making a series of LLM calls when a user makes a request. If you do not have one, you can use the following example Python script. In this guide, we'll be illustrating the steps to be taken with specific modifications to this script.
 
 <Tip>
-  If you don't use Python, you can checkout our [TypeScript SDK
-  ](/docs/api-reference/sdks) or the underlying API in our [Postman
-  collection](https://www.postman.com/humanloop/workspace/humanloop/collection/12831443-49f7f148-f62a-4dd4-859a-7b4d000069de?action=share&creator=12831443)
-  for the corresponding endpoints.
+  If you don't use Python, you can check out our [TypeScript SDK
+  ](/docs/api-reference/sdks) for the corresponding endpoints.
 </Tip>
+
+<Warning>
+  This guide is written for Python and API v4. It's yet to be updated
+</Warning>
+s
 
 ### Example script
 
-```python
+```python maxLines=0
 """
 # Humanloop sessions tutorial example
 
@@ -39,22 +42,23 @@ Given a user request, the code does the following:
 V1 / 2
 This is the initial version of the code.
 """
-
-import openai
+import os
+from openai import OpenAI
 from serpapi import GoogleSearch
+from humanloop import Humanloop
 
-OPENAI_API_KEY = ""
-SERPAPI_API_KEY = ""
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+HUMANLOOP_API_KEY = os.getenv("HUMANLOOP_API_KEY")
 
 user_request = "Which country won Eurovision 2023?"
 
-client = openai.OpenAI(
-    api_key=OPENAI_API_KEY,
-)
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
+humanloop_client = Humanloop(api_key=HUMANLOOP_API_KEY)
 
 # Check for abuse
 
-response = client.chat.completions.create(
+response = openai_client.chat.completions.create(
     model="gpt-4",
     temperature=0,
     max_tokens=1,
@@ -72,6 +76,16 @@ response = client.chat.completions.create(
 )
 assistant_response = response.choices[0].message.content
 print("Moderator response:", assistant_response)
+
+# Log the moderation check to Humanloop
+humanloop_client.log(
+    project="moderation_check",
+    messages=[
+        {"role": "user", "content": user_request},
+        {"role": "assistant", "content": assistant_response},
+    ],
+    output=assistant_response,
+)
 
 
 if assistant_response == "Yes":
@@ -114,8 +128,12 @@ To set up your local environment to run this script, you will need to have insta
 To send logs to Humanloop, we'll install and use the Humanloop Python SDK.
 
 <Steps>
-### Install the Humanloop Python SDK with `pip install --upgrade humanloop`.
-### Initialize the Humanloop client:
+
+### Install the Humanloop Python SDK
+
+`pip install --upgrade humanloop`.
+
+### Initialize the Humanloop client
 
 Add the following lines to the top of the example file. (Get your API key from your [Organisation Settings page](https://app.humanloop.com/account/api-keys))
 
@@ -127,7 +145,9 @@ HUMANLOOP_API_KEY = ""
 humanloop = Humanloop(api_key=HUMANLOOP_API_KEY)
 ```
 
-### Use Humanloop to fetch the moderator response. This automatically sends the logs to Humanloop:
+### Use Humanloop to fetch the moderator response
+
+This automatically sends the logs to Humanloop
 
 Replace your `openai.ChatCompletion.create()` call under `# Check for abuse` with a `humanloop.chat()` call.
 
@@ -164,7 +184,7 @@ assistant_response = response.data[0].output
   for more information.
 </Tip>
 
-### Log the Google search tool result.
+### Log the Google search tool result
 
 At the top of the file add the `inspect` import.
 
@@ -188,7 +208,9 @@ humanloop.log(
 )
 ```
 
-### Use Humanloop to fetch the assistant response. This automatically sends the log to Humanloop.
+### Use Humanloop to fetch the assistant response
+
+This automatically sends the log to Humanloop.
 
 Replace your `openai.Completion.create()` call under `# Respond to request` with a `humanloop.complete()` call.
 
@@ -216,6 +238,7 @@ You have now connected your multiple calls to Humanloop, logging them to individ
 To view the logs for a single `user_request` together, we can log them to a session. This requires a simple change of just passing in the same session id to the different calls.
 
 <Steps>
+
 ### Create an ID representing a session to connect the sequence of logs.
 
 At the top of the file, instantiate a `session_reference_id`. A V4 UUID is suitable for this use-case.
@@ -225,7 +248,7 @@ import uuid
 session_reference_id = str(uuid.uuid4())
 ```
 
-### Add `session_reference_id` to each `humanloop.chat/complete/log(...)` call.
+### Add `session_reference_id` to each `humanloop.chat/complete/log(...)` call
 
 For example, for the final `humanloop.complete(...)` call, this looks like
 
@@ -250,7 +273,7 @@ response = humanloop.complete(
 
 This is the updated version of the example script above with Humanloop fully integrated. Running this script yields sessions that can be inspected on Humanloop.
 
-```python
+```python maxLines=0
 """
 # Humanloop sessions tutorial example
 

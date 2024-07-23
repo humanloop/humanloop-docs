@@ -100,8 +100,8 @@ navigation:
               - page: Deploy to an environment
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
-              - page: How to debug a prompt
-                path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
+              # - page: How to debug a prompt
+              #   path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
               - page: Create a Directory
                 slug: create-directory
                 path: ../v5-pages/development/guides/create-directory.mdx
