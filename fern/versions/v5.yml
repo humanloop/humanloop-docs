@@ -85,7 +85,8 @@ navigation:
               # - page: Tool Calling with the SDK
               #   path: ../v5-pages/development/guides/tool-calling-sdk.mdx
               - page: Link a JSON Schema Tool
-                path: ../v5-pages/development/guides/link-json.mdx
+                slug: link-tool
+                path: ../v5-pages/development/guides/link-tool.mdx
               - page: Use the Snippet Tool
                 path: ../v5-pages/development/guides/use-snippet-tool.mdx
               - page: Manage Evaluators
