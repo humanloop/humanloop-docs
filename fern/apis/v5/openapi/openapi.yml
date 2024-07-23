@@ -27,6 +27,8 @@ info:
     Guides and further details about key concepts can be found in [our docs](https://docs.humanloop.com/).
   version: 5.0.0
 servers:
+  - url: https://neostaging.humanloop.com/v5
+    description: Staging server
   - url: https://api.humanloop.com/v5
     description: Production server
 paths:
