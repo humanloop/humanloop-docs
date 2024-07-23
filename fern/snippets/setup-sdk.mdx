@@ -6,7 +6,7 @@ First you need to install and initialize the SDK. If you have already done this,
 
 1. Install the Humanloop Python SDK:
    ```shell
-   pip install humanloop
+   pip install humanloop==0.8.0b5
    ```
 2. Start a Python interpreter:
    ```shell
@@ -26,36 +26,14 @@ First you need to install and initialize the SDK. If you have already done this,
 
 1. Install the Humanloop TypeScript SDK:
    ```shell
-   npm install human loop
+   npm install humanloop@0.8.0-beta3
    ```
 2. Import and initialize the SDK:
 
    ```ts
    import { HumanloopClient, Humanloop } from "humanloop";
 
-   const client = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
-   const response = await client.prompts.log({
-     path: "persona",
-     prompt: {
-       model: "gpt-4",
-       template: [
-         {
-           role: "system",
-           content:
-             "You are {{person}}. Answer questions as this person. Do not break character.",
-         },
-       ],
-     },
-     messages: [
-       {
-         role: "user",
-         content: "What really happened at Roswell?",
-       },
-     ],
-     inputs: {
-       person: "Trump",
-     },
-   });
+   const humanloop = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
    ```
 
 </Tab>
