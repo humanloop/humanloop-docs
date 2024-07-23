@@ -67,18 +67,36 @@ For a start, read our [Prompt Engineering 101](https://humanloop.com/blog/prompt
 Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 
 ```jsx
----
-model: gpt-4o
-temperature: 1.0
-max_tokens: -1
----
-<system>
-  Write a song about {{topic}}
-</system>
+Property context:
+
+Location: {{location}}
+Number of Bedrooms: {{number_of_bedrooms}}
+Number of Bathrooms: {{number_of_bathrooms}}
+Square Footage: {{square_footage}}
+Type of Property (e.g., condo, house): {{property_type}}
+Special Features (e.g., pool, garden, garage): {{special_features}}
+Nearby Amenities (e.g., schools, parks, shopping centers): {{nearby_amenities}}
+Distance to Key Locations (e.g., downtown, beach): {{distance_to_key_locations}}
+Year Built: {{year_built}}
+Price: {{price}}
+Contact Information: {{contact_information}}
+Instructions:
+
+Generate a marketing description for the property based on the provided context. The description should be between 150-200 words and have a friendly, engaging tone. Highlight the key features and amenities that make this property attractive to potential buyers. Ensure the copy is informative and enticing, encouraging readers to take action.
 ```
 
 This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
 The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
+
+### Tool Use (Function Calling)
+
+Certain large language models support tool use or "function calling". For these models, you can supply the description of functions and the model can choose to call one or more of them by providing the values to call the functions with.
+
+<img src="../../assets/images/b8e1ce6-toolsimage.png" />
+
+Tools for function calling can be defined inline in the Prompt editor in which case they form part of the Prompt version. Alternatively, they can be pulled out in a Tool file which is then referenced in the Prompt.
+
+Each Tool has functional interface that can be supplied as the _JSON Schema_ needed for function calling. Additionally, if the Tool is executable on Humanloop, the result of any tool will automatically be inserted into the response in the API and in the Editor.
 
 ## Using Prompts
 
@@ -90,7 +108,7 @@ A Prompt is callable in that if you supply the necessary inputs, it will return 
 
 Once you have created and versioned your Prompt, you can call it as an API to generate responses from the large language model directly. You can also fetch the log the data from your LLM calls, enabling you to evaluate and improve your models.
 
-## Proxying your LLM calls in Humanloop vs async logging
+## Proxying your LLM calls vs async logging
 
 The easiest way to both call the large language model with your Prompt and to log the data is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/development/guides/call-prompt)) which will do both in a single API request. However, there are two main reasons why you may wish to log the data seperately from generation:
 
@@ -118,14 +136,53 @@ The .prompt file is heavily inspired by [MDX](https://mdxjs.com/), with model an
 <CodeBlocks>
 ```jsx Chat
 ---
-model: gpt-4
-temperature: 1.0
+model: gpt-4o
+temperature: 0.7
 max_tokens: -1
+top_p: 1.0
+presence_penalty: 0.0
+frequency_penalty: 0.0
 provider: openai
 endpoint: chat
+tools: [
+  {
+    "name": "get_current_weather",
+    "description": "Get the current weather in a given location",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "name": "Location",
+          "description": "The city and state, e.g. San Francisco, CA"
+        },
+        "unit": {
+          "type": "string",
+          "name": "Unit",
+          "enum": [
+            "celsius",
+            "fahrenheit"
+          ]
+        }
+      },
+      "required": [
+        "location"
+      ]
+    },
+    "source": "inline"
+  }
+]
 ---
+
 <system>
-  You are a friendly assistant.
+  You are a weather bot designed to provide users with accurate and up-to-date weather information.
+
+You have access to a tool called `get_current_weather`, which allows you to fetch the current weather conditions for any given location. Users can request the current weather by specifying a city and state, and optionally, they can choose the unit of temperature (Celsius or Fahrenheit).
+
+Your responses should be clear, concise, and friendly, providing all relevant weather details such as temperature, humidity, wind speed, and any other important information.
+
+Always ensure to confirm the location and unit of measurement when responding to user inquiries.
+
 </system>
 ```
 
