@@ -72,16 +72,11 @@ navigation:
               - page: Create a Prompt
                 slug: create-prompt
                 path: ../v5-pages/development/guides/create-prompt.mdx
-
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
               - page: Logging LLM calls
                 path: ../v5-pages/development/guides/logging.mdx
-              - page: Use your own model
-                path: ../v5-pages/development/guides/use-your-own-model.mdx
-              - page: Upload historic data
-                path: ../v5-pages/development/guides/upload-historic-data.mdx
               - page: Manage Tools
                 path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool Calling in Editor
