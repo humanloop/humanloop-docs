@@ -1,45 +1,38 @@
 ---
-subtitle: Manage common text snippets in your Prompts
+subtitle: How to re-use common text snippets in your Prompt templates with the Snippet Tool
 description: Learn how to use the Snippet tool to manage common text snippets that you want to reuse across your different prompts.
 ---
 
-The Humanloop Snippet tool supports managing common text 'snippets' (or 'passages', or 'chunks') that you want to reuse across your different prompts. A Snippet tool acts as a simple key/value store, where the key is the name of the common re-usable text snippet and the value is the corresponding text.
+The Snippet Tool supports managing common text 'snippets' that you want to reuse across your different prompts. A Snippet tool acts as a simple key/value store, where the key is the name of the common re-usable text snippet and the value is the corresponding text.
 
 For example, you may have some common persona descriptions that you found to be effective across a range of your LLM features. Or maybe you have some specific formatting instructions that you find yourself re-using again and again in your prompts.
 
 Instead of needing to copy and paste between your editor sessions and keep track of which projects you edited, you can instead inject the text into your prompt using the Snippet tool.
 
----
-
 ## Create and use a Snippet Tool
 
 ### Prerequisites
 
-- A Humanloop account - you can create one by going to our sign up page.
-- Be on a paid plan - your organization has been upgraded from the Free tier.
-- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
-
-<Warning title="Paid feature">
-  The Snippet tool is not available for the Free tier. Please contact us if you
-  wish to learn more about our [Enterprise plan](https://humanloop.com/pricing)
-</Warning>
+<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+<Markdown src="../../../snippets/paid-feature.mdx" />
 
 To create and use a snippet tool, follow the following steps:
 
 <Steps>
-### Navigate to the [tools tab](https://app.humanloop.com/hl-test/tools) in your organisation and select the Snippet tool card.
 
-<img src="../../../assets/images/9f27d70-image.png" />
+### Create a new Snippet Tool
 
-### Name the tool
+<img src="../../../assets/images/tool-choice.png" />
 
-Name it`assistant-personalities` and give it a description `Useful assistant personalities`.
+### Name the Tool
 
-### Add a snippet called "helpful-assistant"
+Name it `assistant-personalities` and give it a description `Useful assistant personalities`.
+
+### Add a key called "helpful-assistant"
 
 In the initial box add `helpful-assistant` and give it a value of `You are a helpful assistant. You like to tell jokes and if anyone asks your name is Sam.`
 
-### Add another snippet called "grumpy-assistant"
+### Add another key called "grumpy-assistant"
 
 Let's add another key-value pair, so press the **Add a key/value pair** button and add a new key of `grumpy-assistant` and give it a value of `You are a grumpy assistant. You rarely try to help people and if anyone asks your name is Freddy.`.
 
@@ -57,8 +50,9 @@ Go to the Editor of your previously created project.
 
 Delete the existing prompt template and add `{{ assistant-personalities(key) }}` to your prompt.
 
-<Note title="**Tool syntax: {{ <tool-name>(key) }}**">
-Double curly bracket syntax is used to call a tool in the editor.  Inside the curly brackets you put the tool name, e.g. `{{ <tool-name>(key) }}`.
+<Note title="Tool syntax: {{ tool-name(key) }}">
+Double curly bracket syntax is used to call a tool in the editor. Inside the curly brackets you put the tool name, e.g. `{{ my-tool-name(key) }}`.
+
 </Note>
 
 ### Enter the key as an input
@@ -92,12 +86,14 @@ If you're happy with you're grumpy assistant, save this new version of your Prom
 
 <img src="../../../assets/images/c6def6f-image.png" />
 
-The Snippet tool is particularly useful because you can define passages of text once in a Snippet tool and reuse them across multiple prompts, without needing to copy/paste them and manually keep them all in sync. Editing the values in your tool allows the changes to automatically propagate to the model configs when you update them, as long as the key is the same.
+The Snippet tool is particularly useful because you can define passages of text once in a Snippet tool and reuse them across multiple prompts, without needing to copy/paste them and manually keep them all in sync. Editing the values in your tool allows the changes to automatically propagate to the Prompts when you update them, as long as the key is the same.
 
 <Warning title="Changing a snippet value can change a Prompt's behaviour">
-  Since the values for a Snippet are saved on the Tool, not the Prompt, changing
-  the values (or keys) defined in your Snippet tools could affect the relative
-  propmt's behaviour that won't be captured by the Prompt's version. This could
-  be exactly what you intend, however caution should still be used make sure the
-  changes are expected.
+Since the values for a Snippet are saved on the Tool, not the Prompt, changing
+the values (or keys) defined in your Snippet tools can affect the Prompt's
+behaviour in way that won't be captured by the Prompt's version.
+
+This could be exactly what you intend, however caution should still be used make sure the
+changes are expected.
+
 </Warning>

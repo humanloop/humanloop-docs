@@ -79,7 +79,7 @@ navigation:
                 path: ../v5-pages/development/guides/logging.mdx
               # - page: Manage Tools
               #   path: ../v5-pages/development/guides/manage-tools.mdx
-              - page: Tool Calling in Editor
+              - page: Tool calling in Editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
               # Doesn't work in the SDK atm!
               # - page: Tool Calling with the SDK
@@ -87,8 +87,9 @@ navigation:
               - page: Link a JSON Schema Tool
                 slug: link-tool
                 path: ../v5-pages/development/guides/link-tool.mdx
-              - page: Use the Snippet Tool
-                path: ../v5-pages/development/guides/use-snippet-tool.mdx
+              - page: Reusable snippets in Prompts
+                slug: reusable-snippets
+                path: ../v5-pages/development/guides/reusable-snippets.mdx
               - page: Manage Evaluators
                 path: ../v5-pages/development/guides/manage-evaluators.mdx
               - page: Chaining calls (Sessions)
