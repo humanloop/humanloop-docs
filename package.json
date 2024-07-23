@@ -4,7 +4,7 @@
   "description": "Humanloop Docs powered by Fern",
   "main": "index.js",
   "scripts": {
-    "dev": "fern docs dev",
+    "dev": "fern docs dev || npm run dev",
     "check": "fern check",
     "watch-template": "chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/openapi*.yml' -c 'python ./scripts/populate_template.py && npm run check'",
     "sync": "./scripts/sync_openapi.sh || true && concurrently \"npm run dev\" \"npm run watch-template\""
