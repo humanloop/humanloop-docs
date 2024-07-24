@@ -147,8 +147,8 @@ navigation:
       #                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
         contents:
-          - page: Org, Teamspaces, Folders
-            path: ../v5-pages/admin/org-teamspaces-folders.mdx
+          # - page: Org, Teamspaces, Folders
+          #   path: ../v5-pages/admin/org-teamspaces-folders.mdx
           - page: Access roles (RBACs)
             path: ../v5-pages/admin/access-roles.mdx
           - page: SSO and Authentication
