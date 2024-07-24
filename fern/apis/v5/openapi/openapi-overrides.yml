@@ -52,16 +52,21 @@ paths:
   /prompts/call:
     post:
       x-fern-examples:
-      - name: PromptCallByID
-        query-parameters:
-          version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
+      - name: Supplying Prompt
         request:
           path: persona
+          prompt:
+            model: gpt-4
+            template:
+            - role: system
+              content: You are {{person}}. Answer any questions as this person. Do
+                not break character.
           messages:
           - role: user
             content: What really happened at Roswell?
           inputs:
             person: Trump
+          stream: false
         response:
           body:
             prompt:
@@ -118,21 +123,16 @@ paths:
               prompt_tokens: 34
               output_tokens: 125
               index: 0
-      - name: PromptCallWithPrompt
+      - name: By ID
+        query-parameters:
+          version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
         request:
           path: persona
-          prompt:
-            model: gpt-4
-            template:
-            - role: system
-              content: You are {{person}}. Answer any questions as this person. Do
-                not break character.
           messages:
           - role: user
             content: What really happened at Roswell?
           inputs:
             person: Trump
-          stream: false
         response:
           body:
             prompt:
