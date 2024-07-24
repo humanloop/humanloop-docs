@@ -1,51 +1,66 @@
 ---
-subtitle: A companion to our API references.
-description: Reference our Postman Workspace for examples of how to interact with the Humanloop API directly.
+subtitle: Humanloop's security and compliance measures
+description: Learn about Humanloop's commitment to security, data protection, and compliance with industry standards.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-In our various guides we assumed the use of our [Python SDK](https://pypi.org/project/humanloop/). There are some use cases where this is not appropriate. For example, if you are integrating Humanloop from a non-Python backend, such as Node.js, or using a no-or-low-code builder such as [Bubble](https://bubble.io/) or [Zapier](https://zapier.com/). In these cases, you can leverage our RESTful [APIs](/api-reference/projects/get) directly.
+At Humanloop, we take security and compliance seriously. We understand that our customers trust us with their sensitive data and we are committed to maintaining the highest standards of security and data protection.
 
-To help with direct API integrations, we maintain a [Postman Workspace](https://www.postman.com/humanloop/workspace/humanloop) with various worked examples for the main endpoints you will need.
+## Security Measures
 
-## Prerequisites
+### Data Encryption
 
-- A Humanloop account. If you don't have one, you can create an account now by going to the [Sign up page](https://app.humanloop.com/signup).
+- All data in transit is encrypted using TLS 1.2 or higher.
+- Data at rest is encrypted using AES-256 encryption.
 
-## Set your API keys in Postman
+### Access Control
 
-- Navigate to your [Humanloop profile page](https://app.humanloop.com/account/settings) and copy your Humanloop API key.
-- Navigate to our [Postman Workspace](https://www.postman.com/humanloop/workspace/humanloop/overview) and set the environment to `Production` in the dropdown in the top right where it says `No Environment`
-- Select the `Environment quick look` button beside the environment dropdown and paste your Humanloop API key into the `CURRENT VALUE` of the `user_api_key` variable:
+- We implement strict role-based access control (RBAC) for all our systems.
+- Multi-factor authentication (MFA) is enforced for all employee accounts.
 
-<img src="../../assets/images/cd295b4-image.png" />
+### Infrastructure Security
 
-- Navigate to your [OpenAI profile](https://beta.openai.com/account/api-keys) and copy the API key.
-- Navigate back to our Postman Workspace and paste your OpenAI key into the `CURRENT VALUE` of the global `open_ai_key` variable:
+- Our infrastructure is hosted on AWS, leveraging their advanced security features.
+- We use firewalls, intrusion detection systems, and regular security audits to protect our systems.
 
-<img src="../../assets/images/36f7fd4-image.png" />
+## Compliance
 
-You are now all set to use Postman to interact with the APIs with real examples!
+### SOC 2 Compliance
 
-## Try out the Postman Collections
+Humanloop is SOC 2 Type II compliant. This certification demonstrates our commitment to:
 
-<Info>
-  A **collection** is a set of executable API specifications that are grouped
-  together in Postman.
-</Info>
+- Security
+- Availability
+- Processing Integrity
+- Confidentiality
+- Privacy
 
-There are 4 executable collections provided to check out.
+### GDPR Compliance
 
-The **Chat** collection is the best place to start to get a project setup and sending chat messages. To try it out:
+We are fully compliant with the General Data Protection Regulation (GDPR). This includes:
 
-- Expand the V4 **Chat** collection on the left hand side.
-- Select **Create chat sending model-config** from the list
-- Execute the `POST` calls in order from top to bottom by selecting them under the collection on the left hand side and pressing the `Send` button on the right hand side. You should see the resulting response body appearing in the box below the request body.
-  - Try editing the request body and resending - you can reference the corresponding [API guides](https://humanloop.readme.io/reference) for a full spec of the request schema.
+- Data minimization practices
+- User rights management
+- Data processing agreements
 
-<img src="../../assets/images/5f7f717-image.png" />
+### HIPAA Compliance
 
-- If you now navigate to your [Humanloop projects page](https://app.humanloop.com), you will see a new project called `assistant` with logged data.
-- You can now generate populated code snippets across a range of languages by selecting the code icon on the right hand side beside the request and response bodies:
+For customers requiring HIPAA compliance, we offer:
 
-<img src="../../assets/images/7d777dc-image.png" />
+- Dedicated instances with full [HIPAA compliant](https://aws.amazon.com/compliance/hipaa-compliance/) AWS setup.
+- Business Associate Agreements (BAA) upon request.
+
+## Data Protection
+
+- We never train on customer data.
+- Data residency options are available for customers with specific geographic requirements.
+
+## Regular Audits and Penetration Testing
+
+We conduct regular internal and external security audits and penetration tests to ensure the ongoing security of our systems.
+
+## Reporting Security Concerns
+
+If you believe you've found a security vulnerability in our service, please report it to security@humanloop.com. We take all reports seriously and will respond promptly.
+
+For more detailed information about our security practices or to request our security documentation, please contact our sales team.
