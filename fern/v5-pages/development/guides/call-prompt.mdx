@@ -6,7 +6,9 @@ image: https://humanloop.com/assets/docs/social-image.png
 
 This guide will show you how to call your Prompts as an API, enabling you to generate responses from the large language model that uses the versioned template and parameters.
 
-## Prerequisites
+## Call an existing Prompt
+
+### Prerequisites
 
 Before you can use the new `prompt.call()` method, you need to have a Prompt. If you don't have one, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
 
@@ -14,18 +16,40 @@ Before you can use the new `prompt.call()` method, you need to have a Prompt. If
 
 <Steps>
 
+### Get the Prompt ID
+
+In Humanloop, navigate to the Prompt and copy the Prompt ID by clicking on the ID in the top right corner of the screen.
+
+<img src="../../../assets/images/prompt-id.png" />
+
 ### Use the SDK to call your model
 
 Now you can use the SDK to generate completions and log the results to your project using the new `prompt.call()` method:
 
-<EndpointRequestSnippet endpoint="POST /prompts/call" />
+<EndpointRequestSnippet endpoint="POST /prompts/call" >
 
-<EndpointResponseSnippet endpoint="POST /prompts/call" />
+<EndpointResponseSnippet endpoint="POST /prompts/call" >
+
+<EndpointRequestSnippet endpoint="POST /prompts/call" example="By ID" />
+
+<EndpointResponseSnippet endpoint="POST /prompts/call" example="By ID" />
 
 ### Navigate to the **Logs** tab of the Prompt
 
 And you'll be able to see the recorded inputs, messages and responses of your chat.
 
 </Steps>
+
+## Call the LLM with a prompt that you're defining in code
+
+<EndpointRequestSnippet
+  endpoint="POST /prompts/call"
+  example="Supplying Prompt"
+/>
+
+<EndpointResponseSnippet
+  endpoint="POST /prompts/call"
+  example="Supplying Prompt"
+/>
 
 🎉 Now that you have chat messages flowing through your project you can start to log your end user feedback to evaluate and improve your models.
