@@ -164,10 +164,10 @@ navigation:
         contents:
           - page: Supported Models
             path: ../v5-pages/reference/models.mdx
-          - page: Supported Tools
-            path: ../v5-pages/reference/supported-tools.mdx
-          - page: Supported Types of Evaluators
-            path: ../v5-pages/reference/supported-evaluator-types.mdx
+          # - page: Supported Tools
+          #   path: ../v5-pages/reference/supported-tools.mdx
+          # - page: Supported Types of Evaluators
+          #   path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
           - page: Deployment Options
