@@ -81,13 +81,35 @@ async function syncOpenAPI(version) {
 
 async function populateTemplate() {
   log("Populating template with overrides...", "blue");
-  // You'll need to implement this part based on your Python script
-  // For now, it's just a placeholder
-  log(
-    `✨ YAML file generated successfully: ${PROJECT_ROOT}/fern/apis/v5/openapi/openapi-overrides.yml`,
-    "green"
-  );
-  log("✅ Successfully populated the template with overrides.", "green");
+
+  try {
+    const scriptPath = path.join(__dirname, "populate_template.py");
+    const { exec } = await import("child_process");
+
+    await new Promise((resolve, reject) => {
+      exec(`python ${scriptPath}`, (error, stdout, stderr) => {
+        if (error) {
+          log(`Error executing populate_template.py: ${error}`, "red");
+          reject(error);
+          return;
+        }
+        if (stderr) {
+          log(`populate_template.py stderr: ${stderr}`, "yellow");
+        }
+        log(stdout, "blue");
+        resolve();
+      });
+    });
+
+    log(
+      `✨ YAML file generated successfully: ${PROJECT_ROOT}/fern/apis/v5/openapi/openapi-overrides.yml`,
+      "green"
+    );
+    log("✅ Successfully populated the template with overrides.", "green");
+  } catch (error) {
+    log(`❌ Error in populateTemplate: ${error}`, "red");
+    throw error;
+  }
 }
 
 async function main() {

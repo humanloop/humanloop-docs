@@ -1,3 +1,6 @@
+// # JS version of populate_template.py
+// NB THIS IS ISN'T WORKING YET!! some weirdness
+
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -16,13 +19,32 @@ async function loadJson(fileName) {
   return JSON.parse(content);
 }
 
+// Custom YAML types
+const STRING = new yaml.Type("tag:yaml.org,2002:str", {
+  kind: "scalar",
+  construct: function (data) {
+    return data !== null ? data : "";
+  },
+  represent: function (object, style) {
+    if (typeof object === "string" && object.includes("\n")) {
+      return object
+        .split("\n")
+        .map((line) => line.trim())
+        .join(" ");
+    }
+    return object;
+  },
+});
+
+const YAML_SCHEMA = yaml.DEFAULT_SCHEMA.extend([STRING]);
+
 async function main() {
   console.log("1. Loading YAML template");
   const templateContent = await fs.readFile(
     path.join(TEMPLATE_DIR, TEMPLATE_FILE),
     "utf-8"
   );
-  const templateYaml = yaml.load(templateContent);
+  const templateYaml = yaml.load(templateContent, { schema: YAML_SCHEMA });
 
   console.log("2. Converting template to JSON");
   const templateJson = JSON.stringify(templateYaml);
@@ -51,10 +73,12 @@ async function main() {
 
   console.log("6. Converting populated JSON to YAML");
   const yamlString = yaml.dump(populatedJson, {
+    schema: YAML_SCHEMA,
     sortKeys: false,
     noRefs: true,
     lineWidth: -1,
-    indent: 2,
+    quotingType: '"',
+    forceQuotes: true,
   });
 
   console.log("7. Writing YAML to file");
@@ -68,4 +92,3 @@ main().catch((error) => {
   console.error("An error occurred during the template population process:");
   console.error(error);
 });
-prompt_log_request;
