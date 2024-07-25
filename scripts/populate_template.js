@@ -1,6 +1,3 @@
-// # JS version of populate_template.py
-// NB THIS IS ISN'T WORKING YET!! some weirdness
-
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -19,37 +16,48 @@ async function loadJson(fileName) {
   return JSON.parse(content);
 }
 
-// Custom YAML types
-const STRING = new yaml.Type("tag:yaml.org,2002:str", {
-  kind: "scalar",
-  construct: function (data) {
-    return data !== null ? data : "";
-  },
-  represent: function (object, style) {
-    if (typeof object === "string" && object.includes("\n")) {
-      return object
-        .split("\n")
-        .map((line) => line.trim())
-        .join(" ");
+/**
+ * Replaces placeholders in the given object with values from the JSON data.
+ * Placeholders are of the form <<key>> and are replaced with the value of the key in the JSON data.
+ * If the key is not found in the JSON data, the placeholder is left unchanged.s
+ * @param {*} obj The object to replace placeholders in.
+ * @param {*} jsonData The JSON data to use for replacement.
+ * @returns
+ */
+function replacePlaceholders(obj, jsonData) {
+  if (typeof obj === "string" && obj.match(/^<<\s*[\w.]+\s*>>$/)) {
+    const key = obj.replace(/^<<\s*([\w.]+)\s*>>$/, "$1");
+    return jsonData[key] || obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map((item) => replacePlaceholders(item, jsonData));
+  }
+  if (typeof obj === "object" && obj !== null) {
+    const newObj = {};
+    for (const [key, value] of Object.entries(obj)) {
+      newObj[key] = replacePlaceholders(value, jsonData);
     }
-    return object;
-  },
-});
-
-const YAML_SCHEMA = yaml.DEFAULT_SCHEMA.extend([STRING]);
+    return newObj;
+  }
+  return obj;
+}
 
 async function main() {
-  console.log("1. Loading YAML template");
+  console.log("1. Loading YAML template and verifying parse");
   const templateContent = await fs.readFile(
     path.join(TEMPLATE_DIR, TEMPLATE_FILE),
     "utf-8"
   );
-  const templateYaml = yaml.load(templateContent, { schema: YAML_SCHEMA });
+  let yamlObject;
+  try {
+    yamlObject = yaml.load(templateContent);
+    console.log("YAML parsed successfully");
+  } catch (error) {
+    console.error("Error parsing YAML:", error);
+    return;
+  }
 
-  console.log("2. Converting template to JSON");
-  const templateJson = JSON.stringify(templateYaml);
-
-  console.log("3. Loading example JSON files");
+  console.log("2. Loading JSON examples");
   const jsonData = {};
   const files = await fs.readdir(EXAMPLES_DIR);
   for (const file of files) {
@@ -59,31 +67,28 @@ async function main() {
     }
   }
 
-  console.log("4. Replacing placeholders in template");
-  const populatedJsonString = templateJson.replace(
-    /"<<\s*([\w.]+)\s*>>"/g,
-    (match, key) => {
-      const value = key.split(".").reduce((o, k) => o && o[k], jsonData);
-      return value !== undefined ? JSON.stringify(value) : match;
-    }
+  console.log(jsonData["prompt_log_request"]);
+
+  console.log("3. Replacing placeholders in YAML object");
+  const populatedObject = replacePlaceholders(yamlObject, jsonData);
+
+  console.log(
+    populatedObject["paths"]["/prompts/log"]["post"]["x-fern-examples"][0]
   );
 
-  console.log("5. Parsing populated JSON");
-  const populatedJson = JSON.parse(populatedJsonString);
-
-  console.log("6. Converting populated JSON to YAML");
-  const yamlString = yaml.dump(populatedJson, {
-    schema: YAML_SCHEMA,
-    sortKeys: false,
-    noRefs: true,
+  console.log("4. Converting populated object to YAML and writing to file");
+  const outputYaml = yaml.dump(populatedObject, {
+    indent: 2,
     lineWidth: -1,
+    noRefs: true,
     quotingType: '"',
-    forceQuotes: true,
   });
 
-  console.log("7. Writing YAML to file");
-  const outputYamlFile = path.join(TEMPLATE_DIR, "openapi-overrides.yml");
-  await fs.writeFile(outputYamlFile, yamlString);
+  //   const outputYamlFile = path.join(TEMPLATE_DIR, "openapi-overrides.yml");
+  //   await fs.writeFile(outputYamlFile, outputYaml);
+
+  const outputJsonFile = path.join(TEMPLATE_DIR, "openapi-overrides.json");
+  await fs.writeFile(outputJsonFile, JSON.stringify(populatedObject, null, 2));
 
   console.log("Template population process completed!");
 }
