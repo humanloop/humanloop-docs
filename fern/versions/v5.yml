@@ -75,6 +75,8 @@ navigation:
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
+              - page: Proxying model calls
+                path: ../v5-pages/development/guides/call-llm.mdx
               - page: Logging LLM calls
                 path: ../v5-pages/development/guides/logging.mdx
               # - page: Manage Tools
