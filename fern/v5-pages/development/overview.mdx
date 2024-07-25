@@ -73,15 +73,11 @@ Location: {{location}}
 Number of Bedrooms: {{number_of_bedrooms}}
 Number of Bathrooms: {{number_of_bathrooms}}
 Square Footage: {{square_footage}}
-Type of Property (e.g., condo, house): {{property_type}}
-Special Features (e.g., pool, garden, garage): {{special_features}}
-Nearby Amenities (e.g., schools, parks, shopping centers): {{nearby_amenities}}
 Distance to Key Locations (e.g., downtown, beach): {{distance_to_key_locations}}
 Year Built: {{year_built}}
 Price: {{price}}
 Contact Information: {{contact_information}}
 Instructions:
-
 Generate a marketing description for the property based on the provided context. The description should be between 150-200 words and have a friendly, engaging tone. Highlight the key features and amenities that make this property attractive to potential buyers. Ensure the copy is informative and enticing, encouraging readers to take action.
 ```
 
@@ -91,6 +87,14 @@ The Prompt stores the configuration and the query time data in [Logs](./logs), w
 ### Tool Use (Function Calling)
 
 Certain large language models support tool use or "function calling". For these models, you can supply the description of functions and the model can choose to call one or more of them by providing the values to call the functions with.
+
+Function calling enables the model to perform various tasks:
+
+**1. Call external APIs**: The model can translate natural language into API calls, allowing it to interact with external services and retrieve information.
+
+**2. Take actions**: The model can exhibit agentic behavior, making decisions and taking actions based on the given context.
+
+**3. Provide structured output**: The model's responses can be constrained to a specific structured format, ensuring consistency and ease of parsing in downstream applications.
 
 <img src="../../assets/images/b8e1ce6-toolsimage.png" />
 
