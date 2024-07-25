@@ -83,23 +83,11 @@ async function populateTemplate() {
   log("Populating template with overrides...", "blue");
 
   try {
-    const scriptPath = path.join(__dirname, "populate_template.py");
-    const { exec } = await import("child_process");
+    const scriptPath = path.join(__dirname, "populate_template.js");
+    const { execSync } = await import("child_process");
 
-    await new Promise((resolve, reject) => {
-      exec(`python ${scriptPath}`, (error, stdout, stderr) => {
-        if (error) {
-          log(`Error executing populate_template.py: ${error}`, "red");
-          reject(error);
-          return;
-        }
-        if (stderr) {
-          log(`populate_template.py stderr: ${stderr}`, "yellow");
-        }
-        log(stdout, "blue");
-        resolve();
-      });
-    });
+    const stdout = execSync(`node ${scriptPath}`).toString();
+    log(stdout, "blue");
 
     log(
       `✨ YAML file generated successfully: ${PROJECT_ROOT}/fern/apis/v5/openapi/openapi-overrides.yml`,
