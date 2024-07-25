@@ -1,0 +1,40 @@
+---
+subtitle: A comprehensive guide on calling LLMs through the Humanloop API
+description: Learn how to leverage the Humanloop proxy to call various AI models from different providers using a unified interface
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+This guide walks you through how to call various models through the Humanloop API. This is the same as [calling a Prompt](/docs/guides/prompt-management/call-prompt) but instead of using a version of the Prompt that is defined in Humanloop, you're setting the template and parameters directly in code.
+
+The benefits of using the Humanloop proxy are:
+
+- consistent interface across different AI providers: OpenAI, Anthropic, Google and more.
+- logs all your requests automatically
+- creates versions of your Prompts automatically, so you can track performance over time
+- can call multiple providers while managing API keys centrally (you can also supply keys at runtime)
+
+In this guide, we'll cover how to call LLMs using the Humanloop proxy.
+
+## Call the LLM with a prompt that you're defining in code
+
+### Prerequisites
+
+<Markdown src="../../../snippets/setup-sdk.mdx" />
+
+<Steps>
+
+### Use the SDK to call your model
+
+Now you can use the SDK to generate completions and log the results to your project using the new `prompt.call()` method:
+
+<EndpointRequestSnippet endpoint="POST /prompts/call" example="With Prompt" />
+
+<EndpointResponseSnippet endpoint="POST /prompts/call" example="With Prompt" />
+
+### Navigate to the **Logs** tab of the Prompt
+
+And you'll be able to see the recorded inputs, messages and responses of your chat.
+
+</Steps>
+
+🎉 Now that you have chat messages flowing through your project you can start to log your end user feedback to evaluate and improve your models.
