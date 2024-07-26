@@ -131,7 +131,6 @@ paths:
             template:
             - role: system
               content: You are stockbot. Return latest prices.
-            tool_choice: auto
             tools:
             - name: get_stock_price
               description: Get current stock price

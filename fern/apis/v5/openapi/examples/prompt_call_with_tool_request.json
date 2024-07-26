@@ -8,7 +8,6 @@
         "content": "You are stockbot. Return latest prices."
       }
     ],
-    "tool_choice": "auto",
     "tools": [
       {
         "name": "get_stock_price",
