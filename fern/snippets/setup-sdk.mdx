@@ -13,9 +13,13 @@ First you need to install and initialize the SDK. If you have already done this,
    python
    ```
 3. Initialize the SDK with your Humanloop API key (get your API key from your [Organisation Settings page](https://app.humanloop.com/account/api-keys))
+
    ```python
    from humanloop import Humanloop
-   humanloop = Humanloop(api_key="<YOUR Humanloop API KEY>")
+   hl = Humanloop(api_key="<YOUR Humanloop API KEY>")
+
+   # Check that the authentication was successful
+   print(hl.prompts.list())
    ```
 
 </Tab>
@@ -34,6 +38,9 @@ First you need to install and initialize the SDK. If you have already done this,
    import { HumanloopClient, Humanloop } from "humanloop";
 
    const humanloop = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
+
+   // Check that the authentication was successful
+   console.log(await humanloop.prompts.list());
    ```
 
 </Tab>
