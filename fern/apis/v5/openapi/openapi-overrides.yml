@@ -52,20 +52,28 @@ paths:
   /prompts/call:
     post:
       x-fern-examples:
-      - name: Supplying Prompt
+      - name: Supplying Prompt with Tool
         request:
           path: persona
           prompt:
             model: gpt-4
             template:
             - role: system
-              content: You are {{person}}. Answer any questions as this person. Do
-                not break character.
+              content: You are stockbot. Return latest prices.
+            tools:
+            - name: get_stock_price
+              description: Get current stock price
+              parameters:
+                type: object
+                properties:
+                  ticker_symbol:
+                    type: string
+                    name: Ticker Symbol
+                    description: Ticker symbol of the stock
+                required: []
           messages:
           - role: user
-            content: What really happened at Roswell?
-          inputs:
-            person: Trump
+            content: latest apple
           stream: false
         response:
           body:
@@ -115,28 +123,20 @@ paths:
               prompt_tokens: 34
               output_tokens: 125
               index: 0
-      - name: Supplying Prompt with Tool
+      - name: Supplying Prompt
         request:
           path: persona
           prompt:
             model: gpt-4
             template:
             - role: system
-              content: You are stockbot. Return latest prices.
-            tools:
-            - name: get_stock_price
-              description: Get current stock price
-              parameters:
-                type: object
-                properties:
-                  ticker_symbol:
-                    type: string
-                    name: Ticker Symbol
-                    description: Ticker symbol of the stock
-                required: []
+              content: You are {{person}}. Answer any questions as this person. Do
+                not break character.
           messages:
           - role: user
-            content: latest apple
+            content: What really happened at Roswell?
+          inputs:
+            person: Trump
           stream: false
         response:
           body:
