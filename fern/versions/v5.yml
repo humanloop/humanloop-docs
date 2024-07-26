@@ -37,6 +37,8 @@ navigation:
                 path: ../v5-pages/concepts/evaluators.mdx
               - page: Logs
                 path: ../v5-pages/concepts/logs.mdx
+              - page: Sessions
+                path: ../v5-pages/concepts/sessions.mdx
               - page: Environments
                 path: ../v5-pages/concepts/environments.mdx
               - page: Directories
@@ -58,7 +60,8 @@ navigation:
       #   path: ../v5-pages/tutorials/evaluating-rag.mdx
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
-      - section: Prompt Management
+      - section: Prompt Engineering + Management
+        slug: development
         contents:
           - page: Overview
             path: ../v5-pages/development/overview.mdx

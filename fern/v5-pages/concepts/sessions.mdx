@@ -1,0 +1,43 @@
+---
+subtitle: "Sessions allow you to trace and analyze sequences of interactions within your AI application, providing insights into complex workflows and agent behaviors."
+description: "Understand how Sessions in Humanloop help you track and manage sequences of Logs, representing the full execution flow of your AI application, including nested interactions and tool usage."
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Feba7b10-small-SCR-20230515-phdb.png&w=3840&q=75
+---
+
+Sessions capture the sequences of events in your AI application for a given user interaction or task completion. For example, a RAG pipeline can be tracked from the initial query, to the retrieval step, reranker, and final Prompt generation. Or a chatbot agent's interaction with a user can be tracked through the whole conversation and tool calls.
+
+### Understanding Sessions
+
+A Session is essentially a sequence of [Logs](/docs/concepts/logs). Each Log has inputs, outputs, and metadata. The Session is as simple as having a common `session_id` for all the Logs in a Session and an optional parent-child relationship between Logs.
+
+These Logs can represent various types of interactions and operations within your AI application, including:
+
+- Prompt executions
+- Tool calls
+- Evaluator runs
+- Other custom events
+
+Sessions are particularly useful for tracking the behavior of AI agents or complex chains of operations, as they allow you to see the entire context and flow of a particular interaction or task.
+
+### Use Cases for Sessions
+
+Sessions are particularly valuable in the following scenarios:
+
+1. **Agent Workflows**: When working with AI agents that make multiple decisions or take multiple actions, Sessions help you trace the agent's thought process and actions.
+
+2. **Complex Chains**: For applications that involve chains of operations (e.g., a series of Prompt calls with intermediate processing), Sessions provide a clear view of the entire process.
+
+3. **Debugging and Optimization**: By examining Session logs, you can identify bottlenecks, errors, or unexpected behaviors in your AI workflows.
+
+4. **Performance Analysis**: Sessions allow you to analyze the efficiency and effectiveness of your AI processes over time.
+
+### Working with Sessions
+
+To leverage Sessions in your application, you can follow our [guide on chaining calls and sessions](/docs/prompt-engineering-and-management/guides/chaining-calls-sessions). The process can be as simple as setting a `session_id` in your Log or Call API requests. Here's a basic overview:
+
+1. Generate a unique `session_id` at the beginning of a workflow or user interaction.
+2. Include this `session_id` when logging each significant step or operation within the Session.
+3. For complex workflows, you can create nested Sessions by specifying parent-child relationships between logs.
+4. Continue using the same `session_id` until the workflow or interaction is complete.
+
+By consistently using Sessions in this manner, you'll gain valuable insights into your system's behavior, making it easier to debug, optimize, and improve your AI-driven processes. Refer to the guide for detailed implementation steps and best practices.
