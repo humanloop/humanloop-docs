@@ -20,6 +20,11 @@ paths:
           request: << prompt_call_request >>
           response:
             body: << prompt_call_response >>
+        - name: Supplying Prompt with Tool
+          request: << prompt_call_with_tool_request >>
+          response:
+            body: << prompt_call_response >>
+
         - name: By ID
           query-parameters:
             version_id: prv_Wu6zx1lAWJRqOyL8nWuZk
