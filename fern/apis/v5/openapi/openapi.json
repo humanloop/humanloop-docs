@@ -12,14 +12,164 @@
     }
   ],
   "paths": {
+    "/prompts/log": {
+      "post": {
+        "tags": [
+          "Prompts"
+        ],
+        "summary": "Log",
+        "description": "Log to a Prompt.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Prompt. Otherwise, the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt. If they do not, we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
+        "operationId": "log_prompts_log_post",
+        "parameters": [
+          {
+            "description": "A specific Version ID of the Prompt to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "A specific Version ID of the Prompt to log to."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromptLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePromptLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/prompts/call": {
+      "post": {
+        "tags": [
+          "Prompts"
+        ],
+        "summary": "Call",
+        "description": "Call a Prompt.\n\nCalling a Prompt calls the model provider before logging\nthe request, responses and metadata to Humanloop.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt. If they do not, we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
+        "operationId": "call_prompts_call_post",
+        "parameters": [
+          {
+            "description": "A specific Version ID of the Prompt to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "A specific Version ID of the Prompt to log to."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromptCallRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PromptCallResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PromptCallStreamResponse"
+                    }
+                  ],
+                  "title": "Response Call Prompts Call Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/prompts": {
       "get": {
         "tags": [
           "Prompts"
         ],
-        "summary": "List Prompts",
-        "description": "Get a list of Prompts.",
-        "operationId": "Prompts_list_prompts",
+        "summary": "List ",
+        "description": "Get a list of all Prompts.",
+        "operationId": "list__prompts_get",
         "parameters": [
           {
             "description": "Page number for pagination.",
@@ -108,7 +258,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListPrompts"
+                  "$ref": "#/components/schemas/PaginatedData_PromptResponse_"
                 }
               }
             }
@@ -134,9 +284,9 @@
         "tags": [
           "Prompts"
         ],
-        "summary": "Upsert Prompt",
+        "summary": "Upsert",
         "description": "Create a Prompt or update it with a new version if it already exists.\n\nPrompts are identified by the `ID` or their `path`. The parameters (i.e. the prompt template, temperature, model etc.) determine the versions of the Prompt.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
-        "operationId": "Prompts_upsert",
+        "operationId": "upsert_prompts_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -181,9 +331,9 @@
         "tags": [
           "Prompts"
         ],
-        "summary": "Get Prompt",
+        "summary": "Get",
         "description": "Retrieve the Prompt with the given ID.\n\nBy default, the deployed version of the Prompt is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Prompt.",
-        "operationId": "Prompts_get",
+        "operationId": "get_prompts__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -251,9 +401,9 @@
         "tags": [
           "Prompts"
         ],
-        "summary": "Delete Prompt",
+        "summary": "Delete",
         "description": "Delete the Prompt with the given ID.",
-        "operationId": "Prompts_delete",
+        "operationId": "delete_prompts__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -292,9 +442,9 @@
         "tags": [
           "Prompts"
         ],
-        "summary": "Move Prompt",
+        "summary": "Move",
         "description": "Move the Prompt to a different path or change the name.",
-        "operationId": "Prompts_move",
+        "operationId": "move_prompts__id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -354,7 +504,7 @@
         ],
         "summary": "List Versions",
         "description": "Get a list of all the versions of a Prompt.",
-        "operationId": "Prompts_listVersions",
+        "operationId": "list_versions_prompts__id__versions_get",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -382,21 +532,12 @@
             "in": "query"
           },
           {
-            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
-            },
-            "name": "environment",
-            "in": "query"
-          },
-          {
+            "description": "Whether to include Evaluator aggregate results for the versions in the response",
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluator Aggregates"
+              "title": "Evaluator Aggregates",
+              "description": "Whether to include Evaluator aggregate results for the versions in the response"
             },
             "name": "evaluator_aggregates",
             "in": "query"
@@ -437,8 +578,8 @@
           "Prompts"
         ],
         "summary": "Commit",
-        "description": "Commit the Prompt Version with the given ID.",
-        "operationId": "Prompts_commit",
+        "description": "Commit a version of the Prompt with a commit message.\n\nIf the version is already committed, an exception will be raised.",
+        "operationId": "commit_prompts__id__versions__version_id__commit_post",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -502,164 +643,14 @@
         ]
       }
     },
-    "/prompts/log": {
-      "post": {
-        "tags": [
-          "Prompts"
-        ],
-        "summary": "Log",
-        "description": "Log to a Prompt.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
-        "operationId": "Prompts_log",
-        "parameters": [
-          {
-            "description": "A specific Version ID of the Prompt to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "A specific Version ID of the Prompt to log to."
-            },
-            "name": "version_id",
-            "in": "query"
-          },
-          {
-            "description": "Name of the Environment identifying a deployed version to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the Environment identifying a deployed version to log to."
-            },
-            "name": "environment",
-            "in": "query"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PromptLogRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatePromptLogResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/prompts/call": {
-      "post": {
-        "tags": [
-          "Prompts"
-        ],
-        "summary": "Call",
-        "description": "Call a Prompt.\n\nCalling a Prompt subsequently calls the model provider before logging\nthe data to Humanloop.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
-        "operationId": "Prompts_call",
-        "parameters": [
-          {
-            "description": "A specific Version ID of the Prompt to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "A specific Version ID of the Prompt to log to."
-            },
-            "name": "version_id",
-            "in": "query"
-          },
-          {
-            "description": "Name of the Environment identifying a deployed version to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the Environment identifying a deployed version to log to."
-            },
-            "name": "environment",
-            "in": "query"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PromptCallRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/PromptCallResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/PromptCallStreamResponse"
-                    }
-                  ],
-                  "title": "Response Prompts Call"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/prompts/{id}/evaluators": {
       "post": {
         "tags": [
           "Prompts"
         ],
-        "summary": "Update Evaluators",
-        "description": "Activate and deactivate Evaluators for the Prompt.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Prompt for monitoring purposes.",
-        "operationId": "update_evaluators_prompts__id__evaluators_post",
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Prompt.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Prompt for monitoring purposes.",
+        "operationId": "update_monitoring_prompts__id__evaluators_post",
         "parameters": [
           {
             "required": true,
@@ -715,9 +706,9 @@
         "tags": [
           "Prompts"
         ],
-        "summary": "Deploy",
-        "description": "Deploy Prompt to Environment.\n\nSet the deployed Version for the specified Environment. This Prompt Version\nwill be used for calls made to the Prompt in this Environment.",
-        "operationId": "deploy_prompts__id__environments__environment_id__post",
+        "summary": "Set Deployment",
+        "description": "Deploy Prompt to an Environment.\n\nSet the deployed version for the specified Environment. This Prompt\nwill be used for calls made to the Prompt in this Environment.",
+        "operationId": "set_deployment_prompts__id__environments__environment_id__post",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -786,7 +777,7 @@
           "Prompts"
         ],
         "summary": "Remove Deployment",
-        "description": "Remove deployment of Prompt from Environment.\n\nRemove the deployed Version for the specified Environment. This Prompt Version\nwill no longer be used for calls made to the Prompt in this Environment.",
+        "description": "Remove deployed Prompt from the Environment.\n\nRemove the deployed version for the specified Environment. This Prompt\nwill no longer be used for calls made to the Prompt in this Environment.",
         "operationId": "remove_deployment_prompts__id__environments__environment_id__delete",
         "parameters": [
           {
@@ -888,14 +879,85 @@
         ]
       }
     },
+    "/tools/log": {
+      "post": {
+        "tags": [
+          "Tools"
+        ],
+        "summary": "Log",
+        "description": "Log to a Tool.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Tool. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nTool details in the request body. In this case, we will check if the details correspond\nto an existing version of the Tool, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Tool details in code.",
+        "operationId": "log_tools_log_post",
+        "parameters": [
+          {
+            "description": "A specific Version ID of the Tool to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "A specific Version ID of the Tool to log to."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateToolLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/tools": {
       "get": {
         "tags": [
           "Tools"
         ],
         "summary": "List ",
-        "description": "Get a list of Tools.",
-        "operationId": "Tools_list",
+        "description": "Get a list of all Tools.",
+        "operationId": "list__tools_get",
         "parameters": [
           {
             "description": "Page offset for pagination.",
@@ -983,7 +1045,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListTools"
+                  "$ref": "#/components/schemas/PaginatedData_ToolResponse_"
                 }
               }
             }
@@ -1009,9 +1071,9 @@
         "tags": [
           "Tools"
         ],
-        "summary": "Upsert Tool",
+        "summary": "Upsert",
         "description": "Create a Tool or update it with a new version if it already exists.\n\nTools are identified by the `ID` or their `path`. The name, description and parameters determine the versions of the Tool.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
-        "operationId": "Tools_upsert",
+        "operationId": "upsert_tools_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1056,9 +1118,9 @@
         "tags": [
           "Tools"
         ],
-        "summary": "Get Tool",
+        "summary": "Get",
         "description": "Retrieve the Tool with the given ID.\n\nBy default, the deployed version of the Tool is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Tool.",
-        "operationId": "Tools_get",
+        "operationId": "get_tools__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Tool.",
@@ -1126,9 +1188,9 @@
         "tags": [
           "Tools"
         ],
-        "summary": "Delete Tool",
+        "summary": "Delete",
         "description": "Delete the Tool with the given ID.",
-        "operationId": "Tools_delete",
+        "operationId": "delete_tools__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Tool.",
@@ -1167,9 +1229,9 @@
         "tags": [
           "Tools"
         ],
-        "summary": "Move Tool",
+        "summary": "Move",
         "description": "Move the Tool to a different path or change the name.",
-        "operationId": "Tools_move",
+        "operationId": "move_tools__id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Tool.",
@@ -1229,7 +1291,7 @@
         ],
         "summary": "List Versions",
         "description": "Get a list of all the versions of a Tool.",
-        "operationId": "Tools_listVersions",
+        "operationId": "list_versions_tools__id__versions_get",
         "parameters": [
           {
             "description": "Unique identifier for the Tool.",
@@ -1257,21 +1319,12 @@
             "in": "query"
           },
           {
-            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
-            },
-            "name": "environment",
-            "in": "query"
-          },
-          {
+            "description": "Whether to include Evaluator aggregate results for the versions in the response",
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluator Aggregates"
+              "title": "Evaluator Aggregates",
+              "description": "Whether to include Evaluator aggregate results for the versions in the response"
             },
             "name": "evaluator_aggregates",
             "in": "query"
@@ -1312,8 +1365,8 @@
           "Tools"
         ],
         "summary": "Commit",
-        "description": "Commit the Tool Version with the given ID.",
-        "operationId": "Tools_commit",
+        "description": "Commit a version of the Tool with a commit message.\n\nIf the version is already committed, an exception will be raised.",
+        "operationId": "commit_tools__id__versions__version_id__commit_post",
         "parameters": [
           {
             "description": "Unique identifier for Tool.",
@@ -1377,85 +1430,14 @@
         ]
       }
     },
-    "/tools/log": {
-      "post": {
-        "tags": [
-          "Tools"
-        ],
-        "summary": "Log",
-        "description": "Log to a Tool.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Tool. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nTool details in the request body. In this case, we will check if the details correspond\nto an existing version of the Tool, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Tool details in code.",
-        "operationId": "Tools_log",
-        "parameters": [
-          {
-            "description": "A specific Version ID of the Tool to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "A specific Version ID of the Tool to log to."
-            },
-            "name": "version_id",
-            "in": "query"
-          },
-          {
-            "description": "Name of the Environment identifying a deployed version to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the Environment identifying a deployed version to log to."
-            },
-            "name": "environment",
-            "in": "query"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ToolLogRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateToolLogResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/tools/{id}/evaluators": {
       "post": {
         "tags": [
           "Tools"
         ],
-        "summary": "Update Evaluators",
-        "description": "Activate and deactivate Evaluators for the Tool.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Tool for monitoring purposes.",
-        "operationId": "update_evaluators_tools__id__evaluators_post",
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Tool.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Tool for monitoring purposes.",
+        "operationId": "update_monitoring_tools__id__evaluators_post",
         "parameters": [
           {
             "required": true,
@@ -1511,9 +1493,9 @@
         "tags": [
           "Tools"
         ],
-        "summary": "Deploy",
-        "description": "Deploy Tool to Environment.\n\nSet the deployed Version for the specified Environment. This Tool Version\nwill be used for calls made to the Tool in this Environment.",
-        "operationId": "deploy_tools__id__environments__environment_id__post",
+        "summary": "Set Deployment",
+        "description": "Deploy Tool to an Environment.\n\nSet the deployed version for the specified Environment. This Prompt\nwill be used for calls made to the Tool in this Environment.",
+        "operationId": "set_deployment_tools__id__environments__environment_id__post",
         "parameters": [
           {
             "description": "Unique identifier for Tool.",
@@ -1582,7 +1564,7 @@
           "Tools"
         ],
         "summary": "Remove Deployment",
-        "description": "Remove deployment of Tool from Environment.\n\nRemove the deployed Version for the specified Environment. This Tool Version\nwill no longer be used for calls made to the Tool in this Environment.",
+        "description": "Remove deployed Tool from the Environment.\n\nRemove the deployed version for the specified Environment. This Tool\nwill no longer be used for calls made to the Tool in this Environment.",
         "operationId": "remove_deployment_tools__id__environments__environment_id__delete",
         "parameters": [
           {
@@ -1690,8 +1672,8 @@
           "Datasets"
         ],
         "summary": "List ",
-        "description": "Get a list of Datasets.",
-        "operationId": "Datasets_list",
+        "description": "List all Datasets.",
+        "operationId": "list__datasets_get",
         "parameters": [
           {
             "description": "Page offset for pagination.",
@@ -1806,9 +1788,9 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Upsert Dataset",
+        "summary": "Upsert",
         "description": "Create a Dataset or update it with a new version if it already exists.\n\nDatasets are identified by the `ID` or their `path`. The datapoints determine the versions of the Dataset.\n\nBy default, the new Dataset version will be set to the list of Datapoints provided in\nthe request. You can also create a new version by adding or removing Datapoints from an existing version\nby specifying `action` as `add` or `remove` respectively. In this case, you may specify\nthe `version_id` or `environment` query parameters to identify the existing version to base\nthe new version on. If neither is provided, the default deployed version will be used.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.\n\nHumanloop also deduplicates Datapoints. If you try to add a Datapoint that already\nexists, it will be ignored. If you intentionally want to add a duplicate Datapoint,\nyou can add a unique identifier to the Datapoint's inputs such as `{_dedupe_id: <unique ID>}`.",
-        "operationId": "Datasets_upsert",
+        "operationId": "upsert_datasets_post",
         "parameters": [
           {
             "description": "ID of the specific Dataset version to base the created Version on. Only used when `action` is `\"add\"` or `\"remove\"`.",
@@ -1877,9 +1859,9 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Get Dataset",
+        "summary": "Get",
         "description": "Retrieve the Dataset with the given ID.\n\nUnless `include_datapoints` is set to `true`, the response will not include\nthe Datapoints.\nUse the List Datapoints endpoint (`GET /{id}/datapoints`) to efficiently\nretrieve Datapoints for a large Dataset.\n\nBy default, the deployed version of the Dataset is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Dataset.",
-        "operationId": "Datasets_get",
+        "operationId": "get_datasets__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -1959,9 +1941,9 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Delete Dataset",
+        "summary": "Delete",
         "description": "Delete the Dataset with the given ID.",
-        "operationId": "Datasets_delete",
+        "operationId": "delete_datasets__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2000,9 +1982,9 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Move Dataset",
+        "summary": "Move",
         "description": "Update the Dataset with the given ID.",
-        "operationId": "Datasets_move",
+        "operationId": "move_datasets__id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2062,7 +2044,7 @@
         ],
         "summary": "List Datapoints",
         "description": "List all Datapoints for the Dataset with the given ID.",
-        "operationId": "Datasets_listDatapoints",
+        "operationId": "list_datapoints_datasets__id__datapoints_get",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2160,7 +2142,7 @@
         ],
         "summary": "List Versions",
         "description": "Get a list of the versions for a Dataset.",
-        "operationId": "Datasets_listVersions",
+        "operationId": "list_versions_datasets__id__versions_get",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2185,26 +2167,6 @@
               "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
             },
             "name": "status",
-            "in": "query"
-          },
-          {
-            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
-            },
-            "name": "environment",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "title": "Evaluation Aggregates"
-            },
-            "name": "evaluation_aggregates",
             "in": "query"
           }
         ],
@@ -2243,8 +2205,8 @@
           "Datasets"
         ],
         "summary": "Commit",
-        "description": "Commit the Dataset Version with the given ID.",
-        "operationId": "Datasets_commit",
+        "description": "Commit a version of the Dataset with a commit message.\n\nIf the version is already committed, an exception will be raised.",
+        "operationId": "commit_datasets__id__versions__version_id__commit_post",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2308,14 +2270,14 @@
         ]
       }
     },
-    "/datasets/{id}/datapoints/logs": {
+    "/datasets/{id}/datapoints/csv": {
       "post": {
         "tags": [
           "Datasets"
         ],
-        "summary": "Add Datapoints From Logs",
-        "description": "Add Datapoints from Logs to a Dataset.\n\nThis will create a new committed version of the Dataset with the Datapoints from the Logs.\n\nIf either `version_id` or `environment` is provided, the new version will be based on the specified version,\nwith the Datapoints from the Logs added to the existing Datapoints in the version.\nIf neither `version_id` nor `environment` is provided, the new version will be based on the version\nof the Dataset that is deployed to the default Environment.",
-        "operationId": "Datasets_createDatapointsFromLogs",
+        "summary": "Upload Csv",
+        "description": "Add Datapoints from a CSV file to a Dataset.\n\nThis will create a new committed version of the Dataset with the Datapoints from the CSV file.\n\nIf either `version_id` or `environment` is provided, the new version will be based on the specified version,\nwith the Datapoints from the CSV file added to the existing Datapoints in the version.\nIf neither `version_id` nor `environment` is provided, the new version will be based on the version\nof the Dataset that is deployed to the default Environment.",
+        "operationId": "upload_csv_datasets__id__datapoints_csv_post",
         "parameters": [
           {
             "description": "Unique identifier for the Dataset",
@@ -2353,9 +2315,9 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_Datasets_createDatapointsFromLogs"
+                "$ref": "#/components/schemas/Body_upload_csv_datasets__id__datapoints_csv_post"
               }
             }
           },
@@ -2395,9 +2357,9 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Deploy",
-        "description": "Deploy Dataset to Environment.\n\nSet the deployed Version for the specified Environment.",
-        "operationId": "deploy_datasets__id__environments__environment_id__post",
+        "summary": "Set Deployment",
+        "description": "Deploy Dataset to Environment.\n\nSet the deployed version for the specified Environment.",
+        "operationId": "set_deployment_datasets__id__environments__environment_id__post",
         "parameters": [
           {
             "description": "Unique identifier for Dataset.",
@@ -2466,7 +2428,7 @@
           "Datasets"
         ],
         "summary": "Remove Deployment",
-        "description": "Remove deployment of Dataset from Environment.\n\nRemove the deployed Version for the specified Environment.",
+        "description": "Remove deployed Dataset from Environment.\n\nRemove the deployed version for the specified Environment.",
         "operationId": "remove_deployment_datasets__id__environments__environment_id__delete",
         "parameters": [
           {
@@ -2568,257 +2530,22 @@
         ]
       }
     },
-    "/directories": {
-      "get": {
-        "tags": [
-          "Directories"
-        ],
-        "summary": "List Directories",
-        "description": "Retrieve a list of all Directories.",
-        "operationId": "Directories_list",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/DirectoryResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Directories List"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Directories"
-        ],
-        "summary": "Create Directory ",
-        "description": "Creates a Directory.",
-        "operationId": "Directories_create",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateDirectoryRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DirectoryResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/directories/{id}": {
-      "get": {
-        "tags": [
-          "Directories"
-        ],
-        "summary": "Get Directory",
-        "description": "Fetches a directory by ID.",
-        "operationId": "Directories_get",
-        "parameters": [
-          {
-            "description": "String ID of directory. Starts with `dir_`.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Directory ID",
-              "description": "String ID of directory. Starts with `dir_`."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DirectoryWithParentsAndChildrenResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Directories"
-        ],
-        "summary": "Delete Directory ",
-        "description": "Delete the Directory with the given ID.\n\nThe Directory must be empty (i.e. contain no Directories or Files).",
-        "operationId": "Directories_delete",
-        "parameters": [
-          {
-            "description": "Unique identifier for Directory. Starts with `dir_`.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Directory ID",
-              "description": "Unique identifier for Directory. Starts with `dir_`."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "Directories"
-        ],
-        "summary": "Update Directory ",
-        "description": "Update the Directory with the given ID.",
-        "operationId": "Directories_update",
-        "parameters": [
-          {
-            "description": "Unique identifier for Directory. Starts with `dir_`.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Directory ID",
-              "description": "Unique identifier for Directory. Starts with `dir_`."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateDirectoryRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DirectoryResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/evaluations": {
       "get": {
         "tags": [
           "Evaluations"
         ],
-        "summary": "List Evaluations for File",
-        "description": "List Evaluations for the given File.\n\nRetrieve a list of Evaluations that evaluate versions of the specified File.",
-        "operationId": "Evaluations_list",
+        "summary": "List ",
+        "description": "List all Evaluations for the specified `file_id`.\n\nRetrieve a list of Evaluations that evaluate versions of the specified File.",
+        "operationId": "list__evaluations_get",
         "parameters": [
           {
-            "description": "Filter by File ID. If provided, only Evaluation for the specified File will be returned.",
+            "description": "Filter by File ID. Only Evaluations for the specified File will be returned.",
             "required": true,
             "schema": {
               "type": "string",
               "title": "File ID",
-              "description": "Filter by File ID. If provided, only Evaluation for the specified File will be returned."
+              "description": "Filter by File ID. Only Evaluations for the specified File will be returned."
             },
             "name": "file_id",
             "in": "query"
@@ -2882,9 +2609,9 @@
         "tags": [
           "Evaluations"
         ],
-        "summary": "Create Evaluation",
-        "description": "Create an Evaluation.\n\nCreate a new Evaluation by specifying the Dataset, Evaluatees, and Evaluators.\nHumanloop will automatically start generating Logs and running Evaluators.\n\nTo keep updated on the progress of the Evaluation, you can poll the Evaluation\nand check its status.",
-        "operationId": "Evaluations_create",
+        "summary": "Create",
+        "description": "Create an Evaluation.\n\nCreate a new Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.\n\nHumanloop will automatically start generating Logs and running Evaluators where\n`orchestrated=true`. If you own the runtime for the Evaluatee or Evaluator, you\ncan set `orchestrated=false` and then generate and submit the required logs using\nyour runtime.\n\nTo keep updated on the progress of the Evaluation, you can poll the Evaluation using\nthe GET /evaluations/{id} endpoint and check its status.",
+        "operationId": "create_evaluations_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2929,9 +2656,9 @@
         "tags": [
           "Evaluations"
         ],
-        "summary": "Get Evaluation",
-        "description": "Get an Evaluation.\n\nRetrieve the Evaluation with the given ID.",
-        "operationId": "Evaluations_get",
+        "summary": "Get",
+        "description": "Get an Evaluation.",
+        "operationId": "get_evaluations__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Evaluation.",
@@ -2977,9 +2704,9 @@
         "tags": [
           "Evaluations"
         ],
-        "summary": "Delete Evaluation",
+        "summary": "Delete",
         "description": "Delete an Evaluation.\n\nRemove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation\nwill not be deleted.",
-        "operationId": "Evaluations_delete",
+        "operationId": "delete_evaluations__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Evaluation.",
@@ -3018,9 +2745,9 @@
         "tags": [
           "Evaluations"
         ],
-        "summary": "Update Evaluation",
-        "description": "Update an Evaluation.\n\nUpdate the setup of an Evaluation by specifying the Dataset, Evaluatees, and Evaluators.",
-        "operationId": "Evaluations_update",
+        "summary": "Update Setup",
+        "description": "Update an Evaluation.\n\nUpdate the setup of an Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.",
+        "operationId": "update_setup_evaluations__id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Evaluation.",
@@ -3079,8 +2806,8 @@
           "Evaluations"
         ],
         "summary": "Update Status",
-        "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses external or human evaluators\nas completed.",
-        "operationId": "Evaluations_updateStatus",
+        "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses\nexternal or human evaluators as completed.",
+        "operationId": "update_status_evaluations__id__status_patch",
         "parameters": [
           {
             "description": "Unique identifier for Evaluation.",
@@ -3098,7 +2825,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Body_Evaluations_updateStatus"
+                "$ref": "#/components/schemas/Body_update_status_evaluations__id__status_patch"
               }
             }
           },
@@ -3138,9 +2865,9 @@
         "tags": [
           "Evaluations"
         ],
-        "summary": "Get Evaluation Stats",
-        "description": "Get Evaluation Stats.\n\nRetrieve aggregate stats for the specified Evaluation.\nThis includes the number of generated Logs for every evaluatee and Evaluator metrics\n(such as the mean and percentiles for numeric Evaluators for every evaluatee).",
-        "operationId": "Evaluations_getStats",
+        "summary": "Get Stats",
+        "description": "Get Evaluation Stats.\n\nRetrieve aggregate stats for the specified Evaluation.\nThis includes the number of generated Logs for each evaluated version and the\ncorresponding Evaluator statistics (such as the mean and percentiles).",
+        "operationId": "get_stats_evaluations__id__stats_get",
         "parameters": [
           {
             "description": "Unique identifier for Evaluation.",
@@ -3183,76 +2910,60 @@
         ]
       }
     },
-    "/evaluators/default": {
+    "/evaluations/{id}/logs": {
       "get": {
         "tags": [
-          "Evaluators"
+          "Evaluations"
         ],
-        "summary": "List Default Evaluators",
-        "description": "Get a list of default evaluators for the organization.",
-        "operationId": "Evaluators_listDefault",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/EvaluatorResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Evaluators Listdefault"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
+        "summary": "Get Logs",
+        "description": "Get the Logs associated to a specific Evaluation.\n\nEach Datapoint in your Dataset will have a corresponding Log for each File version evaluated.\ne.g. If you have 50 Datapoints and are evaluating 2 Prompts, there will be 100 Logs associated with the Evaluation.",
+        "operationId": "get_logs_evaluations__id__logs_get",
+        "parameters": [
           {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluators/debug": {
-      "post": {
-        "tags": [
-          "Evaluators"
-        ],
-        "summary": "Debug",
-        "description": "Run a synchronous evaluator execution on a collection of datapoints.",
-        "operationId": "debug_evaluators_debug_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunSyncEvaluationRequest"
-              }
-            }
+            "description": "String ID of evaluation. Starts with `ev_` or `evr_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "String ID of evaluation. Starts with `ev_` or `evr_`."
+            },
+            "name": "id",
+            "in": "path"
           },
-          "required": true
-        },
+          {
+            "description": "Page number for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page number",
+              "description": "Page number for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of Logs to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of Logs to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/EvaluationDebugResultResponse"
-                  },
-                  "type": "array",
-                  "title": "Response Debug Evaluators Debug Post"
+                  "$ref": "#/components/schemas/PaginatedData_EvaluationReportLogResponse_"
                 }
               }
             }
@@ -3281,8 +2992,8 @@
           "Evaluators"
         ],
         "summary": "List ",
-        "description": "Get a list of Evaluators.",
-        "operationId": "Evaluators_list",
+        "description": "Get a list of all Evaluators.",
+        "operationId": "list__evaluators_get",
         "parameters": [
           {
             "description": "Page offset for pagination.",
@@ -3370,7 +3081,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListEvaluators"
+                  "$ref": "#/components/schemas/PaginatedData_EvaluatorResponse_"
                 }
               }
             }
@@ -3396,9 +3107,9 @@
         "tags": [
           "Evaluators"
         ],
-        "summary": "Upsert Evaluator",
+        "summary": "Upsert",
         "description": "Create an Evaluator or update it with a new version if it already exists.\n\nEvaluators are identified by the `ID` or their `path`. The spec provided determines the version of the Evaluator.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
-        "operationId": "Evaluators_upsert",
+        "operationId": "upsert_evaluators_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3443,9 +3154,9 @@
         "tags": [
           "Evaluators"
         ],
-        "summary": "Get Evaluator",
+        "summary": "Get",
         "description": "Retrieve the Evaluator with the given ID.\n\nBy default, the deployed version of the Evaluator is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Evaluator.",
-        "operationId": "Evaluators_get",
+        "operationId": "get_evaluators__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Evaluator.",
@@ -3513,9 +3224,9 @@
         "tags": [
           "Evaluators"
         ],
-        "summary": "Delete Evaluator",
+        "summary": "Delete",
         "description": "Delete the Evaluator with the given ID.",
-        "operationId": "Evaluators_delete",
+        "operationId": "delete_evaluators__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Evaluator.",
@@ -3554,9 +3265,9 @@
         "tags": [
           "Evaluators"
         ],
-        "summary": "Move Evaluator",
+        "summary": "Move",
         "description": "Move the Evaluator to a different path or change the name.",
-        "operationId": "Evaluators_move",
+        "operationId": "move_evaluators__id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Evaluator.",
@@ -3616,7 +3327,7 @@
         ],
         "summary": "List Versions",
         "description": "Get a list of all the versions of an Evaluator.",
-        "operationId": "Evaluators_listVersions",
+        "operationId": "list_versions_evaluators__id__versions_get",
         "parameters": [
           {
             "description": "Unique identifier for the Evaluator.",
@@ -3644,21 +3355,12 @@
             "in": "query"
           },
           {
-            "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the environment to filter versions by. If no environment is provided, all versions are returned."
-            },
-            "name": "environment",
-            "in": "query"
-          },
-          {
+            "description": "Whether to include Evaluator aggregate results for the versions in the response",
             "required": false,
             "schema": {
               "type": "boolean",
-              "title": "Evaluator Aggregates"
+              "title": "Evaluator Aggregates",
+              "description": "Whether to include Evaluator aggregate results for the versions in the response"
             },
             "name": "evaluator_aggregates",
             "in": "query"
@@ -3699,8 +3401,8 @@
           "Evaluators"
         ],
         "summary": "Commit",
-        "description": "Commit the Evaluator Version with the given ID.",
-        "operationId": "Evaluators_commit",
+        "description": "Commit a version of the Evaluator with a commit message.\n\nIf the version is already committed, an exception will be raised.",
+        "operationId": "commit_evaluators__id__versions__version_id__commit_post",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -3769,9 +3471,9 @@
         "tags": [
           "Evaluators"
         ],
-        "summary": "Deploy",
-        "description": "Deploy Evaluator to Environment.\n\nSet the deployed Version for the specified Environment. This Evaluator Version\nwill be used for calls made to the Evaluator in this Environment.",
-        "operationId": "deploy_evaluators__id__environments__environment_id__post",
+        "summary": "Set Deployment",
+        "description": "Deploy Evaluator to an Environment.\n\nSet the deployed version for the specified Environment. This Evaluator\nwill be used for calls made to the Evaluator in this Environment.",
+        "operationId": "set_deployment_evaluators__id__environments__environment_id__post",
         "parameters": [
           {
             "description": "Unique identifier for Evaluator.",
@@ -3840,7 +3542,7 @@
           "Evaluators"
         ],
         "summary": "Remove Deployment",
-        "description": "Remove deployment of Evaluator from Environment.\n\nRemove the deployed Version for the specified Environment. This Evaluator Version\nwill no longer be used for calls made to the Evaluator in this Environment.",
+        "description": "Remove deployed Evaluator from the Environment.\n\nRemove the deployed version for the specified Environment. This Evaluator\nwill no longer be used for calls made to the Evaluator in this Environment.",
         "operationId": "remove_deployment_evaluators__id__environments__environment_id__delete",
         "parameters": [
           {
@@ -4018,9 +3720,9 @@
         "tags": [
           "Logs"
         ],
-        "summary": "List",
-        "description": "List Logs.",
-        "operationId": "list_logs_for_file_logs_get",
+        "summary": "List ",
+        "description": "List all Logs for the given filter criteria.",
+        "operationId": "list__logs_get",
         "parameters": [
           {
             "description": "Unique identifier for the File to list Logs for.",
@@ -4138,7 +3840,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaginatedData_PromptLogResponse_"
+                  "$ref": "#/components/schemas/PaginatedData_LogResponse_"
                 }
               }
             }
@@ -4212,7 +3914,7 @@
         ],
         "summary": "Get Log",
         "description": "Retrieve the Log with the given ID.",
-        "operationId": "Logs_get",
+        "operationId": "get_logs__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Log.",
@@ -4232,7 +3934,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PromptLogResponse"
+                  "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
                 }
               }
             }
@@ -4262,7 +3964,7 @@
         ],
         "summary": "Get",
         "description": "Retrieve the Session with the given ID.",
-        "operationId": "Sessions_get",
+        "operationId": "get_sessions__id__get",
         "parameters": [
           {
             "description": "Unique identifier for Session.",
@@ -4310,7 +4012,7 @@
         ],
         "summary": "Delete",
         "description": "Delete the Session with the given ID.",
-        "operationId": "Sessions_delete",
+        "operationId": "delete_sessions__id__delete",
         "parameters": [
           {
             "description": "Unique identifier for Session.",
@@ -4353,7 +4055,7 @@
         ],
         "summary": "List ",
         "description": "Get a list of Sessions.",
-        "operationId": "Sessions_list",
+        "operationId": "list__sessions_get",
         "parameters": [
           {
             "description": "Unique identifier for File to return Sessions for. Sessions that contain any Logs associated to this File will be returned.",
@@ -4514,86 +4216,7 @@
         ],
         "title": "AgentConfigResponse"
       },
-      "BaseMetricResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Metric ID",
-            "description": "ID of the metric. Starts with 'metric_'."
-          },
-          "name": {
-            "type": "string",
-            "title": "Metric name",
-            "description": "The name of the metric."
-          },
-          "description": {
-            "type": "string",
-            "title": "Metric description",
-            "description": "A description of what the metric measures."
-          },
-          "code": {
-            "type": "string",
-            "title": "Metric code",
-            "description": "Python code used to calculate a metric value on each logged datapoint."
-          },
-          "default": {
-            "type": "boolean",
-            "title": "Metric default flag",
-            "description": "Whether the metric is a global default metric. Metrics with this flag enabled cannot be deleted or modified."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Metric active flag",
-            "description": "If enabled, the metric is calculated for every logged datapoint."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "description",
-          "code",
-          "default",
-          "active",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "BaseMetricResponse"
-      },
-      "Body_Datasets_createDatapointsFromLogs": {
-        "properties": {
-          "log_ids": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Log IDs",
-            "description": "List of Log IDs to create Datapoints from."
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit Message",
-            "description": "Commit message for the new Dataset version."
-          }
-        },
-        "type": "object",
-        "required": [
-          "log_ids",
-          "commit_message"
-        ],
-        "title": "Body_Datasets_createDatapointsFromLogs"
-      },
-      "Body_Evaluations_updateStatus": {
+      "Body_update_status_evaluations__id__status_patch": {
         "properties": {
           "status": {
             "$ref": "#/components/schemas/EvaluationStatus"
@@ -4603,7 +4226,28 @@
         "required": [
           "status"
         ],
-        "title": "Body_Evaluations_updateStatus"
+        "title": "Body_update_status_evaluations__id__status_patch"
+      },
+      "Body_upload_csv_datasets__id__datapoints_csv_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File",
+            "description": "A CSV file containing Datapoints to be added to the Dataset."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit Message",
+            "description": "Commit message for the new Dataset version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "commit_message"
+        ],
+        "title": "Body_upload_csv_datasets__id__datapoints_csv_post"
       },
       "BooleanEvaluatorVersionStats": {
         "properties": {
@@ -4655,39 +4299,6 @@
         ],
         "title": "BooleanEvaluatorVersionStats",
         "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report."
-      },
-      "CategoricalFeedbackLabel": {
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "Label value"
-          },
-          "sentiment": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LabelSentiment"
-              }
-            ],
-            "title": "Feedback label sentiment",
-            "description": "Whether the feedback sentiment is positive or negative."
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FeedbackLabelStatus"
-              }
-            ],
-            "title": "Feedback label status",
-            "description": "Whether the feedback label is active or inactive."
-          }
-        },
-        "type": "object",
-        "required": [
-          "value",
-          "sentiment",
-          "status"
-        ],
-        "title": "CategoricalFeedbackLabel"
       },
       "ChatMessage": {
         "properties": {
@@ -4972,26 +4583,6 @@
         "type": "object",
         "title": "CreateDatapointRequest"
       },
-      "CreateDirectoryRequest": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Directory name",
-            "description": "Name of the directory to create."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent directory ID",
-            "description": "ID of the parent directory. Starts with `dir_`."
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "parent_id"
-        ],
-        "title": "CreateDirectoryRequest"
-      },
       "CreateEvaluationRequest": {
         "properties": {
           "dataset": {
@@ -5044,13 +4635,13 @@
           },
           "output": {
             "type": "string",
-            "title": "Model output",
-            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+            "title": "Output",
+            "description": "Generated output from the LLM. Only populated for LLM Evaluator Logs."
           },
           "raw_output": {
             "type": "string",
             "title": "Raw output",
-            "description": "Raw output from the provider."
+            "description": "Raw output from the provider. Only populated for LLM Evaluator Logs."
           },
           "created_at": {
             "type": "string",
@@ -5071,12 +4662,12 @@
           "provider_request": {
             "type": "object",
             "title": "Provider request",
-            "description": "Raw request sent to provider."
+            "description": "Raw request sent to provider. Only populated for LLM Evaluator Logs."
           },
           "provider_response": {
             "type": "object",
             "title": "Provider response",
-            "description": "Raw response received the provider."
+            "description": "Raw response received the provider. Only populated for LLM Evaluator Logs."
           },
           "session_id": {
             "type": "string",
@@ -5445,120 +5036,6 @@
         "title": "DatasetResponse",
         "description": "Base type that all File Responses should inherit from.\n\nAttributes defined here are common to all File Responses and should be overridden\nin the inheriting classes with documentation and appropriate Field definitions."
       },
-      "DirectoryResponse": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Directory name",
-            "description": "Name of the directory to create."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent directory ID",
-            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
-          },
-          "id": {
-            "type": "string",
-            "title": "Directory ID",
-            "description": "String ID of directory. Starts with `dir_`."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "id",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "DirectoryResponse"
-      },
-      "DirectoryWithParentsAndChildrenResponse": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Directory name",
-            "description": "Name of the directory to create."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent directory ID",
-            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
-          },
-          "id": {
-            "type": "string",
-            "title": "Directory ID",
-            "description": "String ID of directory. Starts with `dir_`."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "subdirectories": {
-            "items": {
-              "$ref": "#/components/schemas/DirectoryResponse"
-            },
-            "type": "array",
-            "title": "Subdirectories",
-            "description": "List of subdirectories in the directory."
-          },
-          "files": {
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/PromptResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/EvaluatorResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/DatasetResponse"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Files",
-            "description": "List of files in the directory."
-          },
-          "parents": {
-            "items": {
-              "$ref": "#/components/schemas/DirectoryResponse"
-            },
-            "type": "array",
-            "title": "Parent directories",
-            "description": "List of parent directories of the directory."
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "id",
-          "created_at",
-          "updated_at",
-          "subdirectories",
-          "files",
-          "parents"
-        ],
-        "title": "DirectoryWithParentsAndChildrenResponse"
-      },
       "EnvironmentResponse": {
         "properties": {
           "id": {
@@ -5603,6 +5080,9 @@
           },
           {
             "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+          },
+          {
+            "$ref": "#/components/schemas/EvaluatorResponse"
           }
         ],
         "title": "EvaluatedVersionResponse"
@@ -5653,55 +5133,8 @@
           "version",
           "orchestrated"
         ],
-        "title": "EvaluateeResponse"
-      },
-      "EvaluationDebugResultResponse": {
-        "properties": {
-          "log_id": {
-            "type": "string",
-            "title": "Log Id"
-          },
-          "log": {
-            "$ref": "#/components/schemas/LogResponse"
-          },
-          "datapoint_id": {
-            "type": "string",
-            "title": "Datapoint Id"
-          },
-          "llm_evaluation_log": {
-            "$ref": "#/components/schemas/LogResponse"
-          },
-          "value": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Value"
-          },
-          "error": {
-            "type": "string",
-            "title": "Error"
-          },
-          "stderr": {
-            "type": "string",
-            "title": "Stderr"
-          },
-          "stdout": {
-            "type": "string",
-            "title": "Stdout"
-          }
-        },
-        "type": "object",
-        "required": [
-          "log_id",
-          "log"
-        ],
-        "title": "EvaluationDebugResultResponse",
-        "description": "This is similar to an `EvaluationResult` but is ephemeral as it is only for synchronous\ndebug runs. It does not have an ID, or a reference to an evaluation run or even an evaluation\nfunction."
+        "title": "EvaluateeResponse",
+        "description": "Version of the Evaluatee being evaluated."
       },
       "EvaluationEvaluatorResponse": {
         "properties": {
@@ -5721,6 +5154,52 @@
         ],
         "title": "EvaluationEvaluatorResponse"
       },
+      "EvaluationReportLogResponse": {
+        "properties": {
+          "evaluated_version": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatedVersionResponse"
+              }
+            ],
+            "title": "Evaluated version",
+            "description": "The version of the Prompt, Tool or Evaluator that the Log belongs to."
+          },
+          "datapoint": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DatapointResponse"
+              }
+            ],
+            "title": "Datapoint",
+            "description": "The Datapoint used to generate the Log"
+          },
+          "log": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+              }
+            ],
+            "title": "Log",
+            "description": "The Log that was evaluated by the Evaluator."
+          },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "The Evaluator Logs containing the judgments for the Log."
+          }
+        },
+        "type": "object",
+        "required": [
+          "evaluated_version",
+          "datapoint",
+          "evaluator_logs"
+        ],
+        "title": "EvaluationReportLogResponse"
+      },
       "EvaluationResponse": {
         "properties": {
           "id": {
@@ -5735,7 +5214,7 @@
               }
             ],
             "title": "Dataset",
-            "description": "The Dataset Version used in the Evaluation."
+            "description": "The Dataset used in the Evaluation."
           },
           "evaluatees": {
             "items": {
@@ -5811,7 +5290,7 @@
             "title": "Log Id"
           },
           "log": {
-            "$ref": "#/components/schemas/LogResponse"
+            "$ref": "#/components/schemas/src__external__app__models__v4__log__LogResponse"
           },
           "version_id": {
             "type": "string",
@@ -5827,6 +5306,15 @@
               },
               {
                 "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             ],
             "title": "Value"
@@ -5846,7 +5334,7 @@
             "title": "Created At"
           },
           "llm_evaluator_log": {
-            "$ref": "#/components/schemas/LogResponse"
+            "$ref": "#/components/schemas/src__external__app__models__v4__log__LogResponse"
           }
         },
         "type": "object",
@@ -5893,15 +5381,14 @@
           "pending",
           "running",
           "completed",
-          "cancelled",
-          "failed"
+          "cancelled"
         ],
         "title": "EvaluationStatus",
         "description": "Status of an evaluation."
       },
       "EvaluatorActivationDeactivationRequest": {
         "properties": {
-          "evaluators_to_activate": {
+          "activate": {
             "items": {
               "anyOf": [
                 {
@@ -5914,9 +5401,9 @@
             },
             "type": "array",
             "title": "Evaluators to activate",
-            "description": "Monitoring Evaluators to activate. These will be automatically run on new Logs."
+            "description": "Evaluators to activate for Monitoring. These will be automatically run on new Logs."
           },
-          "evaluators_to_deactivate": {
+          "deactivate": {
             "items": {
               "anyOf": [
                 {
@@ -6073,12 +5560,178 @@
         ],
         "title": "EvaluatorConfigResponse"
       },
+      "EvaluatorJudgmentNumberLimit": {
+        "properties": {
+          "min": {
+            "type": "number",
+            "title": "Minimum",
+            "description": "The minimum value that can be selected."
+          },
+          "max": {
+            "type": "number",
+            "title": "Maximum",
+            "description": "The maximum value that can be selected."
+          },
+          "step": {
+            "type": "number",
+            "title": "Step",
+            "description": "The step size for the number input."
+          }
+        },
+        "type": "object",
+        "title": "EvaluatorJudgmentNumberLimit"
+      },
+      "EvaluatorJudgmentOptionResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "The name of the option."
+          },
+          "valence": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Valence"
+              }
+            ],
+            "title": "Valence",
+            "description": "Whether this option should be considered positive or negative.",
+            "default": "neutral"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "EvaluatorJudgmentOptionResponse"
+      },
+      "EvaluatorLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "Unique identifier for the Log."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "raw_output": {
+            "type": "string",
+            "title": "Raw output",
+            "description": "Raw output from the provider."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "judgment": {
+            "title": "Judgment Value",
+            "description": "Evaluator assessment of the Log."
+          },
+          "evaluator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorResponse"
+              }
+            ],
+            "title": "Evaluator",
+            "description": "The Evaluator used to generate the judgment."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "evaluator"
+        ],
+        "title": "EvaluatorLogResponse",
+        "description": "Submit Evaluator judgment for another File's Log."
+      },
       "EvaluatorResponse": {
         "properties": {
           "path": {
             "type": "string",
-            "title": "Dataset path",
-            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
+            "title": "Evaluator path",
+            "description": "Path of the Evaluator including the Evaluator name, which is used as a unique identifier."
           },
           "id": {
             "type": "string",
@@ -6187,6 +5840,14 @@
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
           },
+          "evaluators": {
+            "items": {
+              "$ref": "#/components/schemas/MonitoringEvaluatorResponse"
+            },
+            "type": "array",
+            "title": "Monitoring Evaluators",
+            "description": "Evaluators that have been attached to this Prompt that are used for monitoring logs."
+          },
           "evaluator_aggregates": {
             "items": {
               "$ref": "#/components/schemas/EvaluatorAggregate"
@@ -6212,159 +5873,19 @@
           "inputs"
         ],
         "title": "EvaluatorResponse",
-        "description": "Request model for creating a new Evaluator"
+        "description": "Version of the Evaluator used to provide judgments."
       },
       "EvaluatorReturnTypeEnum": {
         "type": "string",
         "enum": [
           "boolean",
-          "number"
+          "number",
+          "select",
+          "multi_select",
+          "text"
         ],
         "title": "EvaluatorReturnTypeEnum",
         "description": "Enum representing the possible return types of an evaluator."
-      },
-      "ExperimentResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "String ID of experiment. Starts with `exp_`."
-          },
-          "file_id": {
-            "type": "string",
-            "title": "File ID",
-            "description": "String ID of file the experiment belongs to."
-          },
-          "name": {
-            "type": "string",
-            "title": "Experiment name",
-            "description": "Name of experiment."
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ExperimentStatus"
-              }
-            ],
-            "title": "Experiment status",
-            "description": "Status of experiment."
-          },
-          "versions": {
-            "items": {
-              "$ref": "#/components/schemas/ExperimentVersionResponse"
-            },
-            "type": "array",
-            "title": "Experiment Versions",
-            "description": "List of Versions associated to the experiment."
-          },
-          "metric": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BaseMetricResponse"
-              }
-            ],
-            "title": "Experiment metric",
-            "description": "Metric used as the experiment's objective."
-          },
-          "positive_labels": {
-            "items": {
-              "$ref": "#/components/schemas/PositiveLabel"
-            },
-            "type": "array",
-            "title": "Positive labels",
-            "description": "Feedback labels to treat as positive user feedback. Used to monitor the performance of model configs in the experiment."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "file_id",
-          "name",
-          "status",
-          "metric",
-          "positive_labels",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentResponse"
-      },
-      "ExperimentStatus": {
-        "type": "string",
-        "enum": [
-          "Initialized",
-          "In progress"
-        ],
-        "title": "ExperimentStatus",
-        "description": "An enumeration."
-      },
-      "ExperimentVersionResponse": {
-        "properties": {
-          "mean": {
-            "type": "number",
-            "title": "Mean of experiment's metric",
-            "description": "The mean performance of the Version."
-          },
-          "spread": {
-            "type": "number",
-            "title": "Spread of experiment's metric",
-            "description": "The spread of performance of the Version."
-          },
-          "trials_count": {
-            "type": "integer",
-            "title": "Trials count",
-            "description": "Number of datapoints with feedback associated to the experiment."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Version active",
-            "description": "Whether the Version is active in the experiment. Only active model configs can be sampled from the experiment."
-          },
-          "id": {
-            "type": "string",
-            "title": "Version ID",
-            "description": "String ID of Version."
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit message",
-            "description": "Commit message of Version."
-          },
-          "version_id": {
-            "type": "string",
-            "title": "Version id",
-            "description": "Version of the Prompt or Tool."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "trials_count",
-          "active",
-          "id",
-          "version_id",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentVersionResponse"
       },
       "ExternalEvaluatorRequest": {
         "properties": {
@@ -6408,33 +5929,12 @@
         ],
         "title": "ExternalEvaluatorRequest"
       },
-      "FeedbackClass": {
-        "type": "string",
-        "enum": [
-          "select",
-          "multi_select",
-          "text",
-          "number"
-        ],
-        "title": "FeedbackClass",
-        "description": "An enumeration."
-      },
-      "FeedbackLabelStatus": {
-        "type": "string",
-        "enum": [
-          "unset",
-          "active",
-          "inactive"
-        ],
-        "title": "FeedbackLabelStatus",
-        "description": "Controls whether the label is displayed in the UI."
-      },
       "FeedbackResponse": {
         "properties": {
           "type": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v4__feedback__FeedbackType"
+                "$ref": "#/components/schemas/FeedbackType"
               },
               {
                 "type": "string"
@@ -6446,10 +5946,19 @@
           "value": {
             "anyOf": [
               {
+                "type": "boolean"
+              },
+              {
                 "type": "number"
               },
               {
                 "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             ],
             "title": "Feedback value",
@@ -6485,41 +5994,17 @@
         ],
         "title": "FeedbackResponse"
       },
-      "FeedbackTypeModel": {
-        "properties": {
-          "type": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v5__feedback__FeedbackType"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Feedback type",
-            "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
-          },
-          "values": {
-            "items": {
-              "$ref": "#/components/schemas/CategoricalFeedbackLabel"
-            },
-            "type": "array",
-            "title": "Allowed values for categorical feedback types",
-            "description": "The allowed values for categorical feedback types. Not populated for `correction` and `comment`."
-          }
-        },
-        "type": "object",
-        "required": [
-          "type"
+      "FeedbackType": {
+        "type": "string",
+        "enum": [
+          "rating",
+          "action",
+          "issue",
+          "correction",
+          "comment"
         ],
-        "title": "FeedbackTypeModel"
-      },
-      "FeedbackTypes": {
-        "items": {
-          "$ref": "#/components/schemas/FeedbackTypeModel"
-        },
-        "type": "array",
-        "title": "FeedbackTypes"
+        "title": "FeedbackType",
+        "description": "An enumeration."
       },
       "FileEnvironmentResponse": {
         "properties": {
@@ -6678,13 +6163,16 @@
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
-              }
+            "type": "string",
+            "enum": [
+              "select",
+              "multi_select",
+              "text",
+              "number",
+              "boolean"
             ],
             "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+            "description": "The type of the return value of the Evaluator."
           },
           "evaluator_type": {
             "type": "string",
@@ -6694,6 +6182,37 @@
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "human"
+          },
+          "instructions": {
+            "type": "string",
+            "title": "Instructions",
+            "description": "Instructions for the Human annotating the ."
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorJudgmentOptionResponse"
+            },
+            "type": "array",
+            "title": "Options",
+            "description": "The options that the Human annotator can choose from."
+          },
+          "number_limits": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorJudgmentNumberLimit"
+              }
+            ],
+            "title": "Number limits",
+            "description": "Limits on the judgment that can be applied. Only for Evaluators with `return_type` of `'number'`."
+          },
+          "number_valence": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Valence"
+              }
+            ],
+            "title": "Number valence",
+            "description": "The valence of the number judgment. Only for Evaluators with `return_type` of `'number'`. If 'positive', a higher number is better. If 'negative', a lower number is better."
           }
         },
         "type": "object",
@@ -6812,17 +6331,6 @@
           "return_type"
         ],
         "title": "LLMEvaluatorRequest"
-      },
-      "LabelSentiment": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "negative",
-          "neutral",
-          "unset"
-        ],
-        "title": "LabelSentiment",
-        "description": "How a label should be treated in calculating Version performance.\n\nUsed by a File's PAPV (Positive Action Per View) metric."
       },
       "LinkedToolRequest": {
         "properties": {
@@ -6966,303 +6474,6 @@
           "records"
         ],
         "title": "ListTools"
-      },
-      "LogResponse": {
-        "properties": {
-          "project": {
-            "type": "string",
-            "title": "Project name",
-            "description": "The name of the project associated with this log"
-          },
-          "project_id": {
-            "type": "string",
-            "title": "Project ID",
-            "description": "The unique ID of the project associated with this log."
-          },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "ID of the session to associate the datapoint."
-          },
-          "session_reference_id": {
-            "type": "string",
-            "title": "Session Reference ID",
-            "description": "A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "ID associated to the parent datapoint in a session."
-          },
-          "parent_reference_id": {
-            "type": "string",
-            "title": "Parent Reference ID",
-            "description": "A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request."
-          },
-          "inputs": {
-            "type": "object",
-            "title": "Inputs",
-            "description": "The inputs passed to the prompt template.",
-            "default": {}
-          },
-          "source": {
-            "type": "string",
-            "title": "Source",
-            "description": "Identifies where the model was called from."
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "Any additional metadata to record."
-          },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
-          },
-          "source_datapoint_id": {
-            "type": "string",
-            "title": "Source datapoint ID",
-            "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
-          },
-          "id": {
-            "type": "string",
-            "title": "Datapoint ID",
-            "description": "String ID of logged datapoint. Starts with `data_`."
-          },
-          "reference_id": {
-            "type": "string",
-            "title": "Reference ID",
-            "description": "Unique user-provided string identifying the datapoint."
-          },
-          "trial_id": {
-            "type": "string",
-            "title": "Trial ID",
-            "description": "Unique ID of an experiment trial to associate to the log."
-          },
-          "messages": {
-            "items": {
-              "$ref": "#/components/schemas/ChatMessageWithToolCall"
-            },
-            "type": "array",
-            "title": "Messages",
-            "description": "The messages passed to the to provider chat endpoint."
-          },
-          "output": {
-            "type": "string",
-            "title": "Model output",
-            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later"
-          },
-          "judgment": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Judgment"
-          },
-          "config_id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "Unique ID of a config to associate to the log."
-          },
-          "config": {
-            "$ref": "#/components/schemas/ConfigResponse"
-          },
-          "environment": {
-            "type": "string",
-            "title": "Environment name",
-            "description": "The environment name used to create the log."
-          },
-          "feedback": {
-            "items": {
-              "$ref": "#/components/schemas/FeedbackResponse"
-            },
-            "type": "array",
-            "title": "Feedback"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created at",
-            "description": "User defined timestamp for when the log was created. "
-          },
-          "error": {
-            "type": "string",
-            "title": "Error",
-            "description": "Error message if the log is an error."
-          },
-          "duration": {
-            "type": "number",
-            "title": "Duration",
-            "description": "Duration of the logged event in seconds."
-          },
-          "output_message": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ChatMessageWithToolCall"
-              }
-            ],
-            "title": "Output message",
-            "description": "The message returned by the provider."
-          },
-          "prompt_tokens": {
-            "type": "integer",
-            "title": "Prompt tokens",
-            "description": "Number of tokens in the prompt used to generate the output."
-          },
-          "output_tokens": {
-            "type": "integer",
-            "title": "Output tokens",
-            "description": "Number of tokens in the output generated by the model."
-          },
-          "prompt_cost": {
-            "type": "number",
-            "title": "Prompt cost",
-            "description": "Cost in dollars associated to the tokens in the prompt."
-          },
-          "output_cost": {
-            "type": "number",
-            "title": "Output tokens",
-            "description": "Cost in dollars associated to the tokens in the output."
-          },
-          "provider_request": {
-            "type": "object",
-            "title": "Provider request",
-            "description": "Raw request sent to provider."
-          },
-          "provider_response": {
-            "type": "object",
-            "title": "Provider response",
-            "description": "Raw response received the provider."
-          },
-          "user": {
-            "type": "string",
-            "title": "User",
-            "description": "User email address provided when creating the datapoint."
-          },
-          "provider_latency": {
-            "type": "number",
-            "title": "Provider Latency",
-            "description": "Latency of provider response."
-          },
-          "tokens": {
-            "type": "integer",
-            "title": "Tokens",
-            "description": "Total number of tokens in the prompt and output."
-          },
-          "raw_output": {
-            "type": "string",
-            "title": "Raw output",
-            "description": "Raw output from the provider."
-          },
-          "finish_reason": {
-            "type": "string",
-            "title": "Finish reason",
-            "description": "Reason the generation finished."
-          },
-          "metric_values": {
-            "items": {
-              "$ref": "#/components/schemas/MetricValueResponse"
-            },
-            "type": "array",
-            "title": "Metric Values"
-          },
-          "tools": {
-            "items": {
-              "$ref": "#/components/schemas/ToolResultResponse"
-            },
-            "type": "array",
-            "title": "Tools"
-          },
-          "tool_choice": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "none"
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "auto"
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "required"
-                ]
-              },
-              {
-                "$ref": "#/components/schemas/ToolChoice"
-              }
-            ],
-            "title": "Tool choice",
-            "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
-          },
-          "evaluation_results": {
-            "items": {
-              "$ref": "#/components/schemas/EvaluationResultResponse"
-            },
-            "type": "array",
-            "title": "Evaluation Results"
-          },
-          "observability_status": {
-            "$ref": "#/components/schemas/ObservabilityStatus"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "batch_ids": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "List of batch IDs the log belongs to."
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "config",
-          "evaluation_results",
-          "observability_status",
-          "updated_at"
-        ],
-        "title": "LogResponse",
-        "description": "Request model for logging a datapoint."
-      },
-      "MetricValueResponse": {
-        "properties": {
-          "metric_id": {
-            "type": "string",
-            "title": "Metric Id"
-          },
-          "metric_name": {
-            "type": "string",
-            "title": "Metric Name"
-          },
-          "metric_value": {
-            "type": "number",
-            "title": "Metric Value"
-          }
-        },
-        "type": "object",
-        "required": [
-          "metric_id",
-          "metric_name",
-          "metric_value"
-        ],
-        "title": "MetricValueResponse"
       },
       "ModelConfigRequest": {
         "properties": {
@@ -7628,10 +6839,8 @@
         "enum": [
           "openai",
           "openai_azure",
-          "ai21",
           "mock",
           "anthropic",
-          "langchain",
           "cohere",
           "replicate",
           "google",
@@ -7897,6 +7106,37 @@
         ],
         "title": "PaginatedData[DatasetResponse]"
       },
+      "PaginatedData_EvaluationReportLogResponse_": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluationReportLogResponse"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
+        "title": "PaginatedData[EvaluationReportLogResponse]"
+      },
       "PaginatedData_EvaluationResponse_": {
         "properties": {
           "records": {
@@ -7928,11 +7168,11 @@
         ],
         "title": "PaginatedData[EvaluationResponse]"
       },
-      "PaginatedData_PromptLogResponse_": {
+      "PaginatedData_EvaluatorResponse_": {
         "properties": {
           "records": {
             "items": {
-              "$ref": "#/components/schemas/PromptLogResponse"
+              "$ref": "#/components/schemas/EvaluatorResponse"
             },
             "type": "array",
             "title": "Records"
@@ -7957,7 +7197,69 @@
           "size",
           "total"
         ],
-        "title": "PaginatedData[PromptLogResponse]"
+        "title": "PaginatedData[EvaluatorResponse]"
+      },
+      "PaginatedData_LogResponse_": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
+        "title": "PaginatedData[LogResponse]"
+      },
+      "PaginatedData_PromptResponse_": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/PromptResponse"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
+        "title": "PaginatedData[PromptResponse]"
       },
       "PaginatedData_SessionResponse_": {
         "properties": {
@@ -7990,6 +7292,37 @@
         ],
         "title": "PaginatedData[SessionResponse]"
       },
+      "PaginatedData_ToolResponse_": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records",
+          "page",
+          "size",
+          "total"
+        ],
+        "title": "PaginatedData[ToolResponse]"
+      },
       "PlatformAccessEnum": {
         "type": "string",
         "enum": [
@@ -7999,24 +7332,6 @@
         ],
         "title": "PlatformAccessEnum",
         "description": "An enumeration."
-      },
-      "PositiveLabel": {
-        "properties": {
-          "type": {
-            "type": "string",
-            "title": "Feedback type"
-          },
-          "value": {
-            "type": "string",
-            "title": "Feedback value"
-          }
-        },
-        "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
-        "title": "PositiveLabel"
       },
       "ProjectSortBy": {
         "type": "string",
@@ -8840,7 +8155,7 @@
               }
             ],
             "title": "Prompt",
-            "description": "Prompt details used to generate the log."
+            "description": "Prompt details used to generate the Log."
           },
           "messages": {
             "items": {
@@ -9339,6 +8654,14 @@
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
           },
+          "evaluators": {
+            "items": {
+              "$ref": "#/components/schemas/MonitoringEvaluatorResponse"
+            },
+            "type": "array",
+            "title": "Monitoring Evaluators",
+            "description": "Evaluators that have been attached to this Prompt that are used for monitoring logs."
+          },
           "evaluator_aggregates": {
             "items": {
               "$ref": "#/components/schemas/EvaluatorAggregate"
@@ -9417,74 +8740,6 @@
         "title": "ResponseFormat",
         "description": "Response format of the model."
       },
-      "RunSyncEvaluationRequest": {
-        "properties": {
-          "file_id": {
-            "type": "string",
-            "title": "Dataset ID",
-            "description": "The ID of the Dataset that the datapoints belong to."
-          },
-          "evaluator": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/LLMEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/CodeEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/HumanEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
-              }
-            ],
-            "title": "Evaluator",
-            "discriminator": {
-              "propertyName": "evaluator_type",
-              "mapping": {
-                "llm": "#/components/schemas/LLMEvaluatorRequest",
-                "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest",
-                "external": "#/components/schemas/ExternalEvaluatorRequest"
-              }
-            }
-          },
-          "evaluator_version_id": {
-            "type": "string",
-            "title": "Evaluator Version ID",
-            "description": "The ID of the Evaluator Version being debugged if it already exists and is being edited."
-          },
-          "log_ids": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Log IDs",
-            "description": "The IDs of the logs on which to run the draft evaluator.Provide one of `log_ids` or `datapoint_ids`."
-          },
-          "datapoint_ids": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Evaluation datapoint IDs",
-            "description": "The IDs of the evaluation datapoints on which to run the draft evaluator. "
-          },
-          "prompt_version_id": {
-            "type": "string",
-            "title": "Prompt Version ID",
-            "description": "The ID of the Prompt Version to use generate datapoints for the evaluation datapoints. Only required if `datapoint_ids` is provided; has no effect otherwise."
-          }
-        },
-        "type": "object",
-        "required": [
-          "file_id",
-          "evaluator"
-        ],
-        "title": "RunSyncEvaluationRequest",
-        "description": "Request model for a synchronous evaluator execution on a collection\nof datapoints in a file.\n\nThe evaluator is defined in the request, rather than refering to a\npreviously saved evaluator, as this is used for debugging in the evaluation\nfunction creation debug console."
-      },
       "SessionResponse": {
         "properties": {
           "id": {
@@ -9504,7 +8759,7 @@
           },
           "logs": {
             "items": {
-              "$ref": "#/components/schemas/PromptLogResponse"
+              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
             },
             "type": "array",
             "title": "Logs",
@@ -9917,6 +9172,123 @@
         "title": "ToolLogRequest",
         "description": "Request for creating a Tool log."
       },
+      "ToolLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "Unique identifier for the Log."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "raw_output": {
+            "type": "string",
+            "title": "Raw output",
+            "description": "Raw output from the provider."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "tool": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+              }
+            ],
+            "title": "Tool",
+            "description": "Tool details used to generate the Log."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "tool"
+        ],
+        "title": "ToolLogResponse",
+        "description": "Request for creating a Tool log."
+      },
       "ToolRequest": {
         "properties": {
           "path": {
@@ -10032,22 +9404,6 @@
         "title": "UpdateDatesetAction",
         "description": "An enumeration."
       },
-      "UpdateDirectoryRequest": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Directory name",
-            "description": "Name to set for the directory."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent directory ID",
-            "description": "ID of the parent directory. Specify this to move directories. Starts with `dir_`."
-          }
-        },
-        "type": "object",
-        "title": "UpdateDirectoryRequest"
-      },
       "UpdateEvaluatorRequest": {
         "properties": {
           "path": {
@@ -10095,6 +9451,16 @@
         },
         "type": "object",
         "title": "UpdateToolRequest"
+      },
+      "Valence": {
+        "type": "string",
+        "enum": [
+          "positive",
+          "negative",
+          "neutral"
+        ],
+        "title": "Valence",
+        "description": "An enumeration."
       },
       "ValidationError": {
         "properties": {
@@ -10332,17 +9698,267 @@
         ],
         "title": "ToolResponse"
       },
-      "src__external__app__models__v4__feedback__FeedbackType": {
-        "type": "string",
-        "enum": [
-          "rating",
-          "action",
-          "issue",
-          "correction",
-          "comment"
+      "src__external__app__models__v4__log__LogResponse": {
+        "properties": {
+          "project": {
+            "type": "string",
+            "title": "Project name",
+            "description": "The name of the project associated with this log"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project ID",
+            "description": "The unique ID of the project associated with this log."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "ID of the session to associate the datapoint."
+          },
+          "session_reference_id": {
+            "type": "string",
+            "title": "Session Reference ID",
+            "description": "A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "ID associated to the parent datapoint in a session."
+          },
+          "parent_reference_id": {
+            "type": "string",
+            "title": "Parent Reference ID",
+            "description": "A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source datapoint ID",
+            "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
+          },
+          "id": {
+            "type": "string",
+            "title": "Datapoint ID",
+            "description": "String ID of logged datapoint. Starts with `data_`."
+          },
+          "reference_id": {
+            "type": "string",
+            "title": "Reference ID",
+            "description": "Unique user-provided string identifying the datapoint."
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageWithToolCall"
+            },
+            "type": "array",
+            "title": "Messages",
+            "description": "The messages passed to the to provider chat endpoint."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later"
+          },
+          "judgment": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Judgment"
+          },
+          "config_id": {
+            "type": "string",
+            "title": "Config ID",
+            "description": "Unique ID of a config to associate to the log."
+          },
+          "config": {
+            "$ref": "#/components/schemas/ConfigResponse"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The environment name used to create the log."
+          },
+          "feedback": {
+            "items": {
+              "$ref": "#/components/schemas/FeedbackResponse"
+            },
+            "type": "array",
+            "title": "Feedback"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "duration": {
+            "type": "number",
+            "title": "Duration",
+            "description": "Duration of the logged event in seconds."
+          },
+          "output_message": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatMessageWithToolCall"
+              }
+            ],
+            "title": "Output message",
+            "description": "The message returned by the provider."
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt tokens",
+            "description": "Number of tokens in the prompt used to generate the output."
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output tokens",
+            "description": "Number of tokens in the output generated by the model."
+          },
+          "prompt_cost": {
+            "type": "number",
+            "title": "Prompt cost",
+            "description": "Cost in dollars associated to the tokens in the prompt."
+          },
+          "output_cost": {
+            "type": "number",
+            "title": "Output tokens",
+            "description": "Cost in dollars associated to the tokens in the output."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "user": {
+            "type": "string",
+            "title": "User",
+            "description": "User email address provided when creating the datapoint."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Provider Latency",
+            "description": "Latency of provider response."
+          },
+          "tokens": {
+            "type": "integer",
+            "title": "Tokens",
+            "description": "Total number of tokens in the prompt and output."
+          },
+          "raw_output": {
+            "type": "string",
+            "title": "Raw output",
+            "description": "Raw output from the provider."
+          },
+          "finish_reason": {
+            "type": "string",
+            "title": "Finish reason",
+            "description": "Reason the generation finished."
+          },
+          "tools": {
+            "items": {
+              "$ref": "#/components/schemas/ToolResultResponse"
+            },
+            "type": "array",
+            "title": "Tools"
+          },
+          "tool_choice": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "none"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "auto"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "required"
+                ]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
+            ],
+            "title": "Tool choice",
+            "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
+          },
+          "evaluation_results": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluationResultResponse"
+            },
+            "type": "array",
+            "title": "Evaluation Results"
+          },
+          "observability_status": {
+            "$ref": "#/components/schemas/ObservabilityStatus"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "batch_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "List of batch IDs the log belongs to."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "config",
+          "evaluation_results",
+          "observability_status",
+          "updated_at"
         ],
-        "title": "FeedbackType",
-        "description": "An enumeration."
+        "title": "LogResponse",
+        "description": "Request model for logging a datapoint."
       },
       "src__external__app__models__v4__orgs__base_models__UserResponse": {
         "properties": {
@@ -10499,20 +10115,22 @@
         "required": [
           "spec"
         ],
-        "title": "EvaluatorRequest",
-        "description": "Request model for creating a new Evaluator"
+        "title": "EvaluatorRequest"
       },
-      "src__external__app__models__v5__feedback__FeedbackType": {
-        "type": "string",
-        "enum": [
-          "rating",
-          "action",
-          "issue",
-          "correction",
-          "comment"
+      "src__external__app__models__v5__logs__LogResponse": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/PromptLogResponse"
+          },
+          {
+            "$ref": "#/components/schemas/ToolLogResponse"
+          },
+          {
+            "$ref": "#/components/schemas/EvaluatorLogResponse"
+          }
         ],
-        "title": "FeedbackType",
-        "description": "An enumeration."
+        "additionalProperties": false,
+        "title": "LogResponse"
       },
       "src__external__app__models__v5__tools__ToolResponse": {
         "properties": {
@@ -10636,6 +10254,14 @@
             "type": "array",
             "title": "Prompt inputs",
             "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Tool template."
+          },
+          "evaluators": {
+            "items": {
+              "$ref": "#/components/schemas/MonitoringEvaluatorResponse"
+            },
+            "type": "array",
+            "title": "Monitoring Evaluators",
+            "description": "Evaluators that have been attached to this Tool that are used for monitoring logs."
           },
           "signature": {
             "type": "string",
