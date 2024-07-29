@@ -167,6 +167,12 @@ navigation:
                 path: ../v5-pages/admin/guides/manage-api-keys.mdx
       - section: Reference
         contents:
+          - page: Security and Compliance
+            path: ../v5-pages/reference/security-compliance.mdx
+          - page: Deployment Options
+            path: ../v5-pages/reference/deployment-options.mdx
+          - page: Integrations
+            path: ../v5-pages/reference/integrations.mdx
           - page: Supported Models
             path: ../v5-pages/reference/models.mdx
           # - page: Supported Tools
@@ -175,14 +181,11 @@ navigation:
           #   path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
-          - page: Deployment Options
-            path: ../v5-pages/reference/deployment-options.mdx
+
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
           - page: Postman Workspace
             path: ../v5-pages/reference/postman-workspace.mdx
-          - page: Security and compliance
-            path: ../v5-pages/reference/security-compliance.mdx
 
   - tab: api
     layout:

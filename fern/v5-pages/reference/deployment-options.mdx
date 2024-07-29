@@ -14,3 +14,59 @@ Our menu of hosting options is as follows from basic to more advanced:
    - Ability to manage your own encryption keys in KMS.
    - Ability to subscribe to application logging and cloudtrail infrastructure monitoring.
 4. **Self-hosted**: You deploy an instance of Humanloop within your own VPC on AWS. We provide an infra as code setup with [Pulumi](https://www.pulumi.com/) to easily spin up a Humanloop instance in your VPC.
+
+## Multi-Tenant Cloud
+
+In a multi-tenant cloud environment, multiple customers (tenants) share the same infrastructure, including hardware, storage, and network resources. Data resources are dynamically allocated among tenants based on demand. Each tenant's data and applications are isolated, but they share the underlying hardware. By default, Humanloop offer mutli-tenant cloud hosting via AWS. To request multi-tennant hosting via an alternative cloud provider, contact [privacy@humanloop.com](mailto:privacy@humanloop.com) for further inqueries.
+
+Humanloop’s multi-tenanted cloud offering is hosted in the AWS US-east region on AWS. This is Humanloop’s default hosting environment for [Free & Enterprise](https://humanloop.com/pricing) users.
+
+Humanloop’s multi-tenant cloud offering is SOC2 compliant and has pending certifications for GDPR and HIPAA compliance. Learn more here.
+
+### **Benefits of Multi-Tennant Cloud Hosting Environments:**
+
+- **Cost**: Generally more cost-effective as the expenses for hardware, maintenance, and management are distributed among multiple tenants.
+- **Scale**: Highly scalable as cloud providers can easily allocate additional resources as needed.
+- **Security**: While cloud providers implement strong isolation mechanisms, the shared nature of the environment might be a concern for businesses with stringent security and compliance requirements.
+
+## Regional Cloud
+
+If users prefer to do mutli-tennant cloud hosting in a dedicated country or regain in order to meet security and compliance requirements related to GDPR, Humanloop offers UK, EU, and U.S. guarantees for data storage regions.
+
+## Dedicated Cloud
+
+In a dedicated hosting environment, a single customer (tenant) has exclusive use of the entire server or set of servers. No other tenants share this hardware. All data resources are dedicated to one tenant, providing full control over the server’s configurations and usage.
+
+Humanloop’s dedicated cloud offering is SOC2 compliant and has pending certifications for GDPR and HIPAA compliance. Learn more here.
+
+Humanloop enterprise customers can select any custom region across North America, Latin America, Europe, Middle East and Africa (EMEA), Asia/Pacific (APAC), Japan.
+
+### **Benefits of Dedicated Cloud Hosting Environments:**
+
+- **Cost**: This is the second most cost-effective cloud hosting environment, second to Humanloop’s Multi-Tenant Cloud offering. Our Dedicated Cloud hosting environment incurs an extra cost for users, due to the exclusive use of hardware and the associated management and maintenance costs.
+- **Scalability**: Scalability can be more limited and might require manual intervention to add additional servers or resources.
+- **Security**: Provides a higher level of security as the hardware is not shared with other tenants, reducing the risk of cross-tenant vulnerabilities.
+
+### **Improved Capabilities Compared to Multi-Tenant Cloud:**
+
+- Customer-managed encryption keys (KMS)
+- Optional application logging and CloudTrail monitoring
+
+## Self-Hosted Cloud (VPC)
+
+A self-hosted cloud environment using a Virtual Private Cloud (VPC) is the most secure hosting environment Humanloop offers today. VPC hosting involves an organization setting up and managing its own cloud infrastructure within a dedicated virtual network on a cloud provider’s platform. This offers the benefits of cloud computing while maintaining greater control, security, and compliance over your Humanloop environment. Humanloop uses AWS to deploy all VPC environments.
+
+Resources are allocated within a virtual network that is logically isolated from other virtual networks on the cloud provider’s infrastructure. The organization has full control over the allocation and configuration of these resources.
+
+### **Benefits of Self-Hosted Cloud (VPC) Environments:**
+
+- **Cost**: Our Self-Hosted VPC hosting environment incurs an extra cost for users, due to the extra level of management and compute resources required. VPC hosting more cost-effective than traditional on-premises infrastructure.
+- **Scalability**: Highly scalable, allowing for dynamic resource allocation to meet changing demands. An organization can add or remove resources as needed.
+- **Security**: Provides robust security features, including network isolation, security groups, and access control lists (ACLs). An organization can implement its own security policies and controls within the VPC.
+
+### **Improved Capabilities Compared to Dedicated Hosting or Multi-Tenant Cloud Environments:**
+
+- Humanloop provide’s an infra as code setup with [**Pulumi**](https://www.pulumi.com/) to easily spin up a Humanloop instance within your VPC.
+- Customer-controlled environment
+
+{/* WIP - for gartner /end */}
