@@ -124,6 +124,7 @@ navigation:
           #          - page: Dataset management
           #            path: ../v5-pages/evaluation/dataset-management.mdx
           - section: How-to guides
+            slug: guides
             contents:
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
@@ -136,14 +137,14 @@ navigation:
               #                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Create a Dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
+              - page: Generating synthetic data
+                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
               - page: Run an Evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
       - section: Observability
         contents:
-          - page: Monitoring in production
-            path: ../v5-pages/observability/monitoring-production.mdx
-          - page: Collecting feedback signals
-            path: ../v5-pages/observability/collecting-feedback-signals.mdx
+          - page: LLM Monitoring
+            path: ../v5-pages/observability/llm-monitoring.mdx
           - page: Alerts and Guardrails
             path: ../v5-pages/observability/alerts-guardrails.mdx
           - section: How-to guides
