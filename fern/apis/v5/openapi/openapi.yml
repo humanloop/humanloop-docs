@@ -3575,12 +3575,13 @@ components:
           type: string
           title: Evaluator path
           description: >-
-            Path of the Evaluator, including the name, which is used as a unique
-            identifier.
+            Path of the Evaluator, including the name. This locates the
+            Evaluator in the Humanloop filesystem and is used as as a unique
+            identifier. Example: `folder/name` or just `name`.
         id:
           type: string
           title: Evaluator ID
-          description: ID for an existing Evaluator to update.
+          description: ID for an existing Evaluator.
         output:
           type: string
           title: Output
@@ -3826,6 +3827,10 @@ components:
           type: string
           title: Dataset ID
           description: Unique identifier for the Dataset. Starts with `ds_`.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: ID of the directory that the file is in on Humanloop.
         name:
           type: string
           title: Dataset name
@@ -4316,10 +4321,6 @@ components:
       title: EvaluatorConfigResponse
     EvaluatorLogResponse:
       properties:
-        id:
-          type: string
-          title: Log ID
-          description: Unique identifier for the Log.
         output:
           type: string
           title: Model output
@@ -4360,9 +4361,8 @@ components:
           type: string
           title: Parent ID
           description: >-
-            Unique identifier for the parent Log in a Session. Should only be
-            provided if `session_id` is provided. If provided, the Log will be
-            nested under the parent Log within the Session.
+            Identifier of the evaluated Log. The newly created Log will have
+            this one set as parent.
         inputs:
           type: object
           title: Inputs
@@ -4408,6 +4408,10 @@ components:
         judgment:
           title: Judgment Value
           description: Evaluator assessment of the Log.
+        id:
+          type: string
+          title: Log ID
+          description: Unique identifier for the Log.
         evaluator:
           allOf:
             - $ref: "#/components/schemas/EvaluatorResponse"
@@ -4416,10 +4420,11 @@ components:
       additionalProperties: false
       type: object
       required:
+        - parent_id
         - id
         - evaluator
       title: EvaluatorLogResponse
-      description: Submit Evaluator judgment for another File's Log.
+      description: General request for creating a Log
     EvaluatorResponse:
       properties:
         path:
@@ -4432,6 +4437,28 @@ components:
           type: string
           title: Evaluator ID
           description: Unique identifier for the Evaluator.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: ID of the directory that the file is in on Humanloop.
+        commit_message:
+          type: string
+          title: Commit message
+          description: Message describing the changes made.
+        spec:
+          oneOf:
+            - $ref: "#/components/schemas/LLMEvaluatorRequest"
+            - $ref: "#/components/schemas/CodeEvaluatorRequest"
+            - $ref: "#/components/schemas/HumanEvaluatorRequest"
+            - $ref: "#/components/schemas/ExternalEvaluatorRequest"
+          title: Spec
+          discriminator:
+            propertyName: evaluator_type
+            mapping:
+              llm: "#/components/schemas/LLMEvaluatorRequest"
+              python: "#/components/schemas/CodeEvaluatorRequest"
+              human: "#/components/schemas/HumanEvaluatorRequest"
+              external: "#/components/schemas/ExternalEvaluatorRequest"
         name:
           type: string
           title: Prompt name
@@ -4474,24 +4501,6 @@ components:
           type: string
           format: date-time
           title: Last Used At
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
-        spec:
-          oneOf:
-            - $ref: "#/components/schemas/LLMEvaluatorRequest"
-            - $ref: "#/components/schemas/CodeEvaluatorRequest"
-            - $ref: "#/components/schemas/HumanEvaluatorRequest"
-            - $ref: "#/components/schemas/ExternalEvaluatorRequest"
-          title: Spec
-          discriminator:
-            propertyName: evaluator_type
-            mapping:
-              llm: "#/components/schemas/LLMEvaluatorRequest"
-              python: "#/components/schemas/CodeEvaluatorRequest"
-              human: "#/components/schemas/HumanEvaluatorRequest"
-              external: "#/components/schemas/ExternalEvaluatorRequest"
         version_logs_count:
           type: integer
           title: Number of logs for this version
@@ -4528,13 +4537,13 @@ components:
       required:
         - path
         - id
+        - spec
         - name
         - version_id
         - created_at
         - updated_at
         - status
         - last_used_at
-        - spec
         - version_logs_count
         - total_logs_count
         - inputs
@@ -5939,12 +5948,13 @@ components:
           type: string
           title: Prompt path
           description: >-
-            Path of the Prompt, including the name, which is used as a unique
-            identifier.
+            Path of the Prompt, including the name. This locates the Prompt in
+            the Humanloop filesystem and is used as as a unique identifier.
+            Example: `folder/name` or just `name`.
         id:
           type: string
           title: Prompt ID
-          description: ID for an existing Prompt to update.
+          description: ID for an existing Prompt.
         prompt:
           allOf:
             - $ref: "#/components/schemas/PromptKernelRequest"
@@ -6402,12 +6412,13 @@ components:
           type: string
           title: Prompt path
           description: >-
-            Path of the Prompt, including the name, which is used as a unique
-            identifier.
+            Path of the Prompt, including the name. This locates the Prompt in
+            the Humanloop filesystem and is used as as a unique identifier.
+            Example: `folder/name` or just `name`.
         id:
           type: string
           title: Prompt ID
-          description: ID for an existing Prompt to update.
+          description: ID for an existing Prompt.
         output_message:
           allOf:
             - $ref: "#/components/schemas/ChatMessage"
@@ -6567,10 +6578,6 @@ components:
       description: Request for creating a Prompt log.
     PromptLogResponse:
       properties:
-        id:
-          type: string
-          title: Log ID
-          description: Unique identifier for the Log.
         output_message:
           allOf:
             - $ref: "#/components/schemas/ChatMessage"
@@ -6722,25 +6729,30 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
+        id:
+          type: string
+          title: Log ID
+          description: Unique identifier for the Log.
       additionalProperties: false
       type: object
       required:
-        - id
         - prompt
+        - id
       title: PromptLogResponse
-      description: Request for creating a Prompt log.
+      description: General request for creating a Log
     PromptRequest:
       properties:
         path:
           type: string
           title: Prompt path
           description: >-
-            Path of the Prompt, including the name, which is used as a unique
-            identifier.
+            Path of the Prompt, including the name. This locates the Prompt in
+            the Humanloop filesystem and is used as as a unique identifier.
+            Example: `folder/name` or just `name`.
         id:
           type: string
           title: Prompt ID
-          description: ID for an existing Prompt to update.
+          description: ID for an existing Prompt.
         model:
           type: string
           title: Model instance used
@@ -6874,51 +6886,10 @@ components:
           type: string
           title: Prompt ID
           description: Unique identifier for the Prompt.
-        name:
+        directory_id:
           type: string
-          title: Prompt name
-          description: Name of the Prompt.
-        version_id:
-          type: string
-          title: Version ID
-          description: >-
-            Unique identifier for the specific Prompt Version. If no query
-            params provided, the default deployed Prompt Version is returned.
-        type:
-          type: string
-          enum:
-            - prompt
-          title: Type
-          default: prompt
-        environments:
-          items:
-            $ref: "#/components/schemas/EnvironmentResponse"
-          type: array
-          title: Environments
-          description: The list of environments the Prompt Version is deployed to.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        created_by:
-          allOf:
-            - $ref: >-
-                #/components/schemas/src__external__app__models__v5__users__UserResponse
-          title: Created by
-          description: The user who created the Prompt.
-        status:
-          allOf:
-            - $ref: "#/components/schemas/VersionStatus"
-          title: Status
-          description: The status of the Prompt Version.
-        last_used_at:
-          type: string
-          format: date-time
-          title: Last Used At
+          title: Directory ID
+          description: ID of the directory that the file is in on Humanloop.
         model:
           type: string
           title: Model instance used
@@ -7032,6 +7003,51 @@ components:
           type: string
           title: Commit message
           description: Message describing the changes made.
+        name:
+          type: string
+          title: Prompt name
+          description: Name of the Prompt.
+        version_id:
+          type: string
+          title: Version ID
+          description: >-
+            Unique identifier for the specific Prompt Version. If no query
+            params provided, the default deployed Prompt Version is returned.
+        type:
+          type: string
+          enum:
+            - prompt
+          title: Type
+          default: prompt
+        environments:
+          items:
+            $ref: "#/components/schemas/EnvironmentResponse"
+          type: array
+          title: Environments
+          description: The list of environments the Prompt Version is deployed to.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        created_by:
+          allOf:
+            - $ref: >-
+                #/components/schemas/src__external__app__models__v5__users__UserResponse
+          title: Created by
+          description: The user who created the Prompt.
+        status:
+          allOf:
+            - $ref: "#/components/schemas/VersionStatus"
+          title: Status
+          description: The status of the Prompt Version.
+        last_used_at:
+          type: string
+          format: date-time
+          title: Last Used At
         version_logs_count:
           type: integer
           title: Number of logs for this version
@@ -7068,18 +7084,26 @@ components:
       required:
         - path
         - id
+        - model
         - name
         - version_id
         - created_at
         - updated_at
         - status
         - last_used_at
-        - model
         - version_logs_count
         - total_logs_count
         - inputs
       title: PromptResponse
-      description: Request model for creating a new Prompt
+      description: >-
+        Base type that all File Responses should inherit from.
+
+
+        Attributes defined here are common to all File Responses and should be
+        overridden
+
+        in the inheriting classes with documentation and appropriate Field
+        definitions.
     ProviderApiKeys:
       properties:
         openai:
@@ -7383,12 +7407,13 @@ components:
           type: string
           title: Tool path
           description: >-
-            Path of the Tool, including the name, which is used as a unique
-            identifier.
+            Path of the Tool, including the name. This locates the Tool in the
+            Humanloop filesystem and is used as as a unique identifier. Example:
+            `folder/name` or just `name`.
         id:
           type: string
           title: Tool ID
-          description: ID for an existing Tool to update.
+          description: ID for an existing Tool.
         output:
           type: string
           title: Model output
@@ -7487,10 +7512,6 @@ components:
       description: Request for creating a Tool log.
     ToolLogResponse:
       properties:
-        id:
-          type: string
-          title: Log ID
-          description: Unique identifier for the Log.
         output:
           type: string
           title: Model output
@@ -7576,6 +7597,10 @@ components:
           type: string
           title: Environment name
           description: The name of the Environment the Log is associated to.
+        id:
+          type: string
+          title: Log ID
+          description: Unique identifier for the Log.
         tool:
           allOf:
             - $ref: >-
@@ -7588,19 +7613,20 @@ components:
         - id
         - tool
       title: ToolLogResponse
-      description: Request for creating a Tool log.
+      description: General request for creating a Log
     ToolRequest:
       properties:
         path:
           type: string
           title: Tool path
           description: >-
-            Path of the Tool, including the name, which is used as a unique
-            identifier.
+            Path of the Tool, including the name. This locates the Tool in the
+            Humanloop filesystem and is used as as a unique identifier. Example:
+            `folder/name` or just `name`.
         id:
           type: string
           title: Tool ID
-          description: ID for an existing Tool to update.
+          description: ID for an existing Tool.
         function:
           allOf:
             - $ref: "#/components/schemas/ToolFunction"
@@ -8161,12 +8187,13 @@ components:
           type: string
           title: Dataset path
           description: >-
-            Path of the Dataset, including the name, which is used as a unique
-            identifier.
+            Path of the Dataset, including the name. This locates the Dataset in
+            the Humanloop filesystem and is used as as a unique identifier.
+            Example: `folder/name` or just `name`.
         id:
           type: string
           title: Dataset ID
-          description: ID for an existing Dataset to update.
+          description: ID for an existing Dataset.
         datapoints:
           items:
             $ref: "#/components/schemas/CreateDatapointRequest"
@@ -8238,12 +8265,13 @@ components:
           type: string
           title: Evaluator path
           description: >-
-            Path of the Evaluator, including the name, which is used as a unique
-            identifier.
+            Path of the Evaluator, including the name. This locates the
+            Evaluator in the Humanloop filesystem and is used as as a unique
+            identifier. Example: `folder/name` or just `name`.
         id:
           type: string
           title: Evaluator ID
-          description: ID for an existing Evaluator to update.
+          description: ID for an existing Evaluator.
         commit_message:
           type: string
           title: Commit message
@@ -8295,6 +8323,37 @@ components:
           type: string
           title: Tool ID
           description: Unique identifier for the Tool.
+        directory_id:
+          type: string
+          title: Directory ID
+          description: ID of the directory that the file is in on Humanloop.
+        function:
+          allOf:
+            - $ref: "#/components/schemas/ToolFunction"
+          title: Function
+          description: >-
+            Callable function specification of the Tool shown to the model for
+            tool calling.
+        source_code:
+          type: string
+          title: Source Code
+          description: Code source of the Tool.
+        setup_values:
+          type: object
+          title: Setup values
+          description: >-
+            Values needed to setup the Tool, defined in JSON Schema format:
+            https://json-schema.org/
+        tool_type:
+          allOf:
+            - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
+          title: Tool Type
+          description: Type of Tool.
+          default: json_schema
+        commit_message:
+          type: string
+          title: Commit message
+          description: Message describing the changes made.
         name:
           type: string
           title: Tool name
@@ -8340,33 +8399,6 @@ components:
           type: string
           format: date-time
           title: Last Used At
-        function:
-          allOf:
-            - $ref: "#/components/schemas/ToolFunction"
-          title: Function
-          description: >-
-            Callable function specification of the Tool shown to the model for
-            tool calling.
-        source_code:
-          type: string
-          title: Source Code
-          description: Code source of the Tool.
-        setup_values:
-          type: object
-          title: Setup values
-          description: >-
-            Values needed to setup the Tool, defined in JSON Schema format:
-            https://json-schema.org/
-        tool_type:
-          allOf:
-            - $ref: "#/components/schemas/src__domain__files__tool__ToolType"
-          title: Tool Type
-          description: Type of Tool.
-          default: json_schema
-        commit_message:
-          type: string
-          title: Commit message
-          description: Message describing the changes made.
         version_logs_count:
           type: integer
           title: Number of logs for this version
@@ -8415,7 +8447,15 @@ components:
         - total_logs_count
         - inputs
       title: ToolResponse
-      description: Request to create a new Tool.
+      description: >-
+        Base type that all File Responses should inherit from.
+
+
+        Attributes defined here are common to all File Responses and should be
+        overridden
+
+        in the inheriting classes with documentation and appropriate Field
+        definitions.
     src__external__app__models__v5__users__UserResponse:
       properties:
         id:
