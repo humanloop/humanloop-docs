@@ -1,45 +1,25 @@
 ---
-subtitle: How to trace through "sessions" of LLM calls, enabling you to view the full context of actions taken by your LLM agent and troubleshoot issues.
+subtitle: How to trace through a "session" of LLM calls, enabling you to view the full context of actions taken by your LLM agent and troubleshoot issues.
 description: Learn how to log sequences of LLM calls to Humanloop, enabling you to trace through "sessions" and troubleshoot where your LLM chain went wrong or track sequences of actions taken by your LLM agent.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-This guide contains 3 sections. We'll start with an example Python script that makes a series of calls to an LLM upon receiving a user request. In the first section, we'll log these calls to Humanloop. In the second section, we'll link up these calls to a single session so they can be easily inspected on Humanloop. Finally, we'll explore how to deal with nested logs within a session.
+<Markdown src="../../../snippets/wip.mdx" />
 
-By following this guide, you will:
+This guide will show you how to trace through "sessions" of Prompt calls, Tool
+calls and other events in your AI application.
 
-- Have hooked up your backend system to use Humanloop.
-- Be able to view session traces displaying sequences of LLM calls on Humanloop.
-- Learn how to log complex session traces containing nested logs.
+You can see an example below for a simple [LLM chain](#tracing-a-simple-llm-chain), an [Agent](#tracing-an-agent) and a [RAG pipeline](#tracing-a-rag-pipeline).
 
-## Prerequisites
+## Tracing a simple LLM chain
 
-- A Humanloop account. If you don't have one, you can create an account now by going to the [Sign up page](https://app.humanloop.com/signup).
-- You have a system making a series of LLM calls when a user makes a request. If you do not have one, you can use the following example Python script. In this guide, we'll be illustrating the steps to be taken with specific modifications to this script.
+### Prerequisites
 
-<Tip>
-  If you don't use Python, you can check out our [TypeScript SDK
-  ](/docs/api-reference/sdks) for the corresponding endpoints.
-</Tip>
-
-<Warning>
-  This guide is written for Python and API v4. It's yet to be updated
-</Warning>
-
-### Example script
-
-```python maxLines=0
-"""
-# Humanloop sessions tutorial example
+<Markdown src="../../../snippets/setup-sdk.mdx" />
 
 Given a user request, the code does the following:
 
-1. Checks if the user is attempting to abuse the AI assistant.
-2. Looks up Google for helpful information.
-3. Answers the user's question.
-
-V1 / 2
-This is the initial version of the code.
+```python maxLines=0
 """
 import os
 from openai import OpenAI
