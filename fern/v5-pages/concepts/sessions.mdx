@@ -8,7 +8,7 @@ Sessions capture the sequences of events in your AI application for a given user
 
 ### Understanding Sessions
 
-A Session is essentially a sequence of [Logs](/docs/concepts/logs). Each Log has inputs, outputs, and metadata. The Session is as simple as having a common `session_id` for all the Logs in a Session and an optional parent-child relationship between Logs.
+A Session is essentially a sequence of [Logs](/docs/v5/concepts/logs). Each Log has inputs, outputs, and metadata. The Session is as simple as having a common `session_id` for all the Logs in a Session and an optional parent-child relationship between Logs.
 
 These Logs can represent various types of interactions and operations within your AI application, including:
 
@@ -33,7 +33,7 @@ Sessions are particularly valuable in the following scenarios:
 
 ### Working with Sessions
 
-To leverage Sessions in your application, you can follow our [guide on chaining calls and sessions](/docs/prompt-engineering-and-management/guides/chaining-calls-sessions). The process can be as simple as setting a `session_id` in your Log or Call API requests. Here's a basic overview:
+To leverage Sessions in your application, you can follow our [guide on chaining calls and sessions](/docs/v5/prompt-engineering-and-management/guides/chaining-calls-sessions). The process can be as simple as setting a `session_id` in your Log or Call API requests. Here's a basic overview:
 
 1. Generate a unique `session_id` at the beginning of a workflow or user interaction.
 2. Include this `session_id` when logging each significant step or operation within the Session.

@@ -10,7 +10,7 @@ You can currently create Datasets in Humanloop in three ways: from existing **lo
 
 Prerequisites:
 
-- A [Prompt](/docs/prompts) in Humanloop
+- A [Prompt](/docs/v5/prompts) in Humanloop
 - Some [Logs](./generate-and-log-with-the-sdk) available in that Prompt
 
 To create a Dataset from existing Logs:
@@ -40,7 +40,7 @@ Provide a name of the new dataset and click **Create**, or you can click **add t
 
 Prerequisites:
 
-- A [Prompt](/docs/prompts) in Humanloop
+- A [Prompt](/docs/v5/prompts) in Humanloop
 
 To create a dataset from a CSV file, we'll first create a CSV in Google Sheets and then upload it to a dataset in Humanloop.
 
@@ -91,8 +91,10 @@ First define some sample data, this should consist of template inputs and/or use
 
 Then define a dataset using the datasets API:
 
-<EndpointRequestSnippet endpoint="POST /datasets" example="CreateSupportDataset"/>
-
+<EndpointRequestSnippet
+  endpoint="POST /datasets"
+  example="CreateSupportDataset"
+/>
 
 In your Humanloop workspace, you will now see a Dataset called `support-queries` with your example data.
 

@@ -4,7 +4,7 @@ description: Learn how to set up a RAG system using the Pinecone integration to 
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-In this guide we will set up a Humanloop Pinecone tool and use it to enrich a prompt with the relevant context from a data source of documents. This tool combines [Pinecone's](https://www.pinecone.io/) [semantic search](./key-concepts#semantic-search) with [OpenAI's embedding models](https://platform.openai.com/docs/guides/embeddings).
+In this guide we will set up a Humanloop Pinecone tool and use it to enrich a prompt with the relevant context from a data source of documents. This tool combines [Pinecone's](https://www.pinecone.io/) [semantic search](./key-concepts#semantic-search) with [OpenAI's embedding models](https://platform.openai.com/docs/v5/guides/embeddings).
 
 ---
 
@@ -16,8 +16,8 @@ In this guide we will set up a Humanloop Pinecone tool and use it to enrich a pr
 
 <Note>
   If you have an existing Pinecone index that was created using one of [OpenAI's
-  embedding models](https://platform.openai.com/docs/guides/embeddings), you can
-  skip to section: **Setup Humanloop**
+  embedding models](https://platform.openai.com/docs/v5/guides/embeddings), you
+  can skip to section: **Setup Humanloop**
 </Note>
 
 ---
@@ -48,7 +48,7 @@ If you already have the Pinecone SDK installed, skip to the next section.
 
 ## Create a Pinecone index
 
-Now we'll initialise a Pinecone index, which is where we'll store our vector embeddings. We will be using OpenAI's [ada model](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) to create vectors to save to Pinecone, which has an output dimension of 1536 that we need to specify upfront when creating the index:
+Now we'll initialise a Pinecone index, which is where we'll store our vector embeddings. We will be using OpenAI's [ada model](https://platform.openai.com/docs/v5/guides/embeddings/what-are-embeddings) to create vectors to save to Pinecone, which has an output dimension of 1536 that we need to specify upfront when creating the index:
 
 ```python
 import pinecone
@@ -58,7 +58,7 @@ pinecone.init(api_key="<YOUR API KEY>", environment="<YOUR ENV>")
 
 # Create index
 # We can reference the dimension of the embeddings on OpenAI
-# https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
+# https://platform.openai.com/docs/v5/guides/embeddings/what-are-embeddings
 pinecone.create_index('humanloop-demo', dimension=1536)
 
 # Connect to the index
@@ -71,7 +71,7 @@ index = pinecone.Index('humanloop-demo')
 
 Now that you have a Pinecone index, we need some data to put in it. In this section we'll pre-process some data ready for embedding and storing to the index in the next section.
 
-We'll use the awesome [Hugging Face datasets](https://huggingface.co/docs/datasets/load_hub) to source a demo dataset (following the [Pinecone quick-start guide](https://docs.pinecone.io/docs/semantic-text-search)). In practice you will customise this step to your own use case.
+We'll use the awesome [Hugging Face datasets](https://huggingface.co/docs/v5/datasets/load_hub) to source a demo dataset (following the [Pinecone quick-start guide](https://docs.pinecone.io/docs/v5/semantic-text-search)). In practice you will customise this step to your own use case.
 
 <Steps>
 ### First install Hugging Face datasets using pip:

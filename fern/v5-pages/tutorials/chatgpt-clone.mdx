@@ -181,7 +181,7 @@ export async function POST(req: Request): Promise<Response> {
 }
 ```
 
-In this code, we're calling `humanloop.chatDeployed`. This function is used to target the model which is actively deployed on your project - in this case it should be the model we set up in step 1. Other related functions in the [SDK reference](/docs/api-reference/sdks) (such as `humanloop.chat`) allow you to target a specific model config (rather than the actively deployed one) or even specify model config directly in the function call.
+In this code, we're calling `humanloop.chatDeployed`. This function is used to target the model which is actively deployed on your project - in this case it should be the model we set up in step 1. Other related functions in the [SDK reference](/docs/v5/api-reference/sdks) (such as `humanloop.chat`) allow you to target a specific model config (rather than the actively deployed one) or even specify model config directly in the function call.
 
 When we receive a response from Humanloop, we strip out just the text of the chat response and send this back to the client via a `Response` object (see [Next.js - Route Handler docs](https://nextjs.org/docs/app/building-your-application/routing/router-handlers)). The Humanloop SDK response contains much more data besides the raw text, which you can inspect by logging to the console.
 
