@@ -1,51 +1,98 @@
 ---
-subtitle: A companion to our API references.
-description: Reference our Postman Workspace for examples of how to interact with the Humanloop API directly.
+subtitle: SSO and Authentication for Humanloop
+description: Learn about Single Sign-On (SSO) and authentication options for Humanloop
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-In our various guides we assumed the use of our [Python SDK](https://pypi.org/project/humanloop/). There are some use cases where this is not appropriate. For example, if you are integrating Humanloop from a non-Python backend, such as Node.js, or using a no-or-low-code builder such as [Bubble](https://bubble.io/) or [Zapier](https://zapier.com/). In these cases, you can leverage our RESTful [APIs](/api-reference/projects/get) directly.
+{/* WIP - for gartner /start */}
 
-To help with direct API integrations, we maintain a [Postman Workspace](https://www.postman.com/humanloop/workspace/humanloop) with various worked examples for the main endpoints you will need.
+Humanloop offers authentication options to ensure secure access to your organization's resources. This guide covers our Single Sign-On (SSO) capabilities and other authentication methods.
 
-## Prerequisites
+## Single Sign-On (SSO)
 
-- A Humanloop account. If you don't have one, you can create an account now by going to the [Sign up page](https://app.humanloop.com/signup).
+Single Sign-On allows users to access multiple applications with a single set of credentials. Humanloop supports SSO integration with major identity providers, enhancing security and simplifying user management.
 
-## Set your API keys in Postman
+### Supported SSO Providers
 
-- Navigate to your [Humanloop profile page](https://app.humanloop.com/account/settings) and copy your Humanloop API key.
-- Navigate to our [Postman Workspace](https://www.postman.com/humanloop/workspace/humanloop/overview) and set the environment to `Production` in the dropdown in the top right where it says `No Environment`
-- Select the `Environment quick look` button beside the environment dropdown and paste your Humanloop API key into the `CURRENT VALUE` of the `user_api_key` variable:
+- Google Workspace
+- Okta
+- Azure Active Directory
+- OneLogin
+- Custom SAML 2.0 providers
 
-<img src="../../assets/images/cd295b4-image.png" />
+### Benefits of SSO
 
-- Navigate to your [OpenAI profile](https://beta.openai.com/account/api-keys) and copy the API key.
-- Navigate back to our Postman Workspace and paste your OpenAI key into the `CURRENT VALUE` of the global `open_ai_key` variable:
+1. Enhanced security with centralized authentication
+2. Simplified user management
+3. Improved user experience with reduced password fatigue
+4. Streamlined onboarding and offboarding processes
 
-<img src="../../assets/images/36f7fd4-image.png" />
+### Setting up SSO
 
-You are now all set to use Postman to interact with the APIs with real examples!
+To set up SSO for your organization:
 
-## Try out the Postman Collections
+1. Contact our sales team to enable SSO for your account
+2. Choose your identity provider
+3. Configure the connection between Humanloop and your identity provider
+4. Test the SSO integration
+5. Roll out to your users
 
-<Info>
-  A **collection** is a set of executable API specifications that are grouped
-  together in Postman.
-</Info>
+## Multi-Factor Authentication (MFA)
 
-There are 4 executable collections provided to check out.
+For accounts not using SSO, we strongly recommend enabling Multi-Factor Authentication for an additional layer of security.
 
-The **Chat** collection is the best place to start to get a project setup and sending chat messages. To try it out:
+### MFA Options
 
-- Expand the V4 **Chat** collection on the left hand side.
-- Select **Create chat sending model-config** from the list
-- Execute the `POST` calls in order from top to bottom by selecting them under the collection on the left hand side and pressing the `Send` button on the right hand side. You should see the resulting response body appearing in the box below the request body.
-  - Try editing the request body and resending - you can reference the corresponding [API guides](https://humanloop.readme.io/reference) for a full spec of the request schema.
+- Time-based One-Time Password (TOTP) apps
+- SMS-based verification
+- Hardware security keys (e.g., YubiKey)
 
-<img src="../../assets/images/5f7f717-image.png" />
+## API Authentication
 
-- If you now navigate to your [Humanloop projects page](https://app.humanloop.com), you will see a new project called `assistant` with logged data.
-- You can now generate populated code snippets across a range of languages by selecting the code icon on the right hand side beside the request and response bodies:
+For programmatic access to Humanloop, we use API keys. These should be kept secure and rotated regularly.
 
-<img src="../../assets/images/7d777dc-image.png" />
+### Managing API Keys
+
+- Generate API keys in your account settings
+- Use environment variables to store API keys in your applications
+- Implement key rotation policies for enhanced security
+
+## User Provisioning and Deprovisioning
+
+Humanloop supports automated user lifecycle management through our Directory Sync feature. This allows for:
+
+- Automatic user creation based on directory group membership
+- Real-time updates to user attributes and permissions
+- Immediate deprovisioning when users are removed from directory groups
+
+## Best Practices
+
+1. Use SSO when possible for centralized access control
+2. Enable MFA for all user accounts
+3. Regularly audit user access and permissions
+4. Implement the principle of least privilege
+5. Use secure protocols (HTTPS) for all communications with Humanloop
+
+For more information on setting up SSO or other authentication methods, please contact our support team or refer to our API documentation.
+
+## Active Directory Sync
+
+Humanloop supports Active Directory Sync for automated user provisioning and deprovisioning. This feature allows you to:
+
+- Automatically create and update user accounts based on your Active Directory groups
+- Sync user attributes and roles in real-time
+- Instantly deprovision access when users are removed from AD groups
+- Maintain consistent access control across your organization
+- Reduce manual user management tasks and potential security risks
+
+To set up Active Directory Sync:
+
+1. Contact our sales team to enable this feature for your account
+2. Configure the connection between Humanloop and your Active Directory
+3. Map your AD groups to Humanloop roles and permissions
+4. Test the sync process with a small group of users
+5. Roll out to your entire organization
+
+For more information on implementing Active Directory Sync, please contact our [support team](mailto:support@humanloop.com).
+
+{/* WIP - for gartner /end */}
