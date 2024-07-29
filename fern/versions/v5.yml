@@ -106,6 +106,10 @@ navigation:
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
               # - page: How to debug a prompt
+
+              - page: Finetune a model
+                slug: finetuning
+                path: ../v5-pages/development/guides/fine-tune-model.mdx
               #   path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
               - page: Create a Directory
                 slug: create-directory
