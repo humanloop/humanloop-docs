@@ -43,14 +43,16 @@ navigation:
                 path: ../v5-pages/concepts/environments.mdx
               - page: Directories
                 path: ../v5-pages/concepts/directories.mdx
-              # - page: Architecture
-              #   path: ../v5-pages/getting-started/architecture.mdx
-              # - page: Security
-              #   path: ../v5-pages/getting-started/architecture.mdx
-          - page: Quickstart Tutorial
+          # - page: Architecture
+          #   path: ../v5-pages/getting-started/architecture.mdx
+          # - page: Security
+          #   path: ../v5-pages/getting-started/architecture.mdx
+
+      - section: Tutorials
+        contents:
+          - page: Quickstart
             slug: tutorials/quickstart-tutorial
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
-      # - section: Tutorials
       #   contents:
       # - page: Tracing and versioning your LLM calls
       #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
@@ -60,7 +62,7 @@ navigation:
       #   path: ../v5-pages/tutorials/evaluating-rag.mdx
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
-      - section: Prompt Engineering + Management
+      - section: Prompt Management + AI Engineering
         slug: development
         contents:
           - page: Overview
@@ -105,7 +107,6 @@ navigation:
               - page: Deploy to an environment
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
-              # - page: How to debug a prompt
 
               - page: Finetune a model
                 slug: finetuning
@@ -137,23 +138,23 @@ navigation:
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
               - page: Run an Evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
-      #      - section: Observability
-      #        contents:
-      #          - page: Monitoring in production
-      #            path: ../v5-pages/observability/monitoring-production.mdx
-      #          - page: Collecting feedback signals
-      #            path: ../v5-pages/observability/collecting-feedback-signals.mdx
-      #          - page: Alerts and Guardrails
-      #            path: ../v5-pages/observability/alerts-guardrails.mdx
-      #          - section: How-to guides
-      #            slug: guides
-      #            contents:
-      #              - page: Set up Monitoring
-      #                path: ../v5-pages/observability/guides/monitoring.mdx
-      #              - page: Using session tracing
-      #                path: ../v5-pages/observability/guides/session-tracing.mdx
-      #              - page: Capture user feedback
-      #                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
+      - section: Observability
+        contents:
+          - page: Monitoring in production
+            path: ../v5-pages/observability/monitoring-production.mdx
+          - page: Collecting feedback signals
+            path: ../v5-pages/observability/collecting-feedback-signals.mdx
+          - page: Alerts and Guardrails
+            path: ../v5-pages/observability/alerts-guardrails.mdx
+          - section: How-to guides
+            slug: guides
+            contents:
+              - page: Set up Monitoring
+                path: ../v5-pages/observability/guides/monitoring.mdx
+              - page: Using session tracing
+                path: ../v5-pages/observability/guides/session-tracing.mdx
+              - page: Capture user feedback
+                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
         contents:
           # - page: Org, Teamspaces, Folders
