@@ -1,0 +1,43 @@
+---
+subtitle: Data management and encryption
+description: Learn about Humanloop's commitment to data management and encryption.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+### Data Handling and Segregation
+
+Separate environments are provisioned and maintained for the purposes of development, quality assurance/user acceptance testing and production, to ensure data segregation at the environment level.
+
+### Data Classification & Access Control
+
+All platform data received from the user and data derived from user data is classified as sensitive. All platform audit and telemetry data that does not contain PII and reference to specific user data is classified as not sensitive.
+
+By default, only authenticated users can see their own sensitive data and data classified as not sensitive can be accessed by dedicated Humanloop support staff using a secure VPN connection to the private network of the VPC for the target environment. The purpose of this access is to debug issues and help improve the performance of the system. The Terms of Service define further details around data ownership and access on a case by case basis.
+
+### Data Encryption and Security
+
+### Encryption
+
+Humanloop follows the best practices for data management and encryption. All data in transit is be secured with TSL/SSL and all data at rest is encrypted using the AES-256 algorithm. All encryption keys are managed using AWS Key Management Service (KMS) as part of the VPC definition.
+
+### Infrastructure
+
+All sensitive data is encrypted in transit. For Self Hosted Cloud (VPC) environments, network traffic is also encrypted in transit and at rest in order to meet HIPAA requirements. Sensitive application data is only every processed within the ECS cluster and stored in Aurora. To request a network infrastructure diagram or more information, please contact [privacy@humanloop.com](mailto:privacy@humanloop.com).
+
+### Learn More
+
+For more information on about how Humanloop processes user data, visit our Security & Compliance page.
+
+### Data Storage, Retention, and Recovery
+
+All platform data is stored in a primary database server with multi-availability zone replication. Platform data is retained indefinitely and backed up daily in a secure and encrypted manner until a request is made from the contractual owners of that data to remove it and in accordance to GDPR guidelines.
+
+Humanloop’s Terms of Service defines the contractual owner of the user data and data derived from the user data. A semi-automated disaster recovery process is in place to restore the database to a specified point in time backup as and when required.
+
+### Data Breach Response
+
+Any data breaches will be communicated to all impacted Humanloop users and partners within 24 hours, along with consequences and mitigations. Breaches will be dealt with in accordance with the Humanloop data breach response policy, which is tested annually.
+
+### Data Portability and Return
+
+Within 30 days post contract termination, users can request return of their data and derived data (as defined by the Terms of Service). Humanloop provides this data via downloadable files in comma separated value (.csv) or .json formats.
