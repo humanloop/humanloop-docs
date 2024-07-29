@@ -141,6 +141,9 @@ navigation:
                 path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
               - page: Run an Evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Set up CI/CD Evaluations
+                slug: cicd-integration
+                path: ../v5-pages/evaluation/guides/cicd-integration.mdx
       - section: Observability
         contents:
           - page: LLM Monitoring
