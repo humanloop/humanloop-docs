@@ -1,51 +1,41 @@
 ---
-subtitle: This guide demonstrates how to run a batch generation and collect manual human feedback.
-description: Learn how to set up a human evaluator to collect feedback on the output of your model.
+subtitle: Learn how to set up alerts in Humanloop using monitoring evaluators and webhooks.
+description: This guide demonstrates how to configure automated alerts for your AI system's performance using Humanloop's monitoring capabilities.
 image: https://humanloop.com/assets/docs/social-image.png
+tag: draft
 ---
 
-### Prerequisites
+{/* WIP - for gartner /start */}
 
-- You need to have access to evaluations.
-- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
-- Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
+Monitoring your AI system's performance in production is crucial for maintaining quality and catching issues early. Humanloop provides powerful tools to set up automated alerts based on your custom evaluation criteria. This guide will walk you through the process of setting up alerts using monitoring evaluators and webhooks.
 
-### Set up an evaluator to collect human feedback
+## Overview of Alerting and Guardrails
 
-<Steps>
+Alerting and guardrails are essential components of a robust AI system, allowing you to monitor performance, detect anomalies, and maintain quality control in real-time. Here's an overview of what setting up alerting and guardrails can mean for your AI application:
 
-### Create a 'Human' Evaluator
+1. **Performance Monitoring**: Set up alerts to track key performance indicators (KPIs) such as response time, token usage, or model-specific metrics. This helps you ensure your system is operating within expected parameters.
 
-From the Evaluations page, click **New Evaluator** and select **Human**.
+2. **Quality Control**: Implement guardrails to automatically flag or filter outputs that don't meet certain quality thresholds. This can include content moderation, fact-checking, or adherence to specific guidelines.
 
-<img src="../../assets/images/e821a8f-image.png" />
+3. **Anomaly Detection**: Configure alerts to notify you of unusual patterns or unexpected behaviors in your AI system, helping you identify and address issues quickly.
 
-### Give the evaluator a name and description and click **Create** in the top-right.
+4. **Cost Management**: Set up alerts for usage thresholds to keep track of API calls, token consumption, and associated costs, preventing unexpected expenses.
 
-### Return to the **Evaluations** page and select **Run Evaluation**.
+5. **Compliance and Safety**: Establish guardrails to ensure your AI system's outputs comply with legal, ethical, and safety standards, reducing risks associated with AI-generated content.
 
-### Choose the model config you are evaluating, a dataset you would like to evaluate against and then select the new Human evaluator.
+6. **Feedback Loop**: Use alerts to trigger human review processes for edge cases or low-confidence outputs, facilitating continuous improvement of your AI system.
 
-<img src="../../assets/images/438c4ca-image.png" />
+7. **Version Control**: Set up notifications for when new versions of your prompts or models are deployed, allowing you to monitor performance changes across versions.
 
-### Click **Batch generate** and follow the link in the bottom-right corner to see the evaluation run.
+8. **Integration with Existing Systems**: Configure webhooks to send alerts to your team's preferred communication channels or incident management systems, ensuring timely responses to critical issues.
 
-<img src="../../assets/images/3d438cd-image.png" />
+By implementing a comprehensive alerting and guardrails system, you can maintain better control over your AI application, respond promptly to issues, and continuously improve its performance and reliability.
 
-### View the details
+For detailed instructions on how to set up specific types of alerts and guardrails, please refer to the following guides:
 
-As the rows populate with the generated output from the model, you can review those outputs and apply feedback in the rating column. Click a row to see the full details of the Log in a drawer.
+- [Setting Up Performance Alerts](/docs/guides/performance-alerts)
+- [Implementing Content Moderation Guardrails](/docs/guides/content-moderation)
+- [Configuring Cost Management Alerts](/docs/guides/cost-alerts)
+- [Creating Custom Evaluation Metrics](/docs/guides/custom-metrics)
 
-### Apply your feedback either directly in the table, or from the drawer.
-
-<img src="../../assets/images/1e7f3d7-image.png" />
-
-### Once you've finished providing feedback for all the Logs in the run, click **Mark as complete** in the top right of the page.
-
-### You can review the aggregated feedback results in the **Stats** section on this page.
-
-</Steps>
-
-## Configuring the feedback schema
-
-If you need a more complex feedback schema, visit the **Settings** page in your project and follow the link to **Feedbacks**. Here, you can add more categories to the default feedback types. If you need more control over feedback types, you can [create new ones via the API](/api-reference/projects/createfeedbacktype).
+{/* WIP - for gartner /end */}
