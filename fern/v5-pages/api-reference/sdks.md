@@ -25,74 +25,31 @@ The Humanloop platform can be accessed through the API or through our Python and
 <Tab title="Python SDK">
 
 ```shell title="Installation"
-pip install humanloop
+pip install humanloop==0.8.0b5
 ```
 
 ```python title="Example usage"
 from humanloop import Humanloop
+hl = Humanloop(api_key="<YOUR Humanloop API KEY>")
 
-humanloop = Humanloop(
-    api_key="YOUR_API_KEY",
-    openai_api_key="YOUR_OPENAI_API_KEY",
-)
-
-chat_response = humanloop.chat(
-    project="sdk-example",
-    messages=[
-        {
-            "role": "user",
-            "content": "Explain asynchronous programming.",
-        }
-    ],
-    model_config={
-        "model": "gpt-3.5-turbo",
-        "max_tokens": -1,
-        "temperature": 0.7,
-        "chat_template": [
-            {
-                "role": "system",
-                "content": "You are a helpful assistant who replies in the style of {{persona}}.",
-            },
-        ],
-    },
-    inputs={
-        "persona": "Jeff Dean",
-    },
-    stream=False,
-)
-print(chat_response)
+# Check that the authentication was successful
+print(hl.prompts.list())
 ```
 
 </Tab>
 <Tab title="TypeScript SDK">
 
 ```shell title="Installation"
-npm i humanloop
+npm install humanloop@0.8.0-beta3
 ```
 
 ```typescript title="Example usage"
-import { Humanloop } from "humanloop";
+import { HumanloopClient, Humanloop } from "humanloop";
 
-const humanloop = new Humanloop({
-  apiKey: "YOUR_HUMANLOOP_API_KEY",
-  openaiApiKey: "YOUR_OPENAI_API_KEY",
-});
+const humanloop = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
 
-const chatResponse = await humanloop.chat({
-  project: "sdk-example",
-  messages: [
-    {
-      role: "user",
-      content: "Write me a song",
-    },
-  ],
-  model_config: {
-    model: "gpt-4",
-    temperature: 1,
-  },
-});
-
-console.log(chatResponse);
+// Check that the authentication was successful
+console.log(await humanloop.prompts.list());
 ```
 
 </Tab>

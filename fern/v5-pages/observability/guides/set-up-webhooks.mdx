@@ -1,0 +1,124 @@
+---
+subtitle: In this guide, we will demonstrate how to set up webhooks via API for alerting on your monitoring evaluators.
+description: Learn how to set up webhooks via API for alerting on your monitoring evaluators.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+<Markdown src="../../../snippets/wip.mdx" />
+<Markdown src="../../../snippets/paid-feature.mdx" />
+
+{/* WIP - for gartner */}
+
+In this guide, we'll walk you through the process of setting up webhooks using the Humanloop API to notify you in Slack when certain events occur with your monitoring evaluators.
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- A Humanloop account with API access
+- A Slack workspace where you have permissions to add webhooks
+- A Humanloop project with at least one LLM model and monitoring evaluator set up
+
+<Markdown src="../../../snippets/setup-sdk.mdx" />
+
+### Setting up a webhook
+
+To set up a webhook, you'll use the `hl.webhook.create()` method from the Humanloop Python SDK. Here's a step-by-step guide:
+
+<Steps>
+
+### Create a Slack incoming webhook
+
+1. Go to your Slack workspace and create a new Slack app (or use an existing one).
+2. Under "Add features and functionality", choose "Incoming Webhooks" and activate them.
+3. Click "Add New Webhook to Workspace" and choose the channel where you want to receive notifications.
+4. Copy the webhook URL provided by Slack.
+
+### Import the Humanloop SDK and initialize the client
+
+```python
+import humanloop as hl
+
+hl.init(api_key="your-api-key")
+```
+
+Replace `"your-api-key"` with your actual Humanloop API key.
+
+### Create a webhook
+
+```python
+webhook = hl.webhook.create(
+    url="https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+    description="Webhook for monitoring evaluator alerts",
+    events=["EVALUATION_COMPLETED", "DRIFT_DETECTED"],
+    model_name="your-model-name",
+    status="ACTIVE",
+    http_url_spec={
+        "secret": "your-shared-secret"
+    }
+)
+```
+
+Replace the following:
+
+- `"https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"` with your Slack webhook URL
+- `"your-model-name"` with the name of the model you want to monitor
+- `"your-shared-secret"` with a secret string of your choice for added security
+
+### Test the webhook
+
+To test if your webhook is working correctly, you can trigger an evaluation:
+
+```python
+
+evaluation_run = hl.evaluations.create(
+    project_id=PROJECT_ID,
+    config_id=CONFIG_ID,
+    dataset_id=DATASET_ID,
+    evaluator_ids=[EVALUATOR_ID],
+    hl_generated=False,
+)
+```
+
+Replace `"your-project-id"` and `"your-model-name"` with your actual project ID and model name.
+
+</Steps>
+
+### Verifying the webhook
+
+After setting up the webhook and triggering an evaluation, you should see a message in your specified Slack channel. The message will contain details about the evaluation event, such as:
+
+```
+New event: EVALUATION_COMPLETED
+Model: your-model-name
+Timestamp: 2023-07-29T12:34:56Z
+Evaluation ID: eval_123456
+Result: Pass/Fail
+```
+
+### Managing webhooks
+
+You can list, update, or delete webhooks using the following methods:
+
+```python
+# List all webhooks
+webhooks = hl.webhook.list()
+
+# Update a webhook
+updated_webhook = hl.webhook.update(
+    id="webhook-id",
+    description="Updated description",
+    status="DISABLED"
+)
+
+# Delete a webhook
+hl.webhook.delete(id="webhook-id")
+```
+
+Replace `"webhook-id"` with the ID of the webhook you want to manage.
+
+### Conclusion
+
+You've now set up a webhook to receive notifications in Slack when your monitoring evaluators complete evaluations or detect drift. This will help you stay informed about the performance and behavior of your LLM models in real-time.
+
+{/* /WIP - for gartner */}
