@@ -1,0 +1,20 @@
+{
+  "path": "math-tool",
+  "function": {
+    "name": "multiply",
+    "description": "Multiply two numbers",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "number"
+        },
+        "b": {
+          "type": "number"
+        }
+      },
+      "required": ["a", "b"]
+    }
+  },
+  "commit_message": "Initial commit"
+}

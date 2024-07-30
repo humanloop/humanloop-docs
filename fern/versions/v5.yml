@@ -1,143 +1,221 @@
 tabs:
-  guides:
-    display-name: Guides
+  docs:
+    display-name: Docs
+    skip-slug: true
     icon: light book-open
   api:
     display-name: API Reference
+    slug: api-reference
     icon: light code
+  changelog:
+    display-name: Changelog
+    icon: light clock
+    changelog: ../changelog
 navigation:
-  - tab: guides
+  - tab: docs
     layout:
       - section: Getting Started
+        skip-slug: true
         contents:
           - page: Overview
-            path: ../pages/getting-started/overview.mdx
+            slug: getting-started/overview
+            path: ../v5-pages/getting-started/overview.mdx
           - page: Why Humanloop?
-            path: ../pages/getting-started/why-humanloop.mdx
-            slug: why-humanloop
-          - page: Quickstart Tutorial
-            path: ../pages/tbd.md
-            slug: quickstart
-      - section: Tutorials
-        contents:
-          - page: ChatGPT clone in Next.js
-            path: ../pages/tbd.md
-          - page: Create your first GPT-4 App
-            path: ../pages/tbd.md
-      - section: Guides
-        contents:
-          - section: Create a project
+            slug: getting-started/why-humanloop
+            path: ../v5-pages/getting-started/why-humanloop.mdx
+          - section: Concepts
             contents:
-              - page: From Playground
-                path: ../pages/tbd.md
-              - page: Using the SDK
-                path: ../pages/tbd.md
-          - section: Generate and log data
+              - page: Overview
+                path: ../v5-pages/concepts/overview.mdx
+              - page: Prompts
+                path: ../v5-pages/concepts/prompts.mdx
+              - page: Tools
+                path: ../v5-pages/concepts/tools.mdx
+              - page: Datasets
+                path: ../v5-pages/concepts/datasets.mdx
+              - page: Evaluators
+                path: ../v5-pages/concepts/evaluators.mdx
+              - page: Logs
+                path: ../v5-pages/concepts/logs.mdx
+              - page: Sessions
+                path: ../v5-pages/concepts/sessions.mdx
+              - page: Environments
+                path: ../v5-pages/concepts/environments.mdx
+              - page: Directories
+                path: ../v5-pages/concepts/directories.mdx
+              # - page: Architecture
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              # - page: Security
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              - page: Quickstart Tutorial
+                slug: tutorials/quickstart-tutorial
+                path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+      # - section: Tutorials
+      # contents:
+
+      #   contents:
+      # - page: Tracing and versioning your LLM calls
+      #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
+      # - page: Debugging an issue
+      #   path: ../v5-pages/tutorials/debugging-issue.mdx
+      # - page: Evaluating a RAG system
+      #   path: ../v5-pages/tutorials/evaluating-rag.mdx
+      # - page: Observability
+      #   path: ../v5-pages/tutorials/observability.mdx
+      - section: Prompt Management + AI Engineering
+        slug: development
+        contents:
+          - page: Overview
+            path: ../v5-pages/development/overview.mdx
+          # - page: Managing releases
+          #   path: ../v5-pages/development/managing-releases.mdx
+          # - page: Prompt Engineering
+          #   path: ../v5-pages/development/prompt-engineering.mdx'
+          - section: How-to guides
+            slug: guides
             contents:
-              - page: Generate completions
-                path: ../pages/tbd.md
-              - page: Generate chat responses
-                path: ../pages/tbd.md
+              - page: Create a Prompt
+                slug: create-prompt
+                path: ../v5-pages/development/guides/create-prompt.mdx
+              - page: Call a Prompt
+                path: ../v5-pages/development/guides/call-prompt.mdx
+                slug: call-prompt
+              - page: Proxying model calls
+                path: ../v5-pages/development/guides/call-llm.mdx
+              - page: Logging LLM calls
+                path: ../v5-pages/development/guides/logging.mdx
+              # - page: Manage Tools
+              #   path: ../v5-pages/development/guides/manage-tools.mdx
+              - page: Tool calling in Editor
+                path: ../v5-pages/development/guides/tool-calling-editor.mdx
+              # Doesn't work in the SDK atm!
+              # - page: Tool Calling with the SDK
+              #   path: ../v5-pages/development/guides/tool-calling-sdk.mdx
+              - page: Link a Tool to a Prompt
+                slug: link-tool
+                path: ../v5-pages/development/guides/link-tool.mdx
+              - page: Reusable snippets in Prompts
+                slug: reusable-snippets
+                path: ../v5-pages/development/guides/reusable-snippets.mdx
+              # - page: Manage Evaluators
+              #   path: ../v5-pages/development/guides/manage-evaluators.mdx
+              - page: Chaining calls (Sessions)
+                path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
+              - page: Create deployment environments
+                slug: create-environment
+                path: ../v5-pages/development/guides/create-environment.mdx
+              - page: Deploy to an environment
+                slug: deploy-to-environment
+                path: ../v5-pages/development/guides/deploy-to-environment.mdx
+
+              - page: Finetune a model
+                slug: finetuning
+                path: ../v5-pages/development/guides/fine-tune-model.mdx
+              #   path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
+              - page: Create a Directory
+                slug: create-directory
+                path: ../v5-pages/development/guides/create-directory.mdx
+      - section: Evaluation
+        contents:
+          - page: Overview
+            path: ../v5-pages/evaluation/overview.mdx
+          #          - page: Collecting Feedback
+          #            path: ../v5-pages/evaluation/collecting-feedback.mdx
+          #          - page: Dataset management
+          #            path: ../v5-pages/evaluation/dataset-management.mdx
+          - section: How-to guides
+            slug: guides
+            contents:
+              - page: Run an Evaluation
+                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Set up a code based Evaluator
+                path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
+              - page: Set up LLM as a Judge
+                slug: llm-as-a-judge
+                path: ../v5-pages/evaluation/guides/llm-judge.mdx
+                # TODO: Harry to write as part of his work
+              - page: Set up Human Evaluation
+                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+              - page: Create a Dataset
+                path: ../v5-pages/evaluation/guides/create-dataset.mdx
+              - page: Generating synthetic data
+                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
+              - page: Comparing prompt outputs
+                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+
+              - page: Set up CI/CD Evaluations
+                slug: cicd-integration
+                path: ../v5-pages/evaluation/guides/cicd-integration.mdx
+      - section: Observability
+        contents:
+          - page: LLM Monitoring
+            path: ../v5-pages/observability/llm-monitoring.mdx
+          - page: Alerts and Guardrails
+            path: ../v5-pages/observability/alerts-guardrails.mdx
+          - section: How-to guides
+            slug: guides
+            contents:
+              - page: Set up Monitoring
+                path: ../v5-pages/observability/guides/monitoring.mdx
+              - page: Using session tracing
+                path: ../v5-pages/observability/guides/session-tracing.mdx
               - page: Capture user feedback
-                path: ../pages/tbd.md
-              - page: Upload historic data
-                path: ../pages/tbd.md
-              - page: Use your own model
-                path: ../pages/tbd.md
-              - page: Chain multiple calls
-                path: ../pages/tbd.md
-          - section: Run an experiment
-            contents:
-              - page: Run an experiment
-                path: ../pages/tbd.md
-              - page: Run experiments managing your own model
-                path: ../pages/tbd.md
-          - page: Fine-tune a model
-            path: ../pages/tbd.md
-          - page: Manage API keys
-            path: ../pages/tbd.md
-          - page: Invite collaborators
-            path: ../pages/tbd.md
-          - page: Deploy to environments
-            path: ../pages/tbd.md
-          - section: Create and use Datasets
-            contents:
-              - page: Create a dataset
-                path: ../pages/tbd.md
-              - page: Batch generate
-                path: ../pages/tbd.md
-          - section: Evaluate your model
-            slug: evaluate
-            contents:
-              - page: Evaluate models online
-                slug: models-online
-                path: ../pages/tbd.md
-              - page: Evaluate models offline
-                slug: models-offline
-                path: ../pages/tbd.md
-              - page: Set up evaluations using API
-                slug: using-api
-                path: ../pages/tbd.md
-              - page: Use LLMs to evaluate logs
-                slug: logs
-                path: ../pages/tbd.md
-              - page: Self-hosted evaluations
-                slug: self-hosted
-                path: ../pages/tbd.md
-              - page: Evaluating externally generated logs
-                slug: externally-generated-logs
-                path: ../pages/guides/evaluate/externally-generated-logs.mdx
-              - page: Evaluating with human feedback
-                slug: human-feedback
-                path: ../pages/tbd.md
-          - section: Integrate Tools
-            contents:
-              - page: In the Editor
-                path: ../pages/tbd.md
-              - page: With the SDK
-                path: ../pages/tbd.md
-              - page: With the Snippet tool
-                path: ../pages/tbd.md
-              - page: Link a JSON Schema tool
-                path: ../pages/tbd.md
-                slug: json-schema
-              - page: Set up semantic search
-                path: ../pages/tbd.md
-                slug: semantic-search
-      - section: Examples
+                path: ../v5-pages/observability/guides/capture-user-feedback.mdx
+      - section: Organization Management
         contents:
+          # - page: Org, Teamspaces, Folders
+          #   path: ../v5-pages/admin/org-teamspaces-folders.mdx
+          - page: Access roles (RBACs)
+            path: ../v5-pages/admin/access-roles.mdx
+          - page: SSO and Authentication
+            path: ../v5-pages/admin/sso-authentication.mdx
+          - section: How tos
+            slug: guides
+            contents:
+              - page: Invite collaborators
+                path: ../v5-pages/admin/guides/invite-collaborators.mdx
+              - page: Manage API keys
+                path: ../v5-pages/admin/guides/manage-api-keys.mdx
+      - section: Reference
+        contents:
+          - page: Deployment Options
+            path: ../v5-pages/reference/deployment-options.mdx
+          - page: Supported Models
+            path: ../v5-pages/reference/models.mdx
+          # - page: Supported Tools
+          #   path: ../v5-pages/reference/supported-tools.mdx
+          # - page: Supported Types of Evaluators
+          #   path: ../v5-pages/reference/supported-evaluator-types.mdx
+          - page: Prompt file spec
+            path: ../v5-pages/reference/prompt-file.mdx
+
           - page: Example Projects
-            path: ../pages/tbd.md
-      - section: Core entities
-        contents:
-          - page: Prompts
-            path: ../pages/tbd.md
-          - page: Tools
-            path: ../pages/tbd.md
-          - page: Datasets
-            path: ../pages/tbd.md
-          - page: Evaluators
-            path: ../pages/tbd.md
-          - page: Key Concepts
-            path: ../pages/tbd.md
-      - section: References
-        contents:
-          - page: Postman Workspace
-            path: ../pages/tbd.md
-          - page: Access Roles
-            path: ../pages/tbd.md
-          - page: .prompt files
-            path: ../pages/tbd.md
+            path: ../v5-pages/reference/example-projects.mdx
+          # - page: Postman Workspace
+          #   path: ../v5-pages/reference/postman-workspace.mdx
+          - page: Integrations
+            path: ../v5-pages/reference/integrations.mdx
+          - page: Security and Compliance
+            path: ../v5-pages/reference/security-compliance.mdx
+          - page: Data Management
+            path: ../v5-pages/reference/data-management.mdx
+
   - tab: api
     layout:
       - section: Introduction
-        contents: 
+        skip-slug: true
+        contents:
           - page: SDKs
-            path: ../pages/api-reference/sdks.md
             slug: sdks
+            path: ../v5-pages/api-reference/sdks.md
           - page: Errors
-            path: ../pages/api-reference/errors.md
+            path: ../v5-pages/api-reference/errors.md
       - api: Humanloop API
+        skip-slug: true
         api-name: v5
         display-errors: true
         summary: ../apis/v5/summary.md
+        snippets:
+          python: humanloop
+          typescript: humanloop
+  - tab: changelog

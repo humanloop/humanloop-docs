@@ -1,0 +1,107 @@
+---
+subtitle: How to use Tool Calling to have the model interact with external functions.
+description: Learn how to use tool calling in your large language models and intract with it in the Humanloop Prompt Editor.
+---
+
+Humanloop's Prompt Editor supports for Tool Calling functionality, enabling models to interact with external functions. This feature, akin to [OpenAI's function calling](https://platform.openai.com/docs/v5/guides/function-calling/function-calling), is implemented through JSON Schema tools in Humanloop. These Tools adhere to the widely-used JSON Schema syntax, providing a standardized way to define data structures.
+
+Within the editor, you have the flexibility to create inline JSON Schema tools as part of your model configuration. This capability allows you to establish a structured framework for the model's responses, enhancing control and predictability. Throughout this guide, we'll explore the process of leveraging these tools within the editor environment.
+
+## Prerequisites
+
+<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+
+## Create and use a tool in the Prompt Editor
+
+To create and use a tool follow the following steps:
+
+<Steps>
+### **Open the editor**
+Go to a Prompt and open the Editor.
+
+### **Select a model that supports Tool Calling**
+
+<Markdown src="../../../snippets/tool-calling-models.mdx" />
+
+In the editor, you'll see an option to select the model. Choose a model like `gpt-4o` which supports Tool Calling.
+
+### **Define the Tool**
+
+To get started with tool definition, it's recommended to begin with one of our preloaded example tools. For this guide, we'll use the `get_current_weather` tool. Select this from the dropdown menu of preloaded examples.
+
+If you choose to edit or create your own tool, you'll need to use the universal [JSON Schema syntax](https://json-schema.org/). When creating a custom tool, it should correspond to a function you have defined in your own code. The JSON Schema you define here specifies the parameters and structure you want the AI model to use when interacting with your function.
+
+<img src="../../../assets/images/d556ba7-image.png" />
+
+### **Test it out**
+
+Now, let's test our tool by inputting a relevant query. Since we're working with a weather-related tool, try typing: `What's the weather in Boston?`. This should prompt OpenAI to respond using the parameters we've defined.
+
+<Tip title="Tool calling is context-sensitive">
+
+Keep in mind that the model's use of the tool depends on the relevance of the user's input. For instance, a question like '_how are you today?_' is unlikely to trigger a weather-related tool response.
+
+</Tip>
+
+### **Check assistant response for a tool call**
+
+Upon successful setup, the assistant should respond by invoking the tool, providing both the tool's name and the required data. For our `get_current_weather` tool, the response might look like this:
+
+```
+get_current_weather({
+  "location": "London"
+})
+```
+
+### **Input tool response**
+
+After the tool call, the editor will automatically add a partially filled tool message for you to complete.
+
+You can paste in the exact response that the Tool would respond with. For prototyping purposes, you can also just simulate the repsonse yourself (LLMs can handle it!). Provide in a mock response:
+
+To input the tool response:
+
+1. Find the tool response field in the editor.
+2. Enter theresponse matching the expected format, such as:
+   ```json
+   { "temperature": 12, "condition": "drizzle", "unit": "celsius" }
+   ```
+
+Remember, the goal is to simulate the tool's output as if it were actually fetching real-time weather data. This allows you to test and refine your prompt and tool interaction without needing to implement the actual weather API.
+
+### **Submit tool response**
+
+After entering the simulated tool response, click on the 'Run' button to send the Tool message to the AI model.
+
+### **Review assistant response**
+
+The assistant should now respond using the information provided in your simulated tool response. For example, if you input that the weather in London was drizzling at 12°C, the assistant might say:
+
+`Based on the current weather data, it's drizzling in London with a temperature of 12 degrees Celsius.`
+
+This response demonstrates how the AI model incorporates the tool's output into its reply, providing a more contextual and data-driven answer.
+
+<img
+  src="../../../assets/images/19c0604-image.png"
+  alt="Example of assistant response using tool data"
+/>
+
+### **Iterate and refine**
+
+Feel free to experiment with different queries and simulated tool responses. This iterative process helps you fine-tune your prompt and understand how the AI model interacts with the tool, ultimately leading to more effective and accurate responses in your application.
+
+### **Save your Prompt**
+
+By saving your prompt, you're creating a new version that includes the tool configuration.
+
+</Steps>
+
+Congratulations! You've successfully learned how to use tool calling in the Humanloop editor. This powerful feature allows you to simulate and test tool interactions, helping you create more dynamic and context-aware AI applications.
+
+Keep experimenting with different scenarios and tool responses to fully explore the capabilities of your AI model and create even more impressive applications!
+
+## Next steps
+
+After you've created and tested your tool configuration, you might want to reuse it across multiple prompts. Humanloop allows you to link a tool, making it easier to share and manage tool configurations.
+
+For more detailed instructions on how to link and manage tools, check out our guide on [Link a JSON Schema Tool](./link-tool).

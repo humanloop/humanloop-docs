@@ -1,0 +1,148 @@
+---
+subtitle: Managing and versioning a Tool seperately from your Prompts
+description: Learn how to create a JSON Schema tool that can be reused across multiple Prompts.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+It's possible to re-use tool definitions them across multiple Prompts. You achieve this by having a Prompt file which defines a JSON schema, and linking them to your Prompt.
+
+You achieve this by creating a `JSON Schema` Tool and linking that to as many Prompts as you need.
+
+Importantly, updates to this Tool defined here will then propagate automatically to all the Prompts you've linked it to, without having to deploy new versions of the Prompt.
+
+## Prerequisites
+
+<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+
+## Creating and linking a JSON Schema Tool
+
+To create a reusable JSON Schema tool for your organization, follow these steps:
+
+<Steps>
+### Create a new Tool file
+
+Navigate to the homepage or sidebar and click the 'New File' button.
+
+### Choose the JSON Schema Tool type
+
+From the available options, select **Json Schema** as the Tool type.
+
+### Define your tool's structure
+
+Paste the following JSON into the provided dialog to define your tool's structure:
+
+```json
+{
+  "name": "get_current_weather",
+  "description": "Get the current weather in a given location",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string",
+        "name": "Location",
+        "description": "The city and state, e.g. San Francisco, CA"
+      },
+      "unit": {
+        "type": "string",
+        "name": "Unit",
+        "enum": ["celsius", "fahrenheit"]
+      }
+    },
+    "required": ["location"]
+  }
+}
+```
+
+If you choose to edit or create your own tool, you'll need to use the universal [JSON Schema syntax](https://json-schema.org/). When creating a custom tool, it should correspond to a function you have defined in your own code. The JSON Schema you define here specifies the parameters and structure you want the AI model to use when interacting with your function.
+
+### Commit this version of the Tool
+
+Press the **Commit** button to commit this version of the Tool, and set it as the default version by deploying it.
+
+### Navigate to the **Editor** of a Prompt
+
+Switch to a model that supports tool calling, such as `gpt-4o`.
+
+<Markdown src="../../../snippets/tool-calling-models.mdx" />
+
+### **Add Tool** to the Prompt definition.
+
+### Select 'Link existing Tool'
+
+In the dropdown, go to the **Link existing tool** option. You should see your `get_current_weather` tool, click on it to link it to your editor.
+
+<img src="../../../assets/images/b70a144-image.png" />
+
+### Test that the Prompt is working with the tool
+
+Now that your Tool is linked you can start using it. In the **Chat** section, in the **User** input, enter `"what is the weather in london?"`
+
+Press the **Run** button.
+
+You should see the **Assistant** respond with the tool response and a new **Tool** field inserted to allow you to insert an answer. In this case, put in `22` into the tool response and press **Run**.
+
+<img src="../../../assets/images/ebc5f1e-image.png" />
+
+The model will respond with `The current weather in London is 22 degrees`.
+
+### Commit the Prompt
+
+You've linked a Tool to your Prompt, now let's save it. Press the **Save** button and name your Prompt `weather-model-config`.
+
+### (Optional) Update the Tool
+
+Now that's we've linked your `get_current_weather` tool to your Prompt, let's try updating the base tool and see how it propagates the changes down into your saved `weather-model-config` config. Navigate back to the Tool in the sidebar and go to the Editor.
+
+### Update the Tool
+
+Let's update both the name, as well as the required fields. For the name, update it to `get_current_weather_updated` and for the required fields, add `unit` as a required field. The should look like this now:
+
+```json
+{
+  "name": "get_current_weather_updated",
+  "description": "Get the current weather in a given location",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string",
+        "name": "Location",
+        "description": "The city and state, e.g. San Francisco, CA"
+      },
+      "unit": {
+        "type": "string",
+        "name": "Unit",
+        "enum": ["celsius", "fahrenheit"]
+      }
+    },
+    "required": ["location", "unit"]
+  }
+}
+```
+
+### Commit and deploy the Tool
+
+Press the **Commmmit** button and then follow the steps to deloy this version of the Tool.
+
+Your Tool is now updated.
+
+### Try the Prompt again
+
+Navigate back to your previous project, and open the editor. You should see the `weather-model-config` loaded as the active config. You should also be able to see the name of your previously linked tool in the Tools section now says `get_current_weather_updated`.
+
+In the Chat section enter in again, `What is the weather in london?`, and press **Run** again.
+
+### Check the response
+
+You should see the updated tool response, and how it now contains the `unit` field. Congratulations, you've successfully linked a JSON Schema tool to your Prompt.
+
+</Steps>
+
+<img src="../../../assets/images/4c395b6-image.png" />
+
+<Warning title="Linked JSON Schema tool changes propagate to Prompt">
+  When updating your Tool, remember that the change will affect all the Prompts
+  that link to it. Be careful when making updates to not inadvertently change
+  something you didn't intend.
+</Warning>

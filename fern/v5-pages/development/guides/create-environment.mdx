@@ -1,0 +1,56 @@
+---
+subtitle: How to create and use environments to manage the deployment lifecycle of Prompts
+description: Environments are a tagging system for deploying Prompts. They enable you to deploy maintain a streamlined deployment workflow and keep track of different versions of Prompts.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+[Environments](/docs/v5/environments) are a tagging system for deploying Prompts. They enable you to deploy maintain a streamlined deployment workflow and keep track of different versions of Prompts.
+
+The default environment is your production environment. Everytime you fetch a Prompt, Tool, Dataset etc. without specifying an alternative environment or specific version, the version that is tagged with the default environment is returned.
+
+## Create an environment
+
+<Steps>
+
+### Go to your [Environments](https://app.humanloop.com/account/environments) tab in your Organization's settings.
+
+### Click the '**+ Environment**' button to open the new environment dialog
+
+### Assign a custom name to the environment
+
+We recommend something short. For example, you could use `staging`, `prod`, `qa`, `dev`, `testing`, etc. This name is be used to identify the environment in the UI and in the API.
+
+### Click **Create**.
+
+</Steps>
+
+<img src="../../../assets/images/cb0f398-image.png" />
+
+## Updating the default environment
+
+<Warning>
+  Only Enterprise customers can update their default environment
+</Warning>
+
+### Prerequisites
+
+- You have multiple environments - if not first go through the [Create an
+  environment](./deploy-to-an-environment) section.
+
+Every organization will have a default environment. This can be updated by the following:
+
+<Steps>
+
+### Go to your Organization's [Environments](https://app.humanloop.com/account/environments) page.
+
+### Click on the dropdown menu of an environment that is not already the default.
+
+### Click the **Make default** option
+
+A dialog will open asking you if you are certain this is a change you want to make. If so, click the **Make default** button.
+
+### Verify the default tag has moved to the environment you selected.
+
+</Steps>
+
+<img src="../../../assets/images/962074b-image.png" />

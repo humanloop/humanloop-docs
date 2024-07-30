@@ -1,0 +1,99 @@
+---
+subtitle: How to create, version and use a Prompt in Humanloop
+description: Learn how to create a Prompt in Humanloop using the UI or SDK, version it, and use it to generate responses from your AI models. Prompt management is a key part of the Humanloop platform.
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
+---
+
+Humanloop acts as a registry of your [Prompts](/docs/v5/prompts) so you can centrally manage all their versions and [Logs](/docs/v5/logs), and evaluate and improve your AI systems.
+
+This guide will show you how to create a Prompt [in the UI](#create-a-prompt-in-the-ui) or [via the SDK/API](#create-a-prompt-using-the-sdk).
+
+<Markdown src="../../../snippets/prereq-have-account.mdx" />
+
+## Create a Prompt in the UI
+
+<Steps>
+### Create a Prompt File
+
+When you first open Humanloop you’ll see your File navigation on the left. Click ‘**+ New**’ and create a **Prompt**.
+
+<img src="../../../assets/images/21c558d-Screenshot_2024-04-04_at_22.25.09.png" />
+
+In the sidebar, rename this file to "Comedian Bot" now or later.
+
+### Create the Prompt template in the Editor
+
+The left hand side of the screen defines your Prompt – the parameters such as model, temperature and template. The right hand side is a single chat session with this Prompt.
+
+<img src="../../../assets/images/cafeccb-Screenshot_2024-04-04_at_22.39.48.png" />
+
+Click the "**+ Message**" button within the chat template to add a system message to the chat template.
+
+<img src="../../../assets/images/aae5149-Screenshot_2024-04-04_at_22.36.38.png" />
+
+Add the following templated message to the chat template.
+
+```
+You are a funny comedian. Write a joke about {{topic}}.
+```
+
+This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt.
+
+On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`.
+
+1. Add a value for`topic` e.g. music, jogging, whatever.
+2. Click **Run** in the bottom right of the page.
+
+This will call OpenAI’s model and return the assistant response. Feel free to try other values, the model is _very_ funny.
+
+You now have a first version of your prompt that you can use.
+
+### Commit your first version of this Prompt
+
+1. Click the **Commit** button
+2. Put “initial version” in the commit message field
+3. Click **Commit**
+
+<img src="../../../assets/images/commit-comedian-prompt.png" />
+
+### View the logs
+
+Under the Prompt File click ‘Logs’ to view all the generations from this Prompt
+
+Click on a row to see the details of what version of the prompt generated it. From here you can give feedback to that generation, see performance metrics, open up this example in the Editor, or add this log to a dataset.
+
+<img src="../../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
+
+</Steps>
+
+---
+
+## Create a Prompt using the SDK
+
+The Humanloop Python SDK allows you to programmatically create and version your [Prompts](/docs/v5/prompts) in Humanloop, and log generations from your models. This guide will show you how to create a Prompt using the SDK.
+
+Note that you can also version your prompts dynamically with every Prompt
+
+<Markdown src="../../../snippets/prereq-have-api-key.mdx" />
+
+<Markdown src="../../../snippets/setup-sdk.mdx" />
+
+After initializing the SDK client, you can call the Prompt creation endpoint.
+
+<Steps>
+
+### Create the Prompt
+
+<EndpointRequestSnippet endpoint="POST /prompts" />
+
+### Go to the App
+
+Go to the [Humanloop app](https://app.humanloop.com) and you will see your new project as a Prompt with the model config you just created.
+
+</Steps>
+
+You now have a Prompt in Humanloop that contains your initial version. You can call the Prompt in Editor and invite team members by going to your organization's members page.
+
+## Next Steps
+
+With the Prompt set up, you can now integrate it into your app by following the [uSDK/API integration guide](./generate-and-log-with-the-sdk).

@@ -1,0 +1,190 @@
+---
+subtitle: How to log generations from any large language model (LLM) to Humanloop
+description: Learn how to create a Prompt in Humanloop using the UI or SDK, version it, and use it to generate responses from your AI models. Prompt management is a key part of the Humanloop platform.
+image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
+---
+
+This guide will show you how to capture the [Logs](/docs/v5/concepts/logs) of your LLM calls into Humanloop.
+
+The easiest way to log LLM generations to Humanloop is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/v5/development/guides/call-prompt)). You will only need to supply prompt ID and the inputs needed by the prompt template, and the endpoint, will handle fetching the latest template, making the LLM call and logging the result.
+
+However, there may be scenarios that you wish to manage the LLM provider calls directly in your own code instead of relying on Humanloop. For example, you may be using an LLM provider that is not directly supported by Humanloop such as a custom self-hosted model, or you may want to avoid adding Humanloop to the critical path of the LLM API calls.
+
+## Prerequisites
+
+<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+
+<Markdown src="../../../snippets/setup-sdk.mdx" />
+
+## Log data to your Prompt
+
+To log LLM generations to Humanloop, you will need to make a call to the `/prompts/log` endpoint.
+
+Note that you can either specify a version of the Prompt you are logging against - in which case you will need to take care that you are supplying the correct version ID and inputs. Or you can supply the full prompt and a new version will be created if it has not been seen before.
+
+<Steps>
+
+### Get your Prompt
+
+Fetch a Prompt from Humanloop by specifying the ID. You can ignore this step if your prompts are created dynamically in code.
+
+<EndpointRequestSnippet endpoint="GET /prompts/:id" />
+
+<EndpointResponseSnippet endpoint="GET /prompts/:id" />
+
+Here's how to do this in code:
+
+<Tabs>
+<Tab title="Python">
+
+```python
+import re
+PROMPT_ID = "<YOUR PROMPT ID>"
+prompt = humanloop.prompt.get(id=PROMPT_ID)
+
+# This will fill the prompt template with the variables
+def fill_template(template, variables):
+    def replace_variable(match):
+        variable = match.group(1).strip()
+        if variable in variables:
+            return variables[variable]
+        else:
+            raise ValueError(f"Error: Variable '{variable}' is missing.")
+
+    filled_template = []
+    for message in template:
+        content = message['content']
+        filled_content = re.sub(r'\{\{\s*(.*?)\s*\}\}', replace_variable, content)
+        filled_template.append({**message, 'content': filled_content})
+
+    return filled_template
+
+template = fill_template(prompt.template, {"language": "Python"})
+```
+
+</Tab>
+<Tab title="TypeScript">
+
+```typescript
+const prompt = humanloop.prompts.get({ id: "<YOUR PROMPT ID>" });
+
+function fillTemplate(
+  template: Message[],
+  variables: { [key: string]: string }
+): Message[] {
+  const replaceVariable = (match: string, variable: string) => {
+    const trimmedVariable = variable.trim();
+    if (trimmedVariable in variables) {
+      return variables[trimmedVariable];
+    } else {
+      throw new Error(`Error: Variable '${trimmedVariable}' is missing.`);
+    }
+  };
+
+  return template.map((message) => {
+    const filledContent = message.content.replace(
+      /\{\{\s*(.*?)\s*\}\}/g,
+      replaceVariable
+    );
+    return { ...message, content: filledContent };
+  });
+
+  const template = fillTemplate(prompt.template, { language: "Python" });
+}
+```
+
+</Tab>
+</Tabs>
+
+### Call your Prompt
+
+This can be your own model, or any other LLM provider. Here is an example of calling OpenAI:
+
+<Tabs>
+<Tab title="Python">
+
+```python
+import openai
+
+client = openai.OpenAI(api_key="<YOUR OPENAI API KEY>")
+
+messages = template + [{ "role": "user", "content": "explain how async works" }]
+
+chat_completion = client.chat.completions.create(
+    messages=messages,
+    model=config.model,
+  	temperature=config.temperature
+)
+
+# Parse the output from the OpenAI response.
+output = chat_completion.choices[0].message.content
+```
+
+</Tab>
+<Tab title="TypeScript">
+
+```typescript
+import { OpenAI } from "openai";
+
+const client = new OpenAI({
+  apiKey: "<YOUR OPENAI API KEY>",
+});
+
+const messages = template.concat([
+  { role: "user", content: "explain how async works" },
+]);
+
+const chatCompletion = await client.chat.completions.create({
+  messages: messages,
+  model: prompt.model,
+  temperature: prompt.temperature,
+});
+
+const output = chatCompletion.choices[0].message.content;
+```
+
+</Tab>
+</Tabs>
+
+### Log the result
+
+Finally, log the result to your project:
+
+<EndpointRequestSnippet endpoint="POST /prompts/log" />
+
+<Tabs>
+<Tab title="Python">
+
+```python
+
+# Get the output from the OpenAI response.
+output_message = chat_completion.choices[0].message
+
+# Log the inputs, outputs and config to your project.
+log = humanloop.prompts.log(
+    id=PROMPT_ID,
+    output_message=output_message,
+    messages=messages,
+)
+```
+
+</Tab>
+
+<Tab title="TypeScript">
+
+```typescript
+// Get the output from the OpenAI response.
+const outputMessage = chatCompletion.choices[0].message;
+
+const log = humanloop.prompts.log({
+  id: PROMPT_ID,
+  output_message: outputMessage,
+  messages: messages,
+});
+```
+
+</Tab>
+
+</Tabs>
+
+</Steps>

@@ -1,0 +1,7 @@
+{
+  "id": "dir_123abc",
+  "name": "my directory",
+  "created_at": "2024-05-01T12:00:00Z",
+  "updated_at": "2024-05-01T12:00:00Z",
+  "parent_id": "dir_456def"
+}

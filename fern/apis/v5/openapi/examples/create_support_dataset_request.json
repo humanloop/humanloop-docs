@@ -1,0 +1,36 @@
+{
+  "path": "datasets/support-queries",
+  "datapoints": [
+    {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hi Humanloop support team, I'm having trouble understanding how to use the evaluations feature in your software. Can you provide a step-by-step guide or any resources to help me get started?"
+        }
+      ],
+      "target": {
+        "feature": "evaluations",
+        "issue": "needs step-by-step guide"
+      }
+    },
+    {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hi there, I'm interested in fine-tuning a language model using your software. Can you explain the process and provide any best practices or guidelines?"
+        }
+      ],
+      "target": {
+        "feature": "fine-tuning",
+        "issue": "process explanation and best practices"
+      }
+    }
+  ],
+  "action": "add",
+  "commit_message": "Add two new questions and answers"
+}
+
+
+
+
+

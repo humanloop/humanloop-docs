@@ -1,0 +1,70 @@
+---
+subtitle: How to create and use a code-based evaluator in Humanloop
+description: Learn how to create a code-based evaluator in Humanloop to assess the performance of your AI models. This guide covers setting up an offline evaluator, writing evaluation logic, and using the debug console.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+A code-based evaluator is a Python function that takes a generated log and a testcase as input and returns a boolean value indicating whether the generated log is correct. In this guide we'll show you how to create a code-based evaluator.
+
+## Create a code-based Evaluator
+
+<Steps>
+
+### Create a new Evaluator
+
+Click the 'new file' button in the left-hand sidebar and select 'Evaluator' and 'Code'.
+
+### Give it a name
+
+Call it `Extracts correct feature`.
+
+### Navigate to the file's Editor
+
+### Paste in the following code
+
+For this example, we'll use the code below to compare the LLM generated output with what we expected for that testcase.
+
+```python Python
+import json
+from json import JSONDecodeError
+
+def it_extracts_correct_feature(log, testcase):
+    expected_feature = testcase["target"]["feature"]
+
+    try:
+        # The model is expected to produce valid JSON output
+        # but it could fail to do so.
+        output = json.loads(log["output"])
+        actual_feature = output.get("feature", None)
+        return expected_feature == actual_feature
+
+    except JSONDecodeError:
+        # If the model didn't even produce valid JSON, then
+        # we evaluate the output as bad.
+        return False
+```
+
+### Use the Debug Console
+
+In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
+
+<img
+  src="../../../assets/images/e3dd068-image.png"
+  alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
+/>
+
+### Select a Prompt version to test aginst
+
+### Click the run button at the far right of one of the test datapoints.
+
+A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
+
+### Click **Commit** when you are happy with the evaluator
+
+Save this version of the evaluator.
+
+</Steps>
+
+## Next steps
+
+- [Run an Evaluation](/v5-pages/evaluation/guides/run-evaluation)

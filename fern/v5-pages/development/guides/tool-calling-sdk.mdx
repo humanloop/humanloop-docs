@@ -1,0 +1,319 @@
+---
+subtitle: How to use Tool Calling with the Humanloop SDK to have the model interact with external functions.
+description: Learn how to use tool calling in your large language models with the Humanloop SDK.
+---
+
+Humanloop's SDK supports Tool Calling functionality, enabling models to interact with external functions. This feature, akin to [OpenAI's function calling](https://platform.openai.com/docs/v5/guides/function-calling/function-calling), is implemented through JSON Schema tools in Humanloop. These Tools adhere to the widely-used JSON Schema syntax, providing a standardized way to define data structures.
+
+In this guide, we'll explore how to leverage these tools within your code using the Humanloop SDK. We'll walk you through the process of defining a tool, making a chat request with the tool, and handling the model's response.
+
+## Prerequisites
+
+<Markdown src="../../../snippets/setup-sdk.mdx" />
+
+<Steps>
+
+### **Create a chat with the tool**
+
+We'll start with the general chat endpoint format.
+
+```python
+def run_conversation():
+    # Step 1: send the conversation and available functions to GPT
+    messages = [{"role": "user", "content": "What's the weather like in Boston?"}]
+
+    response = hl.prompts.call(
+        path="WeatherBot",
+        prompt={
+            "template": "You are a weather assistant",
+            "model": "gpt-4o-mini",
+            "tools": [
+                {
+                    "name": "get_current_weather",
+                    "description": "Get the current weather in a given location",
+                    "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                        "type": "string",
+                        "name": "Location",
+                        "description": "The city and state, e.g. San Francisco, CA"
+                        },
+                        "unit": {
+                        "type": "string",
+                        "name": "Unit",
+                        "enum": [
+                            "celsius",
+                            "fahrenheit"
+                        ]
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ]
+                    },
+                    "source": "inline"
+                }
+            ]
+        },
+        messages=messages,
+    )
+    response = response.data[0]
+```
+
+<Markdown src="../../../snippets/tool-calling-models.mdx" />
+
+### **Define the tool**
+
+Define a tool using the universal [JSON Schema syntax](https://json-schema.org/) syntax. Let's assume we've defined a `get_current_weather` tool, which returns the current weather for a specified location. We'll add it in via a `"tools": tools,` field. We've also defined a dummy `get_current_weather` method at the top. This can be replaced by your own function to fetch real values, for now we're hardcoding it to return a random temperature and cloudy for this example.
+
+```python
+from humanloop import Humanloop
+import random
+import json
+
+hl = Humanloop(api_key="<YOUR_HUMANLOOP_API_KEY>")
+
+def get_current_weather(location, unit):
+    # Your own function call logic
+    # We will return dummy values in this example
+
+    # Generate random temperature between 0 and 20
+    temperature = random.randint(0, 20)
+
+    return {"temperature": temperature, "other": "cloudy"}
+
+
+
+def run_conversation():
+    # Step 1: send the conversation and available functions to GPT
+    messages = [
+        {
+            "role": "user",
+            "content": "What's the weather like in both Boston AND London tonight?",
+        }
+    ]
+    tools = [
+        {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    },
+                    "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
+                },
+                "required": ["location"],
+            },
+        },
+    ]
+
+    response = hl.chat(
+        project="Assistant",
+        model_config={"model": "gpt-3.5-turbo-1106", "tools": tools, "max_tokens": 100},
+        messages=messages,
+    )
+    response = response.body
+    output_message = response["data"][0]["output_message"]
+
+    # Remove the deprecated tool_call field (not nessecary for SDK rc verions >0.6)
+    del output_message["tool_call"]
+
+    # Add the output messge from the previous chat to the messages
+    messages.append(output_message)
+
+    # TODO - Add assistant response logic
+```
+
+### **Check assistant response**
+
+The code above will make the call to OpenAI with the tool but it does nothing to handle the assistant response. When responding with a tool response the response should have a `tool_calls` field. Fetch that value and pass it to your own function. An example of this can be seen below. Replace the `TODO - Add assistant handling logic` in your code from above with the following. Multiple tool calls can be returned with the latest OpenAI models `gpt-4-1106-preview` and `gpt-3.5-turbo-1106`, so below we loop through the tool_calls and populate the response accordingly.
+
+```python
+		# Step 2: check if GPT wanted to call a tool
+  	if output_message.get("tool_calls"):
+        # Step 3: call the function
+        # Note: the JSON response may not always be valid; be sure to handle errors
+        available_functions = {
+            "get_current_weather": get_current_weather,
+        }
+
+        for tool_call in output_message["tool_calls"]:
+            function_name = tool_call["function"]["name"]
+            function_args = json.loads(tool_call["function"]["arguments"])
+            function_to_call = available_functions[function_name]
+            function_response = function_to_call(
+                location=function_args.get("location"),
+                unit=function_args.get("unit"),
+
+        # TODO - return the tool response back to OpenAI
+```
+
+### **Return the tool response**
+
+We can then return the tool response to OpenAI. This can be done by formatting OpenAI tool message into the relative `assistant` message seen below along with a `tool` message with the function name and function response.
+
+```python
+		# Step 2: check if GPT wanted to call a tool
+    if output_message.get("tool_calls"):
+        # Step 3: call the function
+        # Note: the JSON response may not always be valid; be sure to handle errors
+        available_functions = {
+            "get_current_weather": get_current_weather,
+        }
+
+        for tool_call in output_message["tool_calls"]:
+            function_name = tool_call["function"]["name"]
+            function_args = json.loads(tool_call["function"]["arguments"])
+            function_to_call = available_functions[function_name]
+            function_response = function_to_call(
+                location=function_args.get("location"),
+                unit=function_args.get("unit"),
+            )
+
+            # Step 4: send the response back to the model per function call
+            messages.append(
+                {
+                    "role": "tool",
+                    "content": json.dumps(function_response),
+                    "tool_call_id": tool_call["id"],
+                }
+            )
+
+        second_response = hl.chat(
+            project="Assistant",
+            model_config={
+                "model": "gpt-3.5-turbo-1106",
+                "tools": tools,
+                "max_tokens": 500,
+            },
+            messages=messages,
+        )
+        return second_response
+```
+
+### **Review assistant response**
+
+The assistant should respond with a message that incorporates the parameters you provided, for example: `The current weather in Boston is 22 degrees and cloudy.` The above can be run by adding the python handling logic at the both of your file:
+
+```python
+if __name__ == "__main__":
+    response = run_conversation()
+    response = response.data[0].output
+    # Print to console the response from OpenAI with the formatted message
+    print(response)
+```
+
+The full code from this example can be seen below:
+
+```python
+from humanloop import Humanloop
+import random
+import json
+
+hl = Humanloop(
+    api_key="<YOUR_HUMANLOOP_API_KEY>",
+)
+
+
+def get_current_weather(location, unit):
+    # Your own function call logic
+    # We will return dummy values in this example
+
+    # Generate random temperature between 0 and 20
+    temperature = random.randint(0, 20)
+
+    return {"temperature": temperature, "other": "cloudy"}
+
+
+def run_conversation():
+    # Step 1: send the conversation and available functions to GPT
+    messages = [
+        {
+            "role": "user",
+            "content": "What's the weather like in both Boston AND London tonight?",
+        }
+    ]
+    tools = [
+        {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    },
+                    "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
+                },
+                "required": ["location"],
+            },
+        },
+    ]
+
+    response = hl.chat(
+        project="Assistant",
+        model_config={"model": "gpt-3.5-turbo-1106", "tools": tools, "max_tokens": 100},
+        messages=messages,
+    )
+    response = response.body
+    output_message = response["data"][0]["output_message"]
+
+    # Remove the deprecated tool_call field (not nessecary for SDK rc verions >0.6)
+    del output_message["tool_call"]
+
+    # Add the output messge from the previous chat to the messages
+    messages.append(output_message)
+
+    # Step 2: check if GPT wanted to call a tool
+    if output_message.get("tool_calls"):
+        # Step 3: call the function
+        # Note: the JSON response may not always be valid; be sure to handle errors
+        available_functions = {
+            "get_current_weather": get_current_weather,
+        }
+
+        for tool_call in output_message["tool_calls"]:
+            function_name = tool_call["function"]["name"]
+            function_args = json.loads(tool_call["function"]["arguments"])
+            function_to_call = available_functions[function_name]
+            function_response = function_to_call(
+                location=function_args.get("location"),
+                unit=function_args.get("unit"),
+            )
+
+            # Step 4: send the response back to the model per function call
+            messages.append(
+                {
+                    "role": "tool",
+                    "content": json.dumps(function_response),
+                    "tool_call_id": tool_call["id"],
+                }
+            )
+
+        second_response = hl.chat(
+            project="Assistant",
+            model_config={
+                "model": "gpt-3.5-turbo-1106",
+                "tools": tools,
+                "max_tokens": 500,
+            },
+            messages=messages,
+        )
+        return second_response
+
+
+if __name__ == "__main__":
+    response = run_conversation()
+    response = response.data[0]output
+    # Print to console the response from OpenAI with the formatted message
+    print(response)
+
+
+```
+
+</Steps>

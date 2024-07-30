@@ -1,0 +1,36 @@
+{
+  "path": "persona",
+  "prompt": {
+    "model": "gpt-4",
+    "template": [
+      {
+        "role": "system",
+        "content": "You are stockbot. Return latest prices."
+      }
+    ],
+    "tools": [
+      {
+        "name": "get_stock_price",
+        "description": "Get current stock price",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker_symbol": {
+              "type": "string",
+              "name": "Ticker Symbol",
+              "description": "Ticker symbol of the stock"
+            }
+          },
+          "required": []
+        }
+      }
+    ]
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "latest apple"
+    }
+  ],
+  "stream": false
+}

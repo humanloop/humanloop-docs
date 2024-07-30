@@ -1,0 +1,55 @@
+---
+subtitle: This guide demonstrates how to use batch generation to create synthetic data for evaluation purposes.
+description: Learn how to generate a dataset of model outputs that can be used for evaluating your AI application's performance.
+image: https://humanloop.com/assets/docs/social-image.png
+---
+
+### Prerequisites
+
+- You need to have access to evaluations.
+- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
+- Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
+
+### Generate Synthetic Data for Evaluation
+
+<Steps>
+
+### Navigate to the Evaluations Page
+
+From the main dashboard, go to the **Evaluations** page.
+
+### Select "Run Evaluation"
+
+Click on the **Run Evaluation** button to start the process.
+
+### Choose Your Configuration
+
+Select the model config you want to use for generating synthetic data. This should be the configuration you intend to evaluate.
+
+### Select or Create a Dataset
+
+Choose an existing dataset or create a new one to store your synthetic data. This dataset will serve as input for your model.
+
+### Initiate Batch Generation
+
+Click **Batch generate** to start creating synthetic data based on your selected configuration and dataset.
+
+<img src="../../../assets/images/3d438cd-image.png" />
+
+### Monitor Generation Progress
+
+Follow the link in the bottom-right corner to see the evaluation run. You'll be able to watch as the rows populate with generated outputs from your model.
+
+### Review Generated Data
+
+Once generation is complete, review the outputs to ensure they meet your expectations for evaluation data. Each row represents a synthetic datapoint that can be used for evaluation.
+
+### Save and Prepare for Evaluation
+
+After reviewing, click **Mark as complete** in the top right of the page. Your synthetic dataset is now ready to be used for evaluation purposes.
+
+</Steps>
+
+## Using Synthetic Data for Evaluation
+
+The synthetic data you've generated can now be used with various types of evaluators (human, AI, or code-based) to assess your model's performance. This approach allows you to create diverse, controlled datasets for thorough evaluation of your AI application.

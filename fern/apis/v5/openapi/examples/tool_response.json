@@ -1,0 +1,18 @@
+{
+  "id": "tl_789ghi",
+  "path": "math-tool",
+  "name": "math-tool",
+  "version_id": "tv_012jkl",
+  "type": "tool",
+  "created_at": "2024-05-01T12:00:00Z",
+  "updated_at": "2024-05-01T12:00:00Z",
+  "status": "committed",
+  "last_used_at": "2024-05-01T12:00:00Z",
+  "version_logs_count": 1,
+  "total_logs_count": 1,
+  "inputs": [
+    {
+      "name": "operation"
+    }
+  ]
+}
