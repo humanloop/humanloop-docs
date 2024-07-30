@@ -43,16 +43,16 @@ navigation:
                 path: ../v5-pages/concepts/environments.mdx
               - page: Directories
                 path: ../v5-pages/concepts/directories.mdx
-          # - page: Architecture
-          #   path: ../v5-pages/getting-started/architecture.mdx
-          # - page: Security
-          #   path: ../v5-pages/getting-started/architecture.mdx
+              # - page: Architecture
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              # - page: Security
+              #   path: ../v5-pages/getting-started/architecture.mdx
+              - page: Quickstart Tutorial
+                slug: tutorials/quickstart-tutorial
+                path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+      # - section: Tutorials
+      # contents:
 
-      - section: Tutorials
-        contents:
-          - page: Quickstart
-            slug: tutorials/quickstart-tutorial
-            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       #   contents:
       # - page: Tracing and versioning your LLM calls
       #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
@@ -126,21 +126,23 @@ navigation:
           - section: How-to guides
             slug: guides
             contents:
-              - page: Comparing prompt outputs
-                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+              - page: Run an Evaluation
+                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
               - page: Set up a code based Evaluator
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
+                slug: llm-as-a-judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
                 # TODO: Harry to write as part of his work
-              #              - page: Human Evaluation your prompts
-              #                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
+              - page: Set up Human Evaluation
+                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Create a Dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
               - page: Generating synthetic data
                 path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
-              - page: Run an Evaluation
-                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Comparing prompt outputs
+                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+
               - page: Set up CI/CD Evaluations
                 slug: cicd-integration
                 path: ../v5-pages/evaluation/guides/cicd-integration.mdx
@@ -178,13 +180,6 @@ navigation:
         contents:
           - page: Deployment Options
             path: ../v5-pages/reference/deployment-options.mdx
-          - page: Security and Compliance
-            path: ../v5-pages/reference/security-compliance.mdx
-          - page: Data Management
-            path: ../v5-pages/reference/data-management.mdx
-
-          - page: Integrations
-            path: ../v5-pages/reference/integrations.mdx
           - page: Supported Models
             path: ../v5-pages/reference/models.mdx
           # - page: Supported Tools
@@ -196,8 +191,14 @@ navigation:
 
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
-          - page: Postman Workspace
-            path: ../v5-pages/reference/postman-workspace.mdx
+          # - page: Postman Workspace
+          #   path: ../v5-pages/reference/postman-workspace.mdx
+          - page: Integrations
+            path: ../v5-pages/reference/integrations.mdx
+          - page: Security and Compliance
+            path: ../v5-pages/reference/security-compliance.mdx
+          - page: Data Management
+            path: ../v5-pages/reference/data-management.mdx
 
   - tab: api
     layout:

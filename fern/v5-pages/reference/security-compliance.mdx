@@ -1,39 +1,82 @@
 ---
-subtitle: Humanloop's security and compliance measures
+subtitle: An overview of Humanloop's security and compliance measures
 description: Learn about Humanloop's commitment to security, data protection, and compliance with industry standards.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-At Humanloop, we take security and compliance seriously. We understand that our customers trust us with their sensitive data and we are committed to maintaining the highest standards of security and data protection.
+Humanloop is deeply committed to AI governance, security, and compliance. View our [Trust Report](https://trust.humanloop.com/) and [Policy Pages](https://humanloop.com/policies/privacy-policy) to see all of our certifications, request documentation, and view high-level details on the controls we adhere to.
 
-## Security Measures
+Humanloop never trains on user data.
 
-### Data Encryption
+## **Humanloop Security Offerings:**
+
+- **Data Privacy and Security**
+  - Activate LLMs with your private data, safely and securely. You own your data and models.
+- **Monitoring & Support**
+  - End-to-end monitoring of your AI applications, support guarantees from trusted AI experts.
+- Data Encryption
+- Data Management & AI Governance
+
+## User Authentication and Access Control
+
+### Authentication & Access Control - Humanloop Web App
+
+All users of the Humanloop web application require a valid email address and password to use the system:
+
+- Email addresses are verified on account creation.
+- Passwords are verified as sufficiently complex.
+- Passwords are stored using a one-way salted hash.
+- User access logs are maintained including date, time, user ID, relevant URL, operation performed, and source IP address for audit purposes.
+
+### Authentication & Access Control - Humanloop API
+
+All users of the API are required to authenticate with a unique API token header:
+
+- Follows the OAuth 2.0 pattern.
+- API tokens are only visible once on creation and then obfuscated.
+- Users can manage the expiry of API keys.
+- API token access logs are maintained including date, time, user ID, relevant URL, operation performed, and source IP address for audit purposes.
+
+### Additional Resources
+
+- Role-based access control (RBAC) - We implement strict role-based access control (RBAC) for all our systems.
+- Multi-factor authentication (MFA) - MFA is enforced for all employee accounts.
+
+## Encryption Standards
+
+### **Encryption**
+
+Humanloop follows best practices for data management and encryption. All data in transit is secured with TLS/SSL, and all data at rest is encrypted using the AES-256 algorithm. All encryption keys are managed using AWS Key Management Service (KMS) as part of the VPC definition.
 
 - All data in transit is encrypted using TLS 1.2 or higher.
 - Data at rest is encrypted using AES-256 encryption.
 
-### Access Control
+### **Infrastructure**
 
-- We implement strict role-based access control (RBAC) for all our systems.
-- Multi-factor authentication (MFA) is enforced for all employee accounts.
+All sensitive data is encrypted in transit. For Self-Hosted Cloud (VPC) environments, network traffic is also encrypted in transit and at rest to meet HIPAA requirements. Sensitive application data is only ever processed within the ECS cluster and stored in Aurora. To request a network infrastructure diagram or more information, please contact [privacy@humanloop.com](mailto:privacy@humanloop.com).
 
-### Infrastructure Security
+**Learn More**
 
-- Our infrastructure is hosted on AWS, leveraging their advanced security features.
-- We use firewalls, intrusion detection systems, and regular security audits to protect our systems.
+For more information about how Humanloop processes user data, visit our Data Management & Hosting Options page.
 
-## Compliance
+## Security Certifications
 
-### SOC 2 Compliance
+### SOC2 Type II Compliance
 
-Humanloop is SOC 2 Type II compliant. This certification demonstrates our commitment to:
+Humanloop is fully SOC2 Type II compliant. Learn more via our [Trust Center](https://trust.humanloop.com/) and our [Security Policy](https://humanloop.com/policies/security-policy) page.
 
-- Security
-- Availability
-- Processing Integrity
-- Confidentiality
-- Privacy
+### HIPAA Compliance
+
+Humanloop actively works with paying customers to help them achieve HIPAA compliance. Official certification is pending.
+
+To request references or more information, contact sales@humanloop.com.
+
+**HIPAA Compliance via Hosting Environment:**
+
+Humanloop offers dedicated platform instances on AWS with HIPAA provisions for enterprise customers that have particularly sensitive data. These provisions include:
+
+- The ability for enterprises to manage their own encryption keys.
+- A specific AWS Fargate deployment that follows HIPAA practices.
 
 ### GDPR Compliance
 
@@ -43,24 +86,23 @@ We are fully compliant with the General Data Protection Regulation (GDPR). This 
 - User rights management
 - Data processing agreements
 
-### HIPAA Compliance
+## **How Humanloop helps customers maintain compliance:**
 
-For customers requiring HIPAA compliance, we offer:
+- Self-Hosted Cloud (VPC) environments
+- Data Processing Agreements (DPAs)
+- Data Minimization and Retention Policies
+- Role-Based Access Controls
+- Data Encryption
+- Robust Security Measures
+- Incident Response Plan SLAs
+- Regular Training & Audits
 
-- Dedicated instances with full [HIPAA compliant](https://aws.amazon.com/compliance/hipaa-compliance/) AWS setup.
-- Business Associate Agreements (BAA) upon request.
+### Learn more:
 
-## Data Protection
+- Cloud Hosting Options
+- Data Management Protocols
+- [Security Policy](https://humanloop.com/policies/security-policy)
+- [Privacy Policy](https://humanloop.com/policies/privacy-policy)
+- [Trust Center](https://trust.humanloop.com/)
 
-- We never train on customer data.
-- Data residency options are available for customers with specific geographic requirements.
-
-## Regular Audits and Penetration Testing
-
-We conduct regular internal and external security audits and penetration tests to ensure the ongoing security of our systems.
-
-## Reporting Security Concerns
-
-If you believe you've found a security vulnerability in our service, please report it to security@humanloop.com. We take all reports seriously and will respond promptly.
-
-For more detailed information about our security practices or to request our security documentation, please contact our sales team.
+To request references or more information, contact sales@humanloop.com

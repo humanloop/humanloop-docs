@@ -1,112 +1,88 @@
 ---
-subtitle: How to create, version and use a Prompt in Humanloop
-description: Learn how to create a Prompt in Humanloop using the UI or SDK, version it, and use it to generate responses from your AI models. Prompt management is a key part of the Humanloop platform.
-image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
+subtitle: In this guide, we will set up an LLM evaluator to check for PII (Personally Identifiable Information) in Logs.
+description: Learn how to use LLM as a judge to check for PII in Logs.
+image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-Humanloop acts as a registry of your [Prompts](/docs/v5/prompts) so you can centrally manage all their versions and [Logs](/docs/v5/logs), and evaluate and improve your AI systems.
+<Markdown src="../../../snippets/wip.mdx" />
 
-This guide will show you how to create a Prompt [in the UI](#create-a-prompt-in-the-ui) or [via the SDK/API](#create-a-prompt-using-the-sdk).
+Large Language Models (LLMs) can be used for evaluating the quality and characteristics of other AI-generated outputs. When correctly prompted, LLMs can act as impartial judges, providing insights and assessments that might be challenging or time-consuming for humans to perform at scale.
 
-<Markdown src="../../../snippets/prereq-have-account.mdx" />
+In this guide, we'll explore how to set up and use LLMs as evaluators in Humanloop, demonstrating their effectiveness in assessing various aspects of AI-generated content, such as checking for the presence of Personally Identifiable Information (PII).
 
-## Create a Prompt in the UI
+### Prerequisites
+
+- You need to have access to evaluations.
+- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
+- Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
+
+### Set up an LLM evaluator
 
 <Steps>
-### Create a Prompt File
+### From the Evaluations page, click **New Evaluator** and select AI.
 
-When you first open Humanloop you’ll see your File navigation on the left. Click ‘**+ New**’ and create a **Prompt**.
+<img src="../../../assets/images/e821a8f-image.png" />
 
-<img src="../../../assets/images/21c558d-Screenshot_2024-04-04_at_22.25.09.png" />
+### From the presets menu on the left-hand side of the page, select **PII**.
 
-In the sidebar, rename this file to "Comedian Bot" now or later.
+<img src="../../../assets/images/a0adb08-SCR-20231120-oahm.png" />
 
-### Create the Prompt template in the Editor
+### Set the evaluator to **Online** mode, and toggle **Auto-run** to on. This will make the PII checker run on all new logs in the project.
 
-The left hand side of the screen defines your Prompt – the parameters such as model, temperature and template. The right hand side is a single chat session with this Prompt.
+<img
+  src="../../../assets/images/be52778-image.png"
+  alt="The  **PII check** evaluator."
+/>
 
-<img src="../../../assets/images/cafeccb-Screenshot_2024-04-04_at_22.39.48.png" />
+### Click **Create** in the bottom left of the page.
 
-Click the "**+ Message**" button within the chat template to add a system message to the chat template.
+### Go to Editor and try generating a couple of logs, some containing PII and some without.
 
-<img src="../../../assets/images/aae5149-Screenshot_2024-04-04_at_22.36.38.png" />
+### Go to the Logs table to review these logs.
 
-Add the following templated message to the chat template.
+<img
+  src="../../../assets/images/4bc4503-image.png"
+  alt="The logs table, showing that the **PII check** evaluator ran on the latest logs."
+/>
 
-```
-You are a funny comedian. Write a joke about {{topic}}.
-```
+### Click one of the logs to see more details in the drawer.
 
-This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt.
+In our example below, you can see that the the log did contain PII, and the **PII check** evaluator has correctly identified this and flagged it with **False**.
 
-On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`.
+<img src="../../../assets/images/e2a1554-image.png" />
 
-1. Add a value for`topic` e.g. music, jogging, whatever
-2. Click **Run** in the bottom right of the page
+### Click **View session** at the top of log drawer to inspect in more detail the LLM evaluator's generation itself.
 
-This will call OpenAI’s model and return the assistant response. Feel free to try other values, the model is _very_ funny.
+### Select the **PII check** entry in the session trace
 
-You now have a first version of your prompt that you can use.
+In the **Completed Prompt** tab of the log, you'll see the full input and output of the LLM evaluator generation.
 
-### Commit your first version of this Prompt
-
-1. Click the **Commit** button
-2. Put “initial version” in the commit message field
-3. Click **Commit**
-
-<img src="../../../assets/images/commit-comedian-prompt.png" />
-
-### View the logs
-
-Under the Prompt File click ‘Logs’ to view all the generations from this Prompt
-
-Click on a row to see the details of what version of the prompt generated it. From here you can give feedback to that generation, see performance metrics, open up this example in the Editor, or add this log to a dataset.
-
-<img src="../../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
+<img
+  src="../../../assets/images/7b5713b-image.png"
+  alt="The LLM evaluator produced an explanation reasoning why the underlying log did contain PII, and terminated with a final verdict of 'False'."
+/>
 
 </Steps>
 
----
+### Available variables
 
-## Create a Prompt using the SDK
+In the prompt editor for an LLM evaluator, you have access to the underlying log you are evaluating as well as the testcase that gave rise to it in the case of offline evaluations. These are accessed with the standard `{{ variable }}` syntax, enhanced with a familiar dot notation to pick out specific values from inside the `log` and `testcase` objects. The `log` and `testcase` shown in the debug console correspond to the objects available in the context of the LLM evaluator prompt.
 
-The Humanloop Python SDK allows you to programmatically set up and version your [Prompts](/docs/v5/prompts) in Humanloop, and log generations from your models. This guide will show you how to create a Prompt using the SDK.
+For example, suppose you are evaluating a log object like this.
 
-<Markdown src="../../../snippets/prereq-have-api-key.mdx" />
-
-<Markdown src="../../../snippets/setup-sdk.mdx" />
-
-Continue in the same Python interpreter (where you have run `humanloop = Humanloop(...)`).
-
-<Warning>Note: Prompts are still called 'projects' in the SDK and versions of Prompts are called 'model configs'</Warning>
-<Steps>
-
-### Create the Prompt "project"
-
-```python
-project_response = humanloop.projects.create(name="sdk-tutorial")
-project_id = project_response.id
+```Text JSON
+{
+    "id": "data_B3RmIu9aA5FibdtXP7CkO",
+    "model_config": {...},
+    "inputs": {
+    	"hello": "world",
+    },
+    "messages": []
+    "output": "This is what the AI responded with.",
+    ...etc
+}
 ```
 
-### Register your version ("model config")
+In the LLM evaluator prompt, if you write `{{ log.inputs.hello }}` it will be replaced with `world` in the final prompt sent to the LLM evaluator model.
 
-```python
-humanloop.model_configs.register(
-    project_id=project_id,
-    model="gpt-3.5-turbo",
-    prompt_template="Write a snappy introduction about {{topic}}:",
-    temperature=0.8,
-)
-```
-
-### Go to the App
-
-Go to the [Humanloop app](https://app.humanloop.com) and you will see your new project as a Prompt with the model config you just created.
-
-</Steps>
-
-You now have a project in Humanloop that contains your model config. You can view your project and invite team members by going to the **Project** page.
-
-## Next Steps
-
-With the Prompt set up, you can now integrate it into your app by following the [uSDK/API integration guide](./generate-and-log-with-the-sdk).
+Note that in order to get access to the fully populated prompt that was sent in the underlying log, you can use `{{ log_prompt }}`.

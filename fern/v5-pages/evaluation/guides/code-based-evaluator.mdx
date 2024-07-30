@@ -1,112 +1,70 @@
 ---
-subtitle: How to create, version and use a Prompt in Humanloop
-description: Learn how to create a Prompt in Humanloop using the UI or SDK, version it, and use it to generate responses from your AI models. Prompt management is a key part of the Humanloop platform.
-image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
+subtitle: How to create and use a code-based evaluator in Humanloop
+description: Learn how to create a code-based evaluator in Humanloop to assess the performance of your AI models. This guide covers setting up an offline evaluator, writing evaluation logic, and using the debug console.
+image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-Humanloop acts as a registry of your [Prompts](/docs/v5/prompts) so you can centrally manage all their versions and [Logs](/docs/v5/logs), and evaluate and improve your AI systems.
+A code-based evaluator is a Python function that takes a generated log and a testcase as input and returns a boolean value indicating whether the generated log is correct. In this guide we'll show you how to create a code-based evaluator.
 
-This guide will show you how to create a Prompt [in the UI](#create-a-prompt-in-the-ui) or [via the SDK/API](#create-a-prompt-using-the-sdk).
-
-<Markdown src="../../../snippets/prereq-have-account.mdx" />
-
-## Create a Prompt in the UI
+## Create a code-based Evaluator
 
 <Steps>
-### Create a Prompt File
 
-When you first open Humanloop you’ll see your File navigation on the left. Click ‘**+ New**’ and create a **Prompt**.
+### Create a new Evaluator
 
-<img src="../../../assets/images/21c558d-Screenshot_2024-04-04_at_22.25.09.png" />
+Click the 'new file' button in the left-hand sidebar and select 'Evaluator' and 'Code'.
 
-In the sidebar, rename this file to "Comedian Bot" now or later.
+### Give it a name
 
-### Create the Prompt template in the Editor
+Call it `Extracts correct feature`.
 
-The left hand side of the screen defines your Prompt – the parameters such as model, temperature and template. The right hand side is a single chat session with this Prompt.
+### Navigate to the file's Editor
 
-<img src="../../../assets/images/cafeccb-Screenshot_2024-04-04_at_22.39.48.png" />
+### Paste in the following code
 
-Click the "**+ Message**" button within the chat template to add a system message to the chat template.
+For this example, we'll use the code below to compare the LLM generated output with what we expected for that testcase.
 
-<img src="../../../assets/images/aae5149-Screenshot_2024-04-04_at_22.36.38.png" />
+```python Python
+import json
+from json import JSONDecodeError
 
-Add the following templated message to the chat template.
+def it_extracts_correct_feature(log, testcase):
+    expected_feature = testcase["target"]["feature"]
 
+    try:
+        # The model is expected to produce valid JSON output
+        # but it could fail to do so.
+        output = json.loads(log["output"])
+        actual_feature = output.get("feature", None)
+        return expected_feature == actual_feature
+
+    except JSONDecodeError:
+        # If the model didn't even produce valid JSON, then
+        # we evaluate the output as bad.
+        return False
 ```
-You are a funny comedian. Write a joke about {{topic}}.
-```
 
-This message forms the chat template. It has an input slot called `topic` (surrounded by two curly brackets) for an input value that is provided each time you call this Prompt.
+### Use the Debug Console
 
-On the right hand side of the page, you’ll now see a box in the **Inputs** section for `topic`.
+In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
 
-1. Add a value for`topic` e.g. music, jogging, whatever
-2. Click **Run** in the bottom right of the page
+<img
+  src="../../../assets/images/e3dd068-image.png"
+  alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
+/>
 
-This will call OpenAI’s model and return the assistant response. Feel free to try other values, the model is _very_ funny.
+### Select a Prompt version to test aginst
 
-You now have a first version of your prompt that you can use.
+### Click the run button at the far right of one of the test datapoints.
 
-### Commit your first version of this Prompt
+A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
 
-1. Click the **Commit** button
-2. Put “initial version” in the commit message field
-3. Click **Commit**
+### Click **Commit** when you are happy with the evaluator
 
-<img src="../../../assets/images/commit-comedian-prompt.png" />
-
-### View the logs
-
-Under the Prompt File click ‘Logs’ to view all the generations from this Prompt
-
-Click on a row to see the details of what version of the prompt generated it. From here you can give feedback to that generation, see performance metrics, open up this example in the Editor, or add this log to a dataset.
-
-<img src="../../../assets/images/d498aa6-Screenshot_2024-04-04_at_22.38.58.png" />
+Save this version of the evaluator.
 
 </Steps>
 
----
+## Next steps
 
-## Create a Prompt using the SDK
-
-The Humanloop Python SDK allows you to programmatically set up and version your [Prompts](/docs/v5/prompts) in Humanloop, and log generations from your models. This guide will show you how to create a Prompt using the SDK.
-
-<Markdown src="../../../snippets/prereq-have-api-key.mdx" />
-
-<Markdown src="../../../snippets/setup-sdk.mdx" />
-
-Continue in the same Python interpreter (where you have run `humanloop = Humanloop(...)`).
-
-<Warning>Note: Prompts are still called 'projects' in the SDK and versions of Prompts are called 'model configs'</Warning>
-<Steps>
-
-### Create the Prompt "project"
-
-```python
-project_response = humanloop.projects.create(name="sdk-tutorial")
-project_id = project_response.id
-```
-
-### Register your version ("model config")
-
-```python
-humanloop.model_configs.register(
-    project_id=project_id,
-    model="gpt-3.5-turbo",
-    prompt_template="Write a snappy introduction about {{topic}}:",
-    temperature=0.8,
-)
-```
-
-### Go to the App
-
-Go to the [Humanloop app](https://app.humanloop.com) and you will see your new project as a Prompt with the model config you just created.
-
-</Steps>
-
-You now have a project in Humanloop that contains your model config. You can view your project and invite team members by going to the **Project** page.
-
-## Next Steps
-
-With the Prompt set up, you can now integrate it into your app by following the [uSDK/API integration guide](./generate-and-log-with-the-sdk).
+- [Run an Evaluation](/v5-pages/evaluation/guides/run-evaluation)

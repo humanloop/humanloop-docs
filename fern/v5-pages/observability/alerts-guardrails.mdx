@@ -7,7 +7,9 @@ tag: draft
 
 {/* WIP - for gartner /start */}
 
-Monitoring your AI system's performance in production is crucial for maintaining quality and catching issues early. Humanloop provides powerful tools to set up automated alerts based on your custom evaluation criteria. This guide will walk you through the process of setting up alerts using monitoring evaluators and webhooks.
+Monitoring your AI system's performance in production is crucial for maintaining quality and catching issues early. Humanloop provides tools to set up automated alerts based on your custom evaluation criteria. This guide will walk you through the process of setting up alerts using monitoring evaluators and webhooks.
+
+## Monitoring
 
 ## Overview of Alerting and Guardrails
 
@@ -38,4 +40,112 @@ For detailed instructions on how to set up specific types of alerts and guardrai
 - [Configuring Cost Management Alerts](/docs/v5/guides/cost-alerts)
 - [Creating Custom Evaluation Metrics](/docs/v5/guides/custom-metrics)
 
+# Alerting and Guardrails in HumanLoop
+
+## Introduction
+
+This guide provides an overview of alerting and guardrails in HumanLoop, focusing on their use cases and importance in maintaining system integrity and performance. While these features are often implemented using log evaluators, this guide will focus on the alerting and guardrail concepts themselves.
+
+For more information on log evaluators, please refer to the [Evaluators Concept Guide](link-to-evaluators-concept-guide).
+
+## Alerting in HumanLoop
+
+Alerting is a critical component of any robust monitoring system. It allows you to be promptly notified of important events or issues in your HumanLoop environment.
+
+### Overview
+
+Alerts are triggered when certain predefined conditions are met in your system. These conditions are typically monitored using log evaluators, which continuously analyze system logs and metrics.
+
+### Use Cases for Alerting
+
+1. **Performance Issues**
+
+   - Use Case: Alert when API response times exceed a certain threshold.
+   - Benefit: Quickly identify and address performance bottlenecks.
+
+2. **Error Rate Spikes**
+
+   - Use Case: Notify when the error rate for a specific service surpasses normal levels.
+   - Benefit: Detect and investigate unusual error patterns promptly.
+
+3. **Resource Utilization**
+
+   - Use Case: Alert when CPU or memory usage approaches capacity limits.
+   - Benefit: Prevent system crashes and maintain optimal performance.
+
+4. **Security Incidents**
+
+   - Use Case: Notify on multiple failed login attempts or unusual access patterns.
+   - Benefit: Rapidly respond to potential security breaches.
+
+5. **Data Quality Issues**
+
+   - Use Case: Alert when incoming data doesn't meet predefined quality standards.
+   - Benefit: Maintain data integrity and prevent propagation of bad data.
+
+6. **SLA Violations**
+   - Use Case: Notify when service level agreements are at risk of being breached.
+   - Benefit: Proactively manage client expectations and service quality.
+
+### Best Practices for Alerting
+
+1. **Define Clear Thresholds**: Establish meaningful thresholds based on historical data and business requirements.
+2. **Prioritize Alerts**: Categorize alerts by severity to ensure critical issues receive immediate attention.
+3. **Provide Context**: Include relevant information in alerts to aid in quick diagnosis and resolution.
+4. **Avoid Alert Fatigue**: Regularly review and refine alert conditions to minimize false positives.
+5. **Establish Escalation Procedures**: Define clear processes for handling and escalating different types of alerts.
+
+## Guardrails in HumanLoop
+
+Guardrails are protective measures implemented to prevent undesired actions or states in your HumanLoop environment. They act as a safety net, automatically enforcing rules and limits to maintain system integrity.
+
+### Overview
+
+Guardrails typically work by setting boundaries on various system parameters and automatically taking action when these boundaries are approached or exceeded.
+
+### Use Cases for Guardrails
+
+1. **Rate Limiting**
+
+   - Use Case: Automatically throttle requests when API usage exceeds defined limits.
+   - Benefit: Prevent system overload and ensure fair resource allocation.
+
+2. **Data Validation**
+
+   - Use Case: Reject or flag incoming data that doesn't meet specified criteria.
+   - Benefit: Maintain data quality and prevent processing of invalid information.
+
+3. **Access Control**
+
+   - Use Case: Automatically revoke or suspend access when unusual patterns are detected.
+   - Benefit: Enhance security and prevent unauthorized actions.
+
+4. **Resource Management**
+
+   - Use Case: Automatically scale resources or reject new requests when system capacity is reached.
+   - Benefit: Maintain system stability and prevent crashes due to resource exhaustion.
+
+5. **Configuration Protection**
+
+   - Use Case: Prevent changes to critical system configurations without proper authorization.
+   - Benefit: Maintain system integrity and prevent accidental misconfigurations.
+
+6. **Anomaly Prevention**
+   - Use Case: Automatically pause or roll back deployments if abnormal behavior is detected post-release.
+   - Benefit: Minimize the impact of potential bugs or issues in new releases.
+
+### Best Practices for Implementing Guardrails
+
+1. **Start Conservative**: Begin with more restrictive guardrails and loosen them as you gain confidence.
+2. **Monitor Guardrail Actions**: Keep track of when and why guardrails are triggered to identify patterns.
+3. **Regular Reviews**: Periodically assess the effectiveness of your guardrails and adjust as needed.
+4. **Provide Override Mechanisms**: Allow authorized personnel to bypass guardrails in controlled situations.
+5. **Document Thoroughly**: Maintain clear documentation of all implemented guardrails for team awareness.
+
+## Conclusion
+
+Effective use of alerting and guardrails is crucial for maintaining a healthy, secure, and performant HumanLoop environment. By implementing these practices, you can proactively identify issues, prevent potential problems, and ensure your system operates within defined parameters. Remember that setting up alerting and guardrails is an ongoing process that requires regular refinement as your system evolves and your understanding of its behavior deepens.
+
 {/* WIP - for gartner /end */}
+
+## Use cases
