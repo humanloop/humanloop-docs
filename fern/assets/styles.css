@@ -44,7 +44,8 @@
 #fern-header .fern-button[href="https://humanloop.com/demo"]
 {
   background-color: #18181b !important;
-  box-shadow: rgba(24, 24, 27, 0.05) 0px 4px 8px 0px,
+  box-shadow:
+    rgba(24, 24, 27, 0.05) 0px 4px 8px 0px,
     rgba(24, 24, 27, 0.15) 0px 1px 2px 0px !important;
 }
 
@@ -84,21 +85,17 @@ h1 {
   font-weight: 500;
 }
 
-.prose h1 {
+.fern-prose h1 {
   font-size: 1.875rem;
-}
-
-.prose h1,
-.prose h2,
-.prose h4,
-.prose h5,
-.prose h6 {
-  font-weight: 600;
-}
-
-.prose h2,
-.prose h3 {
   font-weight: 500;
+}
+
+.fern-prose h1,
+.fern-prose h2,
+.fern-prose h4,
+.fern-prose h5,
+.fern-prose h6 {
+  font-weight: 600;
 }
 
 figure.fern-card {
