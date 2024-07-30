@@ -7,50 +7,13 @@ tag: draft
 
 {/* WIP - for gartner /start */}
 
-Monitoring your AI system's performance in production is crucial for maintaining quality and catching issues early. Humanloop provides tools to set up automated alerts based on your custom evaluation criteria. This guide will walk you through the process of setting up alerts using monitoring evaluators and webhooks.
+Monitoring your AI system's performance in production is crucial for maintaining quality and catching issues early. Humanloop provides tools to set up automated alerts based on your custom evaluation criteria, and guardrails to ensure that issues are prevented from happening.
 
-## Monitoring
+## Alerting
 
-## Overview of Alerting and Guardrails
+Alerting is a critical component of any robust monitoring system. It allows you to be promptly notified of important events or issues in your Humanloop environment. By setting up alerts, you can proactively respond to potential problems and maintain the health and performance of your AI system.
 
-Alerting and guardrails are essential components of a robust AI system, allowing you to monitor performance, detect anomalies, and maintain quality control in real-time. Here's an overview of what setting up alerting and guardrails can mean for your AI application:
-
-1. **Performance Monitoring**: Set up alerts to track key performance indicators (KPIs) such as response time, token usage, or model-specific metrics. This helps you ensure your system is operating within expected parameters.
-
-2. **Quality Control**: Implement guardrails to automatically flag or filter outputs that don't meet certain quality thresholds. This can include content moderation, fact-checking, or adherence to specific guidelines.
-
-3. **Anomaly Detection**: Configure alerts to notify you of unusual patterns or unexpected behaviors in your AI system, helping you identify and address issues quickly.
-
-4. **Cost Management**: Set up alerts for usage thresholds to keep track of API calls, token consumption, and associated costs, preventing unexpected expenses.
-
-5. **Compliance and Safety**: Establish guardrails to ensure your AI system's outputs comply with legal, ethical, and safety standards, reducing risks associated with AI-generated content.
-
-6. **Feedback Loop**: Use alerts to trigger human review processes for edge cases or low-confidence outputs, facilitating continuous improvement of your AI system.
-
-7. **Version Control**: Set up notifications for when new versions of your prompts or models are deployed, allowing you to monitor performance changes across versions.
-
-8. **Integration with Existing Systems**: Configure webhooks to send alerts to your team's preferred communication channels or incident management systems, ensuring timely responses to critical issues.
-
-By implementing a comprehensive alerting and guardrails system, you can maintain better control over your AI application, respond promptly to issues, and continuously improve its performance and reliability.
-
-For detailed instructions on how to set up specific types of alerts and guardrails, please refer to the following guides:
-
-- [Setting Up Performance Alerts](/docs/v5/guides/performance-alerts)
-- [Implementing Content Moderation Guardrails](/docs/v5/guides/content-moderation)
-- [Configuring Cost Management Alerts](/docs/v5/guides/cost-alerts)
-- [Creating Custom Evaluation Metrics](/docs/v5/guides/custom-metrics)
-
-# Alerting and Guardrails in HumanLoop
-
-## Introduction
-
-This guide provides an overview of alerting and guardrails in HumanLoop, focusing on their use cases and importance in maintaining system integrity and performance. While these features are often implemented using log evaluators, this guide will focus on the alerting and guardrail concepts themselves.
-
-For more information on log evaluators, please refer to the [Evaluators Concept Guide](link-to-evaluators-concept-guide).
-
-## Alerting in HumanLoop
-
-Alerting is a critical component of any robust monitoring system. It allows you to be promptly notified of important events or issues in your HumanLoop environment.
+Alerting in Humanloop takes advantage of the [Evaluators](/docs/v5/concepts/evaluators) you have enabled, and uses webhooks to send alerts to your preferred communication channels.
 
 ### Overview
 
@@ -95,44 +58,52 @@ Alerts are triggered when certain predefined conditions are met in your system. 
 4. **Avoid Alert Fatigue**: Regularly review and refine alert conditions to minimize false positives.
 5. **Establish Escalation Procedures**: Define clear processes for handling and escalating different types of alerts.
 
-## Guardrails in HumanLoop
+# Guardrails
 
-Guardrails are protective measures implemented to prevent undesired actions or states in your HumanLoop environment. They act as a safety net, automatically enforcing rules and limits to maintain system integrity.
+Guardrails are protective measures implemented to prevent undesired actions or states in your Humanloop environment. They act as a safety net, automatically enforcing rules and limits to maintain system integrity.
 
 ### Overview
 
 Guardrails typically work by setting boundaries on various system parameters and automatically taking action when these boundaries are approached or exceeded.
 
+# How Guardrails works in Humanloop
+
+1. set up evaluators
+2. configure them as a guardrail
+   - specify the type of guardrail (e.g. rate limiting, content moderation, etc.)
+   - specify the threshold for the guardrail
+   - specify the action to take when the guardrail is violated
+
 ### Use Cases for Guardrails
 
-1. **Rate Limiting**
+1. **Content Moderation**
 
-   - Use Case: Automatically throttle requests when API usage exceeds defined limits.
-   - Benefit: Prevent system overload and ensure fair resource allocation.
+   - Use Case: Automatically filter or flag inappropriate, offensive, or harmful content generated by LLMs.
+   - Benefit: Maintain a safe and respectful environment for users, comply with content policies.
 
-2. **Data Validation**
+2. **PII Protection**
 
-   - Use Case: Reject or flag incoming data that doesn't meet specified criteria.
-   - Benefit: Maintain data quality and prevent processing of invalid information.
+   - Use Case: Detect and redact personally identifiable information (PII) in LLM outputs.
+   - Benefit: Ensure data privacy, comply with regulations like GDPR and CCPA.
 
-3. **Access Control**
+3. **Bias Detection**
 
-   - Use Case: Automatically revoke or suspend access when unusual patterns are detected.
-   - Benefit: Enhance security and prevent unauthorized actions.
+   - Use Case: Identify and mitigate biased language or unfair treatment in LLM responses.
+   - Benefit: Promote fairness and inclusivity, reduce discriminatory outputs.
 
-4. **Resource Management**
+4. **Fairness Assurance**
 
-   - Use Case: Automatically scale resources or reject new requests when system capacity is reached.
-   - Benefit: Maintain system stability and prevent crashes due to resource exhaustion.
+   - Use Case: Ensure equal treatment and representation across different demographic groups in LLM interactions.
+   - Benefit: Maintain ethical AI practices, avoid reinforcing societal biases.
 
-5. **Configuration Protection**
+5. **Toxicity Filtering**
 
-   - Use Case: Prevent changes to critical system configurations without proper authorization.
-   - Benefit: Maintain system integrity and prevent accidental misconfigurations.
+   - Use Case: Detect and prevent the generation of toxic, abusive, or hateful content.
+   - Benefit: Create a positive user experience, protect brand reputation.
 
-6. **Anomaly Prevention**
-   - Use Case: Automatically pause or roll back deployments if abnormal behavior is detected post-release.
-   - Benefit: Minimize the impact of potential bugs or issues in new releases.
+6. **Hallucination Protections**
+   - Use Case: Detect and prevent the generation of false or fabricated information by the LLM.
+   - Benefit: Ensure output reliability, maintain user trust, and avoid potential misinformation spread.
 
 ### Best Practices for Implementing Guardrails
 
@@ -142,10 +113,4 @@ Guardrails typically work by setting boundaries on various system parameters and
 4. **Provide Override Mechanisms**: Allow authorized personnel to bypass guardrails in controlled situations.
 5. **Document Thoroughly**: Maintain clear documentation of all implemented guardrails for team awareness.
 
-## Conclusion
-
-Effective use of alerting and guardrails is crucial for maintaining a healthy, secure, and performant HumanLoop environment. By implementing these practices, you can proactively identify issues, prevent potential problems, and ensure your system operates within defined parameters. Remember that setting up alerting and guardrails is an ongoing process that requires regular refinement as your system evolves and your understanding of its behavior deepens.
-
 {/* WIP - for gartner /end */}
-
-## Use cases

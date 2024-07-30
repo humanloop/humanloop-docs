@@ -216,4 +216,6 @@ When working with sensitive data in your AI applications, it's crucial to handle
 
 If you need to process sensitive data without storing it in Humanloop, you can use the `save: false` parameter when making calls to the API or logging data. This ensures that only metadata about the request is stored, while the actual sensitive content is not persisted in our systems.
 
+For PII detection, you can set up [Guardrails](/docs/v5/observability/alerts-guardrails) to detect and prevent the generation of sensitive information.
+
 {/* WIP - for gartner /end */}
