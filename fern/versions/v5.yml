@@ -157,8 +157,8 @@ navigation:
             contents:
               - page: Set up Monitoring
                 path: ../v5-pages/observability/guides/monitoring.mdx
-              - page: Using session tracing
-                path: ../v5-pages/observability/guides/session-tracing.mdx
+              - page: Set up Webhooks
+                path: ../v5-pages/observability/guides/set-up-webhooks.mdx
               - page: Capture user feedback
                 path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
