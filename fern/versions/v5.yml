@@ -23,6 +23,9 @@ navigation:
           - page: Why Humanloop?
             slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
+          - page: Quickstart Tutorial
+            slug: tutorials/quickstart-tutorial
+            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
           - section: Concepts
             contents:
               - page: Overview
@@ -47,9 +50,6 @@ navigation:
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-              - page: Quickstart Tutorial
-                slug: tutorials/quickstart-tutorial
-                path: ../v5-pages/tutorials/quickstart-tutorial.mdx
       # - section: Tutorials
       # contents:
 
