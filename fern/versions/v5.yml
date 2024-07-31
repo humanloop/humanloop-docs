@@ -148,8 +148,8 @@ navigation:
                 path: ../v5-pages/evaluation/guides/cicd-integration.mdx
       - section: Observability
         contents:
-          - page: LLM Monitoring
-            path: ../v5-pages/observability/llm-monitoring.mdx
+          - page: Overview
+            path: ../v5-pages/observability/overview.mdx
           - page: Alerts and Guardrails
             path: ../v5-pages/observability/alerts-guardrails.mdx
           - section: How-to guides
