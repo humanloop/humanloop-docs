@@ -750,10 +750,10 @@ paths:
 components:
   schemas:
     AgentConfigResponse:
-      properties: 
+      properties:
         model_config: null
-    EvaluatorConfigResponse: 
-      properties: 
+    EvaluatorConfigResponse:
+      properties:
         model_config: null
     Body_Evaluations_updateStatus:
       x-fern-type-name: UpdateEvaluationStatusRequest

@@ -2053,11 +2053,11 @@ paths:
 components:
   schemas:
     AgentConfigResponse:
-      properties: 
-        model_config: null
-    EvaluatorConfigResponse: 
-      properties: 
-        model_config: null
+      properties:
+        model_config: ~
+    EvaluatorConfigResponse:
+      properties:
+        model_config: ~
     Body_Evaluations_updateStatus:
       x-fern-type-name: UpdateEvaluationStatusRequest
     PaginatedData_DatapointResponse_:
