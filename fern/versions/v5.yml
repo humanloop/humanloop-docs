@@ -138,8 +138,9 @@ navigation:
                 path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Create a Dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
-              - page: Generating synthetic data
-                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
+                # TODO: correct this guide before publishing
+#              - page: Generating synthetic data
+#                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
 
