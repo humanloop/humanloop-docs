@@ -128,16 +128,32 @@ If you are using the SDK, the only prerequisite is to have the SDK installed and
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
 ### Steps
+Using the API is a great way to integrate Humanloop with your existing data pipeline or just to once-off upload a more complex Dataset that is hard to represent in a CSV file, such as one that contains an array of messages and JSON targets.
 
-First define some sample data, this should consist of template inputs and/or user messages target extraction pairs. This is where you could load up any existing data you wish to use for your evaluation.
+<Steps>
 
-Then define a dataset using the datasets API:
+### Post data to Datasets API
+We must first define some sample data that contains user messages and desired responses for our [Support Agent Prompt](#create-a-dataset-from-logs) that answers questions about the Humanloop product and docs and the desired response.
 
 <EndpointRequestSnippet
   endpoint="POST /datasets"
   example="CreateSupportDataset"
 />
 
-In your Humanloop workspace, you will now see a Dataset called `support-queries` with your example data.
+### Inspect the uploaded Dataset
+
+After running this code, in your Humanloop workspace you will now see a Dataset called `support-queries` with your example data.
 
 <img src="../../../assets/images/665e92a-image.png" />
+
+</Steps>
+
+
+
+# Next steps
+
+🎉 Now that you have Datasets defined in Humanloop, you can leverage our Evaluations feature to systematically measure and improve the performance of your AI applications.
+See our guide on
+
+
+

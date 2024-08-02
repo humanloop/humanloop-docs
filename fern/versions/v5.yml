@@ -126,28 +126,27 @@ navigation:
           - section: How-to guides
             slug: guides
             contents:
-              - page: Run an Evaluation
-                slug: run-evaluation
-                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Comparing Prompts in Editor
+                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+              - page: Create a Dataset
+                slug: create-dataset
+                path: ../v5-pages/evaluation/guides/create-dataset.mdx
               - page: Set up a code based Evaluator
                 slug: code-based-evaluator
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
                 slug: llm-as-a-judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
-              - page: Create a Dataset
-                slug: create-dataset
-                path: ../v5-pages/evaluation/guides/create-dataset.mdx
-                # TODO: correct this guide before publishing
-#              - page: Generating synthetic data
-#                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
-              - page: Comparing prompt outputs
-                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
               # TODO: Harry to write as part of his work
               - page: Set up Human Evaluation
                 slug: human-evaluation
                 path: ../v5-pages/evaluation/guides/human-evaluation.mdx
-
+              - page: Run an Evaluation
+                slug: run-evaluation
+                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+                # TODO: correct this guide before publishing
+#              - page: Generating synthetic data
+#                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
               - page: Set up CI/CD Evaluations
                 slug: cicd-integration
                 path: ../v5-pages/evaluation/guides/cicd-integration.mdx
