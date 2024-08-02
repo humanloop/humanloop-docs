@@ -4,62 +4,87 @@ description: Learn how to create Datasets in Humanloop to define fixed examples 
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-[Datasets](/docs/v5/datasets) are a collection of input-output pairs that can be used to evaluate your Prompts, Tools or even Evaluators.
+[Datasets](../../concepts/datasets) are a collection of input-output pairs that can be used to evaluate your Prompts, Tools or even Evaluators.
 
-This guide will show you how to create Datasets in Humanloop in three ways:
+This guide will show you how to create Datasets in Humanloop in three different ways:
 
-- [Create a Dataset from existing Logs](#create-a-dataset-from-logs)
-- [Upload data from CSV](#upload-data-from-csv)
-- [Upload via API](#upload-via-api)
+- [Create a Dataset from existing Logs](#create-a-dataset-from-logs) - useful for curating Datasets based on how your AI application has been behaving in the wild.
+- [Upload data from CSV](#upload-data-from-csv) - useful for quickly uploading existing tabular data you've collected outside of Humanloop.
+- [Upload via API](#upload-via-api) - useful for uploading more complex Datasets that may have nested JSON structures, which are difficult to represent in tabular .CSV format, and for integrating with your existing data pipelines.
 
 ## Create a Dataset from Logs
 
-Prerequisites:
+### Prerequisites
 
-- A [Prompt](/docs/v5/prompts) in Humanloop
-- Some [Logs](./generate-and-log-with-the-sdk) available in that Prompt
+You should have an existing [Prompt](../../concepts/prompts) on Humanloop and already generated some [Logs](../../concepts/logs).
+Follow our guide on [creating a Prompt](../../development/guides/create-prompt) to create a Prompt and generate some Logs.
 
+### Steps
 To create a Dataset from existing Logs:
 
 <Steps>
 
-### Go to the **Logs** tab
+### Navigate to the **Logs** of your Prompt
+Our Prompt in this example is a Support Agent that answers user queries about Humanloop's product and docs:
 
-### Select a subset of the Logs
+<img
+  src="../../../assets/images/datasets/create-dataset-logs.png"
+  alt="Navigate to the Logs table of your Prompt."
+/>
 
-### Choose **Add to Dataset**
+### Select a subset of the Logs to add
+Filter logs on a criteria of interest, such as the version of the Prompt used, then multi-select Logs.
 
 In the menu in the top right of the page, select **Add to dataset**.
 
+
 <img
-  src="../../../assets/images/48e2025-image.png"
-  alt="Select some logs and then click **Add to Dataset**"
+  src="../../../assets/images/datasets/create-dataset-select-logs.png"
+  alt="Filter and select logs of interest."
 />
 
-### Add to a new or existing Dataset
 
-Provide a name of the new dataset and click **Create**, or you can click **add to existing dataset** to append the selected to a dataset you already have.
+### Add to a new Dataset
+
+Provide a name of the new Dataset and click **Create** (or you can click **add to existing Dataset** to append the selected to an existing Dataset).
+Then provide a suitable commit message describing the datapoints you've added.
+
+<img
+  src="../../../assets/images/datasets/create-dataset-add-to-dataset.png"
+  alt="Create a new dataset from logs."
+/>
+
+You will then see the new Dataset appear at the same level in the filesystem as your Prompt.
 
 </Steps>
 
 ## Upload data from CSV
 
-Prerequisites:
+### Prerequisites:
 
-- A [Prompt](/docs/v5/prompts) in Humanloop
+You should have an existing [Prompt](../../concepts/prompts) on Humanloop with a variable defined with our double curly bracket syntax `{{variable}}`. If not, first follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
-To create a dataset from a CSV file, we'll first create a CSV in Google Sheets and then upload it to a dataset in Humanloop.
+In this example, we'll use a Prompt that categorises user queries about Humanloop's product and docs by which feature it relates to.
+
+<img
+  src="../../../assets/images/datasets/create-dataset-classifier-prompt.png"
+  alt="An example Prompt with a variable `{{query}}`."
+/>
+
+
+## Steps:
+To create a dataset from a CSV file, we'll first create a CSV in Google Sheets that contains values for our Prompt variable `{{query}}` and then upload it to a Dataset on Humanloop.
 
 <Steps>
 ### Create a CSV file. 
-   - In our Google Sheets example below, we have a column called `user_query` which is an input to a prompt variable of that name. So in our model config, we'll need to include `{{ user_query }}` somewhere, and that placeholder will be populated with the value from the `user_query` input in the datapoint at generation-time.
+   - In our Google Sheets example below, we have a column called `query` which contains possible values for our Prompt variable `{{query}}`.
    - You can include as many columns of prompt variables as you need for your model configs.
    - There is additionally a column called `target` which will populate the target of the datapoint. In this case, we use simple strings to define the target.
    - Note: `messages` are harder to incorporate into a CSV file as they tend to be verbose and hard-to-read JSON. If you want a dataset with messages, consider using the API to upload, or convert from existing logs.
 
 <img
-  src="../../../assets/images/bc8679a-image.png"
-  alt="A CSV file in Google Sheets defining a collection of 9 datapoints."
+  src="../../../assets/images/datasets/create-dataset-csv.png"
+  alt="A CSV file in Google Sheets defining query and taget pairs for our Classifier Prompt."
 />
 
 ### Export the Google Sheet to CSV
