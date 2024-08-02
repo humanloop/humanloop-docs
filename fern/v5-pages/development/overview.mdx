@@ -56,24 +56,6 @@ You should create a new Prompt for every different 'task to be done' with the LL
 
 We've seen people find it useful to also create a Prompt called 'Playground' where they can free form experiment without concern of breaking anything or making a mess of their other Prompts.
 
-### Version control and audit logs
-
-{/* TODO: part slop, make better */}
-
-Humanloop provides a comprehensive version control system and detailed audit logs for all changes made to your Prompts, Tools, and Evaluators. This robust tracking system offers several key benefits:
-
-1. **Change History**: Every modification is recorded, allowing you to see a complete history of changes over time. This includes who made the change, what was changed, and when the change occurred.
-
-2. **User Accountability**: The system logs the specific user responsible for each change, promoting accountability and allowing team leaders to track contributions effectively.
-
-3. **Version Switching**: All versions of a Prompt are preserved and readily available. You can easily switch between different versions, allowing you to compare performance, revert to previous configurations, or experiment with alternative approaches without losing any work.
-
-4. **Compliance Support**: For industries with strict regulatory requirements, these detailed logs can help demonstrate compliance with change management protocols.
-
-5. **Diff Comparisons**: You can compare different versions side-by-side to see exactly what changed between versions, making it easier to understand the evolution of your prompts and tools.
-
-This comprehensive version control and audit logging system ensures that you have full visibility into the development process of your AI applications, promoting transparency, accountability, and the ability to learn from past iterations.
-
 # Prompt Engineering
 
 Understanding the best practices for working with large language models can significantly enhance your application's performance. Each model has its own failure modes, and the methods to address or mitigate these issues are not always straightforward. The field of "prompt engineering" has evolved beyond just crafting prompts to encompass designing systems that incorporate model queries as integral components.
@@ -84,7 +66,7 @@ For a start, read our [Prompt Engineering 101](https://humanloop.com/blog/prompt
 
 Inputs are defined in the template through the double-curly bracket syntax e.g. `{{topic}}` and the value of the variable will need to be supplied when you call the Prompt to create a generation.
 
-```jsx
+```text
 Property context:
 
 Location: {{location}}
