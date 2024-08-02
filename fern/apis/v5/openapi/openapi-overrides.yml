@@ -2052,6 +2052,12 @@ paths:
                 - name: question
 components:
   schemas:
+    AgentConfigResponse:
+      properties:
+        model_config: ~
+    EvaluatorConfigResponse:
+      properties:
+        model_config: ~
     Body_Evaluations_updateStatus:
       x-fern-type-name: UpdateEvaluationStatusRequest
     PaginatedData_DatapointResponse_:

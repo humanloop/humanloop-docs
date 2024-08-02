@@ -749,6 +749,12 @@ paths:
 
 components:
   schemas:
+    AgentConfigResponse:
+      properties:
+        model_config: null
+    EvaluatorConfigResponse:
+      properties:
+        model_config: null
     Body_Evaluations_updateStatus:
       x-fern-type-name: UpdateEvaluationStatusRequest
     PaginatedData_DatapointResponse_:
