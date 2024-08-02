@@ -58,9 +58,9 @@ You will then see the new Dataset appear at the same level in the filesystem as 
 
 </Steps>
 
-## Upload data from CSV
+## Upload a Dataset from CSV
 
-### Prerequisites:
+### Prerequisites
 
 You should have an existing [Prompt](../../concepts/prompts) on Humanloop with a variable defined with our double curly bracket syntax `{{variable}}`. If not, first follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
@@ -72,15 +72,14 @@ In this example, we'll use a Prompt that categorises user queries about Humanloo
 />
 
 
-## Steps:
+### Steps
 To create a dataset from a CSV file, we'll first create a CSV in Google Sheets that contains values for our Prompt variable `{{query}}` and then upload it to a Dataset on Humanloop.
 
 <Steps>
 ### Create a CSV file. 
-   - In our Google Sheets example below, we have a column called `query` which contains possible values for our Prompt variable `{{query}}`.
-   - You can include as many columns of prompt variables as you need for your model configs.
-   - There is additionally a column called `target` which will populate the target of the datapoint. In this case, we use simple strings to define the target.
-   - Note: `messages` are harder to incorporate into a CSV file as they tend to be verbose and hard-to-read JSON. If you want a dataset with messages, consider using the API to upload, or convert from existing logs.
+   - In our Google Sheets example below, we have a column called `query` which contains possible values for our Prompt variable `{{query}}`. You can include as many columns as you have variables in your Prompt template.
+   - There is additionally a column called `target` which will populate the target output for the classifier Prompt. In this case, we use simple strings to define the target.
+   - More complex Datapoints that contain `messages` and structured objects for targets are suppoerted, but are harder to incorporate into a CSV file as they tend to be hard-to-read JSON. If you need more complex Datapoints, [use the API](#upload-via-api) instead.
 
 <img
   src="../../../assets/images/datasets/create-dataset-csv.png"
@@ -89,34 +88,46 @@ To create a dataset from a CSV file, we'll first create a CSV in Google Sheets t
 
 ### Export the Google Sheet to CSV
 
-Choose **File** → **Download** → **Comma-separated values (.csv)**
+In Google sheets, choose **File** → **Download** → **Comma-separated values (.csv)**
 
 ### Create a new Dataset File
 
-### Click **Upload CSV**
-
-Uupload the CSV file from step 2 by drag-and-drop or using the file explorer.
+On Humanloop, select *New* at the bottom of the left hand sidebar, then select *Dataset*.
 
 <img
-  src="../../../assets/images/57c9faf-image.png"
+  src="../../../assets/images/datasets/create-dataset-new-file.png"
+  alt="Creat a new File from the sidebar on Humanloop."
+/>
+
+
+
+### Click **Upload CSV**
+
+First name your dataset when prompted in the sidebar, then select the **Upload CSV** button and drag and drop the CSV file you created above using the file explorer.
+You will then be prompted to provide a commit message to describe the initial state of the dataset.
+
+<img
+  src="../../../assets/images/datasets/create-dataset-csv-form.png"
   alt="Uploading a CSV file to create a dataset."
 />
 
-### Click **Upload Dataset from CSV**
+### Follow the link in the pop-up to inspect the Dataset created
 
-You should see a new dataset appear in the datasets tab. You can explore it by clicking in.
+You'll see the input-output pairs that were included in the CSV file and you can the rows to inspect and edit the individual Datapoints.
 
-### Follow the link in the pop-up to inspect the dataset that was created in the upload.
-
-You'll see a column with the input key-value pairs for each datapoint, a messages column (in our case we didn't use messages, so they're all empty) and a target column with the expected model output.
-
-<img src="../../../assets/images/eb0613c-image.png" />
+<img src="../../../assets/images/datasets/create-dataset-inspect-csv-upload.png"
+  alt="Inspect the Dataset created from the CSV file."
+/>
 
 </Steps>
 
-## Upload via API
+## Upload a Dataset via API
 
+### Prerequisites
+If you are using the the SDK, the only prerequisite is to have the SDK installed and configured. If you are using the API directly, you will need to have an API key and be familiar with the API.
 <Markdown src="../../../snippets/setup-sdk.mdx" />
+
+### Steps
 
 First define some sample data, this should consist of template inputs and/or user messages target extraction pairs. This is where you could load up any existing data you wish to use for your evaluation.
 
