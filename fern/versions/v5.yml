@@ -80,9 +80,9 @@ navigation:
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
-              - page: Proxying model calls
+              - page: Proxy model calls
                 path: ../v5-pages/development/guides/call-llm.mdx
-              - page: Logging LLM calls
+              - page: Log to a Prompt
                 path: ../v5-pages/development/guides/logging.mdx
               # - page: Manage Tools
               #   path: ../v5-pages/development/guides/manage-tools.mdx
@@ -91,15 +91,12 @@ navigation:
               # Doesn't work in the SDK atm!
               # - page: Tool Calling with the SDK
               #   path: ../v5-pages/development/guides/tool-calling-sdk.mdx
-              - page: Link a Tool to a Prompt
-                slug: link-tool
-                path: ../v5-pages/development/guides/link-tool.mdx
-              - page: Reusable snippets in Prompts
+              - page: Re-use snippets in Prompts
                 slug: reusable-snippets
                 path: ../v5-pages/development/guides/reusable-snippets.mdx
               # - page: Manage Evaluators
               #   path: ../v5-pages/development/guides/manage-evaluators.mdx
-              - page: Chaining calls (Sessions)
+              - page: Chain logs together (Sessions)
                 path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
               - page: Create deployment environments
                 slug: create-environment
@@ -115,6 +112,9 @@ navigation:
               - page: Create a Directory
                 slug: create-directory
                 path: ../v5-pages/development/guides/create-directory.mdx
+              - page: Link a Tool to a Prompt
+                slug: link-tool
+                path: ../v5-pages/development/guides/link-tool.mdx
       - section: Evaluation
         contents:
           - page: Overview
@@ -127,26 +127,31 @@ navigation:
             slug: guides
             contents:
               - page: Run an Evaluation
+                slug: run-evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
               - page: Set up a code based Evaluator
+                slug: code-based-evaluator
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
                 slug: llm-as-a-judge
                 path: ../v5-pages/evaluation/guides/llm-judge.mdx
-                # TODO: Harry to write as part of his work
-              - page: Set up Human Evaluation
-                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
               - page: Create a Dataset
+                slug: create-dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
                 # TODO: correct this guide before publishing
 #              - page: Generating synthetic data
 #                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
               - page: Comparing prompt outputs
                 path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+              # TODO: Harry to write as part of his work
+              - page: Set up Human Evaluation
+                slug: human-evaluation
+                path: ../v5-pages/evaluation/guides/human-evaluation.mdx
 
               - page: Set up CI/CD Evaluations
                 slug: cicd-integration
                 path: ../v5-pages/evaluation/guides/cicd-integration.mdx
+
       - section: Observability
         contents:
           - page: Overview
