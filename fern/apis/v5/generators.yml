@@ -15,8 +15,6 @@ groups:
           token: ${PYPI_TOKEN}
         github:
           repository: humanloop/humanloop-python-beta
-          mode: push
-          branch: fern/clean-ignore
         config:
           client_class_name: Humanloop
           use_typeddict_requests: true
