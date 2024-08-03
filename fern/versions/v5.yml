@@ -126,8 +126,8 @@ navigation:
           - section: How-to guides
             slug: guides
             contents:
-              - page: Comparing Prompts in Editor
-                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+              - page: Compare and Debug Prompts
+                path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
               - page: Create a Dataset
                 slug: create-dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
