@@ -133,7 +133,7 @@ Using the API is a great way to integrate Humanloop with your existing data pipe
 <Steps>
 
 ### Post data to the Datasets API
-We must first define some sample data that contains user messages and desired responses from our [Support Agent Prompt](#create-a-dataset-from-logs) and call the `POST /datasets` endpoint to upload it as follows:
+We first define some sample data that contains user messages and desired responses from our [Support Agent Prompt](#create-a-dataset-from-logs) and call the `POST /datasets` endpoint to upload it as follows:
 
 <EndpointRequestSnippet
   endpoint="POST /datasets"
@@ -142,7 +142,7 @@ We must first define some sample data that contains user messages and desired re
 
 ### Inspect the uploaded Dataset
 
-After running this code, in your Humanloop workspace you will now see a Dataset called `Support Query Ground Truth` with your example data.
+After running this code, in your Humanloop workspace you will now see a Dataset called `Support Query Ground Truth` (or whatever value was in `path`) with your sample data.
 
 <img src="../../../assets/images/datasets/create-dataset-api-upload.png"
   alt="Inspect the Dataset uploaded via API."
