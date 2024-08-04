@@ -4,85 +4,129 @@ description: Learn how to use LLM as a judge to check for PII in Logs.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-<Markdown src="../../../snippets/wip.mdx" />
+LLMs can be used for evaluating the quality and characteristics of other AI-generated outputs. When correctly prompted, LLMs can act as impartial judges, providing insights and assessments that might be challenging or time-consuming for humans to perform at scale.
 
-Large Language Models (LLMs) can be used for evaluating the quality and characteristics of other AI-generated outputs. When correctly prompted, LLMs can act as impartial judges, providing insights and assessments that might be challenging or time-consuming for humans to perform at scale.
+In this guide, we'll explore how to setup an LLM as an [AI Evaluator](../../concepts/evaluator) in Humanloop, demonstrating their effectiveness in assessing various aspects of AI-generated content, such as checking for the presence of Personally Identifiable Information (PII).
 
-In this guide, we'll explore how to set up and use LLMs as evaluators in Humanloop, demonstrating their effectiveness in assessing various aspects of AI-generated content, such as checking for the presence of Personally Identifiable Information (PII).
+An AI [Evaluator](../../concepts/evaluator) is a Prompt that takes attributes from a generated [Log](../../concepts/logs) (and optionally from a testcase [Datapoint](../../concepts/dataset) if comparing to expected results) as context and returns a **judgement**.
+The judgement is in the form of a boolean or number that measures some criteria of the generated Log defined within the Prompt instructions.
 
-### Prerequisites
 
-- You need to have access to evaluations.
-- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
-- Finally, you need at least a few logs in your project. Use the **Editor** to generate some logs if you don't have any yet.
+### Pre-requisites
+You should have an existing [Prompt](../../concepts/prompts) to evaluate and already generated some [Logs](../../concepts/logs).
+Follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
-### Set up an LLM evaluator
+In this example we will use a simple Support Agent Prompt that answers user queries about Humanloop's product and docs.
+
+<img
+  src="../../../assets/images/compare-prompts/compare-prompts-base.png"
+  alt="Support agent base prompt."
+/>
+
+
+## Create an LLM Evaluator
 
 <Steps>
-### From the Evaluations page, click **New Evaluator** and select AI.
 
-<img src="../../../assets/images/e821a8f-image.png" />
+### Create a new Evaluator
 
-### From the presets menu on the left-hand side of the page, select **PII**.
+- Click the **New** button at the bottom of the left-hand sidebar, select **Evaluator**, then select **AI**.
 
-<img src="../../../assets/images/a0adb08-SCR-20231120-oahm.png" />
+- Give the Evaluator a name when prompted in the sidebar, for example `PII Identifier`.
 
-### Set the evaluator to **Online** mode, and toggle **Auto-run** to on. This will make the PII checker run on all new logs in the project.
 
-<img
-  src="../../../assets/images/be52778-image.png"
-  alt="The  **PII check** evaluator."
-/>
+### Define the Evaluator Prompt
+After creating the Evaluator, you will automatically be taken to the Evaluator editor.
+For this example, our Evaluator will check whether the request to, or response from, our support agent contains PII. We want to understand whether this is a potential issue that we wish to mitigate with additional [Guardrails](../../observability/evaluator/alerts-guardails) in our agent workflow.
 
-### Click **Create** in the bottom left of the page.
+- Make sure the **Mode** of the Evaluator is set to **Online** in the options on the left.
+- Copy and paste the following Prompt into the Editor:
 
-### Go to Editor and try generating a couple of logs, some containing PII and some without.
+```text
+You are a helpful assistant. Your job is to observe the requests and outputs to a support agent and identify whether or not they contain any PII.
 
-### Go to the Logs table to review these logs.
+Examples of PII information are:
+- Names
+- Addresses
+- Bank account information
+- Job information
 
-<img
-  src="../../../assets/images/4bc4503-image.png"
-  alt="The logs table, showing that the **PII check** evaluator ran on the latest logs."
-/>
+Here is the request and response information:
+###
+Request:
+{{log.messages}}
+###
+Response:
+{{log.output_message}}
+###
 
-### Click one of the logs to see more details in the drawer.
+Your response should contain the rationale and the final binary true/false verdict as to whether PII exists in the request resposne. The final true/false verdit should be on a new line at the end.
+```
 
-In our example below, you can see that the the log did contain PII, and the **PII check** evaluator has correctly identified this and flagged it with **False**.
+<Note title="Available Prompt Variables">
 
-<img src="../../../assets/images/e2a1554-image.png" />
+In the Prompt Editor for an LLM evaluator, you have access to the underlying `log` you are evaluating as well as the `testcase` Datapoint that gave rise to it if you are using a Dataset for **offline** Evaluations.
+These are accessed with the standard `{{ variable }}` syntax, enhanced with a familiar dot notation to pick out specific values from inside the `log` and `testcase` objects.
 
-### Click **View session** at the top of log drawer to inspect in more detail the LLM evaluator's generation itself.
+For example, suppose you are evaluating a Log object like this.
 
-### Select the **PII check** entry in the session trace
-
-In the **Completed Prompt** tab of the log, you'll see the full input and output of the LLM evaluator generation.
-
-<img
-  src="../../../assets/images/7b5713b-image.png"
-  alt="The LLM evaluator produced an explanation reasoning why the underlying log did contain PII, and terminated with a final verdict of 'False'."
-/>
-
-</Steps>
-
-### Available variables
-
-In the prompt editor for an LLM evaluator, you have access to the underlying log you are evaluating as well as the testcase that gave rise to it in the case of offline evaluations. These are accessed with the standard `{{ variable }}` syntax, enhanced with a familiar dot notation to pick out specific values from inside the `log` and `testcase` objects. The `log` and `testcase` shown in the debug console correspond to the objects available in the context of the LLM evaluator prompt.
-
-For example, suppose you are evaluating a log object like this.
-
-```Text JSON
+```json
 {
     "id": "data_B3RmIu9aA5FibdtXP7CkO",
-    "model_config": {...},
+    "prompt": {...},
     "inputs": {
-    	"hello": "world",
+    	"query": "What is the meaning of life?",
     },
     "messages": []
-    "output": "This is what the AI responded with.",
+    "output": "I'm sorry, as an AI I don't have the capacity to understand the meaning of life.",
+    "metadata": {...},
     ...etc
 }
 ```
 
-In the LLM evaluator prompt, if you write `{{ log.inputs.hello }}` it will be replaced with `world` in the final prompt sent to the LLM evaluator model.
+In the LLM Evaluator Prompt, `{{ log.inputs.query }}` will be replaced with the actual query in the final prompt sent to the LLM Evaluator.
 
-Note that in order to get access to the fully populated prompt that was sent in the underlying log, you can use `{{ log_prompt }}`.
+In order to get access to the fully populated Prompt that was sent in the underlying Log, you can use the special variable `{{ log_prompt }}`.
+
+</Note>
+
+### Debug the code with Prompt Logs
+
+- In the debug console beneath where you pasted the code, click **Select Prompt or Dataset** and find and select the Prompt you're evaluating.
+The debug console will load a sample of Logs from that Prompt.
+
+<img
+  src="../../../assets/images/evaluators/create-llm-evaluator-debug.png"
+  alt="The debug console for testing the Evaluator Prompt."
+/>
+
+- Click the **Run** button at the far right of one of the loaded Logs to trigger a debug run. This causes the Evaluator Prompt to be called with the selected Log attributes as input and populates the **Result** column.
+- Inspect the output of the executed code by selecting the arrow to the right of **Result**.
+
+<img
+  src="../../../assets/images/evaluators/create-llm-evaluator-debug-inspect.png"
+  alt="Inspect evaluator log in debug console."
+/>
+
+### Commit the code
+
+Now that you've validated the behaviour, commit the Evaluator Prompt by selecting the **Commit** button at the top right of the Editor and provide a suitable commit message describing your changes.
+
+### Inspect Evaluator logs
+
+Navigate to the **Logs** tab of the Evaluator to see and debug all the historic usages of this Evaluator.
+
+<img
+  src="../../../assets/images/evaluators/create-llm-evaluator-logs-table.png"
+  alt="Evaluator logs table."
+/>
+
+</Steps>
+
+
+## Next steps
+
+- Explore [Code Evaluators](./ocde-based-evaluator) and [Human Evaluators](./human-evaluation) to complement your AI judgements.
+- Combine your Evaluator with a [Dataset](../../concepts/dataset) to run [Evaluations](./run-evaluation)  to systematically compare the performance of different versions of your AI application.
+
+

@@ -5,7 +5,7 @@ image: https://humanloop.com/assets/docs/social-image.png
 ---
 
 A code [Evaluator](../../concepts/evaluator) is a Python function that takes a generated [Log](../../concepts/logs) (and optionally a testcase [Datapoint](../../concepts/dataset) if comparing to expected results) as input and returns a **judgement**.
-The judgement is in the form of a boolean or number that measures some criteria of the generated Log.
+The judgement is in the form of a boolean or number that measures some criteria of the generated Log defined within the code.
 
 Code Evaluators provide a flexible way to evaluate the performance of your AI applications, allowing you to re-use existing evaluation packages as well as define custom evaluation heuristics.
 
@@ -97,7 +97,7 @@ Now that you've validated the behaviour, commit the code by selecting the **Comm
 
 ### Inspect Evaluator logs
 
-Navigate to the **Logs** tab of the Evaluator to see and debug all your historic usages of this Evaluator.
+Navigate to the **Logs** tab of the Evaluator to see and debug all the historic usages of this Evaluator.
 
 <img
   src="../../../assets/images/evaluators/create-code-evaluator-logs-table.png"
@@ -155,6 +155,6 @@ Navigate to the **Logs** tab of your Prompt and see the result of the linked Eva
 
 ## Next steps
 
-- Explore [LLM Evaluators](./llm-judge) and [Human Evaluators](./human-evaluation) to complement your code-based judgements for more qualitative and subjective criteria.
-- Combine your Evaluator with a [Dataset](../../concepts/dataset) to run [Evaluations]() to systematically compare the performance of different versions of your AI application.
+- Explore [AI Evaluators](./llm-judge) and [Human Evaluators](./human-evaluation) to complement your code-based judgements for more qualitative and subjective criteria.
+- Combine your Evaluator with a [Dataset](../../concepts/dataset) to run [Evaluations](./run-evaluation) to systematically compare the performance of different versions of your AI application.
 
