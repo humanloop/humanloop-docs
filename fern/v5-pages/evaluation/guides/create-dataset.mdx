@@ -14,12 +14,13 @@ This guide will show you how to create Datasets in Humanloop in three different 
 
 ## Create a Dataset from Logs
 
-### Prerequisites
+**Prerequisites**
 
 You should have an existing [Prompt](../../concepts/prompts) on Humanloop and already generated some [Logs](../../concepts/logs).
 Follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
-### Steps
+**Steps**
+
 To create a Dataset from existing Logs:
 
 <Steps>
@@ -60,7 +61,7 @@ You will then see the new Dataset appear at the same level in the filesystem as 
 
 ## Upload a Dataset from CSV
 
-### Prerequisites
+**Prerequisites**
 
 You should have an existing [Prompt](../../concepts/prompts) on Humanloop with a variable defined with our double curly bracket syntax `{{variable}}`. If not, first follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
@@ -72,7 +73,8 @@ In this example, we'll use a Prompt that categorises user queries about Humanloo
 />
 
 
-### Steps
+**Steps**
+
 To create a dataset from a CSV file, we'll first create a CSV in Google Sheets that contains values for our Prompt variable `{{query}}` and then upload it to a Dataset on Humanloop.
 
 <Steps>
@@ -122,11 +124,13 @@ You'll see the input-output pairs that were included in the CSV file and you can
 
 ## Upload a Dataset via API
 
-### Prerequisites
+**Prerequisites**
+
 If you are using the SDK, the only prerequisite is to have the SDK installed and configured. If you are using the API directly, you will need to have an API key.
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
-### Steps
+**Steps**
+
 Using the API is a great way to integrate Humanloop with your existing data pipeline or just to once-off upload a more complex Dataset that is hard to represent in a CSV file, such as one that contains an array of messages and JSON targets.
 
 <Steps>
