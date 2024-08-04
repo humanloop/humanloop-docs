@@ -193,11 +193,12 @@ navigation:
           #   path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
-
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
           # - page: Postman Workspace
           #   path: ../v5-pages/reference/postman-workspace.mdx
+          - page: Python Environment
+            path: ../v5-pages/reference/code-env-spec.mdx
           - page: Integrations
             path: ../v5-pages/reference/integrations.mdx
           - page: Security and Compliance

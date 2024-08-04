@@ -6,8 +6,9 @@ image: https://humanloop.com/assets/docs/social-image.png
 
 A code [Evaluator](../../concepts/evaluator) is a Python function that takes a generated [Log](../../concepts/logs) (and optionally a testcase [Datapoint](../../concepts/dataset) if comparing to expected results) as input and returns a **judgement**.
 The judgement is in the form of a boolean or number that measures some criteria of the generated Log.
-Code Evaluators provide a flexible way to evaluate the performance of your AI applications, allowing you to define custom evaluation heuristics.
-We have a fully featured Python environment; details on the support packages can be found in the [Python env reference](../../refereces/code-environment)
+
+Code Evaluators provide a flexible way to evaluate the performance of your AI applications, allowing you to re-use existing evaluation packages and define custom evaluation heuristics.
+We support a fully featured Python environment; details on the supported packages can be found in the [environment reference](../../refereces/code-environment)
 
 ## Create a code-based Evaluator
 
