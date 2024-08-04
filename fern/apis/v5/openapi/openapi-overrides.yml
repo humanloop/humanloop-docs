@@ -1002,7 +1002,7 @@ paths:
             datapoints_count: 4
       - name: CreateSupportDataset
         request:
-          path: Support Query Ground Truth
+          path: datasets/support-queries
           datapoints:
           - messages:
             - role: user
@@ -1037,7 +1037,7 @@ paths:
                 button on the top right of the Prompt dashboard \n 3. Within the model
                 select the Version of the Evaluator you want to turn on for monitoring.
                 \n\nWould you need help with anything else?'
-          commit_message: Initial samples
+          commit_message: Add two new questions and answers
         response:
           body:
             id: ds_mno345
