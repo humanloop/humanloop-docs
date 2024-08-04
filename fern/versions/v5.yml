@@ -131,7 +131,7 @@ navigation:
               - page: Create a Dataset
                 slug: create-dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
-              - page: Set up a code based Evaluator
+              - page: Set up a code Evaluator
                 slug: code-based-evaluator
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge

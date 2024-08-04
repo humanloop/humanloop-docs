@@ -1,10 +1,13 @@
 ---
-subtitle: How to create and use a code-based evaluator in Humanloop
-description: Learn how to create a code-based evaluator in Humanloop to assess the performance of your AI models. This guide covers setting up an offline evaluator, writing evaluation logic, and using the debug console.
+subtitle: In this guide we will show how to create and use a code Evaluator in Humanloop
+description: Learn how to create a code Evaluators in Humanloop to assess the performance of your AI applications. This guide covers setting up an offline evaluator, writing evaluation logic, and using the debug console.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-A code-based evaluator is a Python function that takes a generated log and a testcase as input and returns a boolean value indicating whether the generated log is correct. In this guide we'll show you how to create a code-based evaluator.
+A code [Evaluator](../../concepts/evaluator) is a Python function that takes a generated [Log](../../concepts/logs) (and optionally a testcase [Datapoint](../../concepts/dataset) if comparing to expected results) as input and returns a **judgement**.
+The judgement is in the form of a boolean or number that measures some criteria of the generated Log.
+Code Evaluators provide a flexible way to evaluate the performance of your AI applications, allowing you to define custom evaluation heuristics.
+We have a fully featured Python environment; details on the support packages can be found in the [Python env reference](../../refereces/code-environment)
 
 ## Create a code-based Evaluator
 
@@ -16,7 +19,7 @@ Click the 'new file' button in the left-hand sidebar and select 'Evaluator' and 
 
 ### Give it a name
 
-Call it `Extracts correct feature`.
+Call it `Validates Feature Category`.
 
 ### Navigate to the file's Editor
 
