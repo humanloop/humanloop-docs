@@ -63,7 +63,7 @@ Response:
 Your response should contain the rationale and the final binary true/false verdict as to whether PII exists in the request resposne. The final true/false verdit should be on a new line at the end.
 ```
 
-<Note title="Available Prompt Variables">
+<Info title="Available Prompt Variables">
 
 In the Prompt Editor for an LLM evaluator, you have access to the underlying `log` you are evaluating as well as the `testcase` Datapoint that gave rise to it if you are using a Dataset for **offline** Evaluations.
 These are accessed with the standard `{{ variable }}` syntax, enhanced with a familiar dot notation to pick out specific values from inside the `log` and `testcase` objects.
@@ -88,7 +88,7 @@ In the LLM Evaluator Prompt, `{{ log.inputs.query }}` will be replaced with the 
 
 In order to get access to the fully populated Prompt that was sent in the underlying Log, you can use the special variable `{{ log_prompt }}`.
 
-</Note>
+</Info>
 
 ### Debug the code with Prompt Logs
 

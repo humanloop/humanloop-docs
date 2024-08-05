@@ -6,7 +6,7 @@ image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs
 
 This guide will show you how to capture the [Logs](/docs/v5/concepts/logs) of your LLM calls into Humanloop.
 
-The easiest way to log LLM generations to Humanloop is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/v5/development/guides/call-prompt)). You will only need to supply prompt ID and the inputs needed by the prompt template, and the endpoint, will handle fetching the latest template, making the LLM call and logging the result.
+The easiest way to log LLM generations to Humanloop is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/v5/development/guides/call-prompt)). You will only need to supply prompt ID and the inputs needed by the prompt template, and the endpoint will handle fetching the latest template, making the LLM call and logging the result.
 
 However, there may be scenarios that you wish to manage the LLM provider calls directly in your own code instead of relying on Humanloop. For example, you may be using an LLM provider that is not directly supported by Humanloop such as a custom self-hosted model, or you may want to avoid adding Humanloop to the critical path of the LLM API calls.
 
