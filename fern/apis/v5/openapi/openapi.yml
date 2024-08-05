@@ -4152,7 +4152,7 @@ components:
           type: string
           format: date-time
           title: Created At
-        llm_evaluator_log:
+        evaluator_log:
           $ref: >-
             #/components/schemas/src__external__app__models__v4__log__LogResponse
       type: object
@@ -8045,6 +8045,10 @@ components:
           type: string
           title: Error
           description: Error message if the log is an error.
+        stdout:
+          type: string
+          title: Standard Output
+          description: Captured log and debug statements.
         duration:
           type: number
           title: Duration

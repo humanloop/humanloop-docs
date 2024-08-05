@@ -4845,7 +4845,7 @@ components:
           type: string
           format: date-time
           title: Created At
-        llm_evaluator_log:
+        evaluator_log:
           $ref: "#/components/schemas/LogResponse"
       type: object
       required:
@@ -5775,6 +5775,10 @@ components:
           type: string
           title: Error
           description: Error message if the log is an error.
+        stdout:
+          type: string
+          title: Standard Output
+          description: Captured log and debug statements.
         duration:
           type: number
           title: Duration
@@ -5926,6 +5930,10 @@ components:
           type: string
           title: Error
           description: Error message if the log is an error.
+        stdout:
+          type: string
+          title: Standard Output
+          description: Captured log and debug statements.
         duration:
           type: number
           title: Duration
