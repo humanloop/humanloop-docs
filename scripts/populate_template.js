@@ -2,6 +2,8 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import yaml from "js-yaml";
+import prettier from "prettier";
+import chalk from "chalk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,19 +13,15 @@ const TEMPLATE_DIR = path.join(ROOT_DIR, "fern", "apis", "v5", "openapi");
 const EXAMPLES_DIR = path.join(TEMPLATE_DIR, "examples");
 const TEMPLATE_FILE = "template.yml";
 
+function log(message, color = "white") {
+  console.log(chalk[color](message));
+}
+
 async function loadJson(fileName) {
   const content = await fs.readFile(fileName, "utf-8");
   return JSON.parse(content);
 }
 
-/**
- * Replaces placeholders in the given object with values from the JSON data.
- * Placeholders are of the form <<key>> and are replaced with the value of the key in the JSON data.
- * If the key is not found in the JSON data, the placeholder is left unchanged.s
- * @param {*} obj The object to replace placeholders in.
- * @param {*} jsonData The JSON data to use for replacement.
- * @returns
- */
 function replacePlaceholders(obj, jsonData) {
   if (typeof obj === "string" && obj.match(/^<<\s*[\w.]+\s*>>$/)) {
     const key = obj.replace(/^<<\s*([\w.]+)\s*>>$/, "$1");
@@ -43,7 +41,7 @@ function replacePlaceholders(obj, jsonData) {
 }
 
 async function main() {
-  console.log("1. Loading YAML template and verifying parse");
+  log("1. Loading YAML template and verifying parse", "blue");
   const templateContent = await fs.readFile(
     path.join(TEMPLATE_DIR, TEMPLATE_FILE),
     "utf-8"
@@ -51,13 +49,14 @@ async function main() {
   let yamlObject;
   try {
     yamlObject = yaml.load(templateContent);
-    console.log("YAML parsed successfully");
+    log("YAML parsed successfully", "green");
   } catch (error) {
-    console.error("Error parsing YAML:", error);
+    log("Error parsing YAML:", "red");
+    console.error(error);
     return;
   }
 
-  console.log("2. Loading JSON examples");
+  log("2. Loading JSON examples", "blue");
   const jsonData = {};
   const files = await fs.readdir(EXAMPLES_DIR);
   for (const file of files) {
@@ -67,33 +66,29 @@ async function main() {
     }
   }
 
-  console.log(jsonData["prompt_log_request"]);
-
-  console.log("3. Replacing placeholders in YAML object");
+  log("3. Replacing placeholders in YAML object", "blue");
   const populatedObject = replacePlaceholders(yamlObject, jsonData);
 
-  console.log(
-    populatedObject["paths"]["/prompts/log"]["post"]["x-fern-examples"][0]
+  log(
+    "4. Converting populated object to JSON, formatting with Prettier, and writing to file",
+    "blue"
   );
-
-  console.log("4. Converting populated object to YAML and writing to file");
-  const outputYaml = yaml.dump(populatedObject, {
-    indent: 2,
-    lineWidth: -1,
-    noRefs: true,
-    quotingType: '"',
+  const outputJsonFile = path.join(TEMPLATE_DIR, "overrides.auto.json");
+  const formattedJson = await prettier.format(JSON.stringify(populatedObject), {
+    parser: "json",
+    printWidth: 80,
+    tabWidth: 2,
+    singleQuote: false,
+    trailingComma: "none",
   });
 
-  //   const outputYamlFile = path.join(TEMPLATE_DIR, "openapi-overrides.yml");
-  //   await fs.writeFile(outputYamlFile, outputYaml);
+  await fs.writeFile(outputJsonFile, formattedJson);
 
-  const outputJsonFile = path.join(TEMPLATE_DIR, "openapi-overrides.json");
-  await fs.writeFile(outputJsonFile, JSON.stringify(populatedObject, null, 2));
-
-  console.log("Template population process completed!");
+  log(`✅ JSON file generated successfully: ${outputJsonFile}`, "green");
+  log("🎉 Template population process completed!", "magenta");
 }
 
 main().catch((error) => {
-  console.error("An error occurred during the template population process:");
+  log("❌ An error occurred during the template population process:", "red");
   console.error(error);
 });

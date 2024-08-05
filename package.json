@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "fern docs dev || npm run dev",
     "check": "fern check",
-    "watch-template": "chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/openapi*.yml' -c 'python ./scripts/populate_template.py && npm run check'",
-    "sync": "node ./scripts/sync_openapi.js || true && concurrently \"npm run dev\" \"npm run watch-template\""
+    "watch": "node ./scripts/populate_template.js && chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/*.auto.json' -c 'node ./scripts/populate_template.js && npm run check'",
+    "fetch": "node ./scripts/sync_openapi.js",
+    "sync": "npm run fetch && concurrently \"npm run dev\" \"npm run watch\""
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
