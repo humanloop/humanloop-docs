@@ -1,163 +1,157 @@
 ---
-subtitle: In this guide, we will walk through creating a dataset and using it to run an offline evaluation.
-description: How to use Humanloop to evaluate your large language model use-case, using a dataset and an evaluator.
+subtitle: In this guide, we will walk through how to run an Evaluation to compare multiple different Prompts across a Dataset when Prompts and Evaluators are run on Humanloop.
+description: How to use Humanloop to Evaluate multiple different Prompts across a Dataset.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-<Markdown src="../../../snippets/wip.mdx" />
-
 <Markdown src="../../../snippets/paid-feature.mdx" />
 
-## Create an offline evaluator
+An **Evaluation** on Humanloop leverages a [Dataset](../../concepts/dataset), a set of [Evaluators](../../concepts/evaluator) and different versions of a [Prompt](../../concepts/prompt) to compare.
 
-### Prerequisites
+The Dataset contains testcases describing the inputs (and optionally the expected results) for a given task. The Evaluators define the criteria for judging the performance of the Prompts when executed using these inputs.
 
-- You need to have access to Evaluations
-- You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
-- Finally, you need at least a few Logs in your prompt. Use the **Editor** to generate some logs if you don't have any yet.
+Each of the Prompt versions you want to compare are run against the same Dataset producing [Logs](../../concepts/logs); judgements are then provided by Evaluators.
+The Evaluation then uses these judgements to provide a summary report of the performance allowing you to systematically compare the performance of the different Prompt versions.
 
-<Info>
-  You need logs in your project because we will use these a source of test
-  datapoints for the dataset we will create. If you want to create arbitrary
-  test datapoints from scratch, see our guide to doing this from the API. We
-  will soon be updating the app to enable arbitrary test datapoint creation from
-  your browser.
+## Prerequisites
+
+- A set of [Prompt](../../concepts/prompt) versions you want to compare - see the guide on [creating Prompts](./comparing-prompt-editor).
+- A [Dataset](../../concepts/dataset) containing testcases for the task - see the guide on [creating a Dataset](./creating-dataset).
+- At least one [Evaluator](../../concepts/evaluator) to judge the performance of the Prompts - see the guides on creating [Code](./code-based-evaluator), [AI](./llm-judge) and [Human](./human-evaluation) Evaluators.
+
+
+<Info title={"Combining Evaluators"}>
+You can combine multiple different types of Evaluator in a single Evaluation.
+For example, you might use an AI Evaluator to judge the quality of the output of the Prompt and a code Evaluator to check the output is below some latency and cost threshold.
 </Info>
 
-For this example, we're going to evaluate a model who's responsibility is to extract key information from a customer service request and return this information in JSON. In the image below, you can see the model config we've drafted on the left, and an example of it running against a customer query on the right.
+For this example, we're going to evaluate the performance of a Support Agent that responds to user queries about Humanloop's product and documentation.
+Our goal is to understand which base model between `gpt-4o`, `gpt-4o-mini` and `claude-3-5-sonnet-20240620` is most appropriate for this task.
 
-<img src="../../../assets/images/c5089ee-image.png" />
 
-### Set up a dataset
+<img src="../../../assets/images/evaluation/support-agent-prompt-variants.png"
+alt="Variations of the Support Agent Prompt, each using a different base model." />
 
-We will create a dataset based on existing logs that are already in the project.
+
+### Run an Evaluation via UI
+
+For **Product and AI teams**, the ability to trigger Evaluations against a Dataset within the Humanloop UI allows them to systematically compare the performance to make informed decisions on which to deploy.
 
 <Steps>
-### Navigate to the **Logs** tab
-### Select the logs you would like to convert into test datapoints
-### From the dropdown menu in the top right (see below), choose **Add to Dataset**
+### Navigate to the Evaluations tab of your Prompt
 
-<img
-  src="../../../assets/images/e745699-image.png"
-  alt="Creating test datapoints from a selection of existing project datapoints."
+- On the left-hand sidebar, click on the **Evaluations** tab beneath your Prompt.
+- Click the **Evaluate** button top right, which presents the setup panel for the Evaluation.
+
+<img src="../../../assets/images/evaluation/evaluation-setup-initial.png"
+alt="Prompt Evaluations tab."
 />
 
-### In the dialog box, give the new dataset a name and provide an optional description. Click **Create dataset**.
+### Setup the Evaluation
 
-<img src="../../../assets/images/8e3461f-image.png" />
+- Select a Dataset using **+Dataset**.
+- Add the Prompt versions you want to compare using **+Version** - note you can multi-select versions in the modal resulting in multiple columns.
+- Add the Evaluators you want to use to judge the performance of the Prompts using **+Evaluator**. By default, **Cost**, **Tokens** and **Latency** Evaluators are pre-selected.
+<Info title={"Log Caching"}>
+By default the system will re-use Logs if they exist for the chosen Dataset, Prompts and Evaluators. This makes it easy to extend reports without paying the cost of re-running your Prompts and Evaluators.
 
-<Info>
-  You can add more datapoints to the same dataset later by clicking the 'add to
-  existing dataset' button at the top.
+If you want to force the system to re-run the Prompts against the Dataset producing a new batch of Logs, you can select the **Manage** button in the setup panel and choose **+New Batch**.
 </Info>
 
-### Go to the **Datasets** tab.
+- Select **Save** to trigger the Evaluation report. You will see the report below the setup panel populate with a progress bar and status pending as the Logs are generated on Humanloop.
 
-### Click into the newly created dataset. One datapoint will be present for each log you selected in step 3
-
-<img
-  src="../../../assets/images/861e590-image.png"
-  alt="The newly created dataset, containing datapoints that were converted from existing logs in the project."
+<img src="../../../assets/images/evaluation/evaluation-in-progress-report.png"
+alt="In progress Evaluation report"
 />
 
-### Click on a datapoint to inspect its parameters.
-
-<Tip> 
-A test datapoint contains inputs (the variables passed into your model config template), an optional sequence of messages (if used for a chat model) and a target representing the desired output.
-
-As we converted existing logs into datapoints, the target defaults to the output of the source log.
-
+<Tip title={"Using your Runtime"}>
+This guide assumes both the Prompt and Evaluator Logs are generated using the Humanloop runtime. For certain use cases where more flexibility is required, the runtime for producing Logs
+instead lives in your code - see our guide on [Logging](../../development/logging), which also works with our Evaluations feature.
+We have a guide for how to run Evaluations with Logs generated in your code coming soon!
 </Tip>
 
-In our example, we created datapoints from existing logs. The default behaviour is that the original log's output becomes an output field in the target JSON.
 
-In order to access the `feature` field more easily in our evaluator, we'll modify the datapoint targets to be a raw JSON with a feature key.
+### Review the results
 
-<img
-  src="../../../assets/images/4b6494f-image.png"
-  alt="The original log was an LLM generation which outputted a JSON value. The conversion process has placed this into the `output` field of the testcase target."
+It will generally take at least a couple of minutes before the Evaluation report is marked as **completed** as the system generates all the required Prompt and Evaluator Logs.
+
+Once the report is completed, you can review the performance of the different Prompt versions using the Evaluators you selected.
+
+
+- The top spider plot provides you with a summary of the average Evaluator performance across all the Prompt versions.
+In our case, `gpt-4o`, although on average slightly slower and more expensive on average, is significantly better when it comes to **User Satisfaction**.
+
+<img src="../../../assets/images/evaluation/evaluation-spider-plot.png"
+alt="Evaluation Spider plot"
 />
 
-### Modify the datapoint if you need to make refinements
+- Below the spider plot, you can see the breakdown of performance per Evaluator.
 
-You can provide an arbitrary JSON object as the target.
+<img src="../../../assets/images/evaluation/evaluation-evaluator-stats.png"
+alt="Evaluation Evaluator stats breakdown"
+/>
 
-<img
-  src="../../../assets/images/963addc-image.png"
-  alt="After editing, we have a clean JSON object recording the salient characteristics of the datapoint's expected output."
+- To drill into and debug the Logs that were generated, select the **Logs** button top right of the Evaluation report.
+This brings you to the Evaluation Logs table and you can filter and review logs to understand the performance better and replay Logs in our Prompt Editor.
+
+<img src="../../../assets/images/evaluation/evaluation-logs-drilldown.png"
+alt="Drill down to Evaluatoin Logs."
 />
 
 </Steps>
 
-## Create an offline evaluator
+### Run an Evaluation via API
 
-Having set up a dataset, we'll now create the evaluator. As with online evaluators, it's a Python function but for offline mode, it also takes a `testcase` parameter alongside the generated log.
+For **Engineering teams**, the ability to trigger Evaluations via the API allows them to integrate the Evaluation process into their existing pipelines.
 
-<Steps>
-### Navigate to the evaluations section, and then the Evaluators tab
-### Select **+ New Evaluator** and choose **Offline Evaluation**
-### Choose **Start from scratch**
+<Markdown src="../../../snippets/wip.mdx" />
 
-For this example, we'll use the code below to compare the LLM generated output with what we expected for that testcase.
 
-```python Python
-import json
-from json import JSONDecodeError
+[//]: # (<Steps>)
 
-def it_extracts_correct_feature(log, testcase):
-    expected_feature = testcase["target"]["feature"]
+[//]: # ()
+[//]: # (### Get the required IDs)
 
-    try:
-        # The model is expected to produce valid JSON output
-        # but it could fail to do so.
-        output = json.loads(log["output"])
-        actual_feature = output.get("feature", None)
-        return expected_feature == actual_feature
+[//]: # ()
+[//]: # (In order to trigger an Evaluation via the API, you will need the IDs of the Dataset, Prompts and Evaluator versions you want to include.)
 
-    except JSONDecodeError:
-        # If the model didn't even produce valid JSON, then
-        # we evaluate the output as bad.
-        return False
-```
+[//]: # ()
+[//]: # (- You can find the IDs of your Dataset, Prompts and Evaluators by navigating to the respective dashboards in the UI)
 
-### Use the Debug Console
+[//]: # ()
+[//]: # (- Alternatively, you can use the API to list the)
 
-In the debug console at the bottom of the dialog, click **Load data** and then **Datapoints from dataset**. Select the dataset you created in the previous section. The console will be populated with its datapoints.
+[//]: # ()
+[//]: # ()
+[//]: # (### Trigger an Evaluation)
 
-<img
-  src="../../../assets/images/e3dd068-image.png"
-  alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
-/>
+[//]: # ()
+[//]: # (Once you have the IDs, you can populate the request to trigger an Evaluation.)
 
-#### Choose a model config from the dropdown menu.
+[//]: # ()
+[//]: # (<EndpointRequestSnippet)
 
-#### Click the run button at the far right of one of the test datapoints.
+[//]: # (  endpoint="POST /datasets")
 
-A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
+[//]: # (  example="CreateSupportDataset")
 
-### Click **Create** when you are happy with the evaluator.
+[//]: # (/>)
 
-</Steps>
+[//]: # ()
+[//]: # (### Inspect the uploaded Dataset)
 
-## Trigger an offline evaluation
+[//]: # ()
+[//]: # (### Review the results)
 
-Now that you have an offline evaluator and a dataset, you can use them to evaluate the performance of any model config in your project.
+[//]: # ()
+[//]: # (You can)
 
-<Steps>
-### Go to the **Evaluations** section.
-### In the **Runs** tab, click **Run Evaluation**
-### In the dialog box, choose a model config to evaluate, and select your newly created dataset and evaluator.
+[//]: # ()
+[//]: # (Or you can poll the Evaluation status until it is marked as completed and then review the results.)
 
-<img src="../../../assets/images/d08b4d8-image.png" />
 
-### Click **Batch Generate**
+### Next Steps
 
-### A new evaluation is launched. Click on the card to inspect the results.
-
-A batch generation has now been triggered. This means that the model config you selected will be used to generate a log for each datapoint in the dataset. It may take some time for the evaluation to complete, depending on how many test datapoints are in your dataset and what model config you are using. Once all the logs have been generated, the evaluator will execute for each in turn.
-
-### Inspect the results of the evaluation.
-
-<img src="../../../assets/images/5d29d19-image.png" />
-
-</Steps>
+- Incorporate this Evaluation process into your Prompt engineering and deployment workflow.
+- Setup Evaluations where the runtime for producing Logs lives in your code - see our guide on [Logging](../../development/logging).
+- Utilise Evaluations as part of your [CI/CD pipeline](./cicd-integration)

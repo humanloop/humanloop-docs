@@ -1,5 +1,5 @@
 ---
-subtitle: Datasets can be created from existing logs or uploaded from CSV and via the API.
+subtitle: In this guide, we will walk through the different ways to create Datasets on Humanloop.
 description: Learn how to create Datasets in Humanloop to define fixed examples for your projects, and build up a collection of input-output pairs for evaluation and fine-tuning.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
@@ -14,12 +14,13 @@ This guide will show you how to create Datasets in Humanloop in three different 
 
 ## Create a Dataset from Logs
 
-### Prerequisites
+**Prerequisites**
 
 You should have an existing [Prompt](../../concepts/prompts) on Humanloop and already generated some [Logs](../../concepts/logs).
-Follow our guide on [creating a Prompt](../../development/guides/create-prompt) to create a Prompt and generate some Logs.
+Follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
-### Steps
+**Steps**
+
 To create a Dataset from existing Logs:
 
 <Steps>
@@ -46,7 +47,7 @@ In the menu in the top right of the page, select **Add to dataset**.
 
 ### Add to a new Dataset
 
-Provide a name of the new Dataset and click **Create** (or you can click **add to existing Dataset** to append the selected to an existing Dataset).
+Provide a name of the new Dataset and click **Create** (or you can click **add to existing Dataset** to append the selection to an existing Dataset).
 Then provide a suitable commit message describing the datapoints you've added.
 
 <img
@@ -60,11 +61,11 @@ You will then see the new Dataset appear at the same level in the filesystem as 
 
 ## Upload a Dataset from CSV
 
-### Prerequisites
+**Prerequisites**
 
 You should have an existing [Prompt](../../concepts/prompts) on Humanloop with a variable defined with our double curly bracket syntax `{{variable}}`. If not, first follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
-In this example, we'll use a Prompt that categorises user queries about Humanloop's product and docs by which feature it relates to.
+In this example, we'll use a Prompt that categorises user queries about Humanloop's product and docs by which feature they relate to.
 
 <img
   src="../../../assets/images/datasets/create-dataset-classifier-prompt.png"
@@ -72,7 +73,8 @@ In this example, we'll use a Prompt that categorises user queries about Humanloo
 />
 
 
-### Steps
+**Steps**
+
 To create a dataset from a CSV file, we'll first create a CSV in Google Sheets that contains values for our Prompt variable `{{query}}` and then upload it to a Dataset on Humanloop.
 
 <Steps>
@@ -100,7 +102,6 @@ On Humanloop, select *New* at the bottom of the left hand sidebar, then select *
 />
 
 
-
 ### Click **Upload CSV**
 
 First name your dataset when prompted in the sidebar, then select the **Upload CSV** button and drag and drop the CSV file you created above using the file explorer.
@@ -123,17 +124,19 @@ You'll see the input-output pairs that were included in the CSV file and you can
 
 ## Upload a Dataset via API
 
-### Prerequisites
+**Prerequisites**
+
 If you are using the SDK, the only prerequisite is to have the SDK installed and configured. If you are using the API directly, you will need to have an API key.
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
-### Steps
+**Steps**
+
 Using the API is a great way to integrate Humanloop with your existing data pipeline or just to once-off upload a more complex Dataset that is hard to represent in a CSV file, such as one that contains an array of messages and JSON targets.
 
 <Steps>
 
-### Post data to Datasets API
-We must first define some sample data that contains user messages and desired responses for our [Support Agent Prompt](#create-a-dataset-from-logs) that answers questions about the Humanloop product and docs and the desired response.
+### Post data to the Datasets API
+We first define some sample data that contains user messages and desired responses from our [Support Agent Prompt](#create-a-dataset-from-logs) and call the `POST /datasets` endpoint to upload it as follows:
 
 <EndpointRequestSnippet
   endpoint="POST /datasets"
@@ -142,18 +145,19 @@ We must first define some sample data that contains user messages and desired re
 
 ### Inspect the uploaded Dataset
 
-After running this code, in your Humanloop workspace you will now see a Dataset called `support-queries` with your example data.
+After running this code, in your Humanloop workspace you will now see a Dataset called `Support Query Ground Truth` (or whatever value was in `path`) with your sample data.
 
-<img src="../../../assets/images/665e92a-image.png" />
-
+<img src="../../../assets/images/datasets/create-dataset-api-upload.png"
+  alt="Inspect the Dataset uploaded via API."
+/>
 </Steps>
 
 
 
 # Next steps
 
-🎉 Now that you have Datasets defined in Humanloop, you can leverage our Evaluations feature to systematically measure and improve the performance of your AI applications.
-See our guides on setting up Evaluators and Running an Evaluation to get started..
+🎉 Now that you have Datasets defined in Humanloop, you can leverage our [Evaluations](../overview) feature to systematically measure and improve the performance of your AI applications.
+See our guides on [setting up Evaluators](./llm-judge) and [Running an Evaluation](./run-evaluation) to get started.
 
 
 

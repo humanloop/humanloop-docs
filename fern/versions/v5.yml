@@ -126,12 +126,12 @@ navigation:
           - section: How-to guides
             slug: guides
             contents:
-              - page: Comparing Prompts in Editor
-                path: ../v5-pages/evaluation/guides/comparing-prompt-outputs.mdx
+              - page: Compare and Debug Prompts
+                path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
               - page: Create a Dataset
                 slug: create-dataset
                 path: ../v5-pages/evaluation/guides/create-dataset.mdx
-              - page: Set up a code based Evaluator
+              - page: Set up a code Evaluator
                 slug: code-based-evaluator
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
@@ -193,11 +193,12 @@ navigation:
           #   path: ../v5-pages/reference/supported-evaluator-types.mdx
           - page: Prompt file spec
             path: ../v5-pages/reference/prompt-file.mdx
-
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
           # - page: Postman Workspace
           #   path: ../v5-pages/reference/postman-workspace.mdx
+          - page: Python Environment
+            path: ../v5-pages/reference/code-env-spec.mdx
           - page: Integrations
             path: ../v5-pages/reference/integrations.mdx
           - page: Security and Compliance
