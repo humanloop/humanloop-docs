@@ -1,6 +1,6 @@
 api:
-  path: openapi/openapi.yml
-  overrides: openapi/openapi-overrides.yml
+  path: openapi/openapi.auto.json
+  overrides: openapi/overrides.auto.json
   settings:
     use-title: false
     unions: v1
@@ -11,7 +11,7 @@ groups:
         version: 3.3.0-rc1
         output:
           location: pypi
-          package-name: 'humanloop'
+          package-name: "humanloop"
           token: ${PYPI_TOKEN}
         github:
           repository: humanloop/humanloop-python-beta
@@ -27,7 +27,7 @@ groups:
         version: 0.38.2
         output:
           location: npm
-          package-name: 'humanloop'
+          package-name: "humanloop"
           token: ${NPM_TOKEN}
         github:
           repository: humanloop/humanloop-node-beta
