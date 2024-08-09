@@ -1,7 +1,98 @@
 ---
-subtitle: A walk through for setting up subject matter experts to evaluate your LLM outputs.
+subtitle: A walkthrough for setting up subject-matter experts to evaluate your LLM outputs.
 description: Learn how to use Humanloop to set up and manage human evaluations for your large language model use-cases.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-<Markdown src="../../../snippets/wip.mdx" />
+Human Evaluators allow your subject-matter experts to provide feedback on Prompt Logs.
+These Evaluators can be attached to Prompts and Evaluations.
+
+
+## Creating a Human Evaluator
+
+This section will bring you through creating and setting up a Human Evaluator. 
+As an example, we'll use a "Tone" Evaluator that allows feedback to be provided by
+selecting from a list of options.
+
+<Steps>
+
+### Create a new Evaluator
+
+- Click the **New** button at the bottom of the left-hand sidebar, select **Evaluator**, then select **Human**.
+
+- Give the Evaluator a name when prompted in the sidebar, for example "Tone".
+
+### Define the Feedback Schema
+
+After creating the Evaluator, you will automatically be taken to the Editor.
+Here, you can define the feedback to be applied for the Evaluator.
+
+In this example, we'll set up a feedback schema for a "Tone" Evaluator.
+See the [Return types documentation](/docs/v5/concepts/evaluators#return-types) for more information on return types.
+
+- Select **Multi-select** within the **Return type** dropdown. "Multi-select" allows you to apply multiple options to a single Log.
+- Add the following options, and set the valence for each:
+  - Enthusiastic [positive]
+  - Informative [postiive]
+  - Technical [negative]
+  - Confusing [negative]
+
+### Commit and deploy the Evaluator
+
+- Click **Commit** in the top-right corner.
+- Enter "Added initial tone options" as a commit message. Click **Commit**.
+- In the "Version committed" dialog, click **Deploy**.
+- Select the checkbox for you default Environment (likely to be named "production"), and click **Deploy**.
+
+</Steps>
+
+## Using a Human Evaluator in an Evaluation
+
+You can add Human Evaluators to Evaluations. This allows you (or your subject-matter experts) to provide feedback
+on the generated Prompt Logs within the Evaluation.
+
+<Steps>
+
+### Create a new Evaluation
+
+- Go to the **Evaluations** tab of a Prompt.
+- Click **Evaluate** in the top-right corner.
+- Set up your Evaluation by selecting a Dataset and some Prompt versions to evaluate. See TODO: Guide to Evaluations for more details
+- Click the **+ Evaluator** button to add a Human Evaluator to the Evaluation. This will bring up a dialog where you can select the 
+Human Evaluator you created earlier. Within this dialog, select the "Tone" Evaluator, and then select its latest version which should be at the top.
+- Click **+ Choose** to add the Evaluator to the Evaluation.
+- Click **Save** to create the Evaluation.
+
+
+### Apply feedback to generated Logs
+
+### Review feedback stats
+
+</Steps>
+
+
+
+
+
+
+
+
+
+
+Move below section to capture-user-feedback
+
+## Setting up a Human Evaluator for feedback
+
+You can attach Human Evaluators to Prompts to collect feedback on the Prompt's Logs.
+
+<Steps>
+
+### Go to the Prompt's dashboard
+
+
+### Open the Monitoring Dialog
+
+### Add the Human Evaluator
+
+
+</Steps>

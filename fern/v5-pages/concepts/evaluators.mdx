@@ -54,3 +54,17 @@ Evaluations require the following to be generated:
 
 Evaluators which are defined within the Humanloop UI can be executed in the Humanloop runtime, whereas Evaluators defined in your code can be executed in your runtime and the results posted back to Humanloop.
 This provides flexibility for supporting more complex evaluation workflows.
+
+
+## Return types
+
+Evaluators apply judgment to Logs. This judgment can be of the following types:
+
+- **Boolean** - A true/false judgment.
+- **Number** - A numerical judgment, which can act as a rating or score.
+- **Select** - One of a predefined set of options. One option must be selected.
+- **Multi-select** - Any number of a predefined set of options. None, one, or many options can be selected.
+- **Text** - A free-form text judgment.
+
+Code and AI Evaluators can return either **Boolean** or **Number** judgments.
+Human Evaluators can return **Number**, **Select**, **Multi-select**, or **Text** judgments.
