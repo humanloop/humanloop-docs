@@ -140,12 +140,12 @@ navigation:
               - page: Set up a Human Evaluator
                 slug: human-evaluator
                 path: ../v5-pages/evaluation/guides/human-evaluator.mdx
-              - page: Collect annotations in an Evaluation
-                slug: human-evaluation
-                path: ../v5-pages/evaluation/guides/human-evaluator-in-evaluation.mdx
               - page: Run an Evaluation
                 slug: run-evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Run a Human Evaluation
+                slug: run-human-evaluation
+                path: ../v5-pages/evaluation/guides/run-human-evaluation.mdx
                 # TODO: correct this guide before publishing
               #              - page: Generating synthetic data
               #                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
