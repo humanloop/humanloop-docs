@@ -19,12 +19,16 @@ selecting from a list of options.
 
 - Click the **New** button at the bottom of the left-hand sidebar, select **Evaluator**, then select **Human**.
 
+![New Evaluator dialog](../../../assets/images/new-evaluator-dialog.png)
+
 - Give the Evaluator a name when prompted in the sidebar, for example "Tone".
 
-### Define the Feedback Schema
+![Created Human Evaluator being renamed to "Tone"](../../../assets/images/renamed-default-human-evaluator.png)
+
+### Define the Judgment Schema
 
 After creating the Evaluator, you will automatically be taken to the Editor.
-Here, you can define the feedback to be applied for the Evaluator.
+Here, you can define the schema detailing the kinds of judgments to be applied for the Evaluator.
 The Evaluator will be initialized to a 5-point rating scale by default.
 
 In this example, we'll set up a feedback schema for a "Tone" Evaluator.
@@ -34,15 +38,24 @@ See the [Return types documentation](../../concepts/evaluators#return-types) for
 - Add the following options, and set the valence for each:
   - Enthusiastic [positive]
   - Informative [postiive]
+  - Repetitive [negative]
   - Technical [negative]
-  - Confusing [negative]
+- Update the instructions to "Select all options that apply to the output."
+
+![Tone evaluator set up with options and instructions](../../../assets/images/setup-tone-human-evaluator-no-tip.png)
+
 
 ### Commit and deploy the Evaluator
 
 - Click **Commit** in the top-right corner.
 - Enter "Added initial tone options" as a commit message. Click **Commit**.
+
+![Commit dialog over the "Tone" Evaluator](../../../assets/images/committing-tone-evaluator.png)
+
 - In the "Version committed" dialog, click **Deploy**.
-- Select the checkbox for you default Environment (likely to be named "production"), and click **Deploy**.
+- Select the checkbox for you default Environment (usually named "production"), and confirm your deployment.
+
+![Dialog deploying the "Tone" Evaluator to the "production" Environment](../../../assets/images/deploy-tone-evaluator.png)
 
 </Steps>
 

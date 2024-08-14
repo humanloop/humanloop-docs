@@ -1,9 +1,8 @@
 ---
 subtitle: A walkthrough for setting up Human Evaluators in Evaluations to allow subject-matter experts to evaluate your LLM outputs.
-description: Learn how to 
+description: Learn how to set up an Evaluation that uses Human Evaluators to collect annotations from your subject-matter experts.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
-
 
 By attaching Human Evaluators to your Evaluations, you can collect annotations from your subject-matter experts
 to evaluate the quality of your Prompts' outputs.
@@ -20,19 +19,40 @@ to evaluate the quality of your Prompts' outputs.
 
 ### Create a new Evaluation
 
-The steps in this section are similar to the steps in our guide to [Running an Evaluation in the UI](/docs/v5/evaluation/guides/run-evaluation#run-an-evaluation-via-ui)
-
 - Go to the **Evaluations** tab of a Prompt.
 - Click **Evaluate** in the top-right corner.
-- Set up your Evaluation by selecting a Dataset and some Prompt versions to evaluate. See TODO: Guide to Evaluations for more details
+- Set up your Evaluation by selecting a Dataset and some Prompt versions to evaluate. See our guide to [Running an Evaluation in the UI](/docs/v5/evaluation/guides/run-evaluation#run-an-evaluation-via-ui) for more details.
 - Click the **+ Evaluator** button to add a Human Evaluator to the Evaluation. This will bring up a dialog where you can select the 
 Human Evaluator you created earlier. Within this dialog, select the "Tone" Evaluator, and then select its latest version which should be at the top.
 - Click **+ Choose** to add the Evaluator to the Evaluation.
-- Click **Save** to create the Evaluation.
+
+![Evaluation set up with "Tone" Evaluator](../../../assets/images/tone-evaluation.png)
+- Click **Save/Run** to create the Evaluation and start generating Logs to evaluate.
 
 
-### Apply feedback to generated Logs
+### Apply judgments to generated Logs
 
-### Review feedback stats
+When you save an Evaluation, Humanloop will automatically generate Logs using the specified Prompt versions and Dataset.
+When the required Logs are generated, a "Human Evaluations incomplete" message will be displayed in a toolbar at the top of the Evaluation.
+
+- Go to the **Logs** tab of the Evaluation to view the generated Logs.
+
+![Evaluation Logs tab](../../../assets/images/tone-evaluation-logs.png)
+
+- Expand the drawer for a Log by clicking on the row to view the Log details. Here, you can view the generated output and apply judgments to the Log.
+
+![Evaluation Log drawer](../../../assets/images/tone-evaluation-judgments.png)
+
+- When you've completed applying judgments, click on **Mark as complete** in the toolbar at the top of the page. This will update the Evaluation's status.
+
+![Completed Evaluation](../../../assets/images/tone-evaluation-complete.png)
+
+
+### Review judgments stats
+
+Go to the **Overview** tab of the Evaluation to view the aggregate stats of the judgments applied to the Logs.
+On this page, an aggregate view of the judgments provided to each Prompt version is displayed in a table, allowing you to compare the performance of different Prompt versions.
+
+![Evaluation Overview tab](../../../assets/images/tone-evaluation-overview.png)
 
 </Steps>
