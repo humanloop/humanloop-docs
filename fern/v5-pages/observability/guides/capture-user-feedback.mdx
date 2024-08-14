@@ -1,10 +1,12 @@
 ---
-subtitle: In this guide, we show how to record feedback on generations from your users using the Humanloop Python SDK. This allows you to monitor how your generations perform with your users.
+subtitle: In this guide, we show how to record end-user feedback using the Humanloop Python SDK. This allows you to monitor how your generations perform with your users.
 description: Learn how to record user feedback on your generated Prompt Logs using the Humanloop SDK.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
 This guide shows how to use the Humanloop SDK to record end-user feedback on Logs.
+
+<Note>
 
 Different use-cases and user interfaces may require different kinds of feedback that need to be mapped to the appropriate end user interaction.
 There are broadly 3 important kinds of feedback:
@@ -19,6 +21,8 @@ that provide implicit feedback.
 
 If you have not done so, you can follow our guide to [create a Human Evaluator](/docs/v5/evaluation/guides/human-evaluator) to set up the appropriate feedback schema.
 
+</Note>
+
 ## Prerequisites
 
 - You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
@@ -26,28 +30,41 @@ If you have not done so, you can follow our guide to [create a Human Evaluator](
 
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
-
 ## Attach Human Evaluator to enable feedback
 
-First, attach the relevant Human Evaluators to the Prompt to collect feedback on the its Logs.
+In this example, we'll be attaching a "Tweet Issues" Human Evaluator to an "Impersonator" Prompt.
+The specifics of the "Tweet Issues" Evaluator are not important for this guide, but for completeness, it is a Human Evaluator with the return type "multi_select" and options like "Inappropriate", "Too many emojis", "Too long", etc.
 
 <Steps>
 
-### Go to the Prompt's dashboard
+### Go to the Prompt's Dashboard
 
-### Open the Monitoring Dialog
+### Click **Monitoring** in the top right to open the Monitoring Dialog
 
-### Add the Human Evaluator
+![Prompt dashboard showing Monitoring dialog](../../../assets/images/impersonator-dashboard.png)
+
+### Click **Connect Evaluators** and select the Human Evaluator you created.
+
+![Dialog connecting the "Tweet Issues" Evaluator as a Monitoring Evaluator](../../../assets/images/impersonator-connect-monitoring-evaluator.png)
 
 </Steps>
 
+You should now see the selected Human Evaluator attached to the Prompt in the Monitoring dialog.
+
+![Monitoring dialog showing the "Tweet Issues" Evaluator attached to the Prompt](../../../assets/images/impersonator-monitoring-evaluator-attached.png)
 
 ## Record feedback against a Log by its ID
 
-1. Extract the Log ID from the `humanloop.prompts.call()` response.
+With the Human Evaluator attached to the Prompt, you can now record judgments against the Prompt's Logs.
+To make API calls to record feedback, you will need the Log ID of the Log you want to record feedback against.
+The steps below illustrate a typical workflow for recording feedback against a Log generated in your code.
+
+<Steps>
+
+### Retrieve the Log ID from the `client.prompts.call()` response.
 
 ```python
-log = humanloop.prompts.call(
+log = client.prompts.call(
     version_id="prv_qNeXZp9P6T7kdnMIBHIOV",
     path="persona",
     messages=[{"role": "user", "content": "What really happened at Roswell?"}],
@@ -56,32 +73,44 @@ log = humanloop.prompts.call(
 log_id = log.id
 ```
 
-2. Call `humanloop.evaluators.log(...)` referencing the above Log ID as `parent_id` to record user feedback.  
+### Call `client.evaluators.log(...)` referencing the above Log ID as `parent_id` to record user feedback.  
 
 ```python
-feedback = client.evaluators.log(
+feedback_2 = client.evaluators.log(
     # Pass the `log_id` from the previous step to indicate the Log to record feedback against
+    parent_id=log_id,
+    # Here, we're recording feedback against a "Tweet Issues" Human Evaluator,
+    # which is of type `multi_select` and has multiple options to choose from.
+    path="Feedback Demo/Tweet Issues",
+    judgment=["Inappropriate", "Too many emojis"],
+)
+
+```
+
+<Accordion title="More examples">
+
+The "rating" and "correction" Evaluators are attached to all Prompts by default.
+You can record feedback using these Evaluators as well.
+
+The "rating" Evaluator can be used to record explicit feedback (e.g. from a 👍/👎 button).
+
+```python
+rating_log = client.evaluators.log(
     parent_id=log_id,
     # We're recording feedback using the "rating" Human Evaluator,
     # which has 2 options: "good" and "bad".
     path="rating",
     judgment="good",
-)
 
-# You can also include the source of the feedback when recording it with the `user` parameter.
-# This example also demonstrate how to record feedback using a multi-select Human Evaluator.
-feedback_2 = client.evaluators.log(
-    parent_id=log_id,
-    # Pass `user` to record the who provided the feedback
+    # You can also include the source of the feedback when recording it with the `user` parameter.
     user="user_123",
-    # Here, we're recording feedback against an "issues" Human Evaluator,
-    # which is of type `multi_select` and has multiple options to choose from.
-    path="issues",
-    judgment=["grammar", "relevance"],
 )
+```
 
-# You can also record corrections as free-form text feedback
-feedback_3 = client.evaluators.log(
+The "correction" Evaluator can be used to record user-provided corrections to the generations (e.g. If the user edits the generation before copying it).
+
+```python
+correction_log = client.evaluators.log(
     parent_id=log_id,
     path="correction",
     judgment="NOTHING happened at Roswell, folks! Fake News media pushing ALIEN conspiracy theories. SAD! "
@@ -89,26 +118,40 @@ feedback_3 = client.evaluators.log(
 )
 ```
 
-If the user removes their feedback, you can record this by passing `judgment=None` to the `client.evaluators.log()` method.
+If the user removes their feedback (e.g. if the user deselects a previous 👎 feedback), you can record this by passing `judgment=None`.
+
+```python
+removed_rating_log = client.evaluators.log(
+    parent_id=log_id,
+    path="rating",
+    judgment=None,
+)
+```
+
+</Accordion>
+
+
+</Steps>
 
 
 ## Viewing feedback
 
+You can view the applied in two main ways: through the Logs that the feedback was applied to, and through the Human Evaluator itself.
+
 ### Viewing Feedback applied to Logs
 
-The feedback recorded for each Log can be viewed in the **Logs** tab of your Prompt.
+The feedback recorded for each Log can be viewed in the **Logs** table of your Prompt.
 
-<img src="../../../assets/images/b89e24b-image.png" />
+![Logs table showing feedback applied to Logs](../../../assets/images/impersonator-logs-feedback.png)
 
-Your internal users can also apply feedback to the Logs directly from the **Logs** table.
+Your internal users can also apply feedback to the Logs directly through the Humanloop app.
 
+![Log drawer showing feedback section](../../../assets/images/impersonator-logs-drawer-feedback.png)
 
-### Viewing Feedback for an Evaluator
+### Viewing Feedback through its Human Evaluator
 
 Alternatively, you can view all feedback recorded for a specific Evaluator in the **Logs** tab of the Evaluator.
 This will display all feedback recorded for the Evaluator across all other Files.
 
-```
-
-<img src="../../../assets/images/0cd4cd2-image.png" />
+![Logs table for "Tweet Issues" Evaluator showing feedback](../../../assets/images/impersonator-tweet-issues-evaluator-logs.png)
 
