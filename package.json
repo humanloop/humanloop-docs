@@ -9,12 +9,14 @@
     "check": "fern check",
     "watch": "node ./scripts/populate_template.js && chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/*.auto.json' -c 'node ./scripts/populate_template.js && npm run check'",
     "fetch": "node ./scripts/sync_openapi.js",
-    "sync": "npm run fetch && concurrently \"npm run dev\" \"npm run watch\""
+    "sync": "npm run fetch && concurrently \"npm run dev\" \"npm run watch\"",
+    "optimize-assets": "node ./scripts/optimize_assets.js"
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "concurrently": "^7.6.0",
     "fern-api": "^0.37.6",
+    "imageoptim-cli": "^3.1.9",
     "js-yaml": "^4.1.0",
     "nunjucks": "^3.2.4",
     "prettier": "^3.3.3"
