@@ -61,58 +61,13 @@
       "post": {
         "tags": ["Chats"],
         "summary": "Chat Deployed",
-        "description": "Get a chat response using the project's active deployment.\n\nThe active deployment can be a specific model configuration or an experiment.",
+        "description": "Get a chat response using the project's active deployment.\n\nThe active deployment can be a specific model configuration.",
         "operationId": "Chats_createDeployed",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ChatDeployedRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/chat-experiment": {
-      "post": {
-        "tags": ["Chats"],
-        "summary": "Chat Experiment",
-        "description": "Get a chat response for a specific experiment.",
-        "operationId": "Chats_createExperiment",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatExperimentRequest"
               }
             }
           },
@@ -241,58 +196,13 @@
       "post": {
         "tags": ["Completions"],
         "summary": "Completion Deployed",
-        "description": "Create a completion using the project's active deployment.\n\nThe active deployment can be a specific model configuration or an experiment.",
+        "description": "Create a completion using the project's active deployment.\n\nThe active deployment can be a specific model configuration.",
         "operationId": "Completions_createDeployed",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CompletionDeployedRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompletionResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/completion-experiment": {
-      "post": {
-        "tags": ["Completions"],
-        "summary": "Completion Experiment",
-        "description": "Create a completion for a specific experiment.",
-        "operationId": "Completions_createExperiment",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompletionExperimentRequest"
               }
             }
           },
@@ -422,7 +332,7 @@
       "patch": {
         "tags": ["Datapoints"],
         "summary": "Update",
-        "description": "Edit the input, messages and criteria fields of a datapoint.\n\nWARNING: This endpoint has been decommisioned and no longer works. Please use the v5 datasets API instead.",
+        "description": "Edit the input, messages and criteria fields of a datapoint.\n\nWARNING: This endpoint has been decommissioned and no longer works. Please use the v5 datasets API instead.",
         "operationId": "Datapoints_update",
         "parameters": [
           {
@@ -471,7 +381,7 @@
       "delete": {
         "tags": ["Datapoints"],
         "summary": "Delete",
-        "description": "Delete a list of datapoints by their IDs.\n\nWARNING: This endpoint has been decommisioned and no longer works. Please use the v5 datasets API instead.",
+        "description": "Delete a list of datapoints by their IDs.\n\nWARNING: This endpoint has been decommissioned and no longer works. Please use the v5 datasets API instead.",
         "operationId": "Datapoints_delete",
         "responses": {
           "204": {
@@ -2267,7 +2177,7 @@
       "post": {
         "tags": ["Model Configs"],
         "summary": "Register",
-        "description": "Register a model config to a project and optionally add it to an\nexperiment.\n\nIf the project name provided does not exist, a new project will be created\nautomatically.\n\nIf an experiment name is provided, the specified experiment must already\nexist. Otherwise, an error will be raised.\n\nIf the model config is the first to be associated to the project, it will\nbe set as the active model config.",
+        "description": "Register a model config to a project.\n\nIf the project name provided does not exist, a new project will be created\nautomatically.\n\nIf the model config is the first to be associated to the project, it will\nbe set as the active model config.",
         "operationId": "ModelConfigs_register",
         "requestBody": {
           "content": {
@@ -2757,7 +2667,7 @@
       "patch": {
         "tags": ["Projects"],
         "summary": "Update",
-        "description": "Update a specific project.\n\nSet the project's active model config/experiment by passing either\n`active_experiment_id` or `active_model_config_id`.\nThese will be set to the Default environment unless a list of environments\nare also passed in specifically detailing which environments to assign the\nactive config or experiment.\n\nSet the feedback labels to be treated as positive user feedback used in\ncalculating top-level project metrics by passing a list of labels in\n`positive_labels`.",
+        "description": "Update a specific project.\n\nSet the project's active model config by passing `active_model_config_id`.\nThese will be set to the Default environment unless a list of environments\nare also passed in specifically detailing which environments to assign the\nactive config.",
         "operationId": "Projects_update",
         "parameters": [
           {
@@ -2876,7 +2786,7 @@
       "get": {
         "tags": ["Projects"],
         "summary": "Get Active Config",
-        "description": "Retrieves a config to use to execute your model.\n\nA config will be selected based on the project's\nactive config/experiment settings.",
+        "description": "Retrieves a config to use to execute your model.\n\nA config will be selected based on the project's\nactive config settings.",
         "operationId": "Projects_getActiveConfig",
         "parameters": [
           {
@@ -2891,12 +2801,12 @@
             "in": "path"
           },
           {
-            "description": "Name for the environment. E.g. 'producton'. If not provided, will return the active config for the default environment.",
+            "description": "Name for the environment. E.g. 'production'. If not provided, will return the active config for the default environment.",
             "required": false,
             "schema": {
               "type": "string",
               "title": "Environment name",
-              "description": "Name for the environment. E.g. 'producton'. If not provided, will return the active config for the default environment."
+              "description": "Name for the environment. E.g. 'production'. If not provided, will return the active config for the default environment."
             },
             "name": "environment",
             "in": "query"
@@ -2988,65 +2898,6 @@
         ]
       }
     },
-    "/projects/{id}/active-experiment": {
-      "delete": {
-        "tags": ["Projects"],
-        "summary": "Deactivate Experiment",
-        "description": "Remove the project's active experiment, if set.\n\nThis has no effect if the project does not have an active experiment set.",
-        "operationId": "Projects_deactivateExperiment",
-        "parameters": [
-          {
-            "description": "String ID of project. Starts with `pr_`.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Project ID",
-              "description": "String ID of project. Starts with `pr_`."
-            },
-            "name": "id",
-            "in": "path"
-          },
-          {
-            "description": "Name for the environment. E.g. 'producton'. If not provided, will return the experiment for the default environment.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment name",
-              "description": "Name for the environment. E.g. 'producton'. If not provided, will return the experiment for the default environment."
-            },
-            "name": "environment",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/projects/{id}/feedback-types": {
       "post": {
         "tags": ["Projects"],
@@ -3097,6 +2948,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -3106,7 +2958,7 @@
       "patch": {
         "tags": ["Projects"],
         "summary": "Update Feedback Types",
-        "description": "Update feedback types.\n\nAllows enabling the available feedback types and setting status of\nfeedback types/categorical values.\n\nThis behaves like an upsert; any feedback categorical values that do not\nalready exist in the project will be created.",
+        "description": "Update feedback types.\n\nWARNING: This endpoint has been decommissioned and no longer works. Please use the v5 Human Evaluators API instead.",
         "operationId": "Projects_updateFeedbackTypes",
         "parameters": [
           {
@@ -3121,28 +2973,12 @@
             "in": "path"
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "items": {
-                  "$ref": "#/components/schemas/FeedbackTypeRequest"
-                },
-                "type": "array",
-                "title": "Feedback Types"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FeedbackTypes"
-                }
+                "schema": {}
               }
             }
           },
@@ -3157,6 +2993,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -3655,62 +3492,6 @@
         ],
         "title": "AgentConfigResponse"
       },
-      "BaseMetricResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Metric ID",
-            "description": "ID of the metric. Starts with 'metric_'."
-          },
-          "name": {
-            "type": "string",
-            "title": "Metric name",
-            "description": "The name of the metric."
-          },
-          "description": {
-            "type": "string",
-            "title": "Metric description",
-            "description": "A description of what the metric measures."
-          },
-          "code": {
-            "type": "string",
-            "title": "Metric code",
-            "description": "Python code used to calculate a metric value on each logged datapoint."
-          },
-          "default": {
-            "type": "boolean",
-            "title": "Metric default flag",
-            "description": "Whether the metric is a global default metric. Metrics with this flag enabled cannot be deleted or modified."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Metric active flag",
-            "description": "If enabled, the metric is calculated for every logged datapoint."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "description",
-          "code",
-          "default",
-          "active",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "BaseMetricResponse"
-      },
       "Body_ModelConfigs_deserialize": {
         "properties": {
           "config": {
@@ -3997,169 +3778,6 @@
         "required": ["messages"],
         "title": "ChatDeployedRequest",
         "description": "Chat request for active deployment."
-      },
-      "ChatExperimentRequest": {
-        "properties": {
-          "project": {
-            "type": "string",
-            "title": "Project name",
-            "description": "Unique project name. If no project exists with this name, a new project will be created."
-          },
-          "project_id": {
-            "type": "string",
-            "title": "Project ID",
-            "description": "Unique ID of a project to associate to the log. Either this or `project` must be provided."
-          },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "ID of the session to associate the datapoint."
-          },
-          "session_reference_id": {
-            "type": "string",
-            "title": "Session Reference ID",
-            "description": "A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "ID associated to the parent datapoint in a session."
-          },
-          "parent_reference_id": {
-            "type": "string",
-            "title": "Parent Reference ID",
-            "description": "A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request."
-          },
-          "inputs": {
-            "type": "object",
-            "title": "Inputs",
-            "description": "The inputs passed to the prompt template.",
-            "default": {}
-          },
-          "source": {
-            "type": "string",
-            "title": "Source",
-            "description": "Identifies where the model was called from."
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "Any additional metadata to record."
-          },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
-          },
-          "source_datapoint_id": {
-            "type": "string",
-            "title": "Source datapoint ID",
-            "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
-          },
-          "provider_api_keys": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ProviderApiKeys"
-              }
-            ],
-            "title": "Provider API Keys",
-            "description": "API keys required by each provider to make API calls. The API keys provided here are not stored by Humanloop. If not specified here, Humanloop will fall back to the key saved to your organization."
-          },
-          "num_samples": {
-            "type": "integer",
-            "title": "Number of samples",
-            "description": "The number of chat responses, where each chat response will use a model configuration sampled from the experiment.",
-            "default": 1
-          },
-          "stream": {
-            "type": "boolean",
-            "title": "Whether to stream partial results",
-            "description": "If true, tokens will be sent as data-only server-sent events. If num_samples > 1, samples are streamed back independently.",
-            "default": false
-          },
-          "user": {
-            "type": "string",
-            "title": "End-user identifier",
-            "description": "End-user ID passed through to provider call."
-          },
-          "seed": {
-            "type": "integer",
-            "title": "Seed",
-            "description": "Deprecated field: the seed is instead set as part of the request.config object.",
-            "deprecated": true
-          },
-          "return_inputs": {
-            "type": "boolean",
-            "title": "Return inputs",
-            "description": "Whether to return the inputs in the response. If false, the response will contain an empty dictionary under inputs. This is useful for reducing the size of the response. Defaults to true.",
-            "default": true
-          },
-          "messages": {
-            "items": {
-              "$ref": "#/components/schemas/ChatMessageWithToolCall"
-            },
-            "type": "array",
-            "title": "Messages",
-            "description": "The messages passed to the to provider chat endpoint."
-          },
-          "tool_choice": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": ["none"]
-              },
-              {
-                "type": "string",
-                "enum": ["auto"]
-              },
-              {
-                "type": "string",
-                "enum": ["required"]
-              },
-              {
-                "$ref": "#/components/schemas/ToolChoice"
-              }
-            ],
-            "title": "Tool choice",
-            "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
-          },
-          "tool_call": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object"
-              }
-            ],
-            "title": "Tool call",
-            "description": "NB: Deprecated with new tool_choice. Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'name': <TOOL_NAME>} forces the model to use the provided tool of the same name.",
-            "deprecated": true
-          },
-          "response_format": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResponseFormat"
-              }
-            ],
-            "title": "Response format",
-            "description": "The format of the response. Only type json_object is currently supported for chat."
-          },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "If an experiment ID is provided a model configuration will be sampled from the experiments active model configurations."
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": ["messages", "experiment_id"],
-        "title": "ChatExperimentRequest",
-        "description": "Base chat request."
       },
       "ChatMessageWithToolCall": {
         "properties": {
@@ -4779,125 +4397,6 @@
         "title": "CompletionDeployedRequest",
         "description": "Completion request using the project's active deployment."
       },
-      "CompletionExperimentRequest": {
-        "properties": {
-          "project": {
-            "type": "string",
-            "title": "Project name",
-            "description": "Unique project name. If no project exists with this name, a new project will be created."
-          },
-          "project_id": {
-            "type": "string",
-            "title": "Project ID",
-            "description": "Unique ID of a project to associate to the log. Either this or `project` must be provided."
-          },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "ID of the session to associate the datapoint."
-          },
-          "session_reference_id": {
-            "type": "string",
-            "title": "Session Reference ID",
-            "description": "A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "ID associated to the parent datapoint in a session."
-          },
-          "parent_reference_id": {
-            "type": "string",
-            "title": "Parent Reference ID",
-            "description": "A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request."
-          },
-          "inputs": {
-            "type": "object",
-            "title": "Inputs",
-            "description": "The inputs passed to the prompt template.",
-            "default": {}
-          },
-          "source": {
-            "type": "string",
-            "title": "Source",
-            "description": "Identifies where the model was called from."
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "Any additional metadata to record."
-          },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
-          },
-          "source_datapoint_id": {
-            "type": "string",
-            "title": "Source datapoint ID",
-            "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
-          },
-          "provider_api_keys": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ProviderApiKeys"
-              }
-            ],
-            "title": "Provider API Keys",
-            "description": "API keys required by each provider to make API calls. The API keys provided here are not stored by Humanloop. If not specified here, Humanloop will fall back to the key saved to your organization."
-          },
-          "num_samples": {
-            "type": "integer",
-            "title": "Number of samples",
-            "description": "The number of chat responses, where each chat response will use a model configuration sampled from the experiment.",
-            "default": 1
-          },
-          "stream": {
-            "type": "boolean",
-            "title": "Whether to stream partial results",
-            "description": "If true, tokens will be sent as data-only server-sent events. If num_samples > 1, samples are streamed back independently.",
-            "default": false
-          },
-          "user": {
-            "type": "string",
-            "title": "End-user identifier",
-            "description": "End-user ID passed through to provider call."
-          },
-          "seed": {
-            "type": "integer",
-            "title": "Seed",
-            "description": "Deprecated field: the seed is instead set as part of the request.config object.",
-            "deprecated": true
-          },
-          "return_inputs": {
-            "type": "boolean",
-            "title": "Return inputs",
-            "description": "Whether to return the inputs in the response. If false, the response will contain an empty dictionary under inputs. This is useful for reducing the size of the response. Defaults to true.",
-            "default": true
-          },
-          "logprobs": {
-            "type": "integer",
-            "title": "Log probabilities of most likely n tokens",
-            "description": "Include the log probabilities of the top n tokens in the provider_response"
-          },
-          "suffix": {
-            "type": "string",
-            "title": "Completion suffix",
-            "description": "The suffix that comes after a completion of inserted text. Useful for completions that act like inserts."
-          },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "If an experiment ID is provided a model configuration will be sampled from the experiments active model configurations."
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": ["experiment_id"],
-        "title": "CompletionExperimentRequest",
-        "description": "Completion request for a specific experiment."
-      },
       "CompletionModelConfigRequest": {
         "properties": {
           "project": {
@@ -5281,11 +4780,11 @@
                   "type": "boolean"
                 },
                 {
-                  "type": "object"
-                },
-                {
                   "items": {},
                   "type": "array"
+                },
+                {
+                  "type": "object"
                 }
               ]
             },
@@ -5527,14 +5026,6 @@
             "title": "Project name",
             "description": "Unique project name."
           },
-          "feedback_types": {
-            "items": {
-              "$ref": "#/components/schemas/FeedbackTypeRequest"
-            },
-            "type": "array",
-            "title": "Feedback types",
-            "description": "Feedback types to be created."
-          },
           "directory_id": {
             "type": "string",
             "title": "Directory ID",
@@ -5675,11 +5166,11 @@
                   "type": "boolean"
                 },
                 {
-                  "type": "object"
-                },
-                {
                   "items": {},
                   "type": "array"
+                },
+                {
+                  "type": "object"
                 }
               ]
             },
@@ -5744,11 +5235,6 @@
             "title": "Model config ID",
             "description": "Model config unique identifier generated by Humanloop."
           },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "String ID of experiment. Starts with `exp_`."
-          },
           "environments": {
             "items": {
               "$ref": "#/components/schemas/EnvironmentRequest"
@@ -5759,6 +5245,7 @@
           }
         },
         "type": "object",
+        "required": ["config_id"],
         "title": "EnvironmentProjectConfigRequest"
       },
       "EnvironmentProjectConfigResponse": {
@@ -5782,16 +5269,6 @@
             "type": "string",
             "title": "Model config name",
             "description": "A friendly display name for the model config."
-          },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "String ID of experiment. Starts with `exp_`."
-          },
-          "experiment_name": {
-            "type": "string",
-            "title": "Experiment Display name",
-            "description": "Display name of experiment."
           },
           "environment_id": {
             "type": "string",
@@ -5902,9 +5379,6 @@
             },
             "type": "array",
             "title": "Evaluator Aggregates"
-          },
-          "feedback_aggregates": {
-            "$ref": "#/components/schemas/FeedbackAggregateResponse"
           }
         },
         "type": "object",
@@ -5959,6 +5433,15 @@
               },
               {
                 "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             ],
             "title": "Value"
@@ -5994,7 +5477,7 @@
       },
       "EvaluationStatus": {
         "type": "string",
-        "enum": ["pending", "running", "completed", "cancelled", "failed"],
+        "enum": ["pending", "running", "completed", "cancelled"],
         "title": "EvaluationStatus",
         "description": "Status of an evaluation."
       },
@@ -6183,7 +5666,7 @@
       },
       "EvaluatorReturnTypeEnum": {
         "type": "string",
-        "enum": ["boolean", "number"],
+        "enum": ["boolean", "number", "select", "multi_select", "text"],
         "title": "EvaluatorReturnTypeEnum",
         "description": "Enum representing the possible return types of an evaluator."
       },
@@ -6191,151 +5674,6 @@
         "type": "string",
         "enum": ["python", "llm", "human", "external"],
         "title": "EvaluatorType",
-        "description": "An enumeration."
-      },
-      "ExperimentConfigResponse": {
-        "properties": {
-          "mean": {
-            "type": "number",
-            "title": "Mean of experiment's metric",
-            "description": "The mean performance of the model config."
-          },
-          "spread": {
-            "type": "number",
-            "title": "Spread of experiment's metric",
-            "description": "The spread of performance of the model config."
-          },
-          "trials_count": {
-            "type": "integer",
-            "title": "Trials count",
-            "description": "Number of datapoints with feedback associated to the experiment."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Model config active",
-            "description": "Whether the model config is active in the experiment. Only active model configs can be sampled from the experiment."
-          },
-          "id": {
-            "type": "string",
-            "title": "Model config ID",
-            "description": "String ID of model config. Starts with `config_`."
-          },
-          "display_name": {
-            "type": "string",
-            "title": "Display name",
-            "description": "Display name of model config. If this is not set by the user, a friendly name is generated."
-          },
-          "config": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ConfigResponse"
-              }
-            ],
-            "title": "Config",
-            "description": "Definition of the config used in the experiment."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "trials_count",
-          "active",
-          "id",
-          "display_name",
-          "config",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentConfigResponse"
-      },
-      "ExperimentResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "String ID of experiment. Starts with `exp_`."
-          },
-          "project_id": {
-            "type": "string",
-            "title": "Project ID",
-            "description": "String ID of project the experiment belongs to. Starts with `pr_`."
-          },
-          "name": {
-            "type": "string",
-            "title": "Experiment name",
-            "description": "Name of experiment."
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ExperimentStatus"
-              }
-            ],
-            "title": "Experiment status",
-            "description": "Status of experiment."
-          },
-          "configs": {
-            "items": {
-              "$ref": "#/components/schemas/ExperimentConfigResponse"
-            },
-            "type": "array",
-            "title": "Experiment configs",
-            "description": "List of configs associated to the experiment."
-          },
-          "metric": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BaseMetricResponse"
-              }
-            ],
-            "title": "Experiment metric",
-            "description": "Metric used as the experiment's objective."
-          },
-          "positive_labels": {
-            "items": {
-              "$ref": "#/components/schemas/PositiveLabel"
-            },
-            "type": "array",
-            "title": "Positive labels",
-            "description": "Feedback labels to treat as positive user feedback. Used to monitor the performance of model configs in the experiment."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "project_id",
-          "name",
-          "status",
-          "metric",
-          "positive_labels",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentResponse"
-      },
-      "ExperimentStatus": {
-        "type": "string",
-        "enum": ["Initialized", "In progress"],
-        "title": "ExperimentStatus",
         "description": "An enumeration."
       },
       "Feedback": {
@@ -6355,7 +5693,16 @@
           "value": {
             "anyOf": [
               {
+                "type": "boolean"
+              },
+              {
                 "type": "number"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               },
               {
                 "type": "string"
@@ -6385,26 +5732,6 @@
         "required": ["type", "value"],
         "title": "Feedback"
       },
-      "FeedbackAggregateResponse": {
-        "items": {
-          "anyOf": [
-            {
-              "$ref": "#/components/schemas/FeedbackSelectAggregate"
-            },
-            {
-              "$ref": "#/components/schemas/FeedbackMultiSelectAggregate"
-            },
-            {
-              "$ref": "#/components/schemas/FeedbackTextAggregate"
-            },
-            {
-              "$ref": "#/components/schemas/FeedbackNumberAggregate"
-            }
-          ]
-        },
-        "type": "array",
-        "title": "FeedbackAggregateResponse"
-      },
       "FeedbackClass": {
         "type": "string",
         "enum": ["select", "multi_select", "text", "number"],
@@ -6425,44 +5752,6 @@
         "required": ["value"],
         "title": "FeedbackLabelRequest"
       },
-      "FeedbackMultiSelectAggregate": {
-        "properties": {
-          "feedback_type": {
-            "$ref": "#/components/schemas/FeedbackTypeModel"
-          },
-          "values": {
-            "additionalProperties": {
-              "type": "integer"
-            },
-            "type": "object",
-            "title": "Feedback values",
-            "description": "The number of times each value exists in the aggregation."
-          },
-          "total": {
-            "type": "integer",
-            "title": "Total",
-            "description": "The total number of feedbacks provided."
-          }
-        },
-        "type": "object",
-        "required": ["feedback_type", "values", "total"],
-        "title": "FeedbackMultiSelectAggregate"
-      },
-      "FeedbackNumberAggregate": {
-        "properties": {
-          "feedback_type": {
-            "$ref": "#/components/schemas/FeedbackTypeModel"
-          },
-          "mean": {
-            "type": "number",
-            "title": "Mean",
-            "description": "The mean of all feedback values."
-          }
-        },
-        "type": "object",
-        "required": ["feedback_type", "mean"],
-        "title": "FeedbackNumberAggregate"
-      },
       "FeedbackRequest": {
         "properties": {
           "type": {
@@ -6478,7 +5767,23 @@
             "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
           },
           "value": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Feedback value",
             "description": "The feedback value to be set. This field should be left blank when unsetting 'rating', 'correction' or 'comment', but is required otherwise."
           },
@@ -6525,7 +5830,16 @@
           "value": {
             "anyOf": [
               {
+                "type": "boolean"
+              },
+              {
                 "type": "number"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               },
               {
                 "type": "string"
@@ -6559,39 +5873,6 @@
         "type": "object",
         "required": ["type", "value", "id"],
         "title": "FeedbackResponse"
-      },
-      "FeedbackSelectAggregate": {
-        "properties": {
-          "feedback_type": {
-            "$ref": "#/components/schemas/FeedbackTypeModel"
-          },
-          "values": {
-            "additionalProperties": {
-              "type": "integer"
-            },
-            "type": "object",
-            "title": "Feedback values",
-            "description": "The number of times each value exists in the aggregation."
-          },
-          "total": {
-            "type": "integer",
-            "title": "Total",
-            "description": "The total number of feedbacks provided."
-          }
-        },
-        "type": "object",
-        "required": ["feedback_type", "values", "total"],
-        "title": "FeedbackSelectAggregate"
-      },
-      "FeedbackTextAggregate": {
-        "properties": {
-          "feedback_type": {
-            "$ref": "#/components/schemas/FeedbackTypeModel"
-          }
-        },
-        "type": "object",
-        "required": ["feedback_type"],
-        "title": "FeedbackTextAggregate"
       },
       "FeedbackType": {
         "type": "string",
@@ -6633,14 +5914,6 @@
             "title": "Feedback type",
             "description": "The type of feedback to update."
           },
-          "values": {
-            "items": {
-              "$ref": "#/components/schemas/FeedbackLabelRequest"
-            },
-            "type": "array",
-            "title": "Feedback label values",
-            "description": "The feedback values to be available. This field should only be populated when updating a 'select' or 'multi_select' feedback class."
-          },
           "class": {
             "allOf": [
               {
@@ -6648,11 +5921,19 @@
               }
             ],
             "title": "Feedback class",
-            "description": "The data type associated to this feedback type; whether it is a 'text'/'select'/'multi_select'. This is optional when updating the default feedback types (i.e. when `type` is 'rating', 'action' or 'issue')."
+            "description": "The data type associated to this feedback type; whether it is a 'text'/'select'/'multi_select'."
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/FeedbackLabelRequest"
+            },
+            "type": "array",
+            "title": "Feedback label values",
+            "description": "The feedback values to be available. This field should only be populated when updating a 'select' or 'multi_select' feedback class."
           }
         },
         "type": "object",
-        "required": ["type"],
+        "required": ["type", "class"],
         "title": "FeedbackTypeRequest"
       },
       "FeedbackTypes": {
@@ -6769,23 +6050,10 @@
             "format": "date-time",
             "title": "Last Used"
           },
-          "feedback_stats": {
-            "items": {
-              "$ref": "#/components/schemas/ProjectModelConfigFeedbackStatsResponse"
-            },
-            "type": "array",
-            "title": "Feedback statistics",
-            "description": "Feedback statistics for the project model config."
-          },
           "num_datapoints": {
             "type": "integer",
             "title": "Number of datapoints",
             "description": "Number of datapoints associated with this project model config."
-          },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "The ID of the experiment the model config has been registered to. Only populated when registering a model config to an experiment."
           },
           "evaluation_aggregates": {
             "items": {
@@ -6797,11 +6065,6 @@
           },
           "config": {
             "$ref": "#/components/schemas/ConfigResponse"
-          },
-          "trial_id": {
-            "type": "string",
-            "title": "Trial ID",
-            "description": "ID of trial to reference in subsequent log calls."
           },
           "environment_id": {
             "type": "string",
@@ -6819,7 +6082,7 @@
           "config"
         ],
         "title": "GetModelConfigResponse",
-        "description": "A selected model configuration.\n\nIf the model configuration was selected in the context of an experiment,\nthe response will include a trial_id to associate a subsequent log() call."
+        "description": "A selected model configuration."
       },
       "HTTPValidationError": {
         "properties": {
@@ -6902,6 +6165,11 @@
             "title": "Tool description",
             "description": "The description of the linked tool."
           },
+          "strict": {
+            "type": "boolean",
+            "title": "Strict",
+            "description": "Whether the tool is strict or not. If strict, the model will be forced to respond with JSON matching the parameters schema."
+          },
           "parameters": {
             "type": "object",
             "title": "Tool parameters",
@@ -6976,11 +6244,6 @@
             "title": "Reference ID",
             "description": "A unique string to reference the datapoint. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a subsequent log request."
           },
-          "trial_id": {
-            "type": "string",
-            "title": "Trial ID",
-            "description": "Unique ID of an experiment trial to associate to the log."
-          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessageWithToolCall"
@@ -7001,6 +6264,15 @@
               },
               {
                 "type": "number"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
               }
             ],
             "title": "Judgment"
@@ -7020,7 +6292,7 @@
               }
             ],
             "title": "Config",
-            "description": "The model config used for this generation. Required unless `config_id` or `trial_id` is provided.",
+            "description": "The model config used for this generation. Required unless `config_id` is provided.",
             "discriminator": {
               "propertyName": "type",
               "mapping": {
@@ -7183,11 +6455,6 @@
             "title": "Reference ID",
             "description": "Unique user-provided string identifying the datapoint."
           },
-          "trial_id": {
-            "type": "string",
-            "title": "Trial ID",
-            "description": "Unique ID of an experiment trial to associate to the log."
-          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessageWithToolCall"
@@ -7208,6 +6475,15 @@
               },
               {
                 "type": "number"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
               }
             ],
             "title": "Judgment"
@@ -7317,13 +6593,6 @@
             "title": "Finish reason",
             "description": "Reason the generation finished."
           },
-          "metric_values": {
-            "items": {
-              "$ref": "#/components/schemas/MetricValueResponse"
-            },
-            "type": "array",
-            "title": "Metric Values"
-          },
           "tools": {
             "items": {
               "$ref": "#/components/schemas/ToolResultResponse"
@@ -7386,25 +6655,6 @@
         ],
         "title": "LogResponse",
         "description": "Request model for logging a datapoint."
-      },
-      "MetricValueResponse": {
-        "properties": {
-          "metric_id": {
-            "type": "string",
-            "title": "Metric Id"
-          },
-          "metric_name": {
-            "type": "string",
-            "title": "Metric Name"
-          },
-          "metric_value": {
-            "type": "number",
-            "title": "Metric Value"
-          }
-        },
-        "type": "object",
-        "required": ["metric_id", "metric_name", "metric_value"],
-        "title": "MetricValueResponse"
       },
       "ModelConfigChatRequest": {
         "properties": {
@@ -7977,6 +7227,11 @@
             "title": "Tool description",
             "description": "The description of the tool shown to the model."
           },
+          "strict": {
+            "type": "boolean",
+            "title": "Strict",
+            "description": "Whether the tool is strict or not. If strict, the model will be forced to respond with JSON matching the parameters schema."
+          },
           "parameters": {
             "type": "object",
             "title": "Schema of tool arguments.",
@@ -8201,21 +7456,6 @@
         "title": "PlatformAccessEnum",
         "description": "An enumeration."
       },
-      "PositiveLabel": {
-        "properties": {
-          "type": {
-            "type": "string",
-            "title": "Feedback type"
-          },
-          "value": {
-            "type": "string",
-            "title": "Feedback value"
-          }
-        },
-        "type": "object",
-        "required": ["type", "value"],
-        "title": "PositiveLabel"
-      },
       "ProjectConfigResponse": {
         "properties": {
           "project_id": {
@@ -8243,23 +7483,10 @@
             "format": "date-time",
             "title": "Last Used"
           },
-          "feedback_stats": {
-            "items": {
-              "$ref": "#/components/schemas/ProjectModelConfigFeedbackStatsResponse"
-            },
-            "type": "array",
-            "title": "Feedback statistics",
-            "description": "Feedback statistics for the project model config."
-          },
           "num_datapoints": {
             "type": "integer",
             "title": "Number of datapoints",
             "description": "Number of datapoints associated with this project model config."
-          },
-          "experiment_id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "The ID of the experiment the model config has been registered to. Only populated when registering a model config to an experiment."
           },
           "evaluation_aggregates": {
             "items": {
@@ -8295,34 +7522,6 @@
         "type": "object",
         "required": ["name"],
         "title": "ProjectInputResponse"
-      },
-      "ProjectModelConfigFeedbackStatsResponse": {
-        "properties": {
-          "feedback_type_id": {
-            "type": "integer",
-            "title": "Feedback Type Id"
-          },
-          "feedback_type": {
-            "type": "string",
-            "title": "Feedback Type"
-          },
-          "feedback_value": {
-            "type": "string",
-            "title": "Feedback Value"
-          },
-          "feedback_count": {
-            "type": "integer",
-            "title": "Feedback Count"
-          }
-        },
-        "type": "object",
-        "required": [
-          "feedback_type_id",
-          "feedback_type",
-          "feedback_value",
-          "feedback_count"
-        ],
-        "title": "ProjectModelConfigFeedbackStatsResponse"
       },
       "ProjectModelConfigRequest": {
         "properties": {
@@ -8426,11 +7625,6 @@
             "title": "Project ID",
             "description": "Unique project ID"
           },
-          "experiment": {
-            "type": "string",
-            "title": "Experiment name",
-            "description": "If specified, the model config will be added to this experiment. Experiments are used for A/B testing and optimizing hyperparameters."
-          },
           "prompt_template": {
             "type": "string",
             "title": "Prompt template",
@@ -8488,15 +7682,6 @@
             "title": "Project name",
             "description": "Unique project name."
           },
-          "active_experiment": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ExperimentResponse"
-              }
-            ],
-            "title": "Active experiment",
-            "description": "Experiment that has been set as the project's active deployment. At most one of active_experiment and active_model_config can be set."
-          },
           "active_config": {
             "allOf": [
               {
@@ -8504,7 +7689,7 @@
               }
             ],
             "title": "Active config",
-            "description": "Config that has been set as the project's active deployment. At most one of active_experiment and active_model_config can be set."
+            "description": "Config that has been set as the project's active deployment."
           },
           "users": {
             "items": {
@@ -8638,9 +7823,22 @@
       "ResponseFormat": {
         "properties": {
           "type": {
-            "type": "string",
-            "enum": ["json_object"],
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["json_object"]
+              },
+              {
+                "type": "string",
+                "enum": ["json_schema"]
+              }
+            ],
             "title": "Type"
+          },
+          "json_schema": {
+            "type": "object",
+            "title": "JSON Schema",
+            "description": "The JSON schema of the response format if type is json_schema."
           }
         },
         "type": "object",
@@ -8801,6 +7999,11 @@
             "type": "string",
             "title": "Tool description",
             "description": "The description of the tool shown to the model."
+          },
+          "strict": {
+            "type": "boolean",
+            "title": "Strict",
+            "description": "Whether the tool is strict or not. If strict, the model will be forced to respond with JSON matching the parameters schema."
           },
           "parameters": {
             "type": "object",
@@ -9106,23 +8309,10 @@
             "title": "Project name",
             "description": "The new unique project name. Caution, if you are using the project name as the unique identifier in your API calls, changing the name will break the calls."
           },
-          "active_experiment_id": {
-            "type": "string",
-            "title": "Active experiment ID",
-            "description": "ID for an experiment to set as the project's active deployment. Starts with 'exp_'. At most one of 'active_experiment_id' and 'active_model_config_id' can be set."
-          },
           "active_config_id": {
             "type": "string",
             "title": "Active config ID",
-            "description": "ID for a config to set as the project's active deployment. Starts with 'config_'. At most one of 'active_experiment_id' and 'active_config_id' can be set."
-          },
-          "positive_labels": {
-            "items": {
-              "$ref": "#/components/schemas/PositiveLabel"
-            },
-            "type": "array",
-            "title": "List of feedback labels to consider as positive actions",
-            "description": "The full list of labels to treat as positive user feedback."
+            "description": "ID for a config to set as the project's active deployment. Starts with 'config_'. "
           },
           "directory_id": {
             "type": "string",
