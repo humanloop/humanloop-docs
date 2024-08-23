@@ -635,12 +635,6 @@
         "x-fern-sdk-method-name": "deactivate"
       }
     },
-    "/projects/{id}/active-experiment": {
-      "delete": {
-        "x-fern-sdk-group-name": "projects",
-        "x-fern-sdk-method-name": "deactivate_experiment"
-      }
-    },
     "/projects/{id}/feedback-types": {
       "post": {
         "x-fern-sdk-group-name": "projects",
