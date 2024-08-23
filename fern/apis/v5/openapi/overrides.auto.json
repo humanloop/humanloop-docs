@@ -2405,7 +2405,8 @@
                       "model": "gpt-4",
                       "version_logs_count": 1,
                       "total_logs_count": 1,
-                      "inputs": [{ "name": "question" }]
+                      "inputs": [{ "name": "question" }],
+                      "evaluator_logs": []
                     }
                   }
                 ]
@@ -2438,7 +2439,8 @@
                   "model": "gpt-4",
                   "version_logs_count": 1,
                   "total_logs_count": 1,
-                  "inputs": [{ "name": "question" }]
+                  "inputs": [{ "name": "question" }],
+                  "evaluator_logs": []
                 }
               }
             }
@@ -2477,7 +2479,8 @@
                           "model": "gpt-4",
                           "version_logs_count": 1,
                           "total_logs_count": 1,
-                          "inputs": [{ "name": "question" }]
+                          "inputs": [{ "name": "question" }],
+                          "evaluator_logs": []
                         }
                       }
                     ]
@@ -2528,7 +2531,8 @@
                       "model": "gpt-4",
                       "version_logs_count": 1,
                       "total_logs_count": 1,
-                      "inputs": [{ "name": "question" }]
+                      "inputs": [{ "name": "question" }],
+                      "evaluator_logs": []
                     }
                   }
                 ]
