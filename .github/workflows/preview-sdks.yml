@@ -18,7 +18,7 @@ jobs:
       - name: Download Fern
         run: npm install -g fern-api
 
-      - name: Release Branch SDKs
+      - name: Generate Preview
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
@@ -49,7 +49,7 @@ jobs:
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
-          fern generate --group production-python --mode pull-request --log-level debug
+          fern generate --api v5 --group python-sdk --preview --log-level debug
     
       - name: Set up python
         uses: actions/setup-python@v4
