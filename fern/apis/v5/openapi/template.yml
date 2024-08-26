@@ -663,7 +663,8 @@ paths:
                 - id: "sesh_456hij"
                   created_at: "2024-05-01T12:00:00Z"
                   updated_at: "2024-05-01T12:00:00Z"
-                  logs: [<< prompt_log_object >>]
+                  events: [<< session_event_response >>]
+                  logs_count: 1
               page: 1
               size: 11
               total: 1
@@ -684,7 +685,8 @@ paths:
               id: "sesh_456hij"
               created_at: "2024-05-01T12:00:00Z"
               updated_at: "2024-05-01T12:00:00Z"
-              logs: [<< prompt_log_object >>]
+              events: [<< session_event_response >>]
+              logs_count: 1
 
   # DIRECTORIES
 # TODO: Endpoint needs to be cleaned up before exposing publically

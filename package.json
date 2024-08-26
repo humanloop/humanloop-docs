@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "fern docs dev || npm run dev",
     "check": "fern check",
-    "watch": "node ./scripts/populate_template.js && chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/*.auto.json' -c 'node ./scripts/populate_template.js && npm run check'",
+    "watch": "npm run watch-template",
+    "watch-template": "node ./scripts/populate_template.js && chokidar 'fern/apis/v5/openapi/**/*' --ignore 'fern/apis/v5/openapi/*.auto.json' -c 'node ./scripts/populate_template.js && npm run check'",
+    "watch-assets": "npm run optimize-assets && chokidar 'fern/assets/**/*' -c 'npm run optimize-assets'",
     "fetch": "node ./scripts/sync_openapi.js",
     "sync": "npm run fetch && concurrently \"npm run dev\" \"npm run watch\"",
     "optimize-assets": "node ./scripts/optimize_assets.js"

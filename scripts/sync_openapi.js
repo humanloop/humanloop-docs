@@ -4,7 +4,7 @@ import path from "path";
 import prettier from "prettier";
 import { fileURLToPath } from "url";
 
-const API_URL = process.env.API_URL || "http://localhost:80";
+const API_URL = process.env.API_URL || "http://127.0.0.1:80";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "..");

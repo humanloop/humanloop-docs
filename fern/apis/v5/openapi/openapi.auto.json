@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -1128,7 +1128,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -1223,7 +1223,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -1365,7 +1365,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -1421,7 +1421,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -1491,7 +1491,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                  "$ref": "#/components/schemas/ToolResponse"
                 }
               }
             }
@@ -3538,7 +3538,7 @@
       "post": {
         "tags": ["Evaluators"],
         "summary": "Log",
-        "description": "Submit evalutor judgment for an existing Log. Creates a new Log and makes evaluated one its parent.",
+        "description": "Submit Evaluator judgment for an existing Log.\n\nCreates a new Log. The evaluated Log will be set as the parent of the created Log.",
         "operationId": "log_evaluators_log_post",
         "parameters": [
           {
@@ -3718,6 +3718,18 @@
             },
             "name": "end_date",
             "in": "query"
+          },
+          {
+            "description": "If true, include the full parent Log in the response. Only applicable when retrieving Evaluator Logs.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "Include parent Log",
+              "description": "If true, include the full parent Log in the response. Only applicable when retrieving Evaluator Logs.",
+              "default": false
+            },
+            "name": "include_parent",
+            "in": "query"
           }
         ],
         "responses": {
@@ -3816,7 +3828,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+                  "$ref": "#/components/schemas/LogResponse"
                 }
               }
             }
@@ -4014,138 +4026,6 @@
   },
   "components": {
     "schemas": {
-      "AgentConfigResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "String ID of config. Starts with `config_`."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["agent"],
-            "title": "Type"
-          },
-          "created_by": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
-              }
-            ],
-            "title": "Created by",
-            "description": "The user who created the config."
-          },
-          "status": {
-            "type": "string",
-            "title": "Status",
-            "description": "Whether the config is committed or not."
-          },
-          "name": {
-            "type": "string",
-            "title": "Config name",
-            "description": "Name of config."
-          },
-          "description": {
-            "type": "string",
-            "title": "Config description",
-            "description": "Description of config."
-          },
-          "agent_class": {
-            "type": "string",
-            "title": "Agent class",
-            "description": "Class of the agent."
-          },
-          "tools": {
-            "items": {
-              "$ref": "#/components/schemas/ToolConfigRequest"
-            },
-            "type": "array",
-            "title": "Tools",
-            "description": "Tools associated with the agent.",
-            "default": []
-          },
-          "model_config": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelConfigRequest"
-              }
-            ],
-            "title": "Model config",
-            "description": "Model config associated with the agent."
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "type",
-          "status",
-          "name",
-          "agent_class",
-          "model_config"
-        ],
-        "title": "AgentConfigResponse"
-      },
-      "BaseMetricResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Metric ID",
-            "description": "ID of the metric. Starts with 'metric_'."
-          },
-          "name": {
-            "type": "string",
-            "title": "Metric name",
-            "description": "The name of the metric."
-          },
-          "description": {
-            "type": "string",
-            "title": "Metric description",
-            "description": "A description of what the metric measures."
-          },
-          "code": {
-            "type": "string",
-            "title": "Metric code",
-            "description": "Python code used to calculate a metric value on each logged datapoint."
-          },
-          "default": {
-            "type": "boolean",
-            "title": "Metric default flag",
-            "description": "Whether the metric is a global default metric. Metrics with this flag enabled cannot be deleted or modified."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Metric active flag",
-            "description": "If enabled, the metric is calculated for every logged datapoint."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "description",
-          "code",
-          "default",
-          "active",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "BaseMetricResponse"
-      },
       "Body_update_status_evaluations__id__status_patch": {
         "properties": {
           "status": {
@@ -4225,35 +4105,6 @@
         "title": "BooleanEvaluatorVersionStats",
         "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report."
       },
-      "CategoricalFeedbackLabel": {
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "Label value"
-          },
-          "sentiment": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LabelSentiment"
-              }
-            ],
-            "title": "Feedback label sentiment",
-            "description": "Whether the feedback sentiment is positive or negative."
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FeedbackLabelStatus"
-              }
-            ],
-            "title": "Feedback label status",
-            "description": "Whether the feedback label is active or inactive."
-          }
-        },
-        "type": "object",
-        "required": ["value", "sentiment", "status"],
-        "title": "CategoricalFeedbackLabel"
-      },
       "ChatMessage": {
         "properties": {
           "content": {
@@ -4314,77 +4165,6 @@
         "required": ["role"],
         "title": "ChatMessage"
       },
-      "ChatMessageWithToolCall": {
-        "properties": {
-          "content": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/TextChatContent"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ImageChatContent"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            ],
-            "title": "Content",
-            "description": "The content of the message.",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Optional name of the message author.",
-            "nullable": true
-          },
-          "tool_call_id": {
-            "type": "string",
-            "title": "Tool call id",
-            "description": "Tool call that this message is responding to.",
-            "nullable": true
-          },
-          "role": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ChatRole"
-              }
-            ],
-            "title": "Role",
-            "description": "Role of the message author."
-          },
-          "tool_calls": {
-            "items": {
-              "$ref": "#/components/schemas/ToolCall"
-            },
-            "type": "array",
-            "title": "Tool calls",
-            "description": "A list of tool calls requested by the assistant.",
-            "nullable": true
-          },
-          "tool_call": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FunctionTool"
-              }
-            ],
-            "title": "Tool call",
-            "description": "NB: Deprecated in favour of tool_calls. A tool call requested by the assistant.",
-            "deprecated": true,
-            "nullable": true
-          }
-        },
-        "type": "object",
-        "required": ["role"],
-        "title": "ChatMessageWithToolCall"
-      },
       "ChatRole": {
         "type": "string",
         "enum": ["user", "assistant", "system", "tool"],
@@ -4425,7 +4205,7 @@
           }
         },
         "type": "object",
-        "required": ["arguments_type", "return_type"],
+        "required": ["arguments_type", "return_type", "code"],
         "title": "CodeEvaluatorRequest"
       },
       "CommitRequest": {
@@ -4439,36 +4219,6 @@
         "type": "object",
         "required": ["commit_message"],
         "title": "CommitRequest"
-      },
-      "ConfigResponse": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ModelConfigResponse"
-          },
-          {
-            "$ref": "#/components/schemas/ToolConfigResponse"
-          },
-          {
-            "$ref": "#/components/schemas/EvaluatorConfigResponse"
-          },
-          {
-            "$ref": "#/components/schemas/AgentConfigResponse"
-          },
-          {
-            "$ref": "#/components/schemas/GenericConfigResponse"
-          }
-        ],
-        "title": "ConfigResponse",
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "model": "#/components/schemas/ModelConfigResponse",
-            "tool": "#/components/schemas/ToolConfigResponse",
-            "evaluator": "#/components/schemas/EvaluatorConfigResponse",
-            "agent": "#/components/schemas/AgentConfigResponse",
-            "generic": "#/components/schemas/GenericConfigResponse"
-          }
-        }
       },
       "CreateDatapointRequest": {
         "properties": {
@@ -4505,11 +4255,11 @@
                   "type": "boolean"
                 },
                 {
-                  "type": "object"
-                },
-                {
                   "items": {},
                   "type": "array"
+                },
+                {
+                  "type": "object"
                 }
               ]
             },
@@ -4537,9 +4287,8 @@
               "$ref": "#/components/schemas/EvaluateeRequest"
             },
             "type": "array",
-            "minItems": 1,
             "title": "Evaluated Version IDs",
-            "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation Report."
+            "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation Report. Can be left unpopulated if you wish to add evaluatees to this Evaluation Report by specifying `evaluation_id` in Log calls."
           },
           "evaluators": {
             "items": {
@@ -4551,7 +4300,7 @@
           }
         },
         "type": "object",
-        "required": ["dataset", "evaluatees", "evaluators"],
+        "required": ["dataset", "evaluators"],
         "title": "CreateEvaluationRequest",
         "description": "Request model for creating an Evaluation.\n\nEvaluation benchmark your Prompt/Tool Versions. With the Datapoints in a Dataset Version,\nLogs corresponding to the Datapoint and each Evaluated Version are evaluated by the specified Evaluator Versions.\nAggregated statistics are then calculated and presented in the Evaluation."
       },
@@ -4587,6 +4336,11 @@
             "type": "number",
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
           },
           "provider_request": {
             "type": "object",
@@ -4654,6 +4408,23 @@
             "description": "The name of the Environment the Log is associated to."
           },
           "judgment": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "Judgment Value",
             "description": "Evaluator assessment of the Log."
           },
@@ -4818,11 +4589,11 @@
                   "type": "boolean"
                 },
                 {
-                  "type": "object"
-                },
-                {
                   "items": {},
                   "type": "array"
+                },
+                {
+                  "type": "object"
                 }
               ]
             },
@@ -4894,7 +4665,7 @@
           "created_by": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+                "$ref": "#/components/schemas/UserResponse"
               }
             ],
             "title": "Created by",
@@ -4983,7 +4754,7 @@
             "$ref": "#/components/schemas/PromptResponse"
           },
           {
-            "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+            "$ref": "#/components/schemas/ToolResponse"
           },
           {
             "$ref": "#/components/schemas/EvaluatorResponse"
@@ -4995,8 +4766,23 @@
         "properties": {
           "version_id": {
             "type": "string",
-            "title": "Prompt/Tool Version ID",
-            "description": "Unique identifier for the Prompt/Tool Version to include in the Evaluation Report. Starts with `pv_` for Prompts and `tv_` for Tools."
+            "title": "Version ID",
+            "description": "Unique identifier for the File Version. If provided, none of the other fields should be specified."
+          },
+          "path": {
+            "type": "string",
+            "title": "File path",
+            "description": "Path identifying a File. Provide either this or `file_id` if you want to specify a File."
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "Unique identifier for the File. Provide either this or `path` if you want to specify a File."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "Name of the Environment a Version is deployed to. Only provide this when specifying a File. If not provided (and a File is specified), the default Environment is used."
           },
           "batch_id": {
             "type": "string",
@@ -5011,8 +4797,8 @@
           }
         },
         "type": "object",
-        "required": ["version_id"],
-        "title": "EvaluateeRequest"
+        "title": "EvaluateeRequest",
+        "description": "Specification of a File version on Humanloop.\n\nThis can be done in a couple of ways:\n- Specifying `version_id` directly.\n- Specifying a File (and optionally an Environment).\n    - A File can be specified by either `path` or `file_id`.\n    - An Environment can be specified by `environment_id`. If no Environment is specified, the default Environment is used."
       },
       "EvaluateeResponse": {
         "properties": {
@@ -5073,7 +4859,7 @@
           "log": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+                "$ref": "#/components/schemas/LogResponse"
               }
             ],
             "title": "Log",
@@ -5081,7 +4867,7 @@
           },
           "evaluator_logs": {
             "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+              "$ref": "#/components/schemas/LogResponse"
             },
             "type": "array",
             "title": "Evaluator Logs",
@@ -5139,12 +4925,17 @@
             "title": "Created At"
           },
           "created_by": {
-            "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+            "$ref": "#/components/schemas/UserResponse"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
             "title": "Updated At"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL",
+            "description": "URL to view the Evaluation on the Humanloop."
           }
         },
         "type": "object",
@@ -5158,78 +4949,6 @@
           "updated_at"
         ],
         "title": "EvaluationResponse"
-      },
-      "EvaluationResultResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "evaluator_id": {
-            "type": "string",
-            "title": "Evaluator Id"
-          },
-          "evaluator_version_id": {
-            "type": "string",
-            "title": "Evaluator Version Id"
-          },
-          "evaluation_id": {
-            "type": "string",
-            "title": "Evaluation Id"
-          },
-          "log_id": {
-            "type": "string",
-            "title": "Log Id"
-          },
-          "log": {
-            "$ref": "#/components/schemas/src__external__app__models__v4__log__LogResponse"
-          },
-          "version_id": {
-            "type": "string",
-            "title": "Version Id"
-          },
-          "version": {
-            "title": "Version"
-          },
-          "value": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Value"
-          },
-          "error": {
-            "type": "string",
-            "title": "Error"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "evaluator_log": {
-            "$ref": "#/components/schemas/src__external__app__models__v4__log__LogResponse"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "evaluator_id",
-          "evaluator_version_id",
-          "log_id",
-          "updated_at",
-          "created_at"
-        ],
-        "title": "EvaluationResultResponse"
       },
       "EvaluationStats": {
         "properties": {
@@ -5257,7 +4976,7 @@
       },
       "EvaluationStatus": {
         "type": "string",
-        "enum": ["pending", "running", "completed", "cancelled", "failed"],
+        "enum": ["pending", "running", "completed", "cancelled"],
         "title": "EvaluationStatus",
         "description": "Status of an evaluation."
       },
@@ -5341,88 +5060,48 @@
         "title": "EvaluatorArgumentsType",
         "description": "Enum representing the possible argument types of an evaluator."
       },
-      "EvaluatorConfigResponse": {
+      "EvaluatorJudgmentNumberLimit": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "String ID of config. Starts with `config_`."
+          "min": {
+            "type": "number",
+            "title": "Minimum",
+            "description": "The minimum value that can be selected."
           },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
+          "max": {
+            "type": "number",
+            "title": "Maximum",
+            "description": "The maximum value that can be selected."
           },
-          "type": {
-            "type": "string",
-            "enum": ["evaluator"],
-            "title": "Type"
-          },
-          "created_by": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
-              }
-            ],
-            "title": "Created by",
-            "description": "The user who created the config."
-          },
-          "status": {
-            "type": "string",
-            "title": "Status",
-            "description": "Whether the config is committed or not."
-          },
-          "name": {
-            "type": "string",
-            "title": "Config name",
-            "description": "Name of config."
-          },
-          "description": {
-            "type": "string",
-            "title": "Config description",
-            "description": "Description of config."
-          },
-          "evaluator_type": {
-            "type": "string",
-            "title": "Evaluator type",
-            "description": "Type of evaluator."
-          },
-          "model_config": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelConfigResponse"
-              }
-            ],
-            "title": "Model config",
-            "description": "The model config defining the LLM evaluator."
-          },
-          "code": {
-            "type": "string",
-            "title": "Code",
-            "description": "The code for the evaluator. This code will be executed in a sandboxed environment."
-          },
-          "arguments_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EvaluatorArgumentsType"
-              }
-            ],
-            "title": "Arguments type",
-            "description": "Whether this evaluator is target-free or target-required."
-          },
-          "return_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
-              }
-            ],
-            "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+          "step": {
+            "type": "number",
+            "title": "Step",
+            "description": "The step size for the number input."
           }
         },
         "type": "object",
-        "required": ["id", "type", "status", "name", "evaluator_type"],
-        "title": "EvaluatorConfigResponse"
+        "title": "EvaluatorJudgmentNumberLimit"
+      },
+      "EvaluatorJudgmentOptionResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "The name of the option."
+          },
+          "valence": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Valence"
+              }
+            ],
+            "title": "Valence",
+            "description": "Whether this option should be considered positive or negative.",
+            "default": "neutral"
+          }
+        },
+        "type": "object",
+        "required": ["name"],
+        "title": "EvaluatorJudgmentOptionResponse"
       },
       "EvaluatorLogResponse": {
         "properties": {
@@ -5446,6 +5125,11 @@
             "type": "number",
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
           },
           "provider_request": {
             "type": "object",
@@ -5513,6 +5197,23 @@
             "description": "The name of the Environment the Log is associated to."
           },
           "judgment": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "Judgment Value",
             "description": "Evaluator assessment of the Log."
           },
@@ -5520,6 +5221,14 @@
             "type": "string",
             "title": "Log ID",
             "description": "Unique identifier for the Log."
+          },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorLogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
           },
           "evaluator": {
             "allOf": [
@@ -5529,11 +5238,20 @@
             ],
             "title": "Evaluator",
             "description": "The Evaluator used to generate the judgment."
+          },
+          "parent": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LogResponse"
+              }
+            ],
+            "title": "Parent Log",
+            "description": "The Log that was evaluated. Only provided if the ?include_parent query parameter is set for the "
           }
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["parent_id", "id", "evaluator"],
+        "required": ["id", "evaluator_logs", "evaluator"],
         "title": "EvaluatorLogResponse",
         "description": "General request for creating a Log"
       },
@@ -5622,7 +5340,7 @@
           "created_by": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+                "$ref": "#/components/schemas/UserResponse"
               }
             ],
             "title": "Created by",
@@ -5691,149 +5409,9 @@
       },
       "EvaluatorReturnTypeEnum": {
         "type": "string",
-        "enum": ["boolean", "number"],
+        "enum": ["boolean", "number", "select", "multi_select", "text"],
         "title": "EvaluatorReturnTypeEnum",
         "description": "Enum representing the possible return types of an evaluator."
-      },
-      "ExperimentResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Experiment ID",
-            "description": "String ID of experiment. Starts with `exp_`."
-          },
-          "file_id": {
-            "type": "string",
-            "title": "File ID",
-            "description": "String ID of file the experiment belongs to."
-          },
-          "name": {
-            "type": "string",
-            "title": "Experiment name",
-            "description": "Name of experiment."
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ExperimentStatus"
-              }
-            ],
-            "title": "Experiment status",
-            "description": "Status of experiment."
-          },
-          "versions": {
-            "items": {
-              "$ref": "#/components/schemas/ExperimentVersionResponse"
-            },
-            "type": "array",
-            "title": "Experiment Versions",
-            "description": "List of Versions associated to the experiment."
-          },
-          "metric": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BaseMetricResponse"
-              }
-            ],
-            "title": "Experiment metric",
-            "description": "Metric used as the experiment's objective."
-          },
-          "positive_labels": {
-            "items": {
-              "$ref": "#/components/schemas/PositiveLabel"
-            },
-            "type": "array",
-            "title": "Positive labels",
-            "description": "Feedback labels to treat as positive user feedback. Used to monitor the performance of model configs in the experiment."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "file_id",
-          "name",
-          "status",
-          "metric",
-          "positive_labels",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentResponse"
-      },
-      "ExperimentStatus": {
-        "type": "string",
-        "enum": ["Initialized", "In progress"],
-        "title": "ExperimentStatus",
-        "description": "An enumeration."
-      },
-      "ExperimentVersionResponse": {
-        "properties": {
-          "mean": {
-            "type": "number",
-            "title": "Mean of experiment's metric",
-            "description": "The mean performance of the Version."
-          },
-          "spread": {
-            "type": "number",
-            "title": "Spread of experiment's metric",
-            "description": "The spread of performance of the Version."
-          },
-          "trials_count": {
-            "type": "integer",
-            "title": "Trials count",
-            "description": "Number of datapoints with feedback associated to the experiment."
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Version active",
-            "description": "Whether the Version is active in the experiment. Only active model configs can be sampled from the experiment."
-          },
-          "id": {
-            "type": "string",
-            "title": "Version ID",
-            "description": "String ID of Version."
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit message",
-            "description": "Commit message of Version."
-          },
-          "version_id": {
-            "type": "string",
-            "title": "Version id",
-            "description": "Version of the Prompt or Tool."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "trials_count",
-          "active",
-          "id",
-          "version_id",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ExperimentVersionResponse"
       },
       "ExternalEvaluatorRequest": {
         "properties": {
@@ -5872,104 +5450,6 @@
         "required": ["arguments_type", "return_type"],
         "title": "ExternalEvaluatorRequest"
       },
-      "FeedbackClass": {
-        "type": "string",
-        "enum": ["select", "multi_select", "text", "number"],
-        "title": "FeedbackClass",
-        "description": "An enumeration."
-      },
-      "FeedbackLabelStatus": {
-        "type": "string",
-        "enum": ["unset", "active", "inactive"],
-        "title": "FeedbackLabelStatus",
-        "description": "Controls whether the label is displayed in the UI."
-      },
-      "FeedbackResponse": {
-        "properties": {
-          "type": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v4__feedback__FeedbackType"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Feedback type",
-            "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
-          },
-          "value": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Feedback value",
-            "description": "The feedback value to set. This would be the appropriate text for 'correction' or 'comment', or a label to apply for 'rating', 'action', or 'issue'."
-          },
-          "data_id": {
-            "type": "string",
-            "title": "Datapoint ID",
-            "description": "ID to associate the feedback to a previously logged datapoint."
-          },
-          "user": {
-            "type": "string",
-            "title": "User",
-            "description": "A unique identifier to who provided the feedback."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created at",
-            "description": "User defined timestamp for when the feedback was created. "
-          },
-          "id": {
-            "type": "string",
-            "title": "Feedback ID",
-            "description": "String ID of user feedback. Starts with `ann_`, short for annotation."
-          }
-        },
-        "type": "object",
-        "required": ["type", "value", "id"],
-        "title": "FeedbackResponse"
-      },
-      "FeedbackTypeModel": {
-        "properties": {
-          "type": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v5__feedback__FeedbackType"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Feedback type",
-            "description": "The type of feedback. The default feedback types available are 'rating', 'action', 'issue', 'correction', and 'comment'."
-          },
-          "values": {
-            "items": {
-              "$ref": "#/components/schemas/CategoricalFeedbackLabel"
-            },
-            "type": "array",
-            "title": "Allowed values for categorical feedback types",
-            "description": "The allowed values for categorical feedback types. Not populated for `correction` and `comment`."
-          }
-        },
-        "type": "object",
-        "required": ["type"],
-        "title": "FeedbackTypeModel"
-      },
-      "FeedbackTypes": {
-        "items": {
-          "$ref": "#/components/schemas/FeedbackTypeModel"
-        },
-        "type": "array",
-        "title": "FeedbackTypes"
-      },
       "FileEnvironmentResponse": {
         "properties": {
           "id": {
@@ -5994,7 +5474,7 @@
                 "$ref": "#/components/schemas/PromptResponse"
               },
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                "$ref": "#/components/schemas/ToolResponse"
               },
               {
                 "$ref": "#/components/schemas/DatasetResponse"
@@ -6040,52 +5520,6 @@
         "title": "FunctionToolChoice",
         "description": "A function tool to be called by the model where user owns runtime."
       },
-      "GenericConfigResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "String ID of config. Starts with `config_`."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["generic"],
-            "title": "Type"
-          },
-          "created_by": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
-              }
-            ],
-            "title": "Created by",
-            "description": "The user who created the config."
-          },
-          "status": {
-            "type": "string",
-            "title": "Status",
-            "description": "Whether the config is committed or not."
-          },
-          "name": {
-            "type": "string",
-            "title": "Config name",
-            "description": "Name of config."
-          },
-          "description": {
-            "type": "string",
-            "title": "Config description",
-            "description": "Description of config."
-          }
-        },
-        "type": "object",
-        "required": ["id", "type", "status", "name"],
-        "title": "GenericConfigResponse"
-      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -6111,13 +5545,10 @@
             "description": "Whether this evaluator is target-free or target-required."
           },
           "return_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EvaluatorReturnTypeEnum"
-              }
-            ],
+            "type": "string",
+            "enum": ["select", "multi_select", "text", "number", "boolean"],
             "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+            "description": "The type of the return value of the Evaluator."
           },
           "evaluator_type": {
             "type": "string",
@@ -6125,6 +5556,37 @@
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "human"
+          },
+          "instructions": {
+            "type": "string",
+            "title": "Instructions",
+            "description": "Instructions for the Human annotating the ."
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorJudgmentOptionResponse"
+            },
+            "type": "array",
+            "title": "Options",
+            "description": "The options that the Human annotator can choose from."
+          },
+          "number_limits": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluatorJudgmentNumberLimit"
+              }
+            ],
+            "title": "Number limits",
+            "description": "Limits on the judgment that can be applied. Only for Evaluators with `return_type` of `'number'`."
+          },
+          "number_valence": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Valence"
+              }
+            ],
+            "title": "Number valence",
+            "description": "The valence of the number judgment. Only for Evaluators with `return_type` of `'number'`. If 'positive', a higher number is better. If 'negative', a lower number is better."
           }
         },
         "type": "object",
@@ -6223,45 +5685,6 @@
         "required": ["arguments_type", "return_type"],
         "title": "LLMEvaluatorRequest"
       },
-      "LabelSentiment": {
-        "type": "string",
-        "enum": ["positive", "negative", "neutral", "unset"],
-        "title": "LabelSentiment",
-        "description": "How a label should be treated in calculating Version performance.\n\nUsed by a File's PAPV (Positive Action Per View) metric."
-      },
-      "LinkedToolRequest": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Tool ID",
-            "description": "The ID of the linked tool. Starts with \"oc_\""
-          },
-          "source": {
-            "type": "string",
-            "enum": ["organization"],
-            "title": "Tool source",
-            "description": "The source of the linked tool. For a linked tool it should be `organization`"
-          },
-          "name": {
-            "type": "string",
-            "title": "Tool name",
-            "description": "The name of the linked tool."
-          },
-          "description": {
-            "type": "string",
-            "title": "Tool description",
-            "description": "The description of the linked tool."
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Tool parameters",
-            "description": "The parameters of the linked tool."
-          }
-        },
-        "type": "object",
-        "required": ["id", "source"],
-        "title": "LinkedToolRequest"
-      },
       "LinkedToolResponse": {
         "properties": {
           "name": {
@@ -6273,6 +5696,12 @@
             "type": "string",
             "title": "Description",
             "description": "Description of the tool referenced by the model"
+          },
+          "strict": {
+            "type": "boolean",
+            "title": "Strict",
+            "description": "If true, forces the model to output json data in the structure of the parameters schema.",
+            "default": false
           },
           "parameters": {
             "type": "object",
@@ -6343,7 +5772,7 @@
         "properties": {
           "records": {
             "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+              "$ref": "#/components/schemas/ToolResponse"
             },
             "type": "array",
             "title": "Records",
@@ -6354,361 +5783,20 @@
         "required": ["records"],
         "title": "ListTools"
       },
-      "MetricValueResponse": {
-        "properties": {
-          "metric_id": {
-            "type": "string",
-            "title": "Metric Id"
+      "LogResponse": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/PromptLogResponse"
           },
-          "metric_name": {
-            "type": "string",
-            "title": "Metric Name"
+          {
+            "$ref": "#/components/schemas/ToolLogResponse"
           },
-          "metric_value": {
-            "type": "number",
-            "title": "Metric Value"
+          {
+            "$ref": "#/components/schemas/EvaluatorLogResponse"
           }
-        },
-        "type": "object",
-        "required": ["metric_id", "metric_name", "metric_value"],
-        "title": "MetricValueResponse"
-      },
-      "ModelConfigRequest": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Model config name",
-            "description": "A friendly display name for the model config. If not provided, a name will be generated."
-          },
-          "description": {
-            "type": "string",
-            "title": "Model config description",
-            "description": "A description of the model config."
-          },
-          "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelProviders"
-              }
-            ],
-            "title": "Model provider",
-            "description": "The company providing the underlying model service.",
-            "default": "openai"
-          },
-          "model": {
-            "type": "string",
-            "title": "Model instance used",
-            "description": "The model instance used. E.g. text-davinci-002."
-          },
-          "max_tokens": {
-            "type": "integer",
-            "title": "Maximum tokens",
-            "description": "The maximum number of tokens to generate. Provide max_tokens=-1 to dynamically calculate the maximum number of tokens to generate given the length of the prompt",
-            "default": -1
-          },
-          "temperature": {
-            "type": "number",
-            "title": "Sampling temperature",
-            "description": "What sampling temperature to use when making a generation. Higher values means the model will be more creative.",
-            "default": 1
-          },
-          "top_p": {
-            "type": "number",
-            "title": "Top p probability mass",
-            "description": "An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.",
-            "default": 1
-          },
-          "stop": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
-            "title": "Stop sequence(s)",
-            "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
-          },
-          "presence_penalty": {
-            "type": "number",
-            "title": "Penalize tokens on whether present.",
-            "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the generation so far.",
-            "default": 0
-          },
-          "frequency_penalty": {
-            "type": "number",
-            "title": "Penalize tokens on whether frequent.",
-            "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on how frequently they appear in the generation so far.",
-            "default": 0
-          },
-          "other": {
-            "type": "object",
-            "title": "Other provider parameters",
-            "description": "Other parameter values to be passed to the provider call.",
-            "default": {}
-          },
-          "seed": {
-            "type": "integer",
-            "title": "Seed",
-            "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
-          },
-          "response_format": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResponseFormat"
-              }
-            ],
-            "title": "Response format",
-            "description": "The format of the response. Only type json_object is currently supported for chat."
-          },
-          "endpoint": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelEndpoints"
-              }
-            ],
-            "title": "Provider endpoint",
-            "description": "The provider model endpoint used.",
-            "default": "complete"
-          },
-          "prompt_template": {
-            "type": "string",
-            "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
-          },
-          "chat_template": {
-            "items": {
-              "$ref": "#/components/schemas/ChatMessageWithToolCall"
-            },
-            "type": "array",
-            "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
-          },
-          "tools": {
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/LinkedToolRequest"
-                },
-                {
-                  "$ref": "#/components/schemas/ModelConfigToolRequest"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Tools - equivalent to OpenAI functions.",
-            "description": "Make tools available to OpenAIs chat model as functions."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["model"],
-            "title": "Type"
-          }
-        },
+        ],
         "additionalProperties": false,
-        "type": "object",
-        "required": ["model"],
-        "title": "ModelConfigRequest",
-        "description": "Model config used for logging both chat and completion."
-      },
-      "ModelConfigResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "String ID of config. Starts with `config_`."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other provider parameters",
-            "description": "Other parameter values to be passed to the provider call.",
-            "default": {}
-          },
-          "type": {
-            "type": "string",
-            "enum": ["model"],
-            "title": "Type"
-          },
-          "name": {
-            "type": "string",
-            "title": "Model config name",
-            "description": "A friendly display name for the model config. If not provided, a name will be generated."
-          },
-          "description": {
-            "type": "string",
-            "title": "Model config description",
-            "description": "A description of the model config."
-          },
-          "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelProviders"
-              }
-            ],
-            "title": "Model provider",
-            "description": "The company providing the underlying model service.",
-            "default": "openai"
-          },
-          "model": {
-            "type": "string",
-            "title": "Model instance used",
-            "description": "The model instance used. E.g. text-davinci-002."
-          },
-          "max_tokens": {
-            "type": "integer",
-            "title": "Maximum tokens",
-            "description": "The maximum number of tokens to generate. Provide max_tokens=-1 to dynamically calculate the maximum number of tokens to generate given the length of the prompt",
-            "default": -1
-          },
-          "temperature": {
-            "type": "number",
-            "title": "Sampling temperature",
-            "description": "What sampling temperature to use when making a generation. Higher values means the model will be more creative.",
-            "default": 1
-          },
-          "top_p": {
-            "type": "number",
-            "title": "Top p probability mass",
-            "description": "An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.",
-            "default": 1
-          },
-          "stop": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
-            "title": "Stop sequence(s)",
-            "description": "The string (or list of strings) after which the model will stop generating. The returned text will not contain the stop sequence."
-          },
-          "presence_penalty": {
-            "type": "number",
-            "title": "Penalize tokens on whether present.",
-            "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the generation so far.",
-            "default": 0
-          },
-          "frequency_penalty": {
-            "type": "number",
-            "title": "Penalize tokens on whether frequent.",
-            "description": "Number between -2.0 and 2.0. Positive values penalize new tokens based on how frequently they appear in the generation so far.",
-            "default": 0
-          },
-          "seed": {
-            "type": "integer",
-            "title": "Seed",
-            "description": "If specified, model will make a best effort to sample deterministically, but it is not guaranteed."
-          },
-          "response_format": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResponseFormat"
-              }
-            ],
-            "title": "Response format",
-            "description": "The format of the response. Only type json_object is currently supported for chat."
-          },
-          "prompt_template": {
-            "type": "string",
-            "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
-          },
-          "chat_template": {
-            "items": {
-              "$ref": "#/components/schemas/ChatMessageWithToolCall"
-            },
-            "type": "array",
-            "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
-          },
-          "tool_configs": {
-            "items": {
-              "$ref": "#/components/schemas/ToolConfigResponse"
-            },
-            "type": "array",
-            "title": "Tool configs",
-            "description": "NB: Deprecated with tools field. Definition of tools shown to the model.",
-            "deprecated": true
-          },
-          "tools": {
-            "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v4__configs__ToolResponse"
-            },
-            "type": "array",
-            "title": "Tools",
-            "description": "Tools shown to the model."
-          },
-          "endpoint": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ModelEndpoints"
-              }
-            ],
-            "title": "Provider endpoint",
-            "description": "The provider model endpoint used."
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": ["id", "type", "model"],
-        "title": "ModelConfigResponse",
-        "description": "Model config request.\n\nContains fields that are common to all (i.e. both chat and complete) endpoints."
-      },
-      "ModelConfigToolRequest": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Tool name",
-            "description": "The name of the tool shown to the model."
-          },
-          "description": {
-            "type": "string",
-            "title": "Tool description",
-            "description": "The description of the tool shown to the model."
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Schema of tool arguments.",
-            "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
-          },
-          "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ToolSource"
-              }
-            ],
-            "title": "Source",
-            "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
-          },
-          "source_code": {
-            "type": "string",
-            "title": "Code source",
-            "description": "Code source of the tool."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
-          },
-          "preset_name": {
-            "type": "string",
-            "title": "preset_name",
-            "description": "If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to look up the Humanloop runtime of the tool"
-          }
-        },
-        "type": "object",
-        "required": ["name"],
-        "title": "ModelConfigToolRequest",
-        "description": "Definition of tool within a model config.\n\nThe subset of ToolConfig parameters received by the chat endpoint.\nDoes not have things like the signature or setup schema."
+        "title": "LogResponse"
       },
       "ModelEndpoints": {
         "type": "string",
@@ -7038,7 +6126,7 @@
         "properties": {
           "records": {
             "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+              "$ref": "#/components/schemas/LogResponse"
             },
             "type": "array",
             "title": "Records"
@@ -7116,7 +6204,7 @@
         "properties": {
           "records": {
             "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+              "$ref": "#/components/schemas/ToolResponse"
             },
             "type": "array",
             "title": "Records"
@@ -7143,21 +6231,6 @@
         "enum": ["superadmin", "supportadmin", "user"],
         "title": "PlatformAccessEnum",
         "description": "An enumeration."
-      },
-      "PositiveLabel": {
-        "properties": {
-          "type": {
-            "type": "string",
-            "title": "Feedback type"
-          },
-          "value": {
-            "type": "string",
-            "title": "Feedback value"
-          }
-        },
-        "type": "object",
-        "required": ["type", "value"],
-        "title": "PositiveLabel"
       },
       "ProjectSortBy": {
         "type": "string",
@@ -7187,6 +6260,11 @@
             "type": "number",
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
           },
           "output_message": {
             "allOf": [
@@ -7519,6 +6597,11 @@
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
           },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
           "output_message": {
             "allOf": [
               {
@@ -7709,6 +6792,11 @@
       },
       "PromptLogRequest": {
         "properties": {
+          "evaluation_id": {
+            "type": "string",
+            "title": "Evaluation ID",
+            "description": "Unique identifier for the Evaluation Report to associate the Log to."
+          },
           "path": {
             "type": "string",
             "title": "Prompt path",
@@ -7811,6 +6899,11 @@
             "type": "number",
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
           },
           "provider_request": {
             "type": "object",
@@ -7978,6 +7071,11 @@
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
           },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
           "provider_request": {
             "type": "object",
             "title": "Provider request",
@@ -8047,11 +7145,19 @@
             "type": "string",
             "title": "Log ID",
             "description": "Unique identifier for the Log."
+          },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorLogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
           }
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["prompt", "id"],
+        "required": ["prompt", "id", "evaluator_logs"],
         "title": "PromptLogResponse",
         "description": "General request for creating a Log"
       },
@@ -8379,7 +7485,7 @@
           "created_by": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+                "$ref": "#/components/schemas/UserResponse"
               }
             ],
             "title": "Created by",
@@ -8489,15 +7595,93 @@
       "ResponseFormat": {
         "properties": {
           "type": {
-            "type": "string",
-            "enum": ["json_object"],
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["json_object"]
+              },
+              {
+                "type": "string",
+                "enum": ["json_schema"]
+              }
+            ],
             "title": "Type"
+          },
+          "json_schema": {
+            "type": "object",
+            "title": "JSON Schema",
+            "description": "The JSON schema of the response format if type is json_schema."
           }
         },
         "type": "object",
         "required": ["type"],
         "title": "ResponseFormat",
         "description": "Response format of the model."
+      },
+      "SelectEvaluatorVersionStats": {
+        "properties": {
+          "evaluator_version_id": {
+            "type": "string",
+            "title": "Evaluator Version ID",
+            "description": "Unique identifier for the Evaluator Version."
+          },
+          "total_logs": {
+            "type": "integer",
+            "title": "Total Evaluator Logs",
+            "description": "The total number of Logs generated by this Evaluator Version on the Evaluated Version's Logs. This includes Nulls and Errors."
+          },
+          "num_judgments": {
+            "type": "integer",
+            "title": "Number of Judgments",
+            "description": "The total number of Evaluator judgments for this Evaluator Version. This excludes Nulls and Errors."
+          },
+          "num_nulls": {
+            "type": "integer",
+            "title": "Number of Nulls",
+            "description": "The total number of null judgments (i.e. abstentions) for this Evaluator Version."
+          },
+          "num_errors": {
+            "type": "integer",
+            "title": "Number of Errors",
+            "description": "The total number of errored Evaluators for this Evaluator Version."
+          },
+          "num_judgments_per_option": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Number of Judgments",
+            "description": "The total number of Evaluator judgments for this Evaluator Version. This is a mapping of the option name to the number of judgments for that option."
+          }
+        },
+        "type": "object",
+        "required": [
+          "evaluator_version_id",
+          "total_logs",
+          "num_judgments",
+          "num_nulls",
+          "num_errors",
+          "num_judgments_per_option"
+        ],
+        "title": "SelectEvaluatorVersionStats",
+        "description": "Also used for 'multi_select' Evaluator versions"
+      },
+      "SessionEventResponse": {
+        "properties": {
+          "log": {
+            "$ref": "#/components/schemas/LogResponse"
+          },
+          "children": {
+            "items": {
+              "$ref": "#/components/schemas/SessionEventResponse"
+            },
+            "type": "array",
+            "title": "Children"
+          }
+        },
+        "type": "object",
+        "required": ["log", "children"],
+        "title": "SessionEventResponse"
       },
       "SessionResponse": {
         "properties": {
@@ -8516,17 +7700,32 @@
             "format": "date-time",
             "title": "Updated At"
           },
-          "logs": {
+          "first_inputs": {
+            "type": "object",
+            "title": "First inputs",
+            "description": "Inputs for the first datapoint in the session."
+          },
+          "last_output": {
+            "type": "string",
+            "title": "Last output",
+            "description": "Output for the last datapoint in the session."
+          },
+          "logs_count": {
+            "type": "integer",
+            "title": "Logs count",
+            "description": "Number of logs associated to this session."
+          },
+          "events": {
             "items": {
-              "$ref": "#/components/schemas/src__external__app__models__v5__logs__LogResponse"
+              "$ref": "#/components/schemas/SessionEventResponse"
             },
             "type": "array",
-            "title": "Logs",
-            "description": "List of Logs associated with this Session."
+            "title": "Events",
+            "description": "List of events associated with this Session."
           }
         },
         "type": "object",
-        "required": ["id", "created_at", "updated_at", "logs"],
+        "required": ["id", "created_at", "updated_at", "logs_count", "events"],
         "title": "SessionResponse"
       },
       "SortOrder": {
@@ -8551,6 +7750,45 @@
         "type": "object",
         "required": ["type", "text"],
         "title": "TextChatContent"
+      },
+      "TextEvaluatorVersionStats": {
+        "properties": {
+          "evaluator_version_id": {
+            "type": "string",
+            "title": "Evaluator Version ID",
+            "description": "Unique identifier for the Evaluator Version."
+          },
+          "total_logs": {
+            "type": "integer",
+            "title": "Total Evaluator Logs",
+            "description": "The total number of Logs generated by this Evaluator Version on the Evaluated Version's Logs. This includes Nulls and Errors."
+          },
+          "num_judgments": {
+            "type": "integer",
+            "title": "Number of Judgments",
+            "description": "The total number of Evaluator judgments for this Evaluator Version. This excludes Nulls and Errors."
+          },
+          "num_nulls": {
+            "type": "integer",
+            "title": "Number of Nulls",
+            "description": "The total number of null judgments (i.e. abstentions) for this Evaluator Version."
+          },
+          "num_errors": {
+            "type": "integer",
+            "title": "Number of Errors",
+            "description": "The total number of errored Evaluators for this Evaluator Version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "evaluator_version_id",
+          "total_logs",
+          "num_judgments",
+          "num_nulls",
+          "num_errors"
+        ],
+        "title": "TextEvaluatorVersionStats",
+        "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report."
       },
       "TimeUnit": {
         "type": "string",
@@ -8590,143 +7828,6 @@
         "title": "ToolChoice",
         "description": "Tool choice to force the model to use a tool."
       },
-      "ToolConfigRequest": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Tool name",
-            "description": "The name of the tool shown to the model."
-          },
-          "description": {
-            "type": "string",
-            "title": "Tool description",
-            "description": "The description of the tool shown to the model."
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Schema of tool arguments.",
-            "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
-          },
-          "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ToolSource"
-              }
-            ],
-            "title": "Source",
-            "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
-          },
-          "source_code": {
-            "type": "string",
-            "title": "Code source",
-            "description": "Code source of the tool."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
-          },
-          "preset_name": {
-            "type": "string",
-            "title": "preset_name",
-            "description": "If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to look up the Humanloop runtime of the tool"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["tool"],
-            "title": "Type"
-          }
-        },
-        "type": "object",
-        "required": ["name", "type"],
-        "title": "ToolConfigRequest",
-        "description": "Definition of tool within a model config.\n\nThe subset of ToolConfig parameters received by the chat endpoint.\nDoes not have things like the signature or setup schema."
-      },
-      "ToolConfigResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "String ID of config. Starts with `config_`."
-          },
-          "other": {
-            "type": "object",
-            "title": "Other parameters",
-            "description": "Other parameters that define the config."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["tool"],
-            "title": "Type"
-          },
-          "created_by": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v4__orgs__base_models__UserResponse"
-              }
-            ],
-            "title": "Created by",
-            "description": "The user who created the config."
-          },
-          "status": {
-            "type": "string",
-            "title": "Status",
-            "description": "Whether the config is committed or not."
-          },
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Name for the tool referenced by the model."
-          },
-          "description": {
-            "type": "string",
-            "title": "Description",
-            "description": "Description of the tool referenced by the model"
-          },
-          "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ToolSource"
-              }
-            ],
-            "title": "Source",
-            "description": "Source of the tool. If defined at an organization level will be 'organization' else 'inline'."
-          },
-          "source_code": {
-            "type": "string",
-            "title": "Source Code",
-            "description": "Code source of the tool."
-          },
-          "setup_schema": {
-            "type": "object",
-            "title": "Setup arguments schema.",
-            "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Run arguments schema.",
-            "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
-          },
-          "signature": {
-            "type": "string",
-            "title": "Signature",
-            "description": "The function signature of the tool when being called."
-          },
-          "is_preset": {
-            "type": "boolean",
-            "title": "Is preset",
-            "description": "Whether the tool is one where Humanloop defines runtime or not."
-          },
-          "preset_name": {
-            "type": "string",
-            "title": "preset_name",
-            "description": "If is_preset = true, this is the name of the preset tool on Humanloop. This is used as the key to lookup the Humanloop runtime of the tool"
-          }
-        },
-        "type": "object",
-        "required": ["id", "type", "status", "name"],
-        "title": "ToolConfigResponse"
-      },
       "ToolFunction": {
         "properties": {
           "name": {
@@ -8738,6 +7839,12 @@
             "type": "string",
             "title": "Description",
             "description": "Description of the tool referenced by the model"
+          },
+          "strict": {
+            "type": "boolean",
+            "title": "Strict",
+            "description": "If true, forces the model to output json data in the structure of the parameters schema.",
+            "default": false
           },
           "parameters": {
             "type": "object",
@@ -8806,6 +7913,11 @@
             "type": "number",
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
           },
           "provider_request": {
             "type": "object",
@@ -8910,6 +8022,11 @@
             "title": "Log latency",
             "description": "Duration of the logged event in seconds."
           },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
           "provider_request": {
             "type": "object",
             "title": "Provider request",
@@ -8980,10 +8097,18 @@
             "title": "Log ID",
             "description": "Unique identifier for the Log."
           },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorLogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
+          },
           "tool": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
+                "$ref": "#/components/schemas/ToolResponse"
               }
             ],
             "title": "Tool",
@@ -8992,7 +8117,7 @@
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["id", "tool"],
+        "required": ["id", "evaluator_logs", "tool"],
         "title": "ToolLogResponse",
         "description": "General request for creating a Log"
       },
@@ -9047,760 +8172,7 @@
         "title": "ToolRequest",
         "description": "Request to create a new Tool."
       },
-      "ToolResultResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "signature": {
-            "type": "string",
-            "title": "Signature"
-          },
-          "result": {
-            "type": "string",
-            "title": "Result"
-          }
-        },
-        "type": "object",
-        "required": ["id", "name", "signature", "result"],
-        "title": "ToolResultResponse",
-        "description": "A result from a tool used to populate the prompt template"
-      },
-      "ToolSource": {
-        "type": "string",
-        "enum": ["organization", "inline"],
-        "title": "ToolSource",
-        "description": "Source of tool. Used to differentiate between tools and tool versions when they are combined in a list.\n\nV4 uses organization and inline. Those are deprecated and will be removed in favour of tool and tool_version."
-      },
-      "UpdateDatasetRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Dataset path",
-            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
-          },
-          "name": {
-            "type": "string",
-            "title": "Dataset name",
-            "description": "Name of the Dataset, which is used as a unique identifier."
-          }
-        },
-        "type": "object",
-        "title": "UpdateDatasetRequest"
-      },
-      "UpdateDatesetAction": {
-        "type": "string",
-        "enum": ["set", "add", "remove"],
-        "title": "UpdateDatesetAction",
-        "description": "An enumeration."
-      },
-      "UpdateEvaluatorRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Evaluator path",
-            "description": "Path of the Evaluator including the Evaluator name, which is used as a unique identifier."
-          },
-          "name": {
-            "type": "string",
-            "title": "Evaluator Name",
-            "description": "Name of the Evaluator, which is used as a unique identifier."
-          }
-        },
-        "type": "object",
-        "title": "UpdateEvaluatorRequest"
-      },
-      "UpdatePromptRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Prompt path",
-            "description": "Path of the Prompt including the Prompt name, which is used as a unique identifier."
-          },
-          "name": {
-            "type": "string",
-            "title": "Prompt name",
-            "description": "Name of the Prompt."
-          }
-        },
-        "type": "object",
-        "title": "UpdatePromptRequest"
-      },
-      "UpdateToolRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Tool path",
-            "description": "Path of the Tool including the Tool name, which is used as a unique identifier."
-          },
-          "name": {
-            "type": "string",
-            "title": "Tool Name",
-            "description": "Name of the Tool, which is used as a unique identifier."
-          }
-        },
-        "type": "object",
-        "title": "UpdateToolRequest"
-      },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Location"
-          },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          }
-        },
-        "type": "object",
-        "required": ["loc", "msg", "type"],
-        "title": "ValidationError"
-      },
-      "VersionDeploymentResponse": {
-        "properties": {
-          "file": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/PromptResponse"
-              },
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
-              },
-              {
-                "$ref": "#/components/schemas/DatasetResponse"
-              },
-              {
-                "$ref": "#/components/schemas/EvaluatorResponse"
-              }
-            ],
-            "title": "File",
-            "description": "The File that the deployed Version belongs to."
-          },
-          "environment": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EnvironmentResponse"
-              }
-            ],
-            "title": "Environment",
-            "description": "The Environment that the Version is deployed to."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["environment"],
-            "title": "Type"
-          }
-        },
-        "type": "object",
-        "required": ["file", "environment", "type"],
-        "title": "VersionDeploymentResponse",
-        "description": "A variable reference to the Version deployed to an Environment"
-      },
-      "VersionIdResponse": {
-        "properties": {
-          "version": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/PromptResponse"
-              },
-              {
-                "$ref": "#/components/schemas/src__external__app__models__v5__tools__ToolResponse"
-              },
-              {
-                "$ref": "#/components/schemas/DatasetResponse"
-              },
-              {
-                "$ref": "#/components/schemas/EvaluatorResponse"
-              }
-            ],
-            "title": "Version",
-            "description": "The specific Version being referenced."
-          },
-          "type": {
-            "type": "string",
-            "enum": ["version"],
-            "title": "Type"
-          }
-        },
-        "type": "object",
-        "required": ["version", "type"],
-        "title": "VersionIdResponse",
-        "description": "A reference to a specific Version by its ID"
-      },
-      "VersionReferenceResponse": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/VersionDeploymentResponse"
-          },
-          {
-            "$ref": "#/components/schemas/VersionIdResponse"
-          }
-        ],
-        "title": "VersionReferenceResponse",
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "environment": "#/components/schemas/VersionDeploymentResponse",
-            "version": "#/components/schemas/VersionIdResponse"
-          }
-        }
-      },
-      "VersionStats": {
-        "properties": {
-          "version_id": {
-            "type": "string",
-            "title": "Version ID",
-            "description": "Unique identifier for the Evaluated Version."
-          },
-          "num_logs": {
-            "type": "integer",
-            "title": "Number of Logs",
-            "description": "The total number of existing Logs for this Evaluated Version within the Evaluation Report. These are Logs that have been generated by this Evaluated Version on a Datapoint belonging to the Evaluation Report's Dataset Version."
-          },
-          "evaluator_version_stats": {
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/NumericEvaluatorVersionStats"
-                },
-                {
-                  "$ref": "#/components/schemas/BooleanEvaluatorVersionStats"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Evaluator Version Stats",
-            "description": "Stats for each Evaluator Version used to evaluate this Evaluated Version."
-          }
-        },
-        "type": "object",
-        "required": ["version_id", "num_logs", "evaluator_version_stats"],
-        "title": "VersionStats",
-        "description": "Stats for an Evaluated Version in the Evaluation Report."
-      },
-      "VersionStatus": {
-        "type": "string",
-        "enum": ["uncommitted", "committed", "deleted"],
-        "title": "VersionStatus",
-        "description": "An enumeration."
-      },
-      "src__domain__chat_types__enums__ToolType": {
-        "type": "string",
-        "enum": ["function"],
-        "title": "ToolType",
-        "description": "The type of tool to call."
-      },
-      "src__domain__files__tool__ToolType": {
-        "type": "string",
-        "enum": [
-          "pinecone_search",
-          "google",
-          "mock",
-          "snippet",
-          "json_schema",
-          "get_api_call"
-        ],
-        "title": "ToolType",
-        "description": "Type of tool."
-      },
-      "src__external__app__models__v4__configs__ToolResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Tool ID",
-            "description": "The ID of the tool. Starts with either `config_` or `oc_`."
-          },
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Name for the tool referenced by the model."
-          },
-          "description": {
-            "type": "string",
-            "title": "Description",
-            "description": "Description of the tool referenced by the model"
-          },
-          "parameters": {
-            "type": "object",
-            "title": "Run arguments schema.",
-            "description": "Definition of parameters needed to run the tool. Provided in jsonschema format: https://json-schema.org/"
-          },
-          "source": {
-            "type": "string",
-            "title": "Origin",
-            "description": "The origin of the tool"
-          }
-        },
-        "type": "object",
-        "required": ["id", "name"],
-        "title": "ToolResponse"
-      },
-      "src__external__app__models__v4__feedback__FeedbackType": {
-        "type": "string",
-        "enum": ["rating", "action", "issue", "correction", "comment"],
-        "title": "FeedbackType",
-        "description": "An enumeration."
-      },
-      "src__external__app__models__v4__log__LogResponse": {
-        "properties": {
-          "project": {
-            "type": "string",
-            "title": "Project name",
-            "description": "The name of the project associated with this log"
-          },
-          "project_id": {
-            "type": "string",
-            "title": "Project ID",
-            "description": "The unique ID of the project associated with this log."
-          },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "ID of the session to associate the datapoint."
-          },
-          "session_reference_id": {
-            "type": "string",
-            "title": "Session Reference ID",
-            "description": "A unique string identifying the session to associate the datapoint to. Allows you to log multiple datapoints to a session (using an ID kept by your internal systems) by passing the same `session_reference_id` in subsequent log requests. Specify at most one of this or `session_id`."
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "ID associated to the parent datapoint in a session."
-          },
-          "parent_reference_id": {
-            "type": "string",
-            "title": "Parent Reference ID",
-            "description": "A unique string identifying the previously-logged parent datapoint in a session. Allows you to log nested datapoints with your internal system IDs by passing the same reference ID as `parent_id` in a prior log request. Specify at most one of this or `parent_id`. Note that this cannot refer to a datapoint being logged in the same request."
-          },
-          "inputs": {
-            "type": "object",
-            "title": "Inputs",
-            "description": "The inputs passed to the prompt template.",
-            "default": {}
-          },
-          "source": {
-            "type": "string",
-            "title": "Source",
-            "description": "Identifies where the model was called from."
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "Any additional metadata to record."
-          },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
-          },
-          "source_datapoint_id": {
-            "type": "string",
-            "title": "Source datapoint ID",
-            "description": "ID of the source datapoint if this is a log derived from a datapoint in a dataset."
-          },
-          "id": {
-            "type": "string",
-            "title": "Datapoint ID",
-            "description": "String ID of logged datapoint. Starts with `data_`."
-          },
-          "reference_id": {
-            "type": "string",
-            "title": "Reference ID",
-            "description": "Unique user-provided string identifying the datapoint."
-          },
-          "trial_id": {
-            "type": "string",
-            "title": "Trial ID",
-            "description": "Unique ID of an experiment trial to associate to the log."
-          },
-          "messages": {
-            "items": {
-              "$ref": "#/components/schemas/ChatMessageWithToolCall"
-            },
-            "type": "array",
-            "title": "Messages",
-            "description": "The messages passed to the to provider chat endpoint."
-          },
-          "output": {
-            "type": "string",
-            "title": "Model output",
-            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if logging a parent datapoint with the intention to populate it later"
-          },
-          "judgment": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Judgment"
-          },
-          "config_id": {
-            "type": "string",
-            "title": "Config ID",
-            "description": "Unique ID of a config to associate to the log."
-          },
-          "config": {
-            "$ref": "#/components/schemas/ConfigResponse"
-          },
-          "environment": {
-            "type": "string",
-            "title": "Environment name",
-            "description": "The environment name used to create the log."
-          },
-          "feedback": {
-            "items": {
-              "$ref": "#/components/schemas/FeedbackResponse"
-            },
-            "type": "array",
-            "title": "Feedback"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created at",
-            "description": "User defined timestamp for when the log was created. "
-          },
-          "error": {
-            "type": "string",
-            "title": "Error",
-            "description": "Error message if the log is an error."
-          },
-          "stdout": {
-            "type": "string",
-            "title": "Standard Output",
-            "description": "Captured log and debug statements."
-          },
-          "duration": {
-            "type": "number",
-            "title": "Duration",
-            "description": "Duration of the logged event in seconds."
-          },
-          "output_message": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ChatMessageWithToolCall"
-              }
-            ],
-            "title": "Output message",
-            "description": "The message returned by the provider."
-          },
-          "prompt_tokens": {
-            "type": "integer",
-            "title": "Prompt tokens",
-            "description": "Number of tokens in the prompt used to generate the output."
-          },
-          "output_tokens": {
-            "type": "integer",
-            "title": "Output tokens",
-            "description": "Number of tokens in the output generated by the model."
-          },
-          "prompt_cost": {
-            "type": "number",
-            "title": "Prompt cost",
-            "description": "Cost in dollars associated to the tokens in the prompt."
-          },
-          "output_cost": {
-            "type": "number",
-            "title": "Output tokens",
-            "description": "Cost in dollars associated to the tokens in the output."
-          },
-          "provider_request": {
-            "type": "object",
-            "title": "Provider request",
-            "description": "Raw request sent to provider."
-          },
-          "provider_response": {
-            "type": "object",
-            "title": "Provider response",
-            "description": "Raw response received the provider."
-          },
-          "user": {
-            "type": "string",
-            "title": "User",
-            "description": "User email address provided when creating the datapoint."
-          },
-          "provider_latency": {
-            "type": "number",
-            "title": "Provider Latency",
-            "description": "Latency of provider response."
-          },
-          "tokens": {
-            "type": "integer",
-            "title": "Tokens",
-            "description": "Total number of tokens in the prompt and output."
-          },
-          "raw_output": {
-            "type": "string",
-            "title": "Raw output",
-            "description": "Raw output from the provider."
-          },
-          "finish_reason": {
-            "type": "string",
-            "title": "Finish reason",
-            "description": "Reason the generation finished."
-          },
-          "metric_values": {
-            "items": {
-              "$ref": "#/components/schemas/MetricValueResponse"
-            },
-            "type": "array",
-            "title": "Metric Values"
-          },
-          "tools": {
-            "items": {
-              "$ref": "#/components/schemas/ToolResultResponse"
-            },
-            "type": "array",
-            "title": "Tools"
-          },
-          "tool_choice": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": ["none"]
-              },
-              {
-                "type": "string",
-                "enum": ["auto"]
-              },
-              {
-                "type": "string",
-                "enum": ["required"]
-              },
-              {
-                "$ref": "#/components/schemas/ToolChoice"
-              }
-            ],
-            "title": "Tool choice",
-            "description": "Controls how the model uses tools. The following options are supported: 'none' forces the model to not call a tool; the default when no tools are provided as part of the model config. 'auto' the model can decide to call one of the provided tools; the default when tools are provided as part of the model config. Providing {'type': 'function', 'function': {name': <TOOL_NAME>}} forces the model to use the named function."
-          },
-          "evaluation_results": {
-            "items": {
-              "$ref": "#/components/schemas/EvaluationResultResponse"
-            },
-            "type": "array",
-            "title": "Evaluation Results"
-          },
-          "observability_status": {
-            "$ref": "#/components/schemas/ObservabilityStatus"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "batch_ids": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "List of batch IDs the log belongs to."
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "config",
-          "evaluation_results",
-          "observability_status",
-          "updated_at"
-        ],
-        "title": "LogResponse",
-        "description": "Request model for logging a datapoint."
-      },
-      "src__external__app__models__v4__orgs__base_models__UserResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "User ID",
-            "description": "String ID of user. Starts with `usr_`."
-          },
-          "email_address": {
-            "type": "string",
-            "title": "Email address",
-            "description": "The user's email address."
-          },
-          "full_name": {
-            "type": "string",
-            "title": "Full name",
-            "description": "The user's full name."
-          },
-          "verified": {
-            "type": "boolean",
-            "title": "Verified",
-            "description": "Whether the user has verified their email address."
-          }
-        },
-        "type": "object",
-        "required": ["id", "email_address", "verified"],
-        "title": "UserResponse"
-      },
-      "src__external__app__models__v5__datasets__DatasetRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Dataset path",
-            "description": "Path of the Dataset, including the name. This locates the Dataset in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
-          },
-          "id": {
-            "type": "string",
-            "title": "Dataset ID",
-            "description": "ID for an existing Dataset."
-          },
-          "datapoints": {
-            "items": {
-              "$ref": "#/components/schemas/CreateDatapointRequest"
-            },
-            "type": "array",
-            "title": "Datapoints",
-            "description": "The Datapoints to create this Dataset version with. Modify the `action` field to determine how these Datapoints are used."
-          },
-          "action": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UpdateDatesetAction"
-              }
-            ],
-            "title": "Action",
-            "description": "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided.",
-            "default": "set"
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit message",
-            "description": "Message describing the changes made. If provided, a committed version of the Dataset is created. Otherwise, an uncommitted version is created."
-          }
-        },
-        "type": "object",
-        "required": ["datapoints"],
-        "title": "DatasetRequest"
-      },
-      "src__external__app__models__v5__evaluations__DatasetRequest": {
-        "properties": {
-          "version_id": {
-            "type": "string",
-            "title": "Dataset Version ID",
-            "description": "Unique identifier for the Dataset Version to use in this evaluation. Starts with `dsv_`."
-          }
-        },
-        "type": "object",
-        "required": ["version_id"],
-        "title": "DatasetRequest"
-      },
-      "src__external__app__models__v5__evaluations__EvaluatorRequest": {
-        "properties": {
-          "version_id": {
-            "type": "string",
-            "title": "Evaluator Version ID",
-            "description": "Unique identifier for the Evaluator Version to use in this evaluation. Starts with `evv_`."
-          },
-          "orchestrated": {
-            "type": "boolean",
-            "title": "Humanloop Orchestrated",
-            "description": "Whether the Evaluator is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Evaluator should be submitted by the user via the API.",
-            "default": true
-          }
-        },
-        "type": "object",
-        "required": ["version_id"],
-        "title": "EvaluatorRequest"
-      },
-      "src__external__app__models__v5__evaluators__EvaluatorRequest": {
-        "properties": {
-          "path": {
-            "type": "string",
-            "title": "Evaluator path",
-            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
-          },
-          "id": {
-            "type": "string",
-            "title": "Evaluator ID",
-            "description": "ID for an existing Evaluator."
-          },
-          "commit_message": {
-            "type": "string",
-            "title": "Commit message",
-            "description": "Message describing the changes made."
-          },
-          "spec": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/LLMEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/CodeEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/HumanEvaluatorRequest"
-              },
-              {
-                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
-              }
-            ],
-            "title": "Spec",
-            "discriminator": {
-              "propertyName": "evaluator_type",
-              "mapping": {
-                "llm": "#/components/schemas/LLMEvaluatorRequest",
-                "python": "#/components/schemas/CodeEvaluatorRequest",
-                "human": "#/components/schemas/HumanEvaluatorRequest",
-                "external": "#/components/schemas/ExternalEvaluatorRequest"
-              }
-            }
-          }
-        },
-        "type": "object",
-        "required": ["spec"],
-        "title": "EvaluatorRequest"
-      },
-      "src__external__app__models__v5__feedback__FeedbackType": {
-        "type": "string",
-        "enum": ["rating", "action", "issue", "correction", "comment"],
-        "title": "FeedbackType",
-        "description": "An enumeration."
-      },
-      "src__external__app__models__v5__logs__LogResponse": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/PromptLogResponse"
-          },
-          {
-            "$ref": "#/components/schemas/ToolLogResponse"
-          },
-          {
-            "$ref": "#/components/schemas/EvaluatorLogResponse"
-          }
-        ],
-        "additionalProperties": false,
-        "title": "LogResponse"
-      },
-      "src__external__app__models__v5__tools__ToolResponse": {
+      "ToolResponse": {
         "properties": {
           "path": {
             "type": "string",
@@ -9888,7 +8260,7 @@
           "created_by": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/src__external__app__models__v5__users__UserResponse"
+                "$ref": "#/components/schemas/UserResponse"
               }
             ],
             "title": "Created by",
@@ -9965,7 +8337,77 @@
         "title": "ToolResponse",
         "description": "Base type that all File Responses should inherit from.\n\nAttributes defined here are common to all File Responses and should be overridden\nin the inheriting classes with documentation and appropriate Field definitions."
       },
-      "src__external__app__models__v5__users__UserResponse": {
+      "UpdateDatasetRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Dataset path",
+            "description": "Path of the Dataset including the Dataset name, which is used as a unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "title": "Dataset name",
+            "description": "Name of the Dataset, which is used as a unique identifier."
+          }
+        },
+        "type": "object",
+        "title": "UpdateDatasetRequest"
+      },
+      "UpdateDatesetAction": {
+        "type": "string",
+        "enum": ["set", "add", "remove"],
+        "title": "UpdateDatesetAction",
+        "description": "An enumeration."
+      },
+      "UpdateEvaluatorRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Evaluator path",
+            "description": "Path of the Evaluator including the Evaluator name, which is used as a unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "title": "Evaluator Name",
+            "description": "Name of the Evaluator, which is used as a unique identifier."
+          }
+        },
+        "type": "object",
+        "title": "UpdateEvaluatorRequest"
+      },
+      "UpdatePromptRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Prompt path",
+            "description": "Path of the Prompt including the Prompt name, which is used as a unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "title": "Prompt name",
+            "description": "Name of the Prompt."
+          }
+        },
+        "type": "object",
+        "title": "UpdatePromptRequest"
+      },
+      "UpdateToolRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Tool path",
+            "description": "Path of the Tool including the Tool name, which is used as a unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "title": "Tool Name",
+            "description": "Name of the Tool, which is used as a unique identifier."
+          }
+        },
+        "type": "object",
+        "title": "UpdateToolRequest"
+      },
+      "UserResponse": {
         "properties": {
           "id": {
             "type": "string",
@@ -9986,6 +8428,342 @@
         "type": "object",
         "required": ["id", "email_address"],
         "title": "UserResponse"
+      },
+      "Valence": {
+        "type": "string",
+        "enum": ["positive", "negative", "neutral"],
+        "title": "Valence",
+        "description": "An enumeration."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "VersionDeploymentResponse": {
+        "properties": {
+          "file": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              },
+              {
+                "$ref": "#/components/schemas/ToolResponse"
+              },
+              {
+                "$ref": "#/components/schemas/DatasetResponse"
+              },
+              {
+                "$ref": "#/components/schemas/EvaluatorResponse"
+              }
+            ],
+            "title": "File",
+            "description": "The File that the deployed Version belongs to."
+          },
+          "environment": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EnvironmentResponse"
+              }
+            ],
+            "title": "Environment",
+            "description": "The Environment that the Version is deployed to."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["environment"],
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": ["file", "environment", "type"],
+        "title": "VersionDeploymentResponse",
+        "description": "A variable reference to the Version deployed to an Environment"
+      },
+      "VersionIdResponse": {
+        "properties": {
+          "version": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              },
+              {
+                "$ref": "#/components/schemas/ToolResponse"
+              },
+              {
+                "$ref": "#/components/schemas/DatasetResponse"
+              },
+              {
+                "$ref": "#/components/schemas/EvaluatorResponse"
+              }
+            ],
+            "title": "Version",
+            "description": "The specific Version being referenced."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["version"],
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": ["version", "type"],
+        "title": "VersionIdResponse",
+        "description": "A reference to a specific Version by its ID"
+      },
+      "VersionReferenceResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/VersionDeploymentResponse"
+          },
+          {
+            "$ref": "#/components/schemas/VersionIdResponse"
+          }
+        ],
+        "title": "VersionReferenceResponse",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "environment": "#/components/schemas/VersionDeploymentResponse",
+            "version": "#/components/schemas/VersionIdResponse"
+          }
+        }
+      },
+      "VersionStats": {
+        "properties": {
+          "version_id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "Unique identifier for the Evaluated Version."
+          },
+          "num_logs": {
+            "type": "integer",
+            "title": "Number of Logs",
+            "description": "The total number of existing Logs for this Evaluated Version within the Evaluation Report. These are Logs that have been generated by this Evaluated Version on a Datapoint belonging to the Evaluation Report's Dataset Version."
+          },
+          "evaluator_version_stats": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/NumericEvaluatorVersionStats"
+                },
+                {
+                  "$ref": "#/components/schemas/BooleanEvaluatorVersionStats"
+                },
+                {
+                  "$ref": "#/components/schemas/SelectEvaluatorVersionStats"
+                },
+                {
+                  "$ref": "#/components/schemas/TextEvaluatorVersionStats"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Evaluator Version Stats",
+            "description": "Stats for each Evaluator Version used to evaluate this Evaluated Version."
+          }
+        },
+        "type": "object",
+        "required": ["version_id", "num_logs", "evaluator_version_stats"],
+        "title": "VersionStats",
+        "description": "Stats for an Evaluated Version in the Evaluation Report."
+      },
+      "VersionStatus": {
+        "type": "string",
+        "enum": ["uncommitted", "committed", "deleted"],
+        "title": "VersionStatus",
+        "description": "An enumeration."
+      },
+      "src__domain__chat_types__enums__ToolType": {
+        "type": "string",
+        "enum": ["function"],
+        "title": "ToolType",
+        "description": "The type of tool to call."
+      },
+      "src__domain__files__tool__ToolType": {
+        "type": "string",
+        "enum": [
+          "pinecone_search",
+          "google",
+          "mock",
+          "snippet",
+          "json_schema",
+          "get_api_call"
+        ],
+        "title": "ToolType",
+        "description": "Type of tool."
+      },
+      "src__external__app__models__v5__datasets__DatasetRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Dataset path",
+            "description": "Path of the Dataset, including the name. This locates the Dataset in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+          },
+          "id": {
+            "type": "string",
+            "title": "Dataset ID",
+            "description": "ID for an existing Dataset."
+          },
+          "datapoints": {
+            "items": {
+              "$ref": "#/components/schemas/CreateDatapointRequest"
+            },
+            "type": "array",
+            "title": "Datapoints",
+            "description": "The Datapoints to create this Dataset version with. Modify the `action` field to determine how these Datapoints are used."
+          },
+          "action": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UpdateDatesetAction"
+              }
+            ],
+            "title": "Action",
+            "description": "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided.",
+            "default": "set"
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Message describing the changes made. If provided, a committed version of the Dataset is created. Otherwise, an uncommitted version is created."
+          }
+        },
+        "type": "object",
+        "required": ["datapoints"],
+        "title": "DatasetRequest"
+      },
+      "src__external__app__models__v5__evaluations__DatasetRequest": {
+        "properties": {
+          "version_id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "Unique identifier for the File Version. If provided, none of the other fields should be specified."
+          },
+          "path": {
+            "type": "string",
+            "title": "File path",
+            "description": "Path identifying a File. Provide either this or `file_id` if you want to specify a File."
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "Unique identifier for the File. Provide either this or `path` if you want to specify a File."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "Name of the Environment a Version is deployed to. Only provide this when specifying a File. If not provided (and a File is specified), the default Environment is used."
+          }
+        },
+        "type": "object",
+        "title": "DatasetRequest",
+        "description": "Specification of a File version on Humanloop.\n\nThis can be done in a couple of ways:\n- Specifying `version_id` directly.\n- Specifying a File (and optionally an Environment).\n    - A File can be specified by either `path` or `file_id`.\n    - An Environment can be specified by `environment_id`. If no Environment is specified, the default Environment is used."
+      },
+      "src__external__app__models__v5__evaluations__EvaluatorRequest": {
+        "properties": {
+          "version_id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "Unique identifier for the File Version. If provided, none of the other fields should be specified."
+          },
+          "path": {
+            "type": "string",
+            "title": "File path",
+            "description": "Path identifying a File. Provide either this or `file_id` if you want to specify a File."
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "Unique identifier for the File. Provide either this or `path` if you want to specify a File."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "Name of the Environment a Version is deployed to. Only provide this when specifying a File. If not provided (and a File is specified), the default Environment is used."
+          },
+          "orchestrated": {
+            "type": "boolean",
+            "title": "Humanloop Orchestrated",
+            "description": "Whether the Evaluator is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Evaluator should be submitted by the user via the API.",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "EvaluatorRequest",
+        "description": "Specification of a File version on Humanloop.\n\nThis can be done in a couple of ways:\n- Specifying `version_id` directly.\n- Specifying a File (and optionally an Environment).\n    - A File can be specified by either `path` or `file_id`.\n    - An Environment can be specified by `environment_id`. If no Environment is specified, the default Environment is used."
+      },
+      "src__external__app__models__v5__evaluators__EvaluatorRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Evaluator path",
+            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+          },
+          "id": {
+            "type": "string",
+            "title": "Evaluator ID",
+            "description": "ID for an existing Evaluator."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Message describing the changes made."
+          },
+          "spec": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LLMEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/CodeEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/HumanEvaluatorRequest"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalEvaluatorRequest"
+              }
+            ],
+            "title": "Spec",
+            "discriminator": {
+              "propertyName": "evaluator_type",
+              "mapping": {
+                "llm": "#/components/schemas/LLMEvaluatorRequest",
+                "python": "#/components/schemas/CodeEvaluatorRequest",
+                "human": "#/components/schemas/HumanEvaluatorRequest",
+                "external": "#/components/schemas/ExternalEvaluatorRequest"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": ["spec"],
+        "title": "EvaluatorRequest"
       }
     },
     "securitySchemes": {
