@@ -183,6 +183,8 @@ navigation:
                 path: ../v5-pages/admin/guides/invite-collaborators.mdx
               - page: Manage API keys
                 path: ../v5-pages/admin/guides/manage-api-keys.mdx
+              - page: Manage Environments
+                path: ../v5-pages/admin/guides/manage-environments.mdx
       - section: Reference
         contents:
           - page: Deployment Options
