@@ -19,14 +19,14 @@ navigation:
         slug: getting-started
         contents:
           - page: Overview
-            slug: overview
+            slug: getting-started/overview
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
-            slug: why-humanloop
+            slug: getting-started/why-humanloop
           - page: Quickstart Tutorial
             path: ../pages/getting-started/quickstart-tutorial.mdx
-            slug: quickstart
+            slug: tutorials/quickstart
       - section: Tutorials
         slug: tutorials
         contents:
