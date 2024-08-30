@@ -19,11 +19,11 @@ navigation:
         slug: getting-started
         contents:
           - page: Overview
-            slug: getting-started/overview
+            slug: overview
             path: ../pages/getting-started/overview.mdx
           - page: Why Humanloop?
             path: ../pages/getting-started/why-humanloop.mdx
-            slug: getting-started/why-humanloop
+            slug: why-humanloop
           - page: Quickstart Tutorial
             path: ../pages/getting-started/quickstart-tutorial.mdx
             slug: tutorials/quickstart
