@@ -2456,6 +2456,137 @@
         ]
       }
     },
+    "/files": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "List",
+        "description": "Get a paginated list of files.",
+        "operationId": "Files_list",
+        "parameters": [
+          {
+            "description": "Page offset for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page index",
+              "description": "Page offset for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of files to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of files to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Case-insensitive filter for file name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "File name filter",
+              "description": "Case-insensitive filter for file name."
+            },
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "description": "List of file types to filter for.",
+            "required": false,
+            "schema": {
+              "items": {
+                "$ref": "#/components/schemas/FileType"
+              },
+              "type": "array",
+              "title": "File types filter",
+              "description": "List of file types to filter for."
+            },
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment filter",
+              "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name."
+            },
+            "name": "environment",
+            "in": "query"
+          },
+          {
+            "description": "Field to sort files by",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectSortBy"
+                }
+              ],
+              "title": "Sort by",
+              "description": "Field to sort files by",
+              "default": "created_at"
+            },
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "description": "Direction to sort by.",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                }
+              ],
+              "title": "Sort order",
+              "description": "Direction to sort by.",
+              "default": "desc"
+            },
+            "name": "order",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/evaluations": {
       "get": {
         "tags": ["Evaluations"],
@@ -4191,6 +4322,11 @@
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
           },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Evaluator. Helpful to separate Evaluator versions from each other with details on how they were created or used."
+          },
           "evaluator_type": {
             "type": "string",
             "enum": ["python"],
@@ -4702,6 +4838,11 @@
             "type": "array",
             "title": "Datapoints",
             "description": "The list of Datapoints in this Dataset version. Only provided if explicitly requested."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Dataset. Helpful to separate Dataset versions from each other with details on how they were created or used."
           }
         },
         "type": "object",
@@ -5387,6 +5528,11 @@
             "type": "array",
             "title": "Evaluator aggregates",
             "description": "Aggregation of Evaluator results for the Evaluator Version."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Evaluator. Helpful to separate Evaluator versions from each other with details on how they were created or used."
           }
         },
         "type": "object",
@@ -5433,17 +5579,17 @@
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
           },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Evaluator. Helpful to separate Evaluator versions from each other with details on how they were created or used."
+          },
           "evaluator_type": {
             "type": "string",
             "enum": ["external"],
             "title": "Evaluator type",
             "description": "The type of the evaluator.",
             "default": "external"
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "Metadata describing the external Evaluator."
           }
         },
         "type": "object",
@@ -5491,6 +5637,12 @@
         "required": ["id", "created_at", "name", "tag"],
         "title": "FileEnvironmentResponse",
         "description": "Response model for the List Environments endpoint under Files.\n\nContains the deployed version of the File, if one is deployed to the Environment."
+      },
+      "FileType": {
+        "type": "string",
+        "enum": ["prompt", "tool", "dataset", "evaluator"],
+        "title": "FileType",
+        "description": "Enum for File types."
       },
       "FunctionTool": {
         "properties": {
@@ -5549,6 +5701,11 @@
             "enum": ["select", "multi_select", "text", "number", "boolean"],
             "title": "Return type",
             "description": "The type of the return value of the Evaluator."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Evaluator. Helpful to separate Evaluator versions from each other with details on how they were created or used."
           },
           "evaluator_type": {
             "type": "string",
@@ -5663,6 +5820,11 @@
             ],
             "title": "Return type",
             "description": "The type of the return value of the evaluator."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Evaluator. Helpful to separate Evaluator versions from each other with details on how they were created or used."
           },
           "evaluator_type": {
             "type": "string",
@@ -6226,6 +6388,45 @@
         "required": ["records", "page", "size", "total"],
         "title": "PaginatedData[ToolResponse]"
       },
+      "PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__": {
+        "properties": {
+          "records": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PromptResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/ToolResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": ["records", "page", "size", "total"],
+        "title": "PaginatedData[Union[PromptResponse, ToolResponse, DatasetResponse, EvaluatorResponse]]"
+      },
       "PlatformAccessEnum": {
         "type": "string",
         "enum": ["superadmin", "supportadmin", "user"],
@@ -6784,6 +6985,11 @@
             "type": "array",
             "title": "Linked tools",
             "description": "The IDs of the Tools in your organization that the model can choose to call if Tool calling is supported. The default deployed version of that tool is called."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Prompt. Helpful to separate Prompt versions from each other with details on how they were created or used."
           }
         },
         "type": "object",
@@ -7294,6 +7500,11 @@
             "title": "Linked tools",
             "description": "The IDs of the Tools in your organization that the model can choose to call if Tool calling is supported. The default deployed version of that tool is called."
           },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Prompt. Helpful to separate Prompt versions from each other with details on how they were created or used."
+          },
           "commit_message": {
             "type": "string",
             "title": "Commit message",
@@ -7442,6 +7653,11 @@
             "type": "array",
             "title": "Linked Tools",
             "description": "The tools linked to your prompt that the model can call."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Prompt. Helpful to separate Prompt versions from each other with details on how they were created or used."
           },
           "commit_message": {
             "type": "string",
@@ -7876,6 +8092,11 @@
             "type": "object",
             "title": "Setup values",
             "description": "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Tool. Helpful to separate Tool versions from each other with details on how they were created or used."
           }
         },
         "type": "object",
@@ -8152,6 +8373,11 @@
             "title": "Setup values",
             "description": "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
           },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Tool. Helpful to separate Tool versions from each other with details on how they were created or used."
+          },
           "tool_type": {
             "allOf": [
               {
@@ -8207,6 +8433,11 @@
             "type": "object",
             "title": "Setup values",
             "description": "Values needed to setup the Tool, defined in JSON Schema format: https://json-schema.org/"
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Tool. Helpful to separate Tool versions from each other with details on how they were created or used."
           },
           "tool_type": {
             "allOf": [
@@ -8646,6 +8877,11 @@
             "title": "Action",
             "description": "The action to take with the provided Datapoints.\n\n - If `\"set\"`, the created version will only contain the Datapoints provided in this request. \n - If `\"add\"`, the created version will contain the Datapoints provided in this request in addition to the Datapoints in the target version. \n - If `\"remove\"`, the created version will contain the Datapoints in the target version except for the Datapoints provided in this request. \n\nIf `\"add\"` or `\"remove\"`, one of the `version_id` or `environment` query parameters may be provided.",
             "default": "set"
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "Additional fields to describe the Dataset. Helpful to separate Dataset versions from each other with details on how they were created or used."
           },
           "commit_message": {
             "type": "string",
