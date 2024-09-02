@@ -81,6 +81,75 @@
         ]
       }
     },
+    "/prompts/{id}/log/{log_id}": {
+      "patch": {
+        "tags": ["Prompts"],
+        "summary": "Update Log",
+        "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
+        "operationId": "Prompts_update",
+        "parameters": [
+          {
+            "description": "Unique identifier for Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Prompt ID",
+              "description": "Unique identifier for Prompt."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Log.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Log ID",
+              "description": "Unique identifier for the Log."
+            },
+            "name": "log_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromptLogUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/prompts/call": {
       "post": {
         "tags": ["Prompts"],
@@ -155,7 +224,19 @@
           {
             "APIKeyHeader": []
           }
-        ]
+        ],
+        "x-fern-sdk-group-name": "prompts",
+        "x-fern-sdk-method-name": "call",
+        "x-fern-streaming": {
+          "format": "sse",
+          "stream-condition": "$request.stream",
+          "response": {
+            "$ref": "#/components/schemas/PromptCallResponse"
+          },
+          "response-stream": {
+            "$ref": "#/components/schemas/PromptCallStreamResponse"
+          }
+        }
       }
     },
     "/prompts": {
@@ -900,6 +981,75 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateToolLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/tools/{id}/log/{log_id}": {
+      "patch": {
+        "tags": ["Tools"],
+        "summary": "Update Log",
+        "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
+        "operationId": "Tools_update",
+        "parameters": [
+          {
+            "description": "Unique identifier for Prompt.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Prompt ID",
+              "description": "Unique identifier for Prompt."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Log.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Log ID",
+              "description": "Unique identifier for the Log."
+            },
+            "name": "log_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolLogUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogResponse"
                 }
               }
             }
@@ -4488,16 +4638,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider. Only populated for LLM Evaluator Logs."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Identifier of the evaluated Log. The newly created Log will have this one set as parent."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -4514,11 +4654,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Identifier of the evaluated Log. The newly created Log will have this one set as parent."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -4542,6 +4686,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "judgment": {
             "anyOf": [
@@ -5282,16 +5432,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Identifier of the evaluated Log. The newly created Log will have this one set as parent."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -5308,11 +5448,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Identifier of the evaluated Log. The newly created Log will have this one set as parent."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -5336,6 +5480,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "judgment": {
             "anyOf": [
@@ -6524,15 +6674,6 @@
             "title": "Prompt ID",
             "description": "ID for an existing Prompt."
           },
-          "prompt": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptKernelRequest"
-              }
-            ],
-            "title": "Prompt",
-            "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
-          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessage"
@@ -6562,15 +6703,14 @@
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: \n- `'none'` means the model will not call any tool and instead generates a message; this is the default when no tools are provided as part of the Prompt. \n- `'auto'` means the model can decide to call one or more of the provided tools; this is the default when tools are provided as part of the Prompt. \n- `'required'` means the model can decide to call one or more of the provided tools. \n- `{'type': 'function', 'function': {name': <TOOL_NAME>}}` forces the model to use the named function."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+          "prompt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptKernelRequest"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
           },
           "inputs": {
             "type": "object",
@@ -6588,11 +6728,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -6616,6 +6760,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "provider_api_keys": {
             "allOf": [
@@ -6658,19 +6808,10 @@
         "additionalProperties": false,
         "type": "object",
         "title": "PromptCallRequest",
-        "description": "Base request for any generations/logs."
+        "description": "Base request for any generations/logs. Contains relational fields such as session id or parent id."
       },
       "PromptCallResponse": {
         "properties": {
-          "prompt": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptResponse"
-              }
-            ],
-            "title": "Prompt",
-            "description": "Prompt details used to generate the log."
-          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessage"
@@ -6700,15 +6841,14 @@
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: \n- `'none'` means the model will not call any tool and instead generates a message; this is the default when no tools are provided as part of the Prompt. \n- `'auto'` means the model can decide to call one or more of the provided tools; this is the default when tools are provided as part of the Prompt. \n- `'required'` means the model can decide to call one or more of the provided tools. \n- `{'type': 'function', 'function': {name': <TOOL_NAME>}}` forces the model to use the named function."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+          "prompt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptResponse"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Prompt details used to generate the log."
           },
           "inputs": {
             "type": "object",
@@ -6726,11 +6866,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -6754,6 +6898,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "id": {
             "type": "string",
@@ -7047,15 +7197,6 @@
             "title": "Finish reason",
             "description": "Reason the generation finished."
           },
-          "prompt": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptKernelRequest"
-              }
-            ],
-            "title": "Prompt",
-            "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
-          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessage"
@@ -7084,6 +7225,15 @@
             ],
             "title": "Tool choice",
             "description": "Controls how the model uses tools. The following options are supported: \n- `'none'` means the model will not call any tool and instead generates a message; this is the default when no tools are provided as part of the Prompt. \n- `'auto'` means the model can decide to call one or more of the provided tools; this is the default when tools are provided as part of the Prompt. \n- `'required'` means the model can decide to call one or more of the provided tools. \n- `{'type': 'function', 'function': {name': <TOOL_NAME>}}` forces the model to use the named function."
+          },
+          "prompt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PromptKernelRequest"
+              }
+            ],
+            "title": "Prompt",
+            "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
           },
           "output": {
             "type": "string",
@@ -7121,16 +7271,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -7147,11 +7287,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -7175,6 +7319,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           }
         },
         "additionalProperties": false,
@@ -7218,6 +7368,35 @@
             "title": "Finish reason",
             "description": "Reason the generation finished."
           },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
+            "type": "array",
+            "title": "Messages",
+            "description": "The messages passed to the to provider chat endpoint."
+          },
+          "tool_choice": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["none"]
+              },
+              {
+                "type": "string",
+                "enum": ["auto"]
+              },
+              {
+                "type": "string",
+                "enum": ["required"]
+              },
+              {
+                "$ref": "#/components/schemas/ToolChoice"
+              }
+            ],
+            "title": "Tool choice",
+            "description": "Controls how the model uses tools. The following options are supported: \n- `'none'` means the model will not call any tool and instead generates a message; this is the default when no tools are provided as part of the Prompt. \n- `'auto'` means the model can decide to call one or more of the provided tools; this is the default when tools are provided as part of the Prompt. \n- `'required'` means the model can decide to call one or more of the provided tools. \n- `{'type': 'function', 'function': {name': <TOOL_NAME>}}` forces the model to use the named function."
+          },
           "prompt": {
             "allOf": [
               {
@@ -7226,6 +7405,153 @@
             ],
             "title": "Prompt",
             "description": "Prompt details used to generate the Log."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "Unique identifier for the Log."
+          },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorLogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["prompt", "id", "evaluator_logs"],
+        "title": "PromptLogResponse",
+        "description": "General request for creating a Log"
+      },
+      "PromptLogUpdateRequest": {
+        "properties": {
+          "output_message": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChatMessage"
+              }
+            ],
+            "title": "Output message",
+            "description": "The message returned by the provider."
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt tokens",
+            "description": "Number of tokens in the prompt used to generate the output."
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output tokens",
+            "description": "Number of tokens in the output generated by the model."
+          },
+          "prompt_cost": {
+            "type": "number",
+            "title": "Prompt cost",
+            "description": "Cost in dollars associated to the tokens in the prompt."
+          },
+          "output_cost": {
+            "type": "number",
+            "title": "Output tokens",
+            "description": "Cost in dollars associated to the tokens in the output."
+          },
+          "finish_reason": {
+            "type": "string",
+            "title": "Finish reason",
+            "description": "Reason the generation finished."
           },
           "messages": {
             "items": {
@@ -7292,16 +7618,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -7317,55 +7633,11 @@
             "type": "object",
             "title": "Metadata",
             "description": "Any additional metadata to record."
-          },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
-          },
-          "source_datapoint_id": {
-            "type": "string",
-            "title": "Source Datapoint ID",
-            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
-          },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
-          },
-          "user": {
-            "type": "string",
-            "title": "End-user identifier",
-            "description": "End-user ID related to the Log."
-          },
-          "environment": {
-            "type": "string",
-            "title": "Environment name",
-            "description": "The name of the Environment the Log is associated to."
-          },
-          "id": {
-            "type": "string",
-            "title": "Log ID",
-            "description": "Unique identifier for the Log."
-          },
-          "evaluator_logs": {
-            "items": {
-              "$ref": "#/components/schemas/EvaluatorLogResponse"
-            },
-            "type": "array",
-            "title": "Evaluator Logs",
-            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
           }
         },
-        "additionalProperties": false,
         "type": "object",
-        "required": ["prompt", "id", "evaluator_logs"],
-        "title": "PromptLogResponse",
-        "description": "General request for creating a Log"
+        "title": "PromptLogUpdateRequest",
+        "description": "Request for updating a Prompt log."
       },
       "PromptRequest": {
         "properties": {
@@ -8150,16 +8422,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -8176,11 +8438,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -8204,6 +8470,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "tool": {
             "allOf": [
@@ -8258,16 +8530,6 @@
             "title": "Provider response",
             "description": "Raw response received the provider."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "inputs": {
             "type": "object",
             "title": "Inputs",
@@ -8284,11 +8546,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "save": {
-            "type": "boolean",
-            "title": "Save",
-            "description": "Whether the request/response payloads will be stored on Humanloop.",
-            "default": true
+          "session_id": {
+            "type": "string",
+            "title": "Session ID",
+            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent ID",
+            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
           },
           "source_datapoint_id": {
             "type": "string",
@@ -8312,6 +8578,12 @@
             "type": "string",
             "title": "Environment name",
             "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
           },
           "id": {
             "type": "string",
@@ -8341,6 +8613,65 @@
         "required": ["id", "evaluator_logs", "tool"],
         "title": "ToolLogResponse",
         "description": "General request for creating a Log"
+      },
+      "ToolLogUpdateRequest": {
+        "properties": {
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          }
+        },
+        "type": "object",
+        "title": "ToolLogUpdateRequest",
+        "description": "Request to update a Tool log."
       },
       "ToolRequest": {
         "properties": {

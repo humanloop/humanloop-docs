@@ -2579,15 +2579,6 @@
       "src__domain__files__tool__ToolType": {
         "x-fern-type-name": "FilesToolType"
       },
-      "src__external__app__models__v4__configs__ToolResponse": {
-        "x-fern-type-name": "ConfigToolResponse"
-      },
-      "src__external__app__models__v4__feedback__FeedbackType": {
-        "x-fern-type-name": "FeedbackType"
-      },
-      "src__external__app__models__v4__orgs__base_models__UserResponse": {
-        "x-fern-type-name": "BaseModelsUserResponse"
-      },
       "src__external__app__models__v5__datasets__DatasetRequest": {
         "x-fern-type-name": "DatasetsRequest"
       },
@@ -2599,15 +2590,6 @@
       },
       "src__external__app__models__v5__evaluators__EvaluatorRequest": {
         "x-fern-type-name": "EvaluatorsRequest"
-      },
-      "src__external__app__models__v5__feedback__FeedbackType": {
-        "x-fern-type-name": "FeedbackType"
-      },
-      "src__external__app__models__v5__tools__ToolResponse": {
-        "x-fern-type-name": "ToolResponse"
-      },
-      "src__external__app__models__v5__users__UserResponse": {
-        "x-fern-type-name": "UserResponse"
       }
     },
     "securitySchemes": {
