@@ -90,6 +90,20 @@ To deploy your SDKs, simply run the `Release Python SDK` GitHub Action with the 
 fern generate --group python-sdk
 ```
 
+### Developing SDKs
+
+You can also regenerate the SDKs locally by running:
+
+```sh
+fern generate --api v5 --group python-sdk --preview --log-level debug
+```
+
+This will generate the SDK and download it to a local folder that can be pip installed.
+
+```sh
+pip install -e /path/to/fern/apis/v5/.preview/fern-python-sdk
+```
+
 # How the repo is structured
 
 - [`fern/docs.yml`](fern/docs.yml) - the starting point, configuration for the docs and links to the versions
