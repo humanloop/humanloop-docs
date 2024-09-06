@@ -2,7 +2,6 @@ instances:
   - url: https://humanloop.docs.buildwithfern.com/docs
     custom-domain:
       - humanloop.com/docs
-      - fern.humanloop.com/docs
     edit-this-page:
       github:
         owner: humanloop
@@ -20,7 +19,7 @@ metadata:
   og:image:height: 630
   og:locale: "en_US"
   og:logo: "https://humanloop.com/assets/logos/logomark.png"
-  twitter:title: "Humanloop API Documentation"
+  twitter:title: "Humanloop Documentation and API Reference"
   twitter:description: "Learn how to use Humanloop for prompt engineering, evaluation and monitoring. Comprehensive guides and tutorials for LLMOps."
   twitter:handle: "@humanloop"
   twitter:image: "https://humanloop.com/assets/docs/social-image.png"
@@ -34,7 +33,6 @@ versions:
   - display-name: v5.0 Beta
     path: ./versions/v5.yml
     slug: v5
-    availability: beta
 
 colors:
   accentPrimary:
