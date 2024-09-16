@@ -1,0 +1,26 @@
+---
+subtitle: Flows centralise multiple Logs and allow you to evaluate them together.
+description: Discover how to instrument complex usecases such as RAG or language agents with Humanloop.
+---
+
+A Flow on Humanloop represents a virtual model of your AI app, collecting Logs created during an interaction session between the end user and your system. If your AI feature involves more than one File, Flows allow you to centralise their Logs in one UI view.
+
+## Using Flows
+
+A collection of Logs is called a Trace. The Logs of a Flow file represent the heads of these Traces to which Logs are appended. Furthermore, any Log inside the Trace can have other Logs under it.
+
+To use Flows, log a Trace under a Flow file and assign it an ID. If none is provided, Humanloop will assign one.
+
+<EndpointRequestSnippet endpoint="POST /flows/log" />
+
+When Logs are added to Humanloop, the Log can be coopted into a Trace by specifying the ID of the Trace in the request body. Furthermore, the new Log request can specify a trace parent, which nests it under another Log inside the Trace.
+
+Once all Logs have been added to the Trace, the Trace must be marked as complete. This allows Monitoring Evaluators to pick up the Trace and evaluate it.
+
+## Versioning
+
+Versioning a Flow is done by modifying the attributes object of the Kernel. The attributes object supports arbitrary metadata inside it, and every change creates a new Version of the Flow. This flexibility allows you to instrument complex usecases.
+
+For example, a chatbot can be represented as a state machine with multiple paths corresponding to the chatbot's capabilities. A user might only interact with some paths in the graph, resulting in heterogeneous Traces for the same Flow Version.
+
+In another example, Flow Versions can be defined at runtime from the Files used by your feature, allowing you to A/ B test the impact of a Prompt or Tool modification to the overall system.
