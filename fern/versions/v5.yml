@@ -40,6 +40,8 @@ navigation:
                 path: ../v5-pages/concepts/evaluators.mdx
               - page: Logs
                 path: ../v5-pages/concepts/logs.mdx
+              - page: Flows
+                path: ../v5-pages/concepts/flows.mdx
               - page: Sessions
                 path: ../v5-pages/concepts/sessions.mdx
               - page: Environments
