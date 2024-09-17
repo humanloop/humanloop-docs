@@ -4886,6 +4886,11 @@
             "title": "Humanloop generated",
             "description": "Whether the log generations for this evaluation should be performed by Humanloop. If `False`, the log generations should be submitted by the user via the API.",
             "default": true
+          },
+          "name": {
+            "type": "string",
+            "title": "Evaluation Name",
+            "description": "Name of the Evaluation to help identify it."
           }
         },
         "type": "object",
@@ -5945,7 +5950,7 @@
       },
       "FileType": {
         "type": "string",
-        "enum": ["prompt", "tool", "dataset", "evaluator"],
+        "enum": ["prompt", "tool", "dataset", "evaluator", "flow"],
         "title": "FileType",
         "description": "Enum for File types."
       },
@@ -7280,6 +7285,7 @@
           "openai_azure",
           "mock",
           "anthropic",
+          "bedrock",
           "cohere",
           "replicate",
           "google",
@@ -7803,6 +7809,10 @@
           "anthropic": {
             "type": "string",
             "title": "Anthropic"
+          },
+          "bedrock": {
+            "type": "string",
+            "title": "Bedrock"
           },
           "cohere": {
             "type": "string",

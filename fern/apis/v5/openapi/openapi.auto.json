@@ -225,8 +225,8 @@
             "APIKeyHeader": []
           }
         ],
-        "x-fern-sdk-group-name": "prompts",
         "x-fern-sdk-method-name": "call",
+        "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -2606,577 +2606,6 @@
         ]
       }
     },
-    "/files": {
-      "get": {
-        "tags": ["Files"],
-        "summary": "List",
-        "description": "Get a paginated list of files.",
-        "operationId": "Files_list",
-        "parameters": [
-          {
-            "description": "Page offset for pagination.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "title": "Page index",
-              "description": "Page offset for pagination.",
-              "default": 1
-            },
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "description": "Page size for pagination. Number of files to fetch.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "title": "Page size",
-              "description": "Page size for pagination. Number of files to fetch.",
-              "default": 10
-            },
-            "name": "size",
-            "in": "query"
-          },
-          {
-            "description": "Case-insensitive filter for file name.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "File name filter",
-              "description": "Case-insensitive filter for file name."
-            },
-            "name": "name",
-            "in": "query"
-          },
-          {
-            "description": "List of file types to filter for.",
-            "required": false,
-            "schema": {
-              "items": {
-                "$ref": "#/components/schemas/FileType"
-              },
-              "type": "array",
-              "title": "File types filter",
-              "description": "List of file types to filter for."
-            },
-            "name": "type",
-            "in": "query"
-          },
-          {
-            "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment filter",
-              "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name."
-            },
-            "name": "environment",
-            "in": "query"
-          },
-          {
-            "description": "Field to sort files by",
-            "required": false,
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ProjectSortBy"
-                }
-              ],
-              "title": "Sort by",
-              "description": "Field to sort files by",
-              "default": "created_at"
-            },
-            "name": "sort_by",
-            "in": "query"
-          },
-          {
-            "description": "Direction to sort by.",
-            "required": false,
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/SortOrder"
-                }
-              ],
-              "title": "Sort order",
-              "description": "Direction to sort by.",
-              "default": "desc"
-            },
-            "name": "order",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluations": {
-      "get": {
-        "tags": ["Evaluations"],
-        "summary": "List ",
-        "description": "List all Evaluations for the specified `file_id`.\n\nRetrieve a list of Evaluations that evaluate versions of the specified File.",
-        "operationId": "list__evaluations_get",
-        "parameters": [
-          {
-            "description": "Filter by File ID. Only Evaluations for the specified File will be returned.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "File ID",
-              "description": "Filter by File ID. Only Evaluations for the specified File will be returned."
-            },
-            "name": "file_id",
-            "in": "query"
-          },
-          {
-            "description": "Page number for pagination.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "title": "Page number",
-              "description": "Page number for pagination.",
-              "default": 1
-            },
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "description": "Page size for pagination. Number of Evaluations to fetch.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "title": "Page size",
-              "description": "Page size for pagination. Number of Evaluations to fetch.",
-              "default": 10
-            },
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedData_EvaluationResponse_"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "post": {
-        "tags": ["Evaluations"],
-        "summary": "Create",
-        "description": "Create an Evaluation.\n\nCreate a new Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.\n\nHumanloop will automatically start generating Logs and running Evaluators where\n`orchestrated=true`. If you own the runtime for the Evaluatee or Evaluator, you\ncan set `orchestrated=false` and then generate and submit the required logs using\nyour runtime.\n\nTo keep updated on the progress of the Evaluation, you can poll the Evaluation using\nthe GET /evaluations/{id} endpoint and check its status.",
-        "operationId": "create_evaluations_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEvaluationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluationResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluations/{id}": {
-      "get": {
-        "tags": ["Evaluations"],
-        "summary": "Get",
-        "description": "Get an Evaluation.",
-        "operationId": "get_evaluations__id__get",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluation.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "Unique identifier for Evaluation."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluationResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": ["Evaluations"],
-        "summary": "Delete",
-        "description": "Delete an Evaluation.\n\nRemove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation\nwill not be deleted.",
-        "operationId": "delete_evaluations__id__delete",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluation.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "Unique identifier for Evaluation."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": ["Evaluations"],
-        "summary": "Update Setup",
-        "description": "Update an Evaluation.\n\nUpdate the setup of an Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.",
-        "operationId": "update_setup_evaluations__id__patch",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluation.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "Unique identifier for Evaluation."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEvaluationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluationResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluations/{id}/status": {
-      "patch": {
-        "tags": ["Evaluations"],
-        "summary": "Update Status",
-        "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses\nexternal or human evaluators as completed.",
-        "operationId": "update_status_evaluations__id__status_patch",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluation.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "Unique identifier for Evaluation."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_update_status_evaluations__id__status_patch"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluationResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluations/{id}/stats": {
-      "get": {
-        "tags": ["Evaluations"],
-        "summary": "Get Stats",
-        "description": "Get Evaluation Stats.\n\nRetrieve aggregate stats for the specified Evaluation.\nThis includes the number of generated Logs for each evaluated version and the\ncorresponding Evaluator statistics (such as the mean and percentiles).",
-        "operationId": "get_stats_evaluations__id__stats_get",
-        "parameters": [
-          {
-            "description": "Unique identifier for Evaluation.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "Unique identifier for Evaluation."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluationStats"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/evaluations/{id}/logs": {
-      "get": {
-        "tags": ["Evaluations"],
-        "summary": "Get Logs",
-        "description": "Get the Logs associated to a specific Evaluation.\n\nEach Datapoint in your Dataset will have a corresponding Log for each File version evaluated.\ne.g. If you have 50 Datapoints and are evaluating 2 Prompts, there will be 100 Logs associated with the Evaluation.",
-        "operationId": "get_logs_evaluations__id__logs_get",
-        "parameters": [
-          {
-            "description": "String ID of evaluation. Starts with `ev_` or `evr_`.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Evaluation ID",
-              "description": "String ID of evaluation. Starts with `ev_` or `evr_`."
-            },
-            "name": "id",
-            "in": "path"
-          },
-          {
-            "description": "Page number for pagination.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "title": "Page number",
-              "description": "Page number for pagination.",
-              "default": 1
-            },
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "description": "Page size for pagination. Number of Logs to fetch.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "title": "Page size",
-              "description": "Page size for pagination. Number of Logs to fetch.",
-              "default": 10
-            },
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedData_EvaluationReportLogResponse_"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/evaluators": {
       "get": {
         "tags": ["Evaluators"],
@@ -3884,6 +3313,1397 @@
         ]
       }
     },
+    "/flows/{id}": {
+      "get": {
+        "tags": ["Flows"],
+        "summary": "Get",
+        "description": "Retrieve the Flow with the given ID.\n\nBy default, the deployed version of the Flow is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Flow.",
+        "operationId": "get_flows__id__get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "A specific Version ID of the Flow to retrieve.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "A specific Version ID of the Flow to retrieve."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment to retrieve a deployed Version from.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment to retrieve a deployed Version from."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Flows"],
+        "summary": "Delete",
+        "description": "Delete the Flow with the given ID.",
+        "operationId": "delete_flows__id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Flows"],
+        "summary": "Move",
+        "description": "Move the Flow to a different path or change the name.",
+        "operationId": "move_flows__id__patch",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFlowRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows": {
+      "get": {
+        "tags": ["Flows"],
+        "summary": "List ",
+        "description": "Get a list of all Flows.",
+        "operationId": "list__flows_get",
+        "parameters": [
+          {
+            "description": "Page number for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page number",
+              "description": "Page number for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of Flows to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of Flows to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Case-insensitive filter for Flow name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Flow name filter",
+              "description": "Case-insensitive filter for Flow name."
+            },
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "description": "Case-insensitive filter for users in the Flow. This filter matches against both email address and name of users.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "User filter",
+              "description": "Case-insensitive filter for users in the Flow. This filter matches against both email address and name of users."
+            },
+            "name": "user_filter",
+            "in": "query"
+          },
+          {
+            "description": "Field to sort Flows by",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectSortBy"
+                }
+              ],
+              "title": "Sort by",
+              "description": "Field to sort Flows by",
+              "default": "created_at"
+            },
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "description": "Direction to sort by.",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                }
+              ],
+              "title": "Sort order",
+              "description": "Direction to sort by.",
+              "default": "desc"
+            },
+            "name": "order",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedData_FlowResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Upsert",
+        "operationId": "upsert_flows_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlowRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/log": {
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Log",
+        "description": "Log a Flow Trace.",
+        "operationId": "log_flows_log_post",
+        "parameters": [
+          {
+            "description": "A specific Version ID of the Flow to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "A specific Version ID of the Flow to log to."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlowLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateFlowLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/log/{trace_id}": {
+      "patch": {
+        "tags": ["Flows"],
+        "summary": "Update Trace",
+        "operationId": "update_trace_flows_log__trace_id__patch",
+        "parameters": [
+          {
+            "description": "Unique identifier for Trace.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Trace ID",
+              "description": "Unique identifier for Trace."
+            },
+            "name": "trace_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTraceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/{id}/versions": {
+      "get": {
+        "tags": ["Flows"],
+        "summary": "List Versions",
+        "description": "Get a list of all the versions of a Flow.",
+        "operationId": "list_versions_flows__id__versions_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned.",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/VersionStatus"
+                }
+              ],
+              "description": "Filter versions by status: 'uncommitted', 'committed'. If no status is provided, all versions are returned."
+            },
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "description": "Whether to include Evaluator aggregate results for the versions in the response",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "Evaluator Aggregates",
+              "description": "Whether to include Evaluator aggregate results for the versions in the response"
+            },
+            "name": "evaluator_aggregates",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFlows"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/{id}/versions/{version_id}/commit": {
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Commit",
+        "description": "Commit a version of the Flow with a commit message.\n\nIf the version is already committed, an exception will be raised.",
+        "operationId": "commit_flows__id__versions__version_id__commit_post",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Flow."
+            },
+            "name": "version_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/{id}/environments/{environment_id}": {
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Set Deployment",
+        "description": "Deploy Flow to an Environment.\n\nSet the deployed version for the specified Environment. This Flow\nwill be used for calls made to the Flow in this Environment.",
+        "operationId": "set_deployment_flows__id__environments__environment_id__post",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to deploy the Version to.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to deploy the Version to."
+            },
+            "name": "environment_id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the specific version of the Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version ID",
+              "description": "Unique identifier for the specific version of the Flow."
+            },
+            "name": "version_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Flows"],
+        "summary": "Remove Deployment",
+        "description": "Remove deployed Flow from the Environment.\n\nRemove the deployed version for the specified Environment. This Flow\nwill no longer be used for calls made to the Flow in this Environment.",
+        "operationId": "remove_deployment_flows__id__environments__environment_id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Unique identifier for the Environment to remove the deployment from.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Environment ID",
+              "description": "Unique identifier for the Environment to remove the deployment from."
+            },
+            "name": "environment_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/{id}/environments": {
+      "get": {
+        "tags": ["Flows"],
+        "summary": "List Environments",
+        "description": "List all Environments and their deployed versions for the Flow.",
+        "operationId": "list_environments_flows__id__environments_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Flow.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Flow ID",
+              "description": "Unique identifier for Flow."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FileEnvironmentResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Environments Flows  Id  Environments Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/{id}/evaluators": {
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Flow.\n\nAn activated Evaluator will automatically be run on all new \"completed\" Logs\nwithin the Flow for monitoring purposes.",
+        "operationId": "update_monitoring_flows__id__evaluators_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/files": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "List",
+        "description": "Get a paginated list of files.",
+        "operationId": "Files_list",
+        "parameters": [
+          {
+            "description": "Page offset for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page index",
+              "description": "Page offset for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of files to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of files to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Case-insensitive filter for file name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "File name filter",
+              "description": "Case-insensitive filter for file name."
+            },
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "description": "List of file types to filter for.",
+            "required": false,
+            "schema": {
+              "items": {
+                "$ref": "#/components/schemas/FileType"
+              },
+              "type": "array",
+              "title": "File types filter",
+              "description": "List of file types to filter for."
+            },
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment filter",
+              "description": "Case-sensitive filter for files with a deployment in the specified environment. Requires the environment name."
+            },
+            "name": "environment",
+            "in": "query"
+          },
+          {
+            "description": "Field to sort files by",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectSortBy"
+                }
+              ],
+              "title": "Sort by",
+              "description": "Field to sort files by",
+              "default": "created_at"
+            },
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "description": "Direction to sort by.",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortOrder"
+                }
+              ],
+              "title": "Sort order",
+              "description": "Direction to sort by.",
+              "default": "desc"
+            },
+            "name": "order",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__FlowResponse__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluations": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "List ",
+        "description": "List all Evaluations for the specified `file_id`.\n\nRetrieve a list of Evaluations that evaluate versions of the specified File.",
+        "operationId": "list__evaluations_get",
+        "parameters": [
+          {
+            "description": "Filter by File ID. Only Evaluations for the specified File will be returned.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File ID",
+              "description": "Filter by File ID. Only Evaluations for the specified File will be returned."
+            },
+            "name": "file_id",
+            "in": "query"
+          },
+          {
+            "description": "Page number for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page number",
+              "description": "Page number for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of Evaluations to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of Evaluations to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedData_EvaluationResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Evaluations"],
+        "summary": "Create",
+        "description": "Create an Evaluation.\n\nCreate a new Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.\n\nHumanloop will automatically start generating Logs and running Evaluators where\n`orchestrated=true`. If you own the runtime for the Evaluatee or Evaluator, you\ncan set `orchestrated=false` and then generate and submit the required logs using\nyour runtime.\n\nTo keep updated on the progress of the Evaluation, you can poll the Evaluation using\nthe GET /evaluations/{id} endpoint and check its status.",
+        "operationId": "create_evaluations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluations/{id}": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "Get",
+        "description": "Get an Evaluation.",
+        "operationId": "get_evaluations__id__get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Evaluations"],
+        "summary": "Delete",
+        "description": "Delete an Evaluation.\n\nRemove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation\nwill not be deleted.",
+        "operationId": "delete_evaluations__id__delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Evaluations"],
+        "summary": "Update Setup",
+        "description": "Update an Evaluation.\n\nUpdate the setup of an Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.",
+        "operationId": "update_setup_evaluations__id__patch",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluations/{id}/status": {
+      "patch": {
+        "tags": ["Evaluations"],
+        "summary": "Update Status",
+        "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses\nexternal or human evaluators as completed.",
+        "operationId": "update_status_evaluations__id__status_patch",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_status_evaluations__id__status_patch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluations/{id}/stats": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "Get Stats",
+        "description": "Get Evaluation Stats.\n\nRetrieve aggregate stats for the specified Evaluation.\nThis includes the number of generated Logs for each evaluated version and the\ncorresponding Evaluator statistics (such as the mean and percentiles).",
+        "operationId": "get_stats_evaluations__id__stats_get",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/evaluations/{id}/logs": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "Get Logs",
+        "description": "Get the Logs associated to a specific Evaluation.\n\nEach Datapoint in your Dataset will have a corresponding Log for each File version evaluated.\ne.g. If you have 50 Datapoints and are evaluating 2 Prompts, there will be 100 Logs associated with the Evaluation.",
+        "operationId": "get_logs_evaluations__id__logs_get",
+        "parameters": [
+          {
+            "description": "String ID of evaluation. Starts with `ev_` or `evr_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "String ID of evaluation. Starts with `ev_` or `evr_`."
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Page number for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Page number",
+              "description": "Page number for pagination.",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size for pagination. Number of Logs to fetch.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Page size",
+              "description": "Page size for pagination. Number of Logs to fetch.",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedData_EvaluationReportLogResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/logs": {
       "get": {
         "tags": ["Logs"],
@@ -4010,6 +4830,20 @@
               "default": false
             },
             "name": "include_parent",
+            "in": "query"
+          },
+          {
+            "description": "If true, return Logs that are associated to a Trace. False, return Logs that are not associated to a Trace.",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "boolean"
+              },
+              "type": "array",
+              "title": "Trace",
+              "description": "If true, return Logs that are associated to a Trace. False, return Logs that are not associated to a Trace."
+            },
+            "name": "in_trace_filter",
             "in": "query"
           }
         ],
@@ -4335,7 +5169,7 @@
         "required": ["file", "commit_message"],
         "title": "Body_upload_csv_datasets__id__datapoints_csv_post"
       },
-      "BooleanEvaluatorVersionStats": {
+      "BooleanEvaluatorStatsResponse": {
         "properties": {
           "evaluator_version_id": {
             "type": "string",
@@ -4383,7 +5217,7 @@
           "num_true",
           "num_false"
         ],
-        "title": "BooleanEvaluatorVersionStats",
+        "title": "BooleanEvaluatorStatsResponse",
         "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report."
       },
       "ChatMessage": {
@@ -4461,7 +5295,7 @@
               }
             ],
             "title": "Arguments type",
-            "description": "Whether this evaluator is target-free or target-required."
+            "description": "Whether this Evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
@@ -4470,7 +5304,7 @@
               }
             ],
             "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+            "description": "The type of the return value of the Evaluator."
           },
           "attributes": {
             "type": "object",
@@ -4487,7 +5321,7 @@
           "code": {
             "type": "string",
             "title": "Code",
-            "description": "The code for the evaluator. This code will be executed in a sandboxed environment."
+            "description": "The code for the Evaluator. This code will be executed in a sandboxed environment."
           }
         },
         "type": "object",
@@ -4566,7 +5400,7 @@
               }
             ],
             "title": "Dataset",
-            "description": "The Dataset Version to use in this Evaluation."
+            "description": "Dataset to use in this Evaluation."
           },
           "evaluatees": {
             "items": {
@@ -4574,7 +5408,7 @@
             },
             "type": "array",
             "title": "Evaluated Version IDs",
-            "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation Report. Can be left unpopulated if you wish to add evaluatees to this Evaluation Report by specifying `evaluation_id` in Log calls."
+            "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation. Can be left unpopulated if you wish to add Evaluatees to this Evaluation by specifying `evaluation_id` in Log calls."
           },
           "evaluators": {
             "items": {
@@ -4583,6 +5417,20 @@
             "type": "array",
             "title": "Evaluators",
             "description": "The Evaluators used to evaluate."
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the Evaluation to help identify it. Must be unique within the associated File."
+          },
+          "file": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FileRequest"
+              }
+            ],
+            "title": "File",
+            "description": "The File to associate with the Evaluation."
           }
         },
         "type": "object",
@@ -4601,6 +5449,18 @@
             "type": "string",
             "title": "Evaluator ID",
             "description": "ID for an existing Evaluator."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           },
           "output": {
             "type": "string",
@@ -4654,11 +5514,6 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
           "parent_id": {
             "type": "string",
             "title": "Parent ID",
@@ -4668,6 +5523,16 @@
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -4764,6 +5629,39 @@
         "type": "object",
         "required": ["id", "parent_id", "version_id"],
         "title": "CreateEvaluatorLogResponse"
+      },
+      "CreateFlowLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID",
+            "description": "Unique identifier for the Log."
+          },
+          "flow_id": {
+            "type": "string",
+            "title": "Flow ID",
+            "description": "Unique identifier for the Flow."
+          },
+          "version_id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "Unique identifier for the Flow Version."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "flow_id", "version_id"],
+        "title": "CreateFlowLogResponse",
+        "description": "Response for a Flow Log."
       },
       "CreatePromptLogResponse": {
         "properties": {
@@ -5049,6 +5947,9 @@
           },
           {
             "$ref": "#/components/schemas/EvaluatorResponse"
+          },
+          {
+            "$ref": "#/components/schemas/FlowResponse"
           }
         ],
         "title": "EvaluatedVersionResponse"
@@ -5210,6 +6111,16 @@
             "title": "Status",
             "description": "The current status of the Evaluation.\n\n- `\"pending\"`: The Evaluation has been created but is not actively being worked on by Humanloop.\n- `\"running\"`: Humanloop is checking for any missing Logs and Evaluator Logs, and will generate them where appropriate.\n- `\"completed\"`: All Logs an Evaluator Logs have been generated.\n- `\"cancelled\"`: The Evaluation has been cancelled by the user. Humanloop will stop generating Logs and Evaluator Logs.\n"
           },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the Evaluation to help identify it. Must be unique among Evaluations associated with File."
+          },
+          "file_id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "Unique identifier for the File associated with the Evaluation."
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -5254,15 +6165,34 @@
           },
           "version_stats": {
             "items": {
-              "$ref": "#/components/schemas/VersionStats"
+              "$ref": "#/components/schemas/VersionStatsResponse"
             },
             "type": "array",
             "title": "Version Stats",
             "description": "Stats for each Evaluated Version in the Evaluation Report."
+          },
+          "progress": {
+            "type": "string",
+            "title": "Progress",
+            "description": "A summary string report of the Evaluation's progress you can print to the command line;helpful when integrating Evaluations with CI/CD."
+          },
+          "report": {
+            "type": "string",
+            "title": "Report",
+            "description": "A summary string report of the Evaluation you can print to command line;helpful when integrating Evaluations with CI/CD."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EvaluationStatus"
+              }
+            ],
+            "title": "Status",
+            "description": "The current status of the Evaluation."
           }
         },
         "type": "object",
-        "required": ["overall_stats", "version_stats"],
+        "required": ["overall_stats", "version_stats", "status"],
         "title": "EvaluationStats"
       },
       "EvaluationStatus": {
@@ -5396,6 +6326,18 @@
       },
       "EvaluatorLogResponse": {
         "properties": {
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
           "output": {
             "type": "string",
             "title": "Model output",
@@ -5448,11 +6390,6 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
           "parent_id": {
             "type": "string",
             "title": "Parent ID",
@@ -5462,6 +6399,16 @@
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -5521,6 +6468,29 @@
             "title": "Evaluator Logs",
             "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
           },
+          "trace_flow_id": {
+            "type": "string",
+            "title": "Trace Flow ID",
+            "description": "Identifier for the Flow that the Trace belongs to."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Trace status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          },
+          "trace_children": {
+            "items": {
+              "$ref": "#/components/schemas/LogResponse"
+            },
+            "type": "array",
+            "title": "Trace children",
+            "description": "Logs nested under this Log in the Trace.",
+            "default": []
+          },
           "evaluator": {
             "allOf": [
               {
@@ -5528,7 +6498,7 @@
               }
             ],
             "title": "Evaluator",
-            "description": "The Evaluator used to generate the judgment."
+            "description": "Evaluator used to generate the judgment."
           },
           "parent": {
             "allOf": [
@@ -5616,7 +6586,7 @@
             },
             "type": "array",
             "title": "Environments",
-            "description": "The list of environments the Prompt Version is deployed to."
+            "description": "The list of environments the Evaluator Version is deployed to."
           },
           "created_at": {
             "type": "string",
@@ -5635,7 +6605,7 @@
               }
             ],
             "title": "Created by",
-            "description": "The user who created the Prompt."
+            "description": "The user who created the Evaluator."
           },
           "status": {
             "$ref": "#/components/schemas/VersionStatus"
@@ -5648,12 +6618,12 @@
           "version_logs_count": {
             "type": "integer",
             "title": "Number of logs for this version",
-            "description": "The number of logs that have been generated for this Prompt Version"
+            "description": "The number of logs that have been generated for this Evaluator Version"
           },
           "total_logs_count": {
             "type": "integer",
             "title": "Total number of logs across all versions",
-            "description": "The number of logs that have been generated across all Prompt Versions"
+            "description": "The number of logs that have been generated across all Evaluator Versions"
           },
           "inputs": {
             "items": {
@@ -5661,7 +6631,7 @@
             },
             "type": "array",
             "title": "Prompt inputs",
-            "description": "Inputs associated to the Prompt. Inputs correspond to any of the variables used within the Prompt template."
+            "description": "Inputs associated to the Evaluator. Inputs correspond to any of the variables used within the Evaluator template."
           },
           "evaluators": {
             "items": {
@@ -5669,7 +6639,7 @@
             },
             "type": "array",
             "title": "Monitoring Evaluators",
-            "description": "Evaluators that have been attached to this Prompt that are used for monitoring logs."
+            "description": "Evaluators that have been attached to this Evaluator that are used for monitoring logs."
           },
           "evaluator_aggregates": {
             "items": {
@@ -5718,7 +6688,7 @@
               }
             ],
             "title": "Arguments type",
-            "description": "Whether this evaluator is target-free or target-required."
+            "description": "Whether this Evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
@@ -5727,7 +6697,7 @@
               }
             ],
             "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+            "description": "The type of the return value of the Evaluator."
           },
           "attributes": {
             "type": "object",
@@ -5777,6 +6747,9 @@
               },
               {
                 "$ref": "#/components/schemas/EvaluatorResponse"
+              },
+              {
+                "$ref": "#/components/schemas/FlowResponse"
               }
             ],
             "title": "File",
@@ -5788,11 +6761,491 @@
         "title": "FileEnvironmentResponse",
         "description": "Response model for the List Environments endpoint under Files.\n\nContains the deployed version of the File, if one is deployed to the Environment."
       },
+      "FileRequest": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "File ID",
+            "description": "ID for an existing File."
+          },
+          "path": {
+            "type": "string",
+            "title": "File path",
+            "description": "Path of the File, including the name. This locates the File in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+          }
+        },
+        "type": "object",
+        "title": "FileRequest"
+      },
       "FileType": {
         "type": "string",
-        "enum": ["prompt", "tool", "dataset", "evaluator"],
+        "enum": ["prompt", "tool", "dataset", "evaluator", "flow"],
         "title": "FileType",
         "description": "Enum for File types."
+      },
+      "FlowKernelRequest": {
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "A key-value object identifying the Flow Version."
+          }
+        },
+        "type": "object",
+        "required": ["attributes"],
+        "title": "FlowKernelRequest"
+      },
+      "FlowLogRequest": {
+        "properties": {
+          "evaluation_id": {
+            "type": "string",
+            "title": "Evaluation ID",
+            "description": "Unique identifier for the Evaluation Report to associate the Log to."
+          },
+          "path": {
+            "type": "string",
+            "title": "Flow path",
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+          },
+          "id": {
+            "type": "string",
+            "title": "Flow ID",
+            "description": "ID for an existing Flow."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "The start time of the Trace. Will be updated if a child Log with an earlier start time is added."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "The end time of the Trace. Will be updated if a child Log with a later end time is added."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the prompt template.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "ID of the Trace. If not provided, one will be assigned."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "flow": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FlowKernelRequest"
+              }
+            ],
+            "title": "Flow",
+            "description": "Flow used to generate the Trace."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces. If you do not intend to add more Logs to the Trace after creation, set this to `complete`.",
+            "default": "incomplete"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "FlowLogRequest",
+        "description": "Request to create a Trace on a Flow."
+      },
+      "FlowLogResponse": {
+        "properties": {
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
+          "output": {
+            "type": "string",
+            "title": "Model output",
+            "description": "Generated output from your model for the provided inputs. Can be `None` if logging an error, or if creating a parent Log with the intention to populate it later."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created at",
+            "description": "User defined timestamp for when the log was created. "
+          },
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "Error message if the log is an error."
+          },
+          "provider_latency": {
+            "type": "number",
+            "title": "Log latency",
+            "description": "Duration of the logged event in seconds."
+          },
+          "stdout": {
+            "type": "string",
+            "title": "Standard Output",
+            "description": "Captured log and debug statements."
+          },
+          "provider_request": {
+            "type": "object",
+            "title": "Provider request",
+            "description": "Raw request sent to provider."
+          },
+          "provider_response": {
+            "type": "object",
+            "title": "Provider response",
+            "description": "Raw response received the provider."
+          },
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the Trace.",
+            "default": {}
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Identifies where the model was called from."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Any additional metadata to record."
+          },
+          "source_datapoint_id": {
+            "type": "string",
+            "title": "Source Datapoint ID",
+            "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+          },
+          "batches": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Batch IDs",
+            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          },
+          "user": {
+            "type": "string",
+            "title": "End-user identifier",
+            "description": "End-user ID related to the Log."
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment name",
+            "description": "The name of the Environment the Log is associated to."
+          },
+          "save": {
+            "type": "boolean",
+            "title": "Save",
+            "description": "Whether the request/response payloads will be stored on Humanloop.",
+            "default": true
+          },
+          "id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "Unique identifier for the Log."
+          },
+          "evaluator_logs": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorLogResponse"
+            },
+            "type": "array",
+            "title": "Evaluator Logs",
+            "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
+          },
+          "trace_flow_id": {
+            "type": "string",
+            "title": "Trace Flow ID",
+            "description": "Identifier for the Flow that the Trace belongs to."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Trace status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          },
+          "trace_children": {
+            "items": {
+              "$ref": "#/components/schemas/LogResponse"
+            },
+            "type": "array",
+            "title": "Trace children",
+            "description": "Logs nested under this Log in the Trace.",
+            "default": []
+          },
+          "flow": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FlowResponse"
+              }
+            ],
+            "title": "Flow",
+            "description": "Flow used to generate the Log."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "evaluator_logs", "flow"],
+        "title": "FlowLogResponse",
+        "description": "General request for creating a Log"
+      },
+      "FlowRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Flow path",
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+          },
+          "id": {
+            "type": "string",
+            "title": "Flow ID",
+            "description": "ID for an existing Flow."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "A key-value object identifying the Flow Version."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Message describing the changes made."
+          }
+        },
+        "type": "object",
+        "required": ["attributes"],
+        "title": "FlowRequest",
+        "description": "Request model for creating a new Flow."
+      },
+      "FlowResponse": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Flow path",
+            "description": "Path of the Flow, including the name, which is used as a unique identifier."
+          },
+          "id": {
+            "type": "string",
+            "title": "Flow ID",
+            "description": "Unique identifier for the Flow. Starts with fl_."
+          },
+          "directory_id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "ID of the directory that the file is in on Humanloop."
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes",
+            "description": "A key-value object identifying the Flow Version."
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit message",
+            "description": "Message describing the changes made. If provided, a committed version of the Flow is created. Otherwise, an uncommitted version is created."
+          },
+          "name": {
+            "type": "string",
+            "title": "Flow name",
+            "description": "Name of the Flow."
+          },
+          "version_id": {
+            "type": "string",
+            "title": "Version ID",
+            "description": "Unique identifier for the specific Flow Version. If no query params provided, the default deployed Flow Version is returned."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["flow"],
+            "title": "Type",
+            "default": "flow"
+          },
+          "environments": {
+            "items": {
+              "$ref": "#/components/schemas/EnvironmentResponse"
+            },
+            "type": "array",
+            "title": "Environments",
+            "description": "The list of environments the Flow Version is deployed to."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "created_by": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserResponse"
+              }
+            ],
+            "title": "Created by",
+            "description": "The user who created the Flow."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VersionStatus"
+              }
+            ],
+            "title": "Status",
+            "description": "The status of the Flow Version."
+          },
+          "last_used_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Used At"
+          },
+          "version_logs_count": {
+            "type": "integer",
+            "title": "Number of logs for this version",
+            "description": "The number of logs that have been generated for this Flow Version"
+          },
+          "evaluator_aggregates": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluatorAggregate"
+            },
+            "type": "array",
+            "title": "Evaluator aggregates",
+            "description": "Aggregation of Evaluator results for the Flow Version."
+          },
+          "evaluators": {
+            "items": {
+              "$ref": "#/components/schemas/MonitoringEvaluatorResponse"
+            },
+            "type": "array",
+            "title": "Evaluators",
+            "description": "The list of Monitoring Evaluators associated with the Flow Version."
+          }
+        },
+        "type": "object",
+        "required": [
+          "path",
+          "id",
+          "attributes",
+          "name",
+          "version_id",
+          "created_at",
+          "updated_at",
+          "status",
+          "last_used_at",
+          "version_logs_count"
+        ],
+        "title": "FlowResponse",
+        "description": "Response model for a Flow."
       },
       "FunctionTool": {
         "properties": {
@@ -5844,7 +7297,7 @@
               }
             ],
             "title": "Arguments type",
-            "description": "Whether this evaluator is target-free or target-required."
+            "description": "Whether this Evaluator is target-free or target-required."
           },
           "return_type": {
             "type": "string",
@@ -5960,7 +7413,7 @@
               }
             ],
             "title": "Arguments type",
-            "description": "Whether this evaluator is target-free or target-required."
+            "description": "Whether this Evaluator is target-free or target-required."
           },
           "return_type": {
             "allOf": [
@@ -5969,7 +7422,7 @@
               }
             ],
             "title": "Return type",
-            "description": "The type of the return value of the evaluator."
+            "description": "The type of the return value of the Evaluator."
           },
           "attributes": {
             "type": "object",
@@ -6065,6 +7518,21 @@
         "required": ["records"],
         "title": "ListEvaluators"
       },
+      "ListFlows": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/FlowResponse"
+            },
+            "type": "array",
+            "title": "Records",
+            "description": "The list of Flows."
+          }
+        },
+        "type": "object",
+        "required": ["records"],
+        "title": "ListFlows"
+      },
       "ListPrompts": {
         "properties": {
           "records": {
@@ -6105,6 +7573,9 @@
           },
           {
             "$ref": "#/components/schemas/EvaluatorLogResponse"
+          },
+          {
+            "$ref": "#/components/schemas/FlowLogResponse"
           }
         ],
         "additionalProperties": false,
@@ -6123,6 +7594,7 @@
           "openai_azure",
           "mock",
           "anthropic",
+          "bedrock",
           "cohere",
           "replicate",
           "google",
@@ -6210,7 +7682,7 @@
         "required": ["evaluator_version_id"],
         "title": "MonitoringEvaluatorVersionRequest"
       },
-      "NumericEvaluatorVersionStats": {
+      "NumericEvaluatorStatsResponse": {
         "properties": {
           "evaluator_version_id": {
             "type": "string",
@@ -6262,7 +7734,7 @@
           "num_errors",
           "percentiles"
         ],
-        "title": "NumericEvaluatorVersionStats",
+        "title": "NumericEvaluatorStatsResponse",
         "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report.",
         "example": {
           "mean": 0,
@@ -6434,6 +7906,32 @@
         "required": ["records", "page", "size", "total"],
         "title": "PaginatedData[EvaluatorResponse]"
       },
+      "PaginatedData_FlowResponse_": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/FlowResponse"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": ["records", "page", "size", "total"],
+        "title": "PaginatedData[FlowResponse]"
+      },
       "PaginatedData_LogResponse_": {
         "properties": {
           "records": {
@@ -6538,7 +8036,7 @@
         "required": ["records", "page", "size", "total"],
         "title": "PaginatedData[ToolResponse]"
       },
-      "PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__": {
+      "PaginatedData_Union_PromptResponse__ToolResponse__DatasetResponse__EvaluatorResponse__FlowResponse__": {
         "properties": {
           "records": {
             "items": {
@@ -6554,6 +8052,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/EvaluatorResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/FlowResponse"
                 }
               ]
             },
@@ -6575,7 +8076,7 @@
         },
         "type": "object",
         "required": ["records", "page", "size", "total"],
-        "title": "PaginatedData[Union[PromptResponse, ToolResponse, DatasetResponse, EvaluatorResponse]]"
+        "title": "PaginatedData[Union[PromptResponse, ToolResponse, DatasetResponse, EvaluatorResponse, FlowResponse]]"
       },
       "PlatformAccessEnum": {
         "type": "string",
@@ -6728,20 +8229,32 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
+          "start_time": {
             "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
           },
-          "parent_id": {
+          "end_time": {
             "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -6848,7 +8361,7 @@
               }
             ],
             "title": "Prompt",
-            "description": "Prompt details used to generate the log."
+            "description": "Prompt used to generate the Log."
           },
           "inputs": {
             "type": "object",
@@ -6866,20 +8379,32 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
+          "start_time": {
             "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
           },
-          "parent_id": {
+          "end_time": {
             "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -7235,6 +8760,18 @@
             "title": "Prompt",
             "description": "Details of your Prompt. A new Prompt version will be created if the provided details are new."
           },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
           "output": {
             "type": "string",
             "title": "Model output",
@@ -7287,20 +8824,20 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -7404,7 +8941,19 @@
               }
             ],
             "title": "Prompt",
-            "description": "Prompt details used to generate the Log."
+            "description": "Prompt used to generate the Log."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           },
           "output": {
             "type": "string",
@@ -7458,20 +9007,20 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -7509,6 +9058,29 @@
             "type": "array",
             "title": "Evaluator Logs",
             "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
+          },
+          "trace_flow_id": {
+            "type": "string",
+            "title": "Trace Flow ID",
+            "description": "Identifier for the Flow that the Trace belongs to."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Trace status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          },
+          "trace_children": {
+            "items": {
+              "$ref": "#/components/schemas/LogResponse"
+            },
+            "type": "array",
+            "title": "Trace children",
+            "description": "Logs nested under this Log in the Trace.",
+            "default": []
           }
         },
         "additionalProperties": false,
@@ -7633,6 +9205,18 @@
             "type": "object",
             "title": "Metadata",
             "description": "Any additional metadata to record."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           }
         },
         "type": "object",
@@ -8064,6 +9648,10 @@
             "type": "string",
             "title": "Anthropic"
           },
+          "bedrock": {
+            "type": "string",
+            "title": "Bedrock"
+          },
           "cohere": {
             "type": "string",
             "title": "Cohere"
@@ -8106,7 +9694,7 @@
         "title": "ResponseFormat",
         "description": "Response format of the model."
       },
-      "SelectEvaluatorVersionStats": {
+      "SelectEvaluatorStatsResponse": {
         "properties": {
           "evaluator_version_id": {
             "type": "string",
@@ -8151,7 +9739,7 @@
           "num_errors",
           "num_judgments_per_option"
         ],
-        "title": "SelectEvaluatorVersionStats",
+        "title": "SelectEvaluatorStatsResponse",
         "description": "Also used for 'multi_select' Evaluator versions"
       },
       "SessionEventResponse": {
@@ -8239,7 +9827,7 @@
         "required": ["type", "text"],
         "title": "TextChatContent"
       },
-      "TextEvaluatorVersionStats": {
+      "TextEvaluatorStatsResponse": {
         "properties": {
           "evaluator_version_id": {
             "type": "string",
@@ -8275,7 +9863,7 @@
           "num_nulls",
           "num_errors"
         ],
-        "title": "TextEvaluatorVersionStats",
+        "title": "TextEvaluatorStatsResponse",
         "description": "Base attributes for stats for an Evaluator Version-Evaluated Version pair\nin the Evaluation Report."
       },
       "TimeUnit": {
@@ -8386,6 +9974,18 @@
             "title": "Tool ID",
             "description": "ID for an existing Tool."
           },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
           "output": {
             "type": "string",
             "title": "Model output",
@@ -8438,20 +10038,20 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -8494,6 +10094,18 @@
       },
       "ToolLogResponse": {
         "properties": {
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
           "output": {
             "type": "string",
             "title": "Model output",
@@ -8546,20 +10158,20 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "session_id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session to associate the Log to. Allows you to record multiple Logs to a Session (using an ID kept by your internal systems) by passing the same `session_id` in subsequent log requests. "
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent ID",
-            "description": "Unique identifier for the parent Log in a Session. Should only be provided if `session_id` is provided. If provided, the Log will be nested under the parent Log within the Session."
-          },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
+          },
+          "trace_parent_log_id": {
+            "type": "string",
+            "title": "Trace Parent ID",
+            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
           },
           "batches": {
             "items": {
@@ -8598,6 +10210,29 @@
             "title": "Evaluator Logs",
             "description": "List of Evaluator Logs associated with the Log. These contain Evaluator judgments on the Log."
           },
+          "trace_flow_id": {
+            "type": "string",
+            "title": "Trace Flow ID",
+            "description": "Identifier for the Flow that the Trace belongs to."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Trace status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          },
+          "trace_children": {
+            "items": {
+              "$ref": "#/components/schemas/LogResponse"
+            },
+            "type": "array",
+            "title": "Trace children",
+            "description": "Logs nested under this Log in the Trace.",
+            "default": []
+          },
           "tool": {
             "allOf": [
               {
@@ -8605,7 +10240,7 @@
               }
             ],
             "title": "Tool",
-            "description": "Tool details used to generate the Log."
+            "description": "Tool used to generate the Log."
           }
         },
         "additionalProperties": false,
@@ -8667,6 +10302,18 @@
             "type": "object",
             "title": "Metadata",
             "description": "Any additional metadata to record."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
           }
         },
         "type": "object",
@@ -8899,6 +10546,12 @@
         "title": "ToolResponse",
         "description": "Base type that all File Responses should inherit from.\n\nAttributes defined here are common to all File Responses and should be overridden\nin the inheriting classes with documentation and appropriate Field definitions."
       },
+      "TraceStatus": {
+        "type": "string",
+        "enum": ["complete", "incomplete"],
+        "title": "TraceStatus",
+        "description": "An enumeration."
+      },
       "UpdateDatasetRequest": {
         "properties": {
           "path": {
@@ -8921,6 +10574,52 @@
         "title": "UpdateDatesetAction",
         "description": "An enumeration."
       },
+      "UpdateEvaluationRequest": {
+        "properties": {
+          "dataset": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/src__external__app__models__v5__evaluations__DatasetRequest"
+              }
+            ],
+            "title": "Dataset",
+            "description": "Dataset to use in this Evaluation."
+          },
+          "evaluatees": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluateeRequest"
+            },
+            "type": "array",
+            "title": "Evaluated Version IDs",
+            "description": "Unique identifiers for the Prompt/Tool Versions to include in the Evaluation. Can be left unpopulated if you wish to add evaluatees to this Evaluation by specifying `evaluation_id` in Log calls."
+          },
+          "evaluators": {
+            "items": {
+              "$ref": "#/components/schemas/src__external__app__models__v5__evaluations__EvaluatorRequest"
+            },
+            "type": "array",
+            "title": "Evaluators",
+            "description": "The Evaluators used to evaluate."
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the Evaluation to help identify it. Must be unique within the associated File."
+          },
+          "file": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FileRequest"
+              }
+            ],
+            "title": "File",
+            "description": "The File to associate with the Evaluation."
+          }
+        },
+        "type": "object",
+        "title": "UpdateEvaluationRequest",
+        "description": "Request model for updating an Evaluation."
+      },
       "UpdateEvaluatorRequest": {
         "properties": {
           "path": {
@@ -8936,6 +10635,28 @@
         },
         "type": "object",
         "title": "UpdateEvaluatorRequest"
+      },
+      "UpdateFlowRequest": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Flow path",
+            "description": "Path of the Flow including the Flow name, which is used as a unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "title": "Flow name",
+            "description": "Name of the Flow."
+          },
+          "directory_id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "Unique identifier for the Directory to move Flow to. Starts with `dir_`."
+          }
+        },
+        "type": "object",
+        "title": "UpdateFlowRequest",
+        "description": "Request model for updating a Flow.\n\nUsed for moving a Flow to a different directory."
       },
       "UpdatePromptRequest": {
         "properties": {
@@ -8968,6 +10689,33 @@
         },
         "type": "object",
         "title": "UpdateToolRequest"
+      },
+      "UpdateTraceRequest": {
+        "properties": {
+          "inputs": {
+            "type": "object",
+            "title": "Inputs",
+            "description": "The inputs passed to the Flow Log."
+          },
+          "output": {
+            "type": "string",
+            "title": "Output",
+            "description": "The output of the Flow Log."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          }
+        },
+        "type": "object",
+        "required": ["status"],
+        "title": "UpdateTraceRequest",
+        "description": "Request for updating a Trace."
       },
       "UserResponse": {
         "properties": {
@@ -9041,6 +10789,9 @@
               },
               {
                 "$ref": "#/components/schemas/EvaluatorResponse"
+              },
+              {
+                "$ref": "#/components/schemas/FlowResponse"
               }
             ],
             "title": "File",
@@ -9081,6 +10832,9 @@
               },
               {
                 "$ref": "#/components/schemas/EvaluatorResponse"
+              },
+              {
+                "$ref": "#/components/schemas/FlowResponse"
               }
             ],
             "title": "Version",
@@ -9115,7 +10869,7 @@
           }
         }
       },
-      "VersionStats": {
+      "VersionStatsResponse": {
         "properties": {
           "version_id": {
             "type": "string",
@@ -9131,16 +10885,16 @@
             "items": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/NumericEvaluatorVersionStats"
+                  "$ref": "#/components/schemas/NumericEvaluatorStatsResponse"
                 },
                 {
-                  "$ref": "#/components/schemas/BooleanEvaluatorVersionStats"
+                  "$ref": "#/components/schemas/BooleanEvaluatorStatsResponse"
                 },
                 {
-                  "$ref": "#/components/schemas/SelectEvaluatorVersionStats"
+                  "$ref": "#/components/schemas/SelectEvaluatorStatsResponse"
                 },
                 {
-                  "$ref": "#/components/schemas/TextEvaluatorVersionStats"
+                  "$ref": "#/components/schemas/TextEvaluatorStatsResponse"
                 }
               ]
             },
@@ -9151,7 +10905,7 @@
         },
         "type": "object",
         "required": ["version_id", "num_logs", "evaluator_version_stats"],
-        "title": "VersionStats",
+        "title": "VersionStatsResponse",
         "description": "Stats for an Evaluated Version in the Evaluation Report."
       },
       "VersionStatus": {
