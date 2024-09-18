@@ -26,6 +26,9 @@ navigation:
           - page: Quickstart Tutorial
             slug: tutorials/quickstart-tutorial
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+          - page: ChatGPT Clone Tutorial
+            slug: tutorials/chatgpt-clone
+            path: ../v5-pages/tutorials/chatgpt-clone.mdx
           - section: Concepts
             contents:
               - page: Overview
@@ -83,12 +86,14 @@ navigation:
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
               - page: Proxy model calls
+                slug: proxy-model-calls
                 path: ../v5-pages/development/guides/call-llm.mdx
               - page: Log to a Prompt
                 path: ../v5-pages/development/guides/logging.mdx
               # - page: Manage Tools
               #   path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool calling in Editor
+                slug: tool-calling-editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
               # Doesn't work in the SDK atm!
               # - page: Tool Calling with the SDK
@@ -98,8 +103,8 @@ navigation:
                 path: ../v5-pages/development/guides/reusable-snippets.mdx
               # - page: Manage Evaluators
               #   path: ../v5-pages/development/guides/manage-evaluators.mdx
-              - page: Chain logs together (Sessions)
-                path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
+              # - page: Chain logs together (Sessions)
+              #   path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
               - page: Create deployment environments
                 slug: create-environment
                 path: ../v5-pages/development/guides/create-environment.mdx
@@ -107,9 +112,9 @@ navigation:
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
 
-              - page: Finetune a model
-                slug: finetuning
-                path: ../v5-pages/development/guides/fine-tune-model.mdx
+              # - page: Finetune a model
+              #   slug: finetuning
+              #   path: ../v5-pages/development/guides/fine-tune-model.mdx
               #   path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
               - page: Create a Directory
                 slug: create-directory
@@ -119,7 +124,7 @@ navigation:
                 path: ../v5-pages/development/guides/link-tool.mdx
               - page: Link JSON Schema Tool
                 slug: link-json-schema-tool
-                path: ../v5-pages/development/guides/link-jsonschema-tool.mdx
+                path: ../v5-pages/development/guides/link-json-schema-tool.mdx
       - section: Evaluation
         contents:
           - page: Overview
@@ -202,14 +207,15 @@ navigation:
           #   path: ../v5-pages/reference/supported-tools.mdx
           # - page: Supported Types of Evaluators
           #   path: ../v5-pages/reference/supported-evaluator-types.mdx
-          - page: Prompt file spec
-            path: ../v5-pages/reference/prompt-file.mdx
+          - page: Prompt File Format
+            slug: prompt-file-format
+            path: ../v5-pages/reference/prompt-file-format.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
           - page: Postman Workspace
             slug: postman-workspace
             path: ../v5-pages/reference/postman-workspace.mdx
-          - page: Python Environment
+          - page: Humanloop Runtime Environment
             slug: python-environment
             path: ../v5-pages/reference/code-env-spec.mdx
           - page: Integrations

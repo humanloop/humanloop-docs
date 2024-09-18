@@ -9,9 +9,10 @@ The judgement is in the form of a boolean or number that measures some criteria 
 
 Code Evaluators provide a flexible way to evaluate the performance of your AI applications, allowing you to re-use existing evaluation packages as well as define custom evaluation heuristics.
 
-We support a fully featured Python environment; details on the supported packages can be found in the [environment reference](../../refereces/code-environment)
+We support a fully featured Python environment; details on the supported packages can be found in the [environment reference](/docs/v5/reference/python-environment)
 
 ### Prerequisites
+
 You should have an existing [Prompt](../../concepts/prompts) to evaluate and already generated some [Logs](../../concepts/logs).
 Follow our guide on [creating a Prompt](../../development/guides/create-prompt).
 
@@ -21,7 +22,6 @@ In this example, we'll reference a Prompt that categorises a user query about Hu
   src="../../../assets/images/datasets/create-dataset-classifier-prompt.png"
   alt="An example Prompt with a variable `{{query}}`."
 />
-
 
 ## Create a code Evaluator
 
@@ -38,8 +38,8 @@ In this example, we'll reference a Prompt that categorises a user query about Hu
 
 - Give the Evaluator a name when prompted in the sidebar, for example `Category Validator`.
 
-
 ### Define the Evaluator code
+
 After creating the Evaluator, you will automatically be taken to the code editor.
 For this example, our Evaluator will check that the feature category returned by the Prompt is from the list of allowed feature categories. We want to ensure our categoriser isn't hallucinating new features.
 
@@ -69,14 +69,15 @@ def validate_feature(log):
 ```
 
 <Info title="Code Organisation">
-You can define multiple functions in the code Editor to organize your evaluation logic.
-The final function defined is used as the main Evaluator entry point that takes the Log argument and returns a valid judgement.
+  You can define multiple functions in the code Editor to organize your
+  evaluation logic. The final function defined is used as the main Evaluator
+  entry point that takes the Log argument and returns a valid judgement.
 </Info>
 
 ### Debug the code with Prompt Logs
 
 - In the debug console beneath where you pasted the code, click **Select Prompt or Dataset** and find and select the Prompt you're evaluating.
-The debug console will load a sample of Logs from that Prompt.
+  The debug console will load a sample of Logs from that Prompt.
 
 <img
   src="../../../assets/images/evaluators/create-code-evaluator-debug.png"
@@ -106,7 +107,6 @@ Navigate to the **Logs** tab of the Evaluator to see and debug all the historic 
 
 </Steps>
 
-
 ## Monitor a Prompt
 
 Now that you have an Evaluator, you can use it to monitor the performance of your Prompt by linking it so that it is automatically run on new Logs.
@@ -125,16 +125,14 @@ Now that you have an Evaluator, you can use it to monitor the performance of you
 />
 
 <Info title="Linking Evaluators for Monitoring">
-You can link to a deployed version of the Evaluator by choosing the environment such as `production`, or you can link to a specific version of the Evaluator.
-If you want changes deployed to your Evaluator to be automatically reflected in Monitoring, link to the environment, otherwise link to a specific version.
+  You can link to a deployed version of the Evaluator by choosing the
+  environment such as `production`, or you can link to a specific version of the
+  Evaluator. If you want changes deployed to your Evaluator to be automatically
+  reflected in Monitoring, link to the environment, otherwise link to a specific
+  version.
 </Info>
 
-
-This linking results in:
-    - An additional graph on your Prompt dashboard showing the Evaluator results over time.
-    - An additional column in your Prompt Versions table showing the aggregated Evaluator results for each version.
-    - An additional column in your Logs table showing the Evaluator results for each Log.
-
+This linking results in: - An additional graph on your Prompt dashboard showing the Evaluator results over time. - An additional column in your Prompt Versions table showing the aggregated Evaluator results for each version. - An additional column in your Logs table showing the Evaluator results for each Log.
 
 ### Generate new Logs
 
@@ -144,7 +142,6 @@ Navigate to the **Editor** tab of your Prompt and generate a new Log by entering
 
 Navigate to the **Logs** tab of your Prompt and see the result of the linked Evaluator against the new Log. You can filter on this value in order to [create a Dataset](./create-dataset) of interesting examples.
 
-
 <img
   src="../../../assets/images/evaluators/create-code-evaluator-monitoring-logs.png"
   alt="See the results of monitoring on your logs."
@@ -152,9 +149,7 @@ Navigate to the **Logs** tab of your Prompt and see the result of the linked Eva
 
 </Steps>
 
-
 ## Next steps
 
 - Explore [AI Evaluators](./llm-as-a-judge) and [Human Evaluators](./human-evaluators) to complement your code-based judgements for more qualitative and subjective criteria.
 - Combine your Evaluator with a [Dataset](../../concepts/datasets) to run [Evaluations](./run-evaluation) to systematically compare the performance of different versions of your AI application.
-
