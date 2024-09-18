@@ -6,7 +6,7 @@ image: https://humanloop.com/assets/docs/social-image.png
 
 <Markdown src="../../../snippets/paid-feature.mdx" />
 
-An **Evaluation** on Humanloop leverages a [Dataset](../../concepts/dataset), a set of [Evaluators](../../concepts/evaluator) and different versions of a [Prompt](../../concepts/prompt) to compare.
+An **Evaluation** on Humanloop leverages a [Dataset](../../concepts/datasets), a set of [Evaluators](../../concepts/evaluators) and different versions of a [Prompt](../../concepts/prompts) to compare.
 
 The Dataset contains testcases describing the inputs (and optionally the expected results) for a given task. The Evaluators define the criteria for judging the performance of the Prompts when executed using these inputs.
 
@@ -15,9 +15,9 @@ The Evaluation then uses these judgements to provide a summary report of the per
 
 ## Prerequisites
 
-- A set of [Prompt](../../concepts/prompt) versions you want to compare - see the guide on [creating Prompts](./comparing-prompt-editor).
-- A [Dataset](../../concepts/dataset) containing testcases for the task - see the guide on [creating a Dataset](./creating-dataset).
-- At least one [Evaluator](../../concepts/evaluator) to judge the performance of the Prompts - see the guides on creating [Code](./code-based-evaluator), [AI](./llm-judge) and [Human](./human-evaluator) Evaluators.
+- A set of [Prompt](../../concepts/prompts) versions you want to compare - see the guide on [creating Prompts](./comparing-prompt-editor).
+- A [Dataset](../../concepts/datasets) containing testcases for the task - see the guide on [creating a Dataset](./create-dataset).
+- At least one [Evaluator](../../concepts/evaluators) to judge the performance of the Prompts - see the guides on creating [Code](./code-based-evaluator), [AI](./llm-as-judge) and [Human](./human-evaluator) Evaluators.
 
 
 <Info title={"Combining Evaluators"}>
@@ -66,7 +66,7 @@ alt="In progress Evaluation report"
 
 <Tip title={"Using your Runtime"}>
 This guide assumes both the Prompt and Evaluator Logs are generated using the Humanloop runtime. For certain use cases where more flexibility is required, the runtime for producing Logs
-instead lives in your code - see our guide on [Logging](../../development/logging), which also works with our Evaluations feature.
+instead lives in your code - see our guide on [Logging](../../development/guides/logging), which also works with our Evaluations feature.
 We have a guide for how to run Evaluations with Logs generated in your code coming soon!
 </Tip>
 

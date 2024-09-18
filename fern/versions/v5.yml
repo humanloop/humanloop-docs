@@ -42,8 +42,8 @@ navigation:
                 path: ../v5-pages/concepts/logs.mdx
               - page: Flows
                 path: ../v5-pages/concepts/flows.mdx
-              - page: Sessions
-                path: ../v5-pages/concepts/sessions.mdx
+              # - page: Sessions
+              #   path: ../v5-pages/concepts/sessions.mdx
               - page: Environments
                 path: ../v5-pages/concepts/environments.mdx
               - page: Directories
@@ -73,7 +73,7 @@ navigation:
           #   path: ../v5-pages/development/managing-releases.mdx
           # - page: Prompt Engineering
           #   path: ../v5-pages/development/prompt-engineering.mdx'
-          - section: How-to guides
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Create a Prompt
@@ -117,6 +117,9 @@ navigation:
               - page: Link a Tool to a Prompt
                 slug: link-tool
                 path: ../v5-pages/development/guides/link-tool.mdx
+              - page: Link JSON Schema Tool
+                slug: link-json-schema-tool
+                path: ../v5-pages/development/guides/link-jsonschema-tool.mdx
       - section: Evaluation
         contents:
           - page: Overview
@@ -125,10 +128,11 @@ navigation:
           #            path: ../v5-pages/evaluation/collecting-feedback.mdx
           #          - page: Dataset management
           #            path: ../v5-pages/evaluation/dataset-management.mdx
-          - section: How-to guides
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Compare and Debug Prompts
+                slug: comparing-prompt-editor
                 path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
               - page: Create a Dataset
                 slug: create-dataset
@@ -138,10 +142,10 @@ navigation:
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
                 slug: llm-as-a-judge
-                path: ../v5-pages/evaluation/guides/llm-judge.mdx
+                path: ../v5-pages/evaluation/guides/llm-as-a-judge.mdx
               - page: Set up a Human Evaluator
-                slug: human-evaluator
-                path: ../v5-pages/evaluation/guides/human-evaluator.mdx
+                slug: human-evaluators
+                path: ../v5-pages/evaluation/guides/human-evaluators.mdx
               - page: Run an Evaluation
                 slug: run-evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
@@ -160,8 +164,9 @@ navigation:
           - page: Overview
             path: ../v5-pages/observability/overview.mdx
           - page: Alerts and Guardrails
-            path: ../v5-pages/observability/alerts-guardrails.mdx
-          - section: How-to guides
+            slug: alerts-and-guardrails
+            path: ../v5-pages/observability/alerts-and-guardrails.mdx
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Set up Monitoring
@@ -178,7 +183,7 @@ navigation:
             path: ../v5-pages/admin/access-roles.mdx
           - page: SSO and Authentication
             path: ../v5-pages/admin/sso-authentication.mdx
-          - section: How tos
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Invite collaborators
@@ -201,9 +206,11 @@ navigation:
             path: ../v5-pages/reference/prompt-file.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
-          # - page: Postman Workspace
-          #   path: ../v5-pages/reference/postman-workspace.mdx
+          - page: Postman Workspace
+            slug: postman-workspace
+            path: ../v5-pages/reference/postman-workspace.mdx
           - page: Python Environment
+            slug: python-environment
             path: ../v5-pages/reference/code-env-spec.mdx
           - page: Integrations
             path: ../v5-pages/reference/integrations.mdx

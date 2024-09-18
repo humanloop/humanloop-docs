@@ -14,15 +14,15 @@ Your request was improperly formatted or presented.
 </Accordion>
 
 <Accordion title="401 Authentication issue">
-Your request was improperly formatted or presented.
-</Accordion>
-
-<Accordion title="400 Bad request">
 Your API key is incorrect or missing, or your user does not have the rights to access the relevant resource.
 </Accordion>
 
 <Accordion title="404 Not found">
 The requested resource could not be located.
+</Accordion>
+
+<Accordion title="409 Conflict">
+Modifying the resource would leave it in an illegal state.
 </Accordion>
 
 <Accordion title="422 Unprocessable entity">
