@@ -1,1 +1,0 @@
-export const CONCEPTS_PROMPTS="/docs/v5/concepts/prompts";
