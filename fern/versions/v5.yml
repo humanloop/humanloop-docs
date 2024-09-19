@@ -212,9 +212,9 @@ navigation:
             path: ../v5-pages/reference/prompt-file-format.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
-          - page: Postman Workspace
-            slug: postman-workspace
-            path: ../v5-pages/reference/postman-workspace.mdx
+          # - page: Postman Workspace
+          #   slug: postman-workspace
+          #   path: ../v5-pages/reference/postman-workspace.mdx
           - page: Humanloop Runtime Environment
             slug: python-environment
             path: ../v5-pages/reference/code-env-spec.mdx
