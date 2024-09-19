@@ -85,9 +85,9 @@ navigation:
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
-              - page: Proxy model calls
+              - page: Proxy Model Calls
                 slug: proxy-model-calls
-                path: ../v5-pages/development/guides/call-llm.mdx
+                path: ../v5-pages/development/guides/proxy-model-calls.mdx
               - page: Log to a Prompt
                 path: ../v5-pages/development/guides/logging.mdx
               # - page: Manage Tools
