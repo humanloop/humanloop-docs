@@ -72,7 +72,7 @@ navigation:
           - section: Evaluation and Monitoring
             slug: evaluation
             contents:
-              - page: Overviews
+              - page: Overview
                 slug: overview
                 path: ../pages/guides/evaluate/overview.mdx
               - page: Run an evaluation
