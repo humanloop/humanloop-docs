@@ -89,7 +89,8 @@ navigation:
                 slug: proxy-model-calls
                 path: ../v5-pages/development/guides/proxy-model-calls.mdx
               - page: Log to a Prompt
-                path: ../v5-pages/development/guides/logging.mdx
+                slug: log-to-a-prompt
+                path: ../v5-pages/development/guides/log-to-a-prompt.mdx
               - page: Tool calling in Editor
                 slug: tool-calling-editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
@@ -104,8 +105,8 @@ navigation:
               # - page: Chain logs together (Sessions)
               #   path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
               - page: Create deployment environments
-                slug: create-environment
-                path: ../v5-pages/development/guides/create-environment.mdx
+                slug: create-deployment-environments
+                path: ../v5-pages/development/guides/create-deployment-environments.mdx
               - page: Deploy to an environment
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
