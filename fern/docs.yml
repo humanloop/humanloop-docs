@@ -89,3 +89,11 @@ redirects:
     destination: /docs/admin/access-roles
   - source: /docs/overview
     destination: /docs/getting-started/overview
+  - source: /docs/changelog/multiple-tool-calls
+    destination: /docs/changelog/2023/11/20
+  - source: /docs/guides/set-up-semantic-search
+    destination: /docs/v4/guides/set-up-semantic-search
+  - source: /docs/guides/run-an-experiment
+    destination: /docs/v4/guides/run-an-experiment
+  - source: /docs/prompt-file-format
+    destination: /docs/reference/prompt-file-format

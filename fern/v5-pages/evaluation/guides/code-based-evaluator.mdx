@@ -125,7 +125,11 @@ Now that you have an Evaluator, you can use it to monitor the performance of you
 />
 
 <Info title="Linking Evaluators for Monitoring">
-You can link to a deployed version of the Evaluator by choosing the environment such as `production`, or you can link to a specific version of the Evaluator. If you want changes deployed to your Evaluator to be automatically reflected in Monitoring, link to the environment, otherwise link to a specific version.
+  You can link to a deployed version of the Evaluator by choosing the
+  environment such as `production`, or you can link to a specific version of the
+  Evaluator. If you want changes deployed to your Evaluator to be automatically
+  reflected in Monitoring, link to the environment, otherwise link to a specific
+  version.
 </Info>
 
 This linking results in: - An additional graph on your Prompt dashboard showing the Evaluator results over time. - An additional column in your Prompt Versions table showing the aggregated Evaluator results for each version. - An additional column in your Logs table showing the Evaluator results for each Log.
@@ -136,7 +140,7 @@ Navigate to the **Editor** tab of your Prompt and generate a new Log by entering
 
 ### Inspect the Monitoring results
 
-Navigate to the **Logs** tab of your Prompt and see the result of the linked Evaluator against the new Log. You can filter on this value in order to [create a Dataset](./create-dataset) of interesting examples.
+Navigate to the **Logs** tab of your Prompt and see the result of the linked Evaluator against the new Log. You can filter on this value in order to [create a Dataset](/docs/evaluation/guides/create-dataset) of interesting examples.
 
 <img
   src="../../../assets/images/evaluators/create-code-evaluator-monitoring-logs.png"
@@ -147,5 +151,5 @@ Navigate to the **Logs** tab of your Prompt and see the result of the linked Eva
 
 ## Next steps
 
-- Explore [AI Evaluators](./llm-as-a-judge) and [Human Evaluators](./human-evaluators) to complement your code-based judgements for more qualitative and subjective criteria.
-- Combine your Evaluator with a [Dataset](../../concepts/datasets) to run [Evaluations](./run-evaluation) to systematically compare the performance of different versions of your AI application.
+- Explore [AI Evaluators](/docs/evaluation/guides/llm-as-a-judge) and [Human Evaluators](/docs/evaluation/guides/human-evaluators) to complement your code-based judgements for more qualitative and subjective criteria.
+- Combine your Evaluator with a [Dataset](/docs/concepts/datasets) to run [Evaluations](/docs/evaluation/guides/run-evaluation) to systematically compare the performance of different versions of your AI application.
