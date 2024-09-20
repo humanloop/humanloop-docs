@@ -24,7 +24,7 @@ navigation:
             slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
           - page: Quickstart Tutorial
-            slug: tutorials/quickstart-tutorial
+            slug: tutorials/quickstart
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
           - section: Concepts
             contents:
@@ -87,6 +87,7 @@ navigation:
               # - page: Manage Tools
               #   path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool calling in Editor
+                slug: tool-calling-editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
               # Doesn't work in the SDK atm!
               # - page: Tool Calling with the SDK
@@ -169,10 +170,12 @@ navigation:
               - page: Capture user feedback
                 path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
+        slug: admin
         contents:
           # - page: Org, Teamspaces, Folders
           #   path: ../v5-pages/admin/org-teamspaces-folders.mdx
           - page: Access roles (RBACs)
+            slug: access-roles
             path: ../v5-pages/admin/access-roles.mdx
           - page: SSO and Authentication
             path: ../v5-pages/admin/sso-authentication.mdx
