@@ -1,12 +1,12 @@
 ---
 subtitle: In this guide, we'll demonstrate an evaluation run workflow where logs are generated outside the Humanloop environment and posted via API.
-description: Learn how to use the Humanloop Python SDK to create an evaluation run and post generated logs to it.
+description: Learn how to use the Humanloop Python SDK to create an evaluation run and post-generated logs.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-If you are running your own infrastructure to generate logs, you can still leverage the Humanloop evaluations suite via our API. The workflow looks like this:
+If running your infrastructure to generate logs, you can still leverage the Humanloop evaluations suite via our API. The workflow looks like this:
 
-1. Trigger creation of an evaluation run
+1. Trigger the creation of an evaluation run
 2. Loop through the datapoints in your dataset and perform generations on your side
 3. Post the generated logs to the evaluation run
 
@@ -17,7 +17,7 @@ This works with any evaluator - if you have configured a Humanloop-runtime evalu
 - You need to have access to evaluations
 - You also need to have a project created - if not, please first follow our project creation guides.
 - You need to have a dataset in your project. See our dataset creation guide if you don't yet have one.
-- You need to have a model config that you're trying to evaluate - create one in the Editor.
+- You need a model configuration to evaluate, so create one in the Editor.
 
 ## Setting up the script
 
@@ -49,20 +49,20 @@ PROJECT_ID = ... # Replace with the project ID
 
 ```python
 # Retrieve a dataset
-DATASET_ID = ... # Replace with the dataset ID you are using for evaluation.
-								 # This must be a dataset in the project you are working in.
+DATASET_ID = ... # Replace with the dataset ID you use for evaluation.
+								 # This must be a dataset in the project you are working on.
 datapoints = humanloop.datasets.list_datapoints(DATASET_ID).records
 ```
 
 ### Set up the model config you are evaluating
 
-If you constructed this in Humanloop, retrieve by calling:
+If you constructed this in Humanloop, retrieve it by calling:
 
 ```python
 config = humanloop.model_configs.get(id=CONFIG_ID)
 ```
 
-Alternatively, if your model config lives outside the Humanloop system, you can post it to Humanloop with the [register model config endpoint](/api-reference/model-configs/model-configs-register).
+Alternatively, if your model config lives outside the Humanloop system, post it to Humanloop with the [register model config endpoint](/api-reference/model-configs/model-configs-register).
 
 Either way, you need the ID of the config.
 
@@ -72,12 +72,12 @@ CONFIG_ID = <YOUR_CONFIG_ID>
 
 ### In the Humanloop app, create an evaluator
 
-For this guide, we'll simply create a **Valid JSON** checker.
+We'll create a **Valid JSON** checker for this guide.
 
 1. Visit the **Evaluations** tab, and select **Evaluators**
 2. Click **+ New Evaluator** and choose **Code** from the options.
 3. Select the **Valid JSON** preset on the left.
-4. Choose the mode **Offline** in the setting panel on the left.
+4. Choose the mode **Offline** in the settings panel on the left.
 5. Click **Create**.
 6. Copy your new evaluator's ID from the address bar. It starts with `evfn_`.
 
@@ -87,7 +87,7 @@ EVALUATOR_ID = <YOUR_EVALUATOR_ID>
 
 ### Create an evaluation run with `hl_generated` set to `False`
 
-This tells the Humanloop runtime that it should not trigger evaluations itself, but wait for them to be posted via the API.
+This tells the Humanloop runtime that it should not trigger evaluations but wait for them to be posted via the API.
 
 ```python
 evaluation_run = humanloop.evaluations.create(
@@ -99,13 +99,13 @@ evaluation_run = humanloop.evaluations.create(
 )
 ```
 
-By default, the status of the evaluation after creation is `pending`. Before sending the generation logs, set the status to `running`.
+By default, the evaluation status after creation is `pending`. Before sending the generation logs, set the status to `running`.
 
 ```python
 humanloop.evaluations.update_status(id=evaluation_run.id, status="running")
 ```
 
-### Iterate through the datapoints in the dataset, produce a generation, and post it the evaluation
+### Iterate through the datapoints in the dataset, produce a generation and post the evaluation
 
 ```python
 for datapoint in datapoints:
@@ -129,25 +129,25 @@ for datapoint in datapoints:
 
 #### Run the full script above.
 
-If everything goes well, you should now have posted a new evaluation run to Humanloop, and logged all the generations derived from the underlying datapoints.
+If everything goes well, you should now have posted a new evaluation run to Humanloop and logged all the generations derived from the underlying datapoints.
 
-The Humanloop evaluation runtime will now iterate through those logs and run the **Valid JSON** evaluator on each of them. To check progress:
+The Humanloop evaluation runtime will now iterate through those logs and run the **Valid JSON** evaluator on each. To check progress:
 
 ### Visit your project in the Humanloop app and go to the **Evaluations** tab.
 
-You should see the run you recently created; click through to it and you'll see rows in the table showing the generations.
+You should see the run you recently created; click through to it, and you'll see rows in the table showing the generations.
 
 <Frame>
   <img src="../../../assets/images/d16f62b-image.png" />
 </Frame>
 
-In this case, all the evaluations returned `False` because the string "Hello World!" wasn't valid JSON. Try logging something which is valid JSON to check that everything works as expected.
+In this case, all the evaluations returned `False` because the "Hello World!" string wasn't valid JSON. Try logging something valid JSON to check that everything works as expected.
 
 </Steps>
 
 ## Full Script
 
-For reference, here's the full script you can use to get started quickly.
+For reference, here's the full script to get started quickly.
 
 ```python
 from humanloop import Humanloop
@@ -189,7 +189,7 @@ for i, datapoint in enumerate(datapoints):
         "project_id": PROJECT_ID,
         "config_id": CONFIG_ID,
         "messages":  [*config.chat_template, *datapoint.messages],
-        "output": "Hello World!", # Hardcoded example for demonstration..
+        "output": "Hello World!", # Hardcoded example for demonstration
     }
 
     print(f"Logging generation for datapoint {datapoint.id}")

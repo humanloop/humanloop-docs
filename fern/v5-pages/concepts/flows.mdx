@@ -1,26 +1,24 @@
 ---
-subtitle: Flows centralise multiple Logs and allow you to evaluate them together.
-description: Discover how to instrument complex usecases such as RAG or language agents with Humanloop.
+subtitle: Flows combine multiple Logs to enable joint evaluation.
+description: Learn how to use Humanloop to manage and evaluate complex AI use cases such as Retrieval-Augmented Generation (RAG) or language agents.
 ---
 
-A Flow on Humanloop represents a virtual model of your AI app, collecting Logs created during an interaction session between the end user and your system. If your AI feature involves more than one File, Flows allow you to centralise their Logs in one UI view.
+A Flow in Humanloop helps you capture and manage Logs representing individual user interactions with your AI system. If your AI application involves multiple steps or components, Flows group these Logs together, providing a complete view of each interaction for easier analysis.
 
-## Using Flows
+## How to Use Flows
 
-A collection of Logs is called a Trace. The Logs of a Flow file represent the heads of these Traces to which Logs are appended. Furthermore, any Log inside the Trace can have other Logs under it.
+Flows allow you to organize multiple Logs into a Trace. Each Log within a Flow file serves as the starting point of a Trace.
 
-To use Flows, log a Trace under a Flow file and assign it an ID. If none is provided, Humanloop will assign one.
+To use Flows, add a Log under a Flow file and assign it a `trace_id`. If you don't provide an ID, Humanloop will generate one for you.
 
 <EndpointRequestSnippet endpoint="POST /flows/log" />
 
-When Logs are added to Humanloop, the Log can be coopted into a Trace by specifying the ID of the Trace in the request body. Furthermore, the new Log request can specify a trace parent, which nests it under another Log inside the Trace.
+To add a Log to a Trace, include the `trace_parent_id` property in the Log request's body. This `trace_parent_id` can reference a Flow Log or any Log that already exists in the Trace you are modifying.
 
-Once all Logs have been added to the Trace, the Trace must be marked as complete. This allows Monitoring Evaluators to pick up the Trace and evaluate it.
+Once you've added all the necessary Logs to the Trace, mark it as complete. This step is required for Monitoring Evaluators to start evaluating the Trace.
 
-## Versioning
+## Flow Versioning
 
-Versioning a Flow is done by modifying the attributes object of the Kernel. The attributes object supports arbitrary metadata inside it, and every change creates a new Version of the Flow. This flexibility allows you to instrument complex usecases.
+You can version a Flow by changing its `attributes` property. This `attributes` object can contain arbitrary data, and each update creates a new version of the Flow. This flexibility makes it possible to handle complex use cases.
 
-For example, a chatbot can be represented as a state machine with multiple paths corresponding to the chatbot's capabilities. A user might only interact with some paths in the graph, resulting in heterogeneous Traces for the same Flow Version.
-
-In another example, Flow Versions can be defined at runtime from the Files used by your feature, allowing you to A/ B test the impact of a Prompt or Tool modification to the overall system.
+For instance, Flow Versions can be dynamically created based on the Files used by your feature, enabling A/B testing of how changes to a Prompt or Tool impact your system's performance.

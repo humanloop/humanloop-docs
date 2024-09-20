@@ -1,6 +1,6 @@
 ---
 subtitle: In this guide, we will walk through creating a dataset and using it to run an offline evaluation.
-description: How to use Humanloop to evaluate your large language model use-case, using a dataset and an evaluator.
+description: How do you evaluate your large language model use case using a dataset and an evaluator on Humanloop?
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
@@ -12,19 +12,19 @@ image: https://humanloop.com/assets/docs/social-image.png
 
 - You need to have access to Evaluations
 - You also need to have a Prompt – if not, please follow our [Prompt creation](./create-prompt) guide.
-- Finally, you need at least a few Logs in your prompt. Use the **Editor** to generate some logs if you don't have any yet.
+- Finally, you need at least a few Logs in your prompt. Use the **Editor** to generate some logs if you have none.
 
 <Info>
-You need logs in your project because we will use these a source of test datapoints for the dataset we will create. If you want to create arbitrary test datapoints from scratch, see our guide to doing this from the API. We will soon be updating the app to enable arbitrary test datapoint creation from your browser.
+You need logs for your project because we will use these as a source of test datapoints for the dataset we create. If you want to make arbitrary test datapoints from scratch, see our guide to doing this from the API. We will soon update the app to enable arbitrary test datapoint creation from your browser.
 </Info>
 
-For this example, we're going to evaluate a model who's responsibility is to extract key information from a customer service request and return this information in JSON. In the image below, you can see the model config we've drafted on the left, and an example of it running against a customer query on the right.
+For this example, we will evaluate a model responsible for extracting critical information from a customer service request and returning this information in JSON. In the image below, you can see the model config we've drafted on the left and an example of it running against a customer query on the right.
 
 <img src="../../../assets/images/c5089ee-image.png" />
 
 ### Set up a dataset
 
-We will create a dataset based on existing logs that are already in the project.
+We will create a dataset based on existing logs in the project.
 
 <Steps>
 ### Navigate to the **Logs** tab
@@ -46,11 +46,11 @@ You can add more datapoints to the same dataset later by clicking the 'add to ex
 
 ### Go to the **Datasets** tab.
 
-### Click into the newly created dataset. One datapoint will be present for each log you selected in step 3
+### Click on the newly created dataset. One datapoint will be present for each log you selected in Step 3
 
 <img
   src="../../../assets/images/861e590-image.png"
-  alt="The newly created dataset, containing datapoints that were converted from existing logs in the project."
+  alt="The newly created dataset, containing datapoints converted from existing logs in the project."
 />
 
 ### Click on a datapoint to inspect its parameters.
@@ -58,13 +58,12 @@ You can add more datapoints to the same dataset later by clicking the 'add to ex
 <Tip> 
 A test datapoint contains inputs (the variables passed into your model config template), an optional sequence of messages (if used for a chat model) and a target representing the desired output.
 
-As we converted existing logs into datapoints, the target defaults to the output of the source log.
-
+When existing logs are converted to datapoints, the datapoint target defaults to the output of the source Log.
 </Tip>
 
 In our example, we created datapoints from existing logs. The default behaviour is that the original log's output becomes an output field in the target JSON.
 
-In order to access the `feature` field more easily in our evaluator, we'll modify the datapoint targets to be a raw JSON with a feature key.
+To access the `feature` field more efficiently in our evaluator, we'll modify the datapoint targets to be a raw JSON with a feature key.
 
 <img
   src="../../../assets/images/4b6494f-image.png"
@@ -119,14 +118,14 @@ In the debug console at the bottom of the dialog, click **Load data** and then *
 
 <img
   src="../../../assets/images/e3dd068-image.png"
-  alt="The debug console. Use this to load up test datapoints from a dataset and perform debug runs with any model config in your project."
+  alt="The debug console. Use this to load test datapoints from a dataset and perform debug runs with any model config in your project."
 />
 
 #### Choose a model config from the dropdown menu.
 
 #### Click the run button at the far right of one of the test datapoints.
 
-A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed into the evaluator and the resulting evaluation displays in the **Result** column.
+A new debug run will be triggered, which causes an LLM generation using that datapoint's inputs and messages parameters. The generated log and the test datapoint will be passed to the evaluator, and the resulting evaluation will be displayed in the **Result** column.
 
 ### Click **Create** when you are happy with the evaluator.
 
@@ -139,7 +138,7 @@ Now that you have an offline evaluator and a dataset, you can use them to evalua
 <Steps>
 ### Go to the **Evaluations** section.
 ### In the **Runs** tab, click **Run Evaluation**
-### In the dialog box, choose a model config to evaluate, and select your newly created dataset and evaluator.
+### In the dialog box, choose a model config to evaluate and select your newly created dataset and evaluator.
 
 <img src="../../../assets/images/d08b4d8-image.png" />
 
