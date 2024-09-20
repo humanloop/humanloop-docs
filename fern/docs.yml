@@ -85,3 +85,7 @@ js: ./assets/scripts.js
 redirects:
   - source: /docs/quickstart
     destination: /docs/tutorials/quickstart
+  - source: /docs/access-roles
+    destination: /docs/admin/access-roles
+  - source: /docs/overview
+    destination: /docs/getting-started/overview

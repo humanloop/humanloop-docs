@@ -24,7 +24,7 @@ navigation:
             slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
           - page: Quickstart Tutorial
-            slug: tutorials/quickstart-tutorial
+            slug: tutorials/quickstart
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
           - page: ChatGPT Clone Tutorial
             slug: tutorials/chatgpt-clone
@@ -180,10 +180,12 @@ navigation:
               - page: Capture user feedback
                 path: ../v5-pages/observability/guides/capture-user-feedback.mdx
       - section: Organization Management
+        slug: admin
         contents:
           # - page: Org, Teamspaces, Folders
           #   path: ../v5-pages/admin/org-teamspaces-folders.mdx
           - page: Access roles (RBACs)
+            slug: access-roles
             path: ../v5-pages/admin/access-roles.mdx
           - page: SSO and Authentication
             path: ../v5-pages/admin/sso-authentication.mdx
