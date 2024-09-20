@@ -25,7 +25,7 @@ The Humanloop platform can be accessed through the API or through our Python and
 <Tab title="Python SDK">
 
 ```shell title="Installation"
-pip install humanloop==0.8.0b6
+pip install humanloop==0.8.0b17
 ```
 
 ```python title="Example usage"
