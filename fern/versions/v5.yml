@@ -90,8 +90,6 @@ navigation:
                 path: ../v5-pages/development/guides/proxy-model-calls.mdx
               - page: Log to a Prompt
                 path: ../v5-pages/development/guides/logging.mdx
-              # - page: Manage Tools
-              #   path: ../v5-pages/development/guides/manage-tools.mdx
               - page: Tool calling in Editor
                 slug: tool-calling-editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
@@ -111,7 +109,7 @@ navigation:
               - page: Deploy to an environment
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
-
+              # Page seems outdated: UI doesn't resemble current HL app at all
               # - page: Finetune a model
               #   slug: finetuning
               #   path: ../v5-pages/development/guides/fine-tune-model.mdx
