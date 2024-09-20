@@ -95,3 +95,5 @@ redirects:
     destination: /docs/v4/guides/set-up-semantic-search
   - source: /docs/guides/run-an-experiment
     destination: /docs/v4/guides/run-an-experiment
+  - source: /docs/prompt-file-format
+    destination: /docs/reference/prompt-file-format
