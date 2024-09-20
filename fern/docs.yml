@@ -82,3 +82,6 @@ typography:
     #     style: italic
 css: ./assets/styles.css
 js: ./assets/scripts.js
+redirects:
+  - source: /docs/quickstart
+    destination: /docs/tutorials/quickstart
