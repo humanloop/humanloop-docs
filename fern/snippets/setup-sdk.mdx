@@ -1,12 +1,33 @@
 <Accordion title="Install and initialize the SDK">
 <Tabs>
+<Tab title="TypeScript">
+
+First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
+
+1. Install the Humanloop TypeScript SDK:
+   ```shell
+   npm install humanloop@0.8.0-beta12
+   ```
+2. Import and initialize the SDK:
+
+   ```ts
+   import { HumanloopClient, Humanloop } from "humanloop";
+
+   const humanloop = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
+
+   // Check that the authentication was successful
+   console.log(await humanloop.prompts.list());
+   ```
+
+</Tab>
+
 <Tab title="Python">
 
 First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
 
 1. Install the Humanloop Python SDK:
    ```shell
-   pip install humanloop==0.8.0b6
+   pip install humanloop==0.8.0b17
    ```
 2. Start a Python interpreter:
    ```shell
@@ -24,26 +45,6 @@ First you need to install and initialize the SDK. If you have already done this,
 
 </Tab>
 
-<Tab title="TypeScript">
-
-First you need to install and initialize the SDK. If you have already done this, skip to the next section. Otherwise, open up your terminal and follow these steps:
-
-1. Install the Humanloop TypeScript SDK:
-   ```shell
-   npm install humanloop@0.8.0-beta4
-   ```
-2. Import and initialize the SDK:
-
-   ```ts
-   import { HumanloopClient, Humanloop } from "humanloop";
-
-   const humanloop = new HumanloopClient({ apiKey: "YOUR_API_KEY" });
-
-   // Check that the authentication was successful
-   console.log(await humanloop.prompts.list());
-   ```
-
-</Tab>
 </Tabs>
 
 </Accordion>
