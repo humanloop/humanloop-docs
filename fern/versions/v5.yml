@@ -26,6 +26,9 @@ navigation:
           - page: Quickstart Tutorial
             slug: tutorials/quickstart
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+          - page: ChatGPT Clone Tutorial
+            slug: tutorials/chatgpt-clone
+            path: ../v5-pages/tutorials/chatgpt-clone.mdx
           - section: Concepts
             contents:
               - page: Overview
@@ -40,8 +43,10 @@ navigation:
                 path: ../v5-pages/concepts/evaluators.mdx
               - page: Logs
                 path: ../v5-pages/concepts/logs.mdx
-              - page: Sessions
-                path: ../v5-pages/concepts/sessions.mdx
+#              - page: Flows
+#                path: ../v5-pages/concepts/flows.mdx
+              # - page: Sessions
+              #   path: ../v5-pages/concepts/sessions.mdx
               - page: Environments
                 path: ../v5-pages/concepts/environments.mdx
               - page: Directories
@@ -71,7 +76,7 @@ navigation:
           #   path: ../v5-pages/development/managing-releases.mdx
           # - page: Prompt Engineering
           #   path: ../v5-pages/development/prompt-engineering.mdx'
-          - section: How-to guides
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Create a Prompt
@@ -80,12 +85,12 @@ navigation:
               - page: Call a Prompt
                 path: ../v5-pages/development/guides/call-prompt.mdx
                 slug: call-prompt
-              - page: Proxy model calls
-                path: ../v5-pages/development/guides/call-llm.mdx
+              - page: Proxy Model Calls
+                slug: proxy-model-calls
+                path: ../v5-pages/development/guides/proxy-model-calls.mdx
               - page: Log to a Prompt
-                path: ../v5-pages/development/guides/logging.mdx
-              # - page: Manage Tools
-              #   path: ../v5-pages/development/guides/manage-tools.mdx
+                slug: log-to-a-prompt
+                path: ../v5-pages/development/guides/log-to-a-prompt.mdx
               - page: Tool calling in Editor
                 slug: tool-calling-editor
                 path: ../v5-pages/development/guides/tool-calling-editor.mdx
@@ -97,18 +102,18 @@ navigation:
                 path: ../v5-pages/development/guides/reusable-snippets.mdx
               # - page: Manage Evaluators
               #   path: ../v5-pages/development/guides/manage-evaluators.mdx
-              - page: Chain logs together (Sessions)
-                path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
+              # - page: Chain logs together (Sessions)
+              #   path: ../v5-pages/development/guides/chaining-calls-sessions.mdx
               - page: Create deployment environments
-                slug: create-environment
-                path: ../v5-pages/development/guides/create-environment.mdx
+                slug: create-deployment-environments
+                path: ../v5-pages/development/guides/create-deployment-environments.mdx
               - page: Deploy to an environment
                 slug: deploy-to-environment
                 path: ../v5-pages/development/guides/deploy-to-environment.mdx
-
-              - page: Finetune a model
-                slug: finetuning
-                path: ../v5-pages/development/guides/fine-tune-model.mdx
+              # Page seems outdated: UI doesn't resemble current HL app at all
+              # - page: Finetune a model
+              #   slug: finetuning
+              #   path: ../v5-pages/development/guides/fine-tune-model.mdx
               #   path: ../v5-pages/development/guides/how-to-debug-prompt.mdx
               - page: Create a Directory
                 slug: create-directory
@@ -116,6 +121,9 @@ navigation:
               - page: Link a Tool to a Prompt
                 slug: link-tool
                 path: ../v5-pages/development/guides/link-tool.mdx
+              - page: Link JSON Schema Tool
+                slug: link-json-schema-tool
+                path: ../v5-pages/development/guides/link-json-schema-tool.mdx
       - section: Evaluation
         contents:
           - page: Overview
@@ -124,10 +132,11 @@ navigation:
           #            path: ../v5-pages/evaluation/collecting-feedback.mdx
           #          - page: Dataset management
           #            path: ../v5-pages/evaluation/dataset-management.mdx
-          - section: How-to guides
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Compare and Debug Prompts
+                slug: comparing-prompt-editor
                 path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
               - page: Create a Dataset
                 slug: create-dataset
@@ -137,10 +146,10 @@ navigation:
                 path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
               - page: Set up LLM as a Judge
                 slug: llm-as-a-judge
-                path: ../v5-pages/evaluation/guides/llm-judge.mdx
+                path: ../v5-pages/evaluation/guides/llm-as-a-judge.mdx
               - page: Set up a Human Evaluator
-                slug: human-evaluator
-                path: ../v5-pages/evaluation/guides/human-evaluator.mdx
+                slug: human-evaluators
+                path: ../v5-pages/evaluation/guides/human-evaluators.mdx
               - page: Run an Evaluation
                 slug: run-evaluation
                 path: ../v5-pages/evaluation/guides/run-evaluation.mdx
@@ -159,8 +168,9 @@ navigation:
           - page: Overview
             path: ../v5-pages/observability/overview.mdx
           - page: Alerts and Guardrails
-            path: ../v5-pages/observability/alerts-guardrails.mdx
-          - section: How-to guides
+            slug: alerts-and-guardrails
+            path: ../v5-pages/observability/alerts-and-guardrails.mdx
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Set up Monitoring
@@ -179,7 +189,7 @@ navigation:
             path: ../v5-pages/admin/access-roles.mdx
           - page: SSO and Authentication
             path: ../v5-pages/admin/sso-authentication.mdx
-          - section: How tos
+          - section: How-To Guides
             slug: guides
             contents:
               - page: Invite collaborators
@@ -198,13 +208,16 @@ navigation:
           #   path: ../v5-pages/reference/supported-tools.mdx
           # - page: Supported Types of Evaluators
           #   path: ../v5-pages/reference/supported-evaluator-types.mdx
-          - page: Prompt file spec
-            path: ../v5-pages/reference/prompt-file.mdx
+          - page: Prompt File Format
+            slug: prompt-file-format
+            path: ../v5-pages/reference/prompt-file-format.mdx
           - page: Example Projects
             path: ../v5-pages/reference/example-projects.mdx
           # - page: Postman Workspace
+          #   slug: postman-workspace
           #   path: ../v5-pages/reference/postman-workspace.mdx
-          - page: Python Environment
+          - page: Humanloop Runtime Environment
+            slug: python-environment
             path: ../v5-pages/reference/code-env-spec.mdx
           - page: Integrations
             path: ../v5-pages/reference/integrations.mdx

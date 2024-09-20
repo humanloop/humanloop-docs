@@ -27,12 +27,12 @@ metadata:
   twitter:url: "https://humanloop.com/docs"
   twitter:card: "summary_large_image"
 versions:
+  - display-name: v5.0
+    path: ./versions/v5.yml
+    slug: v5
   - display-name: v4.0
     path: ./versions/v4.yml
     slug: v4
-  - display-name: v5.0 Beta
-    path: ./versions/v5.yml
-    slug: v5
 
 colors:
   accentPrimary:

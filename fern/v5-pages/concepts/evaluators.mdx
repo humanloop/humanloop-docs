@@ -21,8 +21,7 @@ Currently, you can define three different Evaluator sources on Humanloop:
 
 <img src="../../assets/images/evaluators/evaluator-types.png" />
 
-
-## Online Monitoring vs. Offline Evaluation
+## Online Monitoring versus Offline Evaluation
 
 Evaluators can be deployed on Humanloop to support both testing new versions of your Prompts and Tools during development and for monitoring live apps that are already in production.
 
@@ -43,9 +42,9 @@ A test Dataset is a collection of **Datapoints**, which are roughly analogous to
 When you run an offline evaluation, a Log needs to be generated using the inputs of each Datapoint and the version of the application being evaluated. Evaluators then need to be run against each Log to provide judgements,
 which are then aggregated to provide an overall score for the application. Evaluators in this case take the generated `Log` and the `testcase` datapoint that gave rise to it as arguments.
 
-See our guides on [creating Datasets](./guides/create-dataset) and [running Evaluations](../evaluation/overview) for more details.
+See our guides on [creating Datasets](/docs/v5/evaluation/guides/create-dataset) and [running Evaluations](/v5/evaluation/guides/run-evaluation) for more details.
 
-## Humanloop runtime vs. your runtime
+## Humanloop runtime versus your runtime
 
 Evaluations require the following to be generated:
 
@@ -54,7 +53,6 @@ Evaluations require the following to be generated:
 
 Evaluators which are defined within the Humanloop UI can be executed in the Humanloop runtime, whereas Evaluators defined in your code can be executed in your runtime and the results posted back to Humanloop.
 This provides flexibility for supporting more complex evaluation workflows.
-
 
 ## Return types
 

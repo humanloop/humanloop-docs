@@ -4,7 +4,7 @@ description: Learn how to leverage the Humanloop proxy to call various AI models
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-This guide walks you through how to call various models through the Humanloop API. This is the same as [calling a Prompt](/docs/v5/guides/prompt-management/call-prompt) but instead of using a version of the Prompt that is defined in Humanloop, you're setting the template and parameters directly in code.
+This guide walks you through how to call various models through the Humanloop API. This is the same as [calling a Prompt](/docs/v5/development/guides/call-prompt) but instead of using a version of the Prompt that is defined in Humanloop, you're setting the template and parameters directly in code.
 
 The benefits of using the Humanloop proxy are:
 
@@ -27,9 +27,15 @@ In this guide, we'll cover how to call LLMs using the Humanloop proxy.
 
 Now you can use the SDK to generate completions and log the results to your Prompt using the new `prompt.call()` method:
 
-<EndpointRequestSnippet endpoint="POST /prompts/call" example="Supplying Prompt" />
+<EndpointRequestSnippet
+  endpoint="POST /prompts/call"
+  example="Supplying Prompt"
+/>
 
-<EndpointResponseSnippet endpoint="POST /prompts/call" example="Supplying Prompt" />
+<EndpointResponseSnippet
+  endpoint="POST /prompts/call"
+  example="Supplying Prompt"
+/>
 
 ### Navigate to the **Logs** tab of the Prompt
 

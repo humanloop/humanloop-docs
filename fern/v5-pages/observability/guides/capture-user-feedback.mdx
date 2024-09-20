@@ -25,8 +25,8 @@ If you have not done so, you can follow our guide to [create a Human Evaluator](
 
 ## Prerequisites
 
-- You already have a Prompt — if not, please follow our [Prompt creation](/docs/guides/create-prompt) guide first.
-- You have created a Human Evaluator. This can be done by following the steps in our guide to [Human Evaluator creation](/docs/v5/evaluation/guides/human-evaluation#creating-a-human-evaluator).
+- You already have a Prompt — if not, please follow our [Prompt creation](/docs/v5/development/guides/create-prompt) guide first.
+- You have created a Human Evaluator. This can be done by following the steps in our guide to [Human Evaluator creation](/docs/v5/evaluation/guides/human-evaluators).
 
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 
@@ -73,7 +73,7 @@ log = client.prompts.call(
 log_id = log.id
 ```
 
-### Call `client.evaluators.log(...)` referencing the above Log ID as `parent_id` to record user feedback.  
+### Call `client.evaluators.log(...)` referencing the above Log ID as `parent_id` to record user feedback.
 
 ```python
 feedback_2 = client.evaluators.log(
@@ -130,9 +130,7 @@ removed_rating_log = client.evaluators.log(
 
 </Accordion>
 
-
 </Steps>
-
 
 ## Viewing feedback
 
@@ -154,4 +152,3 @@ Alternatively, you can view all feedback recorded for a specific Evaluator in th
 This will display all feedback recorded for the Evaluator across all other Files.
 
 ![Logs table for "Tweet Issues" Evaluator showing feedback](../../../assets/images/impersonator-tweet-issues-evaluator-logs.png)
-
