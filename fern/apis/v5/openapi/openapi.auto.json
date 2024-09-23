@@ -2073,7 +2073,7 @@
       "patch": {
         "tags": ["Datasets"],
         "summary": "Move",
-        "description": "Update the Dataset with the given ID.",
+        "description": "Move the Dataset to a different path or change the name.",
         "operationId": "move_datasets__id__patch",
         "parameters": [
           {
@@ -3482,7 +3482,7 @@
       "get": {
         "tags": ["Flows"],
         "summary": "List ",
-        "description": "Get a list of all Flows.",
+        "description": "Get a list of Flows.",
         "operationId": "list__flows_get",
         "parameters": [
           {
@@ -3597,6 +3597,7 @@
       "post": {
         "tags": ["Flows"],
         "summary": "Upsert",
+        "description": "Create or update a Flow.\n\nFlows can also be identified by the `ID` or their `path`.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "upsert_flows_post",
         "requestBody": {
           "content": {
@@ -3641,7 +3642,7 @@
       "post": {
         "tags": ["Flows"],
         "summary": "Log",
-        "description": "Log a Flow Trace.",
+        "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
         "operationId": "log_flows_log_post",
         "parameters": [
           {
@@ -3706,21 +3707,22 @@
         ]
       }
     },
-    "/flows/log/{trace_id}": {
+    "/flows/logs/{log_id}": {
       "patch": {
         "tags": ["Flows"],
-        "summary": "Update Trace",
-        "operationId": "update_trace_flows_log__trace_id__patch",
+        "summary": "Update Log",
+        "description": "Update the status, inputs, output of a Flow Log.\n\nMarking a Flow Log as complete will trigger any monitoring Evaluators to run.\nInputs and output (or error) must be provided in order to mark it as complete.",
+        "operationId": "update_log_flows_logs__log_id__patch",
         "parameters": [
           {
-            "description": "Unique identifier for Trace.",
+            "description": "Unique identifier of the Flow Log.",
             "required": true,
             "schema": {
               "type": "string",
-              "title": "Trace ID",
-              "description": "Unique identifier for Trace."
+              "title": "Flow Log ID",
+              "description": "Unique identifier of the Flow Log."
             },
-            "name": "trace_id",
+            "name": "log_id",
             "in": "path"
           }
         ],
@@ -4965,178 +4967,6 @@
           }
         ]
       }
-    },
-    "/sessions/{id}": {
-      "get": {
-        "tags": ["Sessions"],
-        "summary": "Get",
-        "description": "Retrieve the Session with the given ID.",
-        "operationId": "get_sessions__id__get",
-        "parameters": [
-          {
-            "description": "Unique identifier for Session.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Session ID",
-              "description": "Unique identifier for Session."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": ["Sessions"],
-        "summary": "Delete",
-        "description": "Delete the Session with the given ID.",
-        "operationId": "delete_sessions__id__delete",
-        "parameters": [
-          {
-            "description": "Unique identifier for Session.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Session ID",
-              "description": "Unique identifier for Session."
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/sessions": {
-      "get": {
-        "tags": ["Sessions"],
-        "summary": "List ",
-        "description": "Get a list of Sessions.",
-        "operationId": "list__sessions_get",
-        "parameters": [
-          {
-            "description": "Unique identifier for File to return Sessions for. Sessions that contain any Logs associated to this File will be returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "File ID",
-              "description": "Unique identifier for File to return Sessions for. Sessions that contain any Logs associated to this File will be returned."
-            },
-            "name": "file_id",
-            "in": "query"
-          },
-          {
-            "description": "Unique identifier for Version to return Sessions for. Sessions that contain any Logs associated to this Version will be returned.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "Unique identifier for Version to return Sessions for. Sessions that contain any Logs associated to this Version will be returned."
-            },
-            "name": "version_id",
-            "in": "query"
-          },
-          {
-            "description": "Page number for pagination.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "title": "Page",
-              "description": "Page number for pagination.",
-              "default": 1
-            },
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "description": "Page size for pagination. Number of Sessions to fetch.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "title": "Size",
-              "description": "Page size for pagination. Number of Sessions to fetch.",
-              "default": 10
-            },
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedData_SessionResponse_"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
     }
   },
   "components": {
@@ -5524,15 +5354,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -6400,15 +6225,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -6473,14 +6293,10 @@
             "title": "Trace Flow ID",
             "description": "Identifier for the Flow that the Trace belongs to."
           },
-          "trace_status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TraceStatus"
-              }
-            ],
-            "title": "Trace status",
-            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier for the Trace that the Log belongs to."
           },
           "trace_children": {
             "items": {
@@ -6881,15 +6697,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "ID of the Trace. If not provided, one will be assigned."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -6914,6 +6725,11 @@
             "title": "Save",
             "description": "Whether the request/response payloads will be stored on Humanloop.",
             "default": true
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "ID of the Trace. If not provided, one will be assigned."
           },
           "flow": {
             "allOf": [
@@ -6993,7 +6809,7 @@
           "inputs": {
             "type": "object",
             "title": "Inputs",
-            "description": "The inputs passed to the Trace.",
+            "description": "The inputs passed to the Flow Log.",
             "default": {}
           },
           "source": {
@@ -7011,15 +6827,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -7063,14 +6874,10 @@
             "title": "Trace Flow ID",
             "description": "Identifier for the Flow that the Trace belongs to."
           },
-          "trace_status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TraceStatus"
-              }
-            ],
-            "title": "Trace status",
-            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier for the Trace that the Log belongs to."
           },
           "trace_children": {
             "items": {
@@ -7089,6 +6896,15 @@
             ],
             "title": "Flow",
             "description": "Flow used to generate the Log."
+          },
+          "trace_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TraceStatus"
+              }
+            ],
+            "title": "Trace status",
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on completed Traces."
           }
         },
         "additionalProperties": false,
@@ -7984,32 +7800,6 @@
         "required": ["records", "page", "size", "total"],
         "title": "PaginatedData[PromptResponse]"
       },
-      "PaginatedData_SessionResponse_": {
-        "properties": {
-          "records": {
-            "items": {
-              "$ref": "#/components/schemas/SessionResponse"
-            },
-            "type": "array",
-            "title": "Records"
-          },
-          "page": {
-            "type": "integer",
-            "title": "Page"
-          },
-          "size": {
-            "type": "integer",
-            "title": "Size"
-          },
-          "total": {
-            "type": "integer",
-            "title": "Total"
-          }
-        },
-        "type": "object",
-        "required": ["records", "page", "size", "total"],
-        "title": "PaginatedData[SessionResponse]"
-      },
       "PaginatedData_ToolResponse_": {
         "properties": {
           "records": {
@@ -8246,15 +8036,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -8325,6 +8110,18 @@
       },
       "PromptCallResponse": {
         "properties": {
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time",
+            "description": "When the logged event started."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time",
+            "description": "When the logged event ended."
+          },
           "messages": {
             "items": {
               "$ref": "#/components/schemas/ChatMessage"
@@ -8379,32 +8176,15 @@
             "title": "Metadata",
             "description": "Any additional metadata to record."
           },
-          "start_time": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Start time",
-            "description": "When the logged event started."
-          },
-          "end_time": {
-            "type": "string",
-            "format": "date-time",
-            "title": "End time",
-            "description": "When the logged event ended."
-          },
           "source_datapoint_id": {
             "type": "string",
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -8434,6 +8214,11 @@
             "type": "string",
             "title": "Log ID",
             "description": "ID of the log."
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "ID of the Trace containing the Prompt Call Log."
           },
           "logs": {
             "items": {
@@ -8829,15 +8614,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -9012,15 +8792,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -9064,14 +8839,10 @@
             "title": "Trace Flow ID",
             "description": "Identifier for the Flow that the Trace belongs to."
           },
-          "trace_status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TraceStatus"
-              }
-            ],
-            "title": "Trace status",
-            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier for the Trace that the Log belongs to."
           },
           "trace_children": {
             "items": {
@@ -9742,68 +9513,6 @@
         "title": "SelectEvaluatorStatsResponse",
         "description": "Also used for 'multi_select' Evaluator versions"
       },
-      "SessionEventResponse": {
-        "properties": {
-          "log": {
-            "$ref": "#/components/schemas/LogResponse"
-          },
-          "children": {
-            "items": {
-              "$ref": "#/components/schemas/SessionEventResponse"
-            },
-            "type": "array",
-            "title": "Children"
-          }
-        },
-        "type": "object",
-        "required": ["log", "children"],
-        "title": "SessionEventResponse"
-      },
-      "SessionResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Session ID",
-            "description": "Unique identifier for the Session."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "first_inputs": {
-            "type": "object",
-            "title": "First inputs",
-            "description": "Inputs for the first datapoint in the session."
-          },
-          "last_output": {
-            "type": "string",
-            "title": "Last output",
-            "description": "Output for the last datapoint in the session."
-          },
-          "logs_count": {
-            "type": "integer",
-            "title": "Logs count",
-            "description": "Number of logs associated to this session."
-          },
-          "events": {
-            "items": {
-              "$ref": "#/components/schemas/SessionEventResponse"
-            },
-            "type": "array",
-            "title": "Events",
-            "description": "List of events associated with this Session."
-          }
-        },
-        "type": "object",
-        "required": ["id", "created_at", "updated_at", "logs_count", "events"],
-        "title": "SessionResponse"
-      },
       "SortOrder": {
         "type": "string",
         "enum": ["asc", "desc"],
@@ -10043,15 +9752,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -10163,15 +9867,10 @@
             "title": "Source Datapoint ID",
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
-          "trace_id": {
-            "type": "string",
-            "title": "Trace ID",
-            "description": "Identifier of the Flow Log to which the Log will be associated. Multiple Logs can be associated by passing the same trace_id in subsequent log requests. Use the Flow File log endpoint to create the Trace first."
-          },
-          "trace_parent_log_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
-            "description": "Log under which this Log should be nested. Leave field blank if the Log should be nested directly under root Trace Log. Parent Log should already be added to the Trace."
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
             "items": {
@@ -10215,14 +9914,10 @@
             "title": "Trace Flow ID",
             "description": "Identifier for the Flow that the Trace belongs to."
           },
-          "trace_status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TraceStatus"
-              }
-            ],
-            "title": "Trace status",
-            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier for the Trace that the Log belongs to."
           },
           "trace_children": {
             "items": {
@@ -10700,20 +10395,25 @@
           "output": {
             "type": "string",
             "title": "Output",
-            "description": "The output of the Flow Log."
+            "description": "The output of the Flow Log. Provide None to unset existing `output` value. Provide either this or `error`."
           },
-          "status": {
+          "error": {
+            "type": "string",
+            "title": "Error",
+            "description": "The error message of the Flow Log. Provide None to unset existing `error` value. Provide either this or `output`."
+          },
+          "trace_status": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/TraceStatus"
               }
             ],
             "title": "Status",
-            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on `complete` Traces."
+            "description": "Status of the Trace. When a Trace is marked as `complete`, no more Logs can be added to it. Monitoring Evaluators will only run on completed Traces."
           }
         },
         "type": "object",
-        "required": ["status"],
+        "required": ["trace_status"],
         "title": "UpdateTraceRequest",
         "description": "Request for updating a Trace."
       },
