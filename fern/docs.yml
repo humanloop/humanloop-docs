@@ -83,31 +83,128 @@ typography:
 css: ./assets/styles.css
 js: ./assets/scripts.js
 redirects:
-  - source: /docs/quickstart
-    destination: /docs/tutorials/quickstart
+  # v4 -> v5 redirects
+  # When we switched the default version to v5, any links to old
+  # v4 docs should be redirected to the v5 equivalent for these.
+
+  # Concepts
+  - source: /docs/prompts
+    destination: /docs/concepts/prompts
+  - source: /docs/tools
+    destination: /docs/concepts/tools
+  - source: /docs/datasets
+    destination: /docs/concepts/datasets
+  - source: /docs/evaluators
+    destination: /docs/concepts/evaluators
+  - source: /docs/logs
+    destination: /docs/concepts/logs
+  - source: /docs/environments
+    destination: /docs/concepts/environments
+  - source: /docs/key-concepts
+    destination: /docs/concepts/overview
+
+  # Development guides
+  - source: /docs/create-prompt
+    destination: /docs/development/guides/create-prompt
+  - source: /docs/guides/generate-and-log-with-the-sdk
+    destination: /docs/development/guides/call-prompt
+  - source: /docs/guides/completion-using-the-sdk
+    destination: /docs/v4/guides/completion-using-the-sdk # keeping as v4
+  - source: /docs/guides/chat-using-the-sdk
+    destination: /docs/v4/guides/chat-using-the-sdk # keeping as v4
+  - source: /docs/guides/use-your-own-model-provider
+    destination: /docs/v4/guides/use-your-own-model-provider # keeping as v4
+  - source: /docs/guides/logging-session-traces
+    destination: /docs/v4/guides/logging-session-traces # keeping as v4
+  - source: /docs/guides/tool-calling
+    destination: /docs/development/guides/tool-calling-editor
+  - source: /docs/guides/create-a-tool-with-the-sdk
+    destination: /docs/v4/guides/create-a-tool-with-the-sdk # keeping as v4
+  - source: /docs/guides/link-jsonschema-tool
+    destination: /docs/development/guides/link-json-schema-tool
+  - source: /docs/guides/deploy-to-an-environment
+    destination: /docs/development/guides/deploy-to-environment
+
+  # Evaluation guides
+  - source: /docs/guides/evaluation/overview
+    destination: /docs/evaluation/overview
+  - source: /docs/guides/evaluation/evaluate-models-offline
+    destination: /docs/evaluation/guides/run-evaluation
+  - source: /docs/guides/evaluation/evaluations-using-api
+    destination: /docs/evaluation/guides/run-evaluation
+  - source: /docs/guides/evaluation/use-llms-to-evaluate-logs
+    destination: /docs/evaluation/guides/llm-as-a-judge
+  - source: /docs/guides/evaluation/evaluating-with-human-feedback
+    destination: /docs/evaluation/guides/human-evaluators
+  - source: /docs/guides/evaluation/monitoring
+    destination: /docs/observability/overview
+
+  # Other guides
+  - source: /docs/guides/create-dataset
+    destination: /docs/evaluation/guides/create-dataset
+  - source: /docs/guides/batch-generate
+    destination: /docs/evaluation/guides/comparing-prompt-editor
+  - source: /docs/guides/experiments-from-the-app
+    destination: /docs/evaluation/guides/comparing-prompt-editor
+  - source: /docs/guides/capture-user-feedback
+    destination: /docs/observability/guides/capture-user-feedback
+  - source: /docs/guides/create-and-revoke-api-keys
+    destination: /docs/admin/guides/manage-api-keys
+  - source: /docs/guides/invite-collaborators
+    destination: /docs/admin/guides/invite-collaborators
+
+  # Reference and misc
+  - source: /docs/supported-models
+    destination: /docs/reference/supported-models
   - source: /docs/access-roles
     destination: /docs/admin/access-roles
+  - source: /docs/prompt-file-format
+    destination: /docs/reference/prompt-file-format
+  - source: /docs/examples
+    destination: /docs/reference/example-projects
+
   - source: /docs/overview
     destination: /docs/getting-started/overview
+  - source: /docs/why-humanloop
+    destination: /docs/getting-started/why-humanloop
+
+  - source: /docs/quickstart
+    destination: /docs/tutorials/quickstart
   - source: /docs/changelog/multiple-tool-calls
     destination: /docs/changelog/2023/11/20
   - source: /docs/guides/set-up-semantic-search
     destination: /docs/v4/guides/set-up-semantic-search
   - source: /docs/guides/run-an-experiment
     destination: /docs/v4/guides/run-an-experiment
-  - source: /docs/prompt-file-format
-    destination: /docs/reference/prompt-file-format
-    # I suspect we'll need to do this for each of the v4 pages
-    # Adding some initial fixes here but likely we'll need a more comprehensive solution
-  - source: /docs/prompts
-    destination: /docs/concepts/prompts
-  - source: /docs/create-prompt
-    destination: /docs/development/guides/create-prompt
-  - source: /docs/guides/completion-using-the-sdk
-    destination: /docs/v4/guides/completion-using-the-sdk
-  - source: /docs/guides/generate-and-log-with-the-sdk
-    destination: /docs/v4/guides/generate-and-log-with-the-sdk
-  - source: /docs/guides/chat-using-the-sdk
-    destination: /docs/v4/guides/chat-using-the-sdk
-  - source: /docs/guides/upload-historic-data
-    destination: /docs/v4/guides/upload-historic-data
+
+  # v4 API Reference
+  - source: "/docs/api-reference/chats/:path*"
+    destination: "/docs/v4/api-reference/chats/:path*"
+  - source: "/docs/api-reference/completions/:path*"
+    destination: "/docs/v4/api-reference/completions/:path*"
+  - source: "/docs/api-reference/datapoints/:path*"
+    destination: "/docs/v4/api-reference/datapoints/:path*"
+  - source: "/docs/api-reference/projects/:path*"
+    destination: "/docs/v4/api-reference/projects/:path*"
+  - source: "/docs/api-reference/feedback/:path*"
+    destination: "/docs/v4/api-reference/feedback/:path*"
+  - source: "/docs/api-reference/model-configs/:path*"
+    destination: "/docs/v4/api-reference/model-configs/:path*"
+  - source: "/docs/api-reference/sessions/:path*"
+    destination: "/docs/v4/api-reference/sessions/:path*"
+
+    # The following have resources in v5, but these specific endpoints are v4 only
+  - source: "/docs/api-reference/evaluations/list-datapoints"
+    destination: "/docs/v4/api-reference/evaluations/list-datapoints"
+  - source: "/docs/api-reference/evaluations/log"
+    destination: "/docs/v4/api-reference/evaluations/log"
+  - source: "/docs/api-reference/evaluations/result"
+    destination: "/docs/v4/api-reference/evaluations/result"
+  - source: "/docs/api-reference/evaluations/add-evaluators"
+    destination: "/docs/v4/api-reference/evaluations/add-evaluators"
+  - source: "/docs/api-reference/evaluators/create"
+    destination: "/docs/v4/api-reference/evaluators/create"
+  - source: "/docs/api-reference/logs/log"
+    destination: "/docs/v4/api-reference/logs/log"
+  - source: "/docs/api-reference/logs/update-by-ref"
+    destination: "/docs/v4/api-reference/logs/update-by-ref"
