@@ -97,3 +97,17 @@ redirects:
     destination: /docs/v4/guides/run-an-experiment
   - source: /docs/prompt-file-format
     destination: /docs/reference/prompt-file-format
+    # I suspect we'll need to do this for each of the v4 pages
+    # Adding some initial fixes here but likely we'll need a more comprehensive solution
+  - source: /docs/prompts
+    destination: /docs/concepts/prompts
+  - source: /docs/create-prompt
+    destination: /docs/development/guides/create-prompt
+  - source: /docs/guides/completion-using-the-sdk
+    destination: /docs/v4/guides/completion-using-the-sdk
+  - source: /docs/guides/generate-and-log-with-the-sdk
+    destination: /docs/v4/guides/generate-and-log-with-the-sdk
+  - source: /docs/guides/chat-using-the-sdk
+    destination: /docs/v4/guides/chat-using-the-sdk
+  - source: /docs/guides/upload-historic-data
+    destination: /docs/v4/guides/upload-historic-data
