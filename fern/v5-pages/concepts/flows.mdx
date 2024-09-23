@@ -1,0 +1,24 @@
+---
+subtitle: Flows combine multiple Logs to enable joint evaluation.
+description: Learn how to use Humanloop to manage and evaluate complex AI use cases such as Retrieval-Augmented Generation (RAG) or language agents.
+---
+
+A Flow in Humanloop helps you capture and manage Logs representing individual user interactions with your AI system. If your AI application involves multiple steps or components, Flows group these Logs together, providing a complete view of each interaction for easier analysis.
+
+## How to Use Flows
+
+Flows allow you to organize multiple Logs into a Trace. Each Log within a Flow file serves as the starting point of a Trace.
+
+To use Flows, add a Log under a Flow file and assign it a `trace_id`. If you don't provide an ID, Humanloop will generate one for you.
+
+<EndpointRequestSnippet endpoint="POST /flows/log" />
+
+To add a Log to a Trace, include the `trace_parent_id` property in the Log request's body. This `trace_parent_id` can reference a Flow Log or any Log that already exists in the Trace you are modifying.
+
+Once you've added all the necessary Logs to the Trace, mark it as complete. This step is required for Monitoring Evaluators to start evaluating the Trace.
+
+## Flow Versioning
+
+You can version a Flow by changing its `attributes` property. This `attributes` object can contain arbitrary data, and each update creates a new version of the Flow. This flexibility makes it possible to handle complex use cases.
+
+For instance, Flow Versions can be dynamically created based on the Files used by your feature, enabling A/B testing of how changes to a Prompt or Tool impact your system's performance.

@@ -12,7 +12,7 @@ This overview will explain the basics of prompt development, versioning, and man
 
 <img src="../../assets/images/1763dbe-Prompts.png" />
 
-[Prompts](/docs/v5/concepts/prompts) are a fundamental part of interacting with large language models (LLMs). They define the instructions and parameters that guide the model's responses. In Humanloop, Prompts are managed with version control, allowing you to track changes and improvements over time.
+[Prompts](/docs/concepts/prompts) are a fundamental part of interacting with large language models (LLMs). They define the instructions and parameters that guide the model's responses. In Humanloop, Prompts are managed with version control, allowing you to track changes and improvements over time.
 
 <Frame caption="An example Prompt, serialized as a Promptfile">
 
@@ -29,7 +29,7 @@ max_tokens: -1
 
 </Frame>
 
-A [Prompt](/docs/v5/concepts/prompts) on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
+A [Prompt](/docs/concepts/prompts) on Humanloop encapsulates the instructions and other configuration for how a large language model should perform a specific task. Each change in any of the following properties creates a new version of the Prompt:
 
 - the template such as `Write a song about {{topic}}`. For chat models, your template will contain an array of messages.
 - the model e.g. `gpt-4o`
@@ -38,7 +38,7 @@ A [Prompt](/docs/v5/concepts/prompts) on Humanloop encapsulates the instructions
 
 ### Creating a Prompt
 
-You can create a Prompt explicitly [in the Prompt Editor](/docs/v5/prompt-management/guides/create-prompt) or [via the API](/docs/v5/reference/api-reference/prompts/create).
+You can create a Prompt explicitly [in the Prompt Editor](/docs/development/guides/create-prompt) or [via the API](/docs/v5/api-reference/prompts/upsert).
 
 New prompts can also be created automatically via the API if you specify the Prompt's `path` (its name and directory) while supplying the Prompt's parameters and template. This is useful if you are developing your prompts in code and want to be able to version them as you make changes to the code.
 
@@ -82,7 +82,7 @@ Generate a marketing description for the property based on the provided context.
 ```
 
 This separation of concerns, keeping configuration separate from the query time data, is crucial for enabling you to experiment with different configurations and evaluate any changes.
-The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
+The Prompt stores the configuration and the query time data in [Logs](../concepts/logs), which can then be used to create Datasets for evaluation purposes.
 
 ### Tool Use (Function Calling)
 
@@ -114,7 +114,7 @@ Once you have created and versioned your Prompt, you can call it as an API to ge
 
 ## Proxying your LLM calls vs async logging
 
-The easiest way to both call the large language model with your Prompt and to log the data is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/v5/development/guides/call-prompt)) which will do both in a single API request. However, there are two main reasons why you may wish to log the data seperately from generation:
+The easiest way to both call the large language model with your Prompt and to log the data is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/development/guides/call-prompt)) which will do both in a single API request. However, there are two main reasons why you may wish to log the data seperately from generation:
 
 1. You are using your own model that is not natively supported in the Humanloop runtime.
 2. You wish to avoid relying on Humanloop runtime as the proxied calls adds a small additional latency, or
@@ -129,7 +129,7 @@ You can also use Prompts without proxying through Humanloop to the model provide
 
 ## Serialization (`.prompt` file)
 
-Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](./prompt-file-format) reference for more details.
+Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](../reference/prompt-file-format) reference for more details.
 
 ### Format
 
@@ -216,6 +216,6 @@ When working with sensitive data in your AI applications, it's crucial to handle
 
 If you need to process sensitive data without storing it in Humanloop, you can use the `save: false` parameter when making calls to the API or logging data. This ensures that only metadata about the request is stored, while the actual sensitive content is not persisted in our systems.
 
-For PII detection, you can set up [Guardrails](/docs/v5/observability/alerts-guardrails) to detect and prevent the generation of sensitive information.
+For PII detection, you can set up [Guardrails](/docs/observability/alerts-and-guardrails) to detect and prevent the generation of sensitive information.
 
 {/* WIP - for gartner /end */}

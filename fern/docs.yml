@@ -27,12 +27,12 @@ metadata:
   twitter:url: "https://humanloop.com/docs"
   twitter:card: "summary_large_image"
 versions:
+  - display-name: v5.0
+    path: ./versions/v5.yml
+    slug: v5
   - display-name: v4.0
     path: ./versions/v4.yml
     slug: v4
-  - display-name: v5.0 Beta
-    path: ./versions/v5.yml
-    slug: v5
 
 colors:
   accentPrimary:
@@ -82,3 +82,18 @@ typography:
     #     style: italic
 css: ./assets/styles.css
 js: ./assets/scripts.js
+redirects:
+  - source: /docs/quickstart
+    destination: /docs/tutorials/quickstart
+  - source: /docs/access-roles
+    destination: /docs/admin/access-roles
+  - source: /docs/overview
+    destination: /docs/getting-started/overview
+  - source: /docs/changelog/multiple-tool-calls
+    destination: /docs/changelog/2023/11/20
+  - source: /docs/guides/set-up-semantic-search
+    destination: /docs/v4/guides/set-up-semantic-search
+  - source: /docs/guides/run-an-experiment
+    destination: /docs/v4/guides/run-an-experiment
+  - source: /docs/prompt-file-format
+    destination: /docs/reference/prompt-file-format

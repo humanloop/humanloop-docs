@@ -3,12 +3,12 @@ subtitle: In this guide, we will walk through comparing the outputs from multipl
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-You can compare Prompt versions interactively side-by-side to get a sense for how their behaviour differs; before then triggering more systematic [Evaluations](./run-evaluation).
-All the interactions in Editor are stored as Logs within your Prompt and can be inspected further and [added to a Dataset](./create-dataset#create-a-dataset-from-logs) for Evaluations.
+You can compare Prompt versions interactively side-by-side to get a sense for how their behaviour differs; before then triggering more systematic [Evaluations](/docs/evaluation/guides/run-evaluation).
+All the interactions in Editor are stored as Logs within your Prompt and can be inspected further and [added to a Dataset](/docs/evaluation/guides/create-dataset#create-a-dataset-from-logs) for Evaluations.
 
 ## Prerequisites
 
-<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+<Markdown src="../../../snippets/v5/prereq-point-prompt.mdx" />
 
 ## Compare Prompt versions
 
@@ -18,7 +18,6 @@ In this example we will use a simple Support Agent Prompt that answers user quer
   src="../../../assets/images/compare-prompts/compare-prompts-base.png"
   alt="Support agent base prompt."
 />
-
 
 <Steps>
     ### Create a new version of your Prompt
@@ -61,7 +60,6 @@ In this example we will use a simple Support Agent Prompt that answers user quer
 
 </Steps>
 
-
 ## View Prompt diff for debugging
 
 When debugging more complex Prompts, it's important to understand what changes were made between different versions. Humanloop provides a diff view to support this.
@@ -73,8 +71,8 @@ When debugging more complex Prompts, it's important to understand what changes w
 In the sidebar, select the **Dashboard** section under your Prompt file, where you will find a table of all your historic Prompt versions.
 
 <img
-src="../../../assets/images/compare-prompts/compare-prompts-dashboard.png"
-alt="Support agent dashboard"
+  src="../../../assets/images/compare-prompts/compare-prompts-dashboard.png"
+  alt="Support agent dashboard"
 />
 
 ### Select the versions to compare
@@ -82,21 +80,14 @@ alt="Support agent dashboard"
 In the table, select two rows you would like understand the changes between. Then select the **Compare Versions** button above the table.
 
 <img
-src="../../../assets/images/compare-prompts/compare-prompts-diff.png"
-alt="Support agent diff view"
+  src="../../../assets/images/compare-prompts/compare-prompts-diff.png"
+  alt="Support agent diff view"
 />
 
-
-
-
 </Steps>
-
-
 
 1. While in the **Compare** tab, look for the **Diff** section.
 2. This section will highlight the changes made between the selected versions, showing additions, deletions, and modifications.
 3. Use this diff view to understand how specific changes in your prompt configuration affect the output.
 
 By following these steps, you can effectively compare different versions of your Prompts and iterate on your instructions to improve performance.
-
-

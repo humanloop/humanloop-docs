@@ -20,7 +20,7 @@ All file types share the following key properties:
 ### Managed UI or code first
 
 You can create and manage these files in the [Humanloop UI](https://app.humanloop.com/),
-or via the [API](/docs/v5/api-reference/). Product teams and their subject matter experts may prefer using the UI first workflows for convenience, whereas AI teams and engineers may prefer to use the API for greater control and customisation.
+or via the [API](/docs/api-reference/). Product teams and their subject matter experts may prefer using the UI first workflows for convenience, whereas AI teams and engineers may prefer to use the API for greater control and customisation.
 
 ### Are strictly version controlled
 
@@ -31,7 +31,7 @@ Within the Humanloop Editor and via the API, you can commit new versions of a fi
 ### Have a flexible runtime
 
 All files can be called (if you use the Humanloop runtime) or logged to (where you manage the runtime yourself). For example,
-with Prompts, Humanloop integrates to all the major [model providers](http://humanloop.com/docs/v5/reference/supported-models). You can choose to call a Prompt, where Humanloop acts as a proxy to the model provider. Alternatively, you can choose to manage the model calls yourself and log the results to the Prompt on Humanloop.
+with Prompts, Humanloop integrates to all the major [model providers](http://humanloop.com/docs/reference/supported-models). You can choose to call a Prompt, where Humanloop acts as a proxy to the model provider. Alternatively, you can choose to manage the model calls yourself and log the results to the Prompt on Humanloop.
 Using the Humanloop runtime is generally the simpler option and allows you to call the file natively within the Humanloop UI, whereas owning the runtime yourself and logging allows you to have more fine-grained control.
 
 ### Are composable with sessions
@@ -41,7 +41,7 @@ The orchestration of more complex systems is best done in code using the API and
 
 ### Have a serialized form
 
-All files can be exported and imported in a serialized form. For example, Prompts are serialized to our [.prompt](/docs/v5/reference/prompt-file-spec) format. This provides a useful medium for more technical teams that wish to maintain the source of truth in their existing version control system like git.
+All files can be exported and imported in a serialized form. For example, Prompts are serialized to our [.prompt](/docs/reference/prompt-file-format) format. This provides a useful medium for more technical teams that wish to maintain the source of truth in their existing version control system like git.
 
 ### Support deployments
 
@@ -49,4 +49,4 @@ You can tag file versions with specific environments and target these environmen
 
 <br />
 
-Humanloop also has the concept of [Datasets](/docs/v5/concepts/datasets) that are used within [Evaluation](/docs/v5/concepts/evaluators) workflows. Datasets share all the same properties, except they do not have a runtime consideration.
+Humanloop also has the concept of [Datasets](/docs/concepts/datasets) that are used within [Evaluation](/docs/concepts/evaluators) workflows. Datasets share all the same properties, except they do not have a runtime consideration.

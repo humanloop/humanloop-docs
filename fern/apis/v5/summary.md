@@ -4,4 +4,4 @@ You can do this through HTTP requests from any language or via our official Pyth
 
 <Markdown src="../../snippets/setup-sdk.mdx" />
 
-Guides and further details about key concepts can be found in [our docs](/docs/).
+Guides and further details about key concepts can be found in [our docs](/docs/getting-started/overview).

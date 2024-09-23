@@ -4,15 +4,15 @@ description: Learn how to create a Prompt in Humanloop using the UI or SDK, vers
 image: https://app.buildwithfern.com/_next/image?url=https%3A%2F%2Ffdr-prod-docs-files-public.s3.amazonaws.com%2Fhttps%3A%2F%2Fhumanloop.docs.buildwithfern.com%2F2024-05-31T20%3A04%3A53.218Z%2Fassets%2Fimages%2Faae5149-Screenshot_2024-04-04_at_22.36.38.png&w=3840&q=75
 ---
 
-This guide will show you how to capture the [Logs](/docs/v5/concepts/logs) of your LLM calls into Humanloop.
+This guide will show **you** how to capture the [Logs](/docs/concepts/logs) of your LLM calls into Humanloop.
 
-The easiest way to log LLM generations to Humanloop is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/v5/development/guides/call-prompt)). You will only need to supply prompt ID and the inputs needed by the prompt template, and the endpoint will handle fetching the latest template, making the LLM call and logging the result.
+The easiest way to log LLM generations to Humanloop is to use the `Prompt.call()` method (see the guide on [Calling a Prompt](/docs/development/guides/call-prompt)). You will only need to supply prompt ID and the inputs needed by the prompt template, and the endpoint will handle fetching the latest template, making the LLM call and logging the result.
 
 However, there may be scenarios that you wish to manage the LLM provider calls directly in your own code instead of relying on Humanloop. For example, you may be using an LLM provider that is not directly supported by Humanloop such as a custom self-hosted model, or you may want to avoid adding Humanloop to the critical path of the LLM API calls.
 
 ## Prerequisites
 
-<Markdown src="../../../snippets/prereq-point-prompt.mdx" />
+<Markdown src="../../../snippets/v5/prereq-point-prompt.mdx" />
 
 <Markdown src="../../../snippets/setup-sdk.mdx" />
 

@@ -87,7 +87,7 @@ when working with LLMs in production. As the models get increasingly more
 powerful, a significant amount of effort is spent trying to give the model the
 appropriate context and access required to solve a task.
 
-<Lightbox
+<Frame
   src="/blog/evaluating-llm-apps/Anatomy.png"
   caption="The anatomy of an LLM application. An increasingly complex design space."
 />
@@ -167,7 +167,7 @@ regressions and ensure the system is working as the engineers expect. Test
 suites are generally made up of 3 canonical types of tests: unit, integration
 and end-to-end.
 
-<Lightbox
+<Frame
   src="/blog/evaluating-llm-apps/SoftwareTesting.jpg"
   caption="Typical makeup of a test suite in software development CI. Unit tests tend to be the hardest to emulate for LLMs."
 />
@@ -300,11 +300,10 @@ following canonical sources:
   application, or internal domain experts. This can be the most expensive and
   slowest option, but also the most reliable.
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/LLMEvals.jpg"
-  caption="Typical makeup of different sources of evaluation judgments. AI evaluators are a
-   good sweet spot for scaling up your evaluation process, while still providing Human-level performance."
-/>
+<Frame caption="Typical makeup of different sources of evaluation judgments. AI evaluators are a
+   good sweet spot for scaling up your evaluation process, while still providing Human-level performance.">
+![](https://humanloop.com/blog/evaluating-llm-apps/LLMEvals.jpg)
+</Frame>
 
 Model judgments in particular are increasingly promising and an active research
 area. The paper [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685)
@@ -328,10 +327,10 @@ they measure 6 cognitive biases across 15 different LLM variations. They find
 that simple details such as the order of the results presented to the model can
 have material impact on the evaluation.
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/BiasLLMEvals.png"
-  caption="The cognitive bias benchmark for LLMs. Simple details such as the order of the results presented to the model can have material impact on the evaluation. Source: https://arxiv.org/pdf/2309.17012.pdf."
-/>
+<Frame caption="The cognitive bias benchmark for LLMs. Simple details such as the order of the results presented to the model can have material impact on the evaluation. Source: https://arxiv.org/pdf/2309.17012.pdf.">
+![](https://humanloop.com/blog/evaluating-llm-apps/BiasLLMEvals.png)
+</Frame>
+
 
 The takeaway here is that it's important to still experiment with performance on
 your target use cases before trusting LLM evaluators - evaluate the evaluator!
@@ -414,10 +413,10 @@ interventions:
    internal environments, or beta testing with selected cohorts of users first,
    are usually super valuable.
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/EvalsStages.png"
-  caption="Recommended stages for a robust evaluation process. Interactive, offline and online."
-/>
+<Frame caption="Recommended stages for a robust evaluation process. Interactive, offline and online.">
+![](https://humanloop.com/blog/evaluating-llm-apps/EvalsStages.png)
+</Frame>
+
 
 It's usually necessary to co-evolve to some degree the evaluation framework
 alongside the app development as more data becomes available and requirements
@@ -450,10 +449,9 @@ human preferences votes to rank LLMs, both commercial and open source, as well
 as recording the performance on academic multi-task reasoning benchmarks like
 [MMLU](https://arxiv.org/abs/2009.03300).
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/ChatbotArena.png"
-  caption="Chatbot arena model OSS and closed model leaderboard - GPT-4 still dominating and Mistral on the rise."
-/>
+<Frame caption="Chatbot arena model OSS and closed model leaderboard - GPT-4 still dominating and Mistral on the rise.">
+![](https://humanloop.com/blog/evaluating-llm-apps/ChatbotArena.png)
+</Frame>
 
 Another great resource in the same vein is
 [Hugging Face datasets](https://huggingface.co/docs/datasets/index), where they
@@ -461,10 +459,9 @@ also maintain a leaderboard of how all the latest OSS models perform across a
 range of tasks using the
 [Eleuther LLM evaluation harness library](https://github.com/EleutherAI/lm-evaluation-harness).
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/HuggingFaceLeaderBoard.png"
-  caption="Hugging Face OSS model leaderboard; another great reasource."
-/>
+<Frame caption="Hugging Face OSS model leaderboard; another great reasource.">
+![](https://humanloop.com/blog/evaluating-llm-apps/HuggingFaceLeaderBoard.png)
+</Frame>
 
 More domain specific academic datasets may also be particularly relevant for
 your target use case and can be used to warm start your evaluation efforts; for
@@ -487,10 +484,9 @@ For leveraging real end-user interactions, a tighter integration between
 observability data and the development environment that manages evaluations
 makes it easier to curate real scenarios into your benchmark datasets over time.
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/HLEditor.png"
-  caption="An interactive prompt engineering environment like the Humanloop Editor."
-/>
+<Frame caption="An interactive prompt engineering environment like the Humanloop Editor.">
+![](https://humanloop.com/blog/evaluating-llm-apps/HLEditor.png)
+</Frame>
 
 Something worth careful consideration to maximise the impact of end-user
 interactions is to set up your application to
@@ -532,10 +528,9 @@ evaluation process. However, it is worth noting they too point out the
 limitations caused by LLM biases that limits diversity. They ultimately need to
 generate and filter hundreds of thousands of synthetic examples.
 
-<Lightbox
-  src="/blog/evaluating-llm-apps/RedLM.png"
-  caption="Illustration of model red teaming; one LLM makes adversarial requests to another to elicit bad behaviour. Source: https://arxiv.org/pdf/2202.03286.pdf"
-/>
+<Frame caption="Illustration of model red teaming; one LLM makes adversarial requests to another to elicit bad behaviour. Source: https://arxiv.org/pdf/2202.03286.pdf">
+![](https://humanloop.com/blog/evaluating-llm-apps/RedLM.png)
+</Frame>
 
 As with LLM evaluators, all the same rigour and tools should be applied to
 evaluating the quality of the synthetic data generator model before trusting it.

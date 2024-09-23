@@ -1,10 +1,12 @@
 ---
-subtitle: This guide shows you how to set up an experiment on Humanloop to systematically find the best-performing model configuration for your project based on your end-users’ feedback.
-description: Experiments allow you to set up A/B test between multiple different model configs.
+subtitle: This guide shows you how to experiment with Humanloop to systematically find the best-performing model configuration for your project based on your end-user’s feedback.
+description: Experiments allow you to set up A/B tests between multiple model configs.
 image: https://humanloop.com/assets/docs/social-image.png
 ---
 
-Experiments can be used to compare different prompt templates, different parameter combinations (such as temperature and presence penalties) and even different base models.
+
+Experiments can be used to compare different prompt templates, parameter combinations (such as temperature and presence penalties), and even base models.
+
 
 ## Prerequisites
 
@@ -12,9 +14,7 @@ Experiments can be used to compare different prompt templates, different paramet
 - You have integrated `humanloop.complete_deployed()` or the `humanloop.chat_deployed()` endpoints, along with the `humanloop.feedback()` with the [API](https://www.postman.com/humanloop/workspace/humanloop) or [Python SDK](./generate-and-log-with-the-sdk).
 
 <Info>
-  This guide assumes you're are using an OpenAI model. If you want to use other
-  providers or your own model please also look at the [guide for running an
-  experiment with your own model provider](./use-your-own-model-provider).
+This guide assumes you're using an OpenAI model. If you want to use other providers or your model, refer to the [guide for running an experiment with your model provider](./use-your-own-model-provider).
 </Info>
 
 ## Create an experiment
@@ -26,16 +26,11 @@ Experiments can be used to compare different prompt templates, different paramet
 ### Click the **Create new experiment** button
 
 1. Give your experiment a descriptive name.
-2. Select a list of feedback labels to be considered as positive actions - this will be
-   used to calculate the performance of each of your model configs during the
-   experiment.
-3. Select which of your project’s model configs you wish to
-   compare.
+2. Select a list of feedback labels to be considered as positive actions - this will be used to calculate the performance of each of your model configs during the experiment.
+3. Select which of your project’s model configs to compare.
 4. Then click the **Create** button.
 
-   {" "}
-
-   <img src="../../../assets/images/061f673-image.png" />
+<img src="../../../assets/images/061f673-image.png" />
 
 </Steps>
 
@@ -45,7 +40,7 @@ Now that you have an experiment, you need to set it as the project’s active ex
 
 <Steps>
 ### Navigate to the **Experiments** tab.
-  Of a Prompt go to the **Experiments** tab.
+Of a Prompt go to the **Experiments** tab.
 
 ### Choose the **Experiment** card you want to deploy.
 
@@ -57,22 +52,20 @@ Next to the Environments label, click the **Deploy** button.
 
 We only have one environment by default so select the 'production' environment.
 
-  <img src="../../../assets/images/ee1619d-image.png" />
+<img src="../../../assets/images/ee1619d-image.png" />
 </Steps>
 
 <Check>
-  Now that your experiment is active, any SDK or API calls to generate will
-  sample model configs from the list you provided when creating the experiment
-  and any subsequent feedback captured using feedback will contribute to the
-  experiment performance.
+Now that your experiment is active, any SDK or API calls to generate will sample model configs from the list you provided when creating the experiment and any subsequent feedback captured using feedback will contribute to the experiment performance.
 </Check>
 
 ## Monitor experiment progress
 
-Now that an experiment is live, the data flowing through your generate and feedback calls will update the experiment progress in real time:
+Now that an experiment is live, the data flowing through your generate and feedback calls will update the experiment progress in real-time:
+
 
 <Steps>
-  ### Navigate back to the **Experiments** tab.
+### Navigate back to the **Experiments** tab.
 
 ### Select the **Experiment** card
 
@@ -82,8 +75,8 @@ Here you will see the performance of each model config with a measure of confide
 
 <img src="../../../assets/images/ee1619d-image.png" />
 <img
-  src="../../../assets/images/experiment-detail.png"
-  alt="You can toggle on and off existing model configs and choose to add new model configs from your project over the lifecycle of an experiment"
+ src="../../../assets/images/experiment-detail.png"
+ alt="You can toggle on and off existing model configs and choose to add new model configs from your project over the lifecycle of an experiment"
 />
 
 🎉 Your experiment can now give you insight into which of the model configs your users prefer.

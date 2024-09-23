@@ -21,9 +21,9 @@ This separation of concerns, keeping configuration separate from the query time 
 The Prompt stores the configuration and the query time data in [Logs](./logs), which can then be used to create Datasets for evaluation purposes.
 
 <Callout>
-  Note that we use a capitalized "[Prompt](/docs/v5/prompts)" to refer to the
-  entity in Humanloop, and a lowercase "prompt" to refer to the general concept
-  of input to the model.
+  Note that we use a capitalized "[Prompt](/docs/concepts/prompts)" to refer to
+  the entity in Humanloop, and a lowercase "prompt" to refer to the general
+  concept of input to the model.
 </Callout>
 
 <Frame caption="An example Prompt, serialized as a Promptfile">
@@ -67,7 +67,7 @@ You can also use Prompts without proxying through Humanloop to the model provide
 
 ## Serialization (`.prompt` file)
 
-Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](./prompt-file-format) reference for more details.
+Our `.prompt` file format is a serialized version of a model config that is designed to be human-readable and suitable for checking into your version control systems alongside your code. See the [.prompt files reference](../reference/prompt-file-format) reference for more details.
 
 ### Format
 
