@@ -8,13 +8,13 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 3.10.6
+        version: 3.10.8
         output:
           location: pypi
           package-name: "humanloop"
           token: ${PYPI_TOKEN}
         github:
-          repository: humanloop/humanloop-python-beta
+          repository: humanloop/humanloop-python
         config:
           client_class_name: Humanloop
           use_typeddict_requests: true
