@@ -30,7 +30,7 @@ groups:
           package-name: "humanloop"
           token: ${NPM_TOKEN}
         github:
-          repository: humanloop/humanloop-node-beta
+          repository: humanloop/humanloop-node
         smart-casing: true
         config:
           namespaceExport: Humanloop
