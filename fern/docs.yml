@@ -104,7 +104,7 @@ redirects:
     destination: /docs/concepts/overview
 
   # Development guides
-  - source: /docs/create-prompt
+  - source: /docs/guides/create-prompt
     destination: /docs/development/guides/create-prompt
   - source: /docs/guides/generate-and-log-with-the-sdk
     destination: /docs/development/guides/call-prompt
