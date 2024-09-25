@@ -158,7 +158,7 @@ const MessageRow: React.FC<MessageRowProps> = ({ msg }) => {
 
 Create a file containing the code below at `app/api/chat/route.ts`. This will automatically create an API route at `/api/chat`. In the call to the Humanloop SDK, you'll need to pass the project name you created in step 1.
 
-````typescript app/api/chat/route.ts
+```typescript app/api/chat/route.ts
 import { HumanloopClient } from "humanloop";
 
 if (!process.env.HUMANLOOP_API_KEY) {
@@ -200,7 +200,7 @@ For the above to work, you'll need to ensure that you have a `.env.local` file a
 
 ```text .env.local
 HUMANLOOP_API_KEY=...
-````
+```
 
 Now, modify `page.tsx` to use a `fetch` request against the new API route.
 
@@ -224,7 +224,7 @@ You should now find that your application works as expected. When we send messag
 
 Back in your Humanloop Prompt dashboard you should see Logs being recorded as clients interact with your model.
 
-<img src="../../assets/images/gpt-clone-3-prompt-logs.png />
+<img src="../../assets/images/gpt-clone-3-prompt-logs.png" />
 
 # Step 3: Streaming tokens
 
