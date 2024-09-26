@@ -225,7 +225,6 @@
             "APIKeyHeader": []
           }
         ],
-        "x-fern-sdk-method-name": "call",
         "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
@@ -236,7 +235,8 @@
           "response-stream": {
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
-        }
+        },
+        "x-fern-sdk-method-name": "call"
       }
     },
     "/prompts": {
@@ -3072,6 +3072,62 @@
         ]
       }
     },
+    "/evaluators/{id}/evaluators": {
+      "post": {
+        "tags": ["Evaluators"],
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Evaluator.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Evaluator for monitoring purposes.",
+        "operationId": "update_monitoring_evaluators__id__evaluators_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/evaluators/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Evaluators"],
@@ -4706,6 +4762,64 @@
         ]
       }
     },
+    "/evaluations/{id}/pin-evaluatee": {
+      "post": {
+        "tags": ["Evaluations"],
+        "summary": "Pin Evaluatee",
+        "description": "Pin the specified Evaluatee.\n\nPinned Evaluatees are always displayed in the Evaluation Overview,\nand serve as the baseline for comparison with other Evaluatees.",
+        "operationId": "pin_evaluatee_evaluations__id__pin_evaluatee_post",
+        "parameters": [
+          {
+            "description": "Unique identifier for Evaluation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evaluation ID",
+              "description": "Unique identifier for Evaluation."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluateeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/logs": {
       "get": {
         "tags": ["Logs"],
@@ -5359,13 +5473,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -5831,10 +5942,21 @@
             "type": "boolean",
             "title": "Humanloop Orchestrated",
             "description": "Whether the Prompt/Tool is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Prompt/Tool should be submitted by the user via the API."
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned",
+            "description": "Pinned Evaluatees are shown in Humanloop's Overview, allowing you to use them as baselines for comparison."
+          },
+          "added_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Added At",
+            "description": "When the Evaluatee was added to the Evaluation."
           }
         },
         "type": "object",
-        "required": ["version", "orchestrated"],
+        "required": ["version", "orchestrated", "pinned"],
         "title": "EvaluateeResponse",
         "description": "Version of the Evaluatee being evaluated."
       },
@@ -5847,10 +5969,16 @@
             "type": "boolean",
             "title": "Humanloop Orchestrated",
             "description": "Whether the Evaluator is orchestrated by Humanloop. Default is `True`. If `False`, a log for the Evaluator should be submitted by the user via the API."
+          },
+          "added_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Added At",
+            "description": "When the Evaluator was added to the Evaluation."
           }
         },
         "type": "object",
-        "required": ["version", "orchestrated"],
+        "required": ["version", "orchestrated", "added_at"],
         "title": "EvaluationEvaluatorResponse"
       },
       "EvaluationReportLogResponse": {
@@ -6236,7 +6364,7 @@
             },
             "type": "array",
             "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+            "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
           },
           "user": {
             "type": "string",
@@ -6702,13 +6830,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -6726,10 +6851,10 @@
             "description": "Whether the request/response payloads will be stored on Humanloop.",
             "default": true
           },
-          "trace_id": {
+          "log_id": {
             "type": "string",
-            "title": "Trace ID",
-            "description": "ID of the Trace. If not provided, one will be assigned."
+            "title": "Log ID",
+            "description": "The identifier for the Log. If not specified, a default ID will be generated. This allows additional Logs to be appended to the trace without waiting for Humanloop to return an ID."
           },
           "flow": {
             "allOf": [
@@ -6838,7 +6963,7 @@
             },
             "type": "array",
             "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+            "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
           },
           "user": {
             "type": "string",
@@ -8041,13 +8166,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8186,13 +8308,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8619,13 +8738,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8803,7 +8919,7 @@
             },
             "type": "array",
             "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+            "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
           },
           "user": {
             "type": "string",
@@ -9757,13 +9873,10 @@
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
-          "batches": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -9878,7 +9991,7 @@
             },
             "type": "array",
             "title": "Batch IDs",
-            "description": "Array of Batch Ids that this log is part of. Batches are used to group Logs together for offline Evaluations"
+            "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
           },
           "user": {
             "type": "string",
@@ -10575,6 +10688,11 @@
             "type": "string",
             "title": "Version ID",
             "description": "Unique identifier for the Evaluated Version."
+          },
+          "batch_id": {
+            "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the batch of Logs to include in the Evaluation Report."
           },
           "num_logs": {
             "type": "integer",

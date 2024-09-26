@@ -1852,7 +1852,9 @@
                           "inputs": [{ "name": "messages" }],
                           "evaluator_aggregates": null
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "pinned": true,
+                        "added_at": "2024-05-01T12:00:00Z"
                       }
                     ],
                     "evaluators": [
@@ -1877,7 +1879,8 @@
                           "total_logs_count": 1,
                           "inputs": [{ "name": "answer" }]
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "added_at": "2024-05-01T12:00:00Z"
                       }
                     ]
                   }
@@ -1978,7 +1981,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2003,7 +2008,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ]
               }
@@ -2093,7 +2099,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2118,7 +2126,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ]
               }
@@ -2226,7 +2235,8 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true
                   }
                 ],
                 "evaluators": [
@@ -2251,7 +2261,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ]
               }
@@ -2341,7 +2352,9 @@
                         "inputs": [{ "name": "messages" }],
                         "evaluator_aggregates": null
                       },
-                      "orchestrated": false
+                      "orchestrated": false,
+                      "pinned": true,
+                      "added_at": "2024-05-01T12:00:00Z"
                     }
                   ],
                   "evaluators": [
@@ -2366,7 +2379,8 @@
                         "total_logs_count": 1,
                         "inputs": [{ "name": "answer" }]
                       },
-                      "orchestrated": false
+                      "orchestrated": false,
+                      "added_at": "2024-05-01T12:00:00Z"
                     }
                   ]
                 }
@@ -2500,6 +2514,9 @@
       },
       "src__external__app__models__v5__feedback__FeedbackType": {
         "x-fern-type-name": "FeedbackType"
+      },
+      "src__external__app__models__v5__tools__ToolResponse": {
+        "x-fern-type-name": "ToolResponse"
       },
       "src__external__app__models__v5__users__UserResponse": {
         "x-fern-type-name": "UserResponse"

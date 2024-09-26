@@ -488,9 +488,12 @@ paths:
                   evaluatees:
                     - version: <<prompt_response>>
                       orchestrated: false
+                      pinned: true
+                      added_at: "2024-05-01T12:00:00Z"
                   evaluators:
                     - version: <<evaluator_response>>
                       orchestrated: false
+                      added_at: "2024-05-01T12:00:00Z"
     post:
       x-fern-examples:
         - name: Create evaluation
@@ -513,9 +516,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-05-01T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-05-01T12:00:00Z"
 
   /evaluations/{id}:
     get:
@@ -533,9 +539,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-05-01T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-05-01T12:00:00Z"
 
     delete:
       x-fern-examples:
@@ -567,9 +576,11 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-05-01T12:00:00Z"
 
     /evaluations/{id}/status:
       patch:
@@ -589,9 +600,12 @@ paths:
                 evaluatees:
                   - version: <<prompt_response>>
                     orchestrated: false
+                    pinned: true
+                    added_at: "2024-05-01T12:00:00Z"
                 evaluators:
                   - version: <<evaluator_response>>
                     orchestrated: false
+                    added_at: "2024-05-01T12:00:00Z"
 
   # Default example response seems to handle this quite well. Won't hardcode a specific example.
   # /evaluationrs/{id}/stats:
@@ -688,7 +702,7 @@ paths:
 #              events: [<< session_event_response >>]
 #              logs_count: 1
 
-  # DIRECTORIES
+# DIRECTORIES
 # TODO: Endpoint needs to be cleaned up before exposing publicly
 #
 #  /directories:
