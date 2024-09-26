@@ -225,7 +225,6 @@
             "APIKeyHeader": []
           }
         ],
-        "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -236,7 +235,8 @@
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
         },
-        "x-fern-sdk-method-name": "call"
+        "x-fern-sdk-method-name": "call",
+        "x-fern-sdk-group-name": "prompts"
       }
     },
     "/prompts": {
@@ -5476,7 +5476,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -6833,7 +6833,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8169,7 +8169,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8311,7 +8311,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -8741,7 +8741,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
@@ -9876,7 +9876,7 @@
           "batch_id": {
             "type": "string",
             "title": "Batch ID",
-            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
+            "description": "Unique identifier for the Batch to add this Log to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
           "user": {
             "type": "string",
