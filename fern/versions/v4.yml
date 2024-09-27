@@ -180,7 +180,7 @@ navigation:
           - page: Supported Models
             path: ../v5-pages/reference/models.mdx
           - page: Access Roles
-            path: ../pages/references/access-roles.mdx
+            path: ../v5-pages/admin/access-roles.mdx
           - page: .prompt files
             slug: prompt-file-format
             path: ../pages/references/prompt-files.mdx
