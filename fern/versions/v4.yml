@@ -174,16 +174,16 @@ navigation:
           - page: Example Projects
             slug: examples
             path: ../pages/examples/example-projects.mdx
-      - section: References
+      - section: Reference
         skip-slug: true
         contents:
           - page: Supported Models
-            path: ../pages/references/models.mdx
+            path: ../v5-pages/reference/models.mdx
           - page: Access Roles
-            path: ../pages/references/access-roles.mdx
+            path: ../v5-pages/admin/access-roles.mdx
           - page: .prompt files
             slug: prompt-file-format
-            path: ../pages/references/prompt-files.mdx
+            path: ../v5-pages/reference/prompt-file-format.mdx
           - page: Postman Workspace
             path: ../pages/references/postman-workspace.mdx
 

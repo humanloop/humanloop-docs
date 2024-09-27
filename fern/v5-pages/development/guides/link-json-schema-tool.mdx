@@ -6,9 +6,9 @@ image: https://humanloop.com/assets/docs/social-image.png
 
 It's possible to re-use tool definitions them across multiple Prompts. You achieve this by having a Prompt file which defines a JSON schema, and linking them to your Prompt.
 
-You can achieve this by first defining an instance of a `JSON Schema` tool in your global Tools tab. Here you can define a tool once, such as `get_current_weather(location: string, unit: 'celsius' | 'fahrenheit')`, and then link that to as many model configs as you need within the Editor as shown below.
+You can achieve this by first defining an instance of a `JSON Schema` tool in your global Tools tab. Here you can define a tool once, such as `get_current_weather(location: string, unit: 'celsius' | 'fahrenheit')`, and then link that to as many Prompts as you need within the Editor as shown below.
 
-Importantly, updates to the `get_current_weather` `JSON Schema` tool defined here will then propagate automatically to all the model configs you've linked it to, without having to publish new versions of the prompt.
+Importantly, updates to the `get_current_weather` `JSON Schema` tool defined here will then propagate automatically to all the Prompts you've linked it to, without having to publish new versions of the Prompt.
 
 ### Prerequisites
 
@@ -63,7 +63,8 @@ Set the `name`, `description`, and `parameters` values. Our guide for using [Too
 Make sure you are using a model that supports tool calling, such as `gpt-4o`.
 
 <Info title="Models supporting Tool calling">
-See the [Models page](/docs/v5/supported-models) for a list of models that support tool calling.
+  See the [Models page](/docs/v5/supported-models) for a list of models that
+  support tool calling.
 </Info>
 
 ### **Add Tool** to the Prompt definition.

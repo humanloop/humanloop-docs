@@ -1852,7 +1852,9 @@
                           "inputs": [{ "name": "messages" }],
                           "evaluator_aggregates": null
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "pinned": true,
+                        "added_at": "2024-10-12T12:00:00Z"
                       }
                     ],
                     "evaluators": [
@@ -1877,7 +1879,8 @@
                           "total_logs_count": 1,
                           "inputs": [{ "name": "answer" }]
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "added_at": "2024-10-12T12:00:00Z"
                       }
                     ]
                   }
@@ -1978,7 +1981,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2003,7 +2008,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ]
               }
@@ -2093,7 +2099,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2118,7 +2126,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ]
               }
@@ -2226,7 +2235,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2251,7 +2262,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ]
               }
