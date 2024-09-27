@@ -87,7 +87,7 @@ js:
 
 analytics:
   segment:
-    write-key: hr64X7UjPFaeFeImP4SUNld9NDXDrFHs
+    write-key: hr64X7UjPFaeFeImP4SUNld9NDXDrFHs-2
 
 redirects:
   # v4 -> v5 redirects
