@@ -4,7 +4,7 @@
 
 const CDN_URL = "https://humanloop.com/cdn/analytics.js/v1/";
 const EVENT_PROXY = "app.humanloop.com/edn";
-const WRITE_KEY = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs-1";
+const WRITE_KEY = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs";
 
 // Disable existing Segment script
 if (window.analytics) {
