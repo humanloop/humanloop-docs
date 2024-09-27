@@ -488,9 +488,12 @@ paths:
                   evaluatees:
                     - version: <<prompt_response>>
                       orchestrated: false
+                      pinned: true
+                      added_at: "2024-10-12T12:00:00Z"
                   evaluators:
                     - version: <<evaluator_response>>
                       orchestrated: false
+                      added_at: "2024-10-12T12:00:00Z"
     post:
       x-fern-examples:
         - name: Create evaluation
@@ -513,10 +516,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-10-12T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
-
+                  added_at: "2024-10-12T12:00:00Z"
   /evaluations/{id}:
     get:
       x-fern-examples:
@@ -533,10 +538,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-10-12T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
-
+                  added_at: "2024-10-12T12:00:00Z"
     delete:
       x-fern-examples:
         - name: Delete evaluation
@@ -567,9 +574,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-10-12T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-10-12T12:00:00Z"
 
     /evaluations/{id}/status:
       patch:
