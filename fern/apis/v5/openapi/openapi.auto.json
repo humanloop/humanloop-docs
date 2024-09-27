@@ -225,6 +225,7 @@
             "APIKeyHeader": []
           }
         ],
+        "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -235,7 +236,6 @@
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
         },
-        "x-fern-sdk-group-name": "prompts",
         "x-fern-sdk-method-name": "call"
       }
     },
@@ -8472,7 +8472,7 @@
               }
             ],
             "title": "Template",
-            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: &#123;&#123;VARIABLE_NAME&#125;&#125;."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: `{{input_name}}` &#123;&#123;VARIABLE_NAME&#125;&#125;."
           },
           "provider": {
             "allOf": [
@@ -9150,7 +9150,7 @@
               }
             ],
             "title": "Template",
-            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: &#123;&#123;VARIABLE_NAME&#125;&#125;."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: `{{input_name}}` &#123;&#123;VARIABLE_NAME&#125;&#125;."
           },
           "provider": {
             "allOf": [
@@ -9304,7 +9304,7 @@
               }
             ],
             "title": "Template",
-            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: &#123;&#123;VARIABLE_NAME&#125;&#125;."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \nInput variables should be specified with double curly bracket syntax: `{{input_name}}` &#123;&#123;VARIABLE_NAME&#125;&#125;."
           },
           "provider": {
             "allOf": [
