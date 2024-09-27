@@ -41,6 +41,7 @@ colors:
   background:
     light: "#ffffff"
     dark: "#18181B"
+
 logo:
   light: ./assets/logo-light-mode.svg
   dark: ./assets/logo-dark-mode.svg
@@ -57,10 +58,11 @@ footer-links:
   github: https://github.com/humanloop
   x: https://x.com/humanloop
   linkedin: https://linkedin.com/company/humanloop
+  youtube: https://www.youtube.com/@builtwithhumanloop
   website: https://humanloop.com
 layout:
   content-width: 704px
-  page-width: 1408px
+  page-width: full
   sidebar-width: 320px
   searchbar-placement: header
   tabs-placement: header

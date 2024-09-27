@@ -107,13 +107,26 @@ img {
   border-radius: 8px;
 }
 
+nav.fern-header-content > div:first-of-type {
+  /* border: 1px solid red; */
+}
+
+nav.fern-header-content > div:first-of-type > div {
+  /* border: 1px solid red; */
+  width: 272px !important; /* sidebar-width - padding (bit of a fudge) */
+  width: 100%;
+  flex: none;
+  height: 1.6rem;
+  justify-content: space-between;
+}
+
 /* Make the version dropdown less ugly */
 /* Have to select on aria-haspopup="menu" */
 
 #fern-header button[aria-haspopup="menu"] {
-  margin-left: 38px;
   background-color: var(--color-background);
   color: rgba(var(--body-text), var(--tw-text-opacity));
+  height: 1.6rem;
 }
 #fern-header
   button[aria-haspopup="menu"]:hover
