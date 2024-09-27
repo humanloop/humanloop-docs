@@ -50,8 +50,8 @@ To update the OpenAPI spec, follow these steps:
    npm run sync
    ```
    This will execute the `sync_openapi.sh` script to synchronize the OpenAPI spec.
-   This will simultaneously watch for changes to the `template.yml` file and the OpenAPI spec file(s) for updates.
-3. Make any changes to the [`template.yml`](fern/apis/v5/openapi/template.yml) and the examples in the [`examples`](fern/apis/v5/openapi/examples/) directory as needed.
+   This will simultaneously watch for changes to the `overrides-template.yml` file and the OpenAPI spec file(s) for updates.
+3. Make any changes to the [`overrides-template.yml`](fern/apis/v5/openapi/overrides-template.yml) and the examples in the [`examples`](fern/apis/v5/openapi/examples/) directory as needed.
 4. Run `fern check` (in a seperate terminal to aid in debugging).
 
 For more details, refer to the [`sync_openapi.sh`](scripts/sync_openapi.sh) and [`populate_template.py`](scripts/populate_template.py) scripts in the `scripts` directory.
@@ -60,7 +60,7 @@ For more details, refer to the [`sync_openapi.sh`](scripts/sync_openapi.sh) and 
 
 We've made out our jinja like syntax to be able to re-use API examples in multiple places.
 
-The [template.yml](fern/apis/v5/openapi/template.yml) file contains a yml overrides of the OpenAPI schema. If the JSON paths match, the objects will be upserted into the main spec. Use `<< example_name >>` syntax to be able to insert `examples/example_name.json` into the OpenAPI spec.
+The [overrides-template.yml](fern/apis/v5/openapi/overrides-template.yml) file contains a yml overrides of the OpenAPI schema. If the JSON paths match, the objects will be upserted into the main spec. Use `<< example_name >>` syntax to be able to insert `examples/example_name.json` into the OpenAPI spec.
 
 ```
 paths:
