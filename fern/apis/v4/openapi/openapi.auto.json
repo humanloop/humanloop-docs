@@ -6769,7 +6769,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: &#123;&#123;INPUT_NAME&#125;&#125;."
           },
           "tools": {
             "items": {
@@ -7043,7 +7043,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: `&#123;&#123;INPUT_NAME&#125;&#125;`."
           },
           "tools": {
             "items": {
@@ -7185,7 +7185,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: `&#123;&#123;INPUT_NAME&#125;&#125;`."
           },
           "tool_configs": {
             "items": {
