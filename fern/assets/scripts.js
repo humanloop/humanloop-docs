@@ -8,6 +8,7 @@ const WRITE_KEY = "hr64X7UjPFaeFeImP4SUNld9NDXDrFHs";
 
 // Disable existing Segment script
 if (window.analytics) {
+  console.log("Disabling existing Segment script");
   window.analytics = null;
 }
 !(function () {
