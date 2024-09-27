@@ -81,7 +81,9 @@ typography:
     #     weight: "500"
     #     style: italic
 css: ./assets/styles.css
-js: ./assets/scripts.js
+js:
+  - path: ./assets/scripts.js
+    strategy: beforeInteractive
 redirects:
   # v4 -> v5 redirects
   # When we switched the default version to v5, any links to old
