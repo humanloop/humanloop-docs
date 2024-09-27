@@ -27,7 +27,7 @@ The Humanloop platform can be accessed through the API or through our Python and
 <Tab title="TypeScript SDK">
 
 ```shell title="Installation"
-npm install humanloop@0.8.0-beta12
+npm install humanloop
 ```
 
 ```typescript title="Example usage"
@@ -44,7 +44,7 @@ console.log(await humanloop.prompts.list());
 <Tab title="Python SDK">
 
 ```shell title="Installation"
-pip install humanloop==0.8.0b17
+pip install humanloop
 ```
 
 ```python title="Example usage"
