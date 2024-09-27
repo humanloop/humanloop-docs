@@ -84,6 +84,11 @@ css: ./assets/styles.css
 js:
   - path: ./assets/scripts.js
     strategy: beforeInteractive
+
+analytics:
+  segment:
+    write-key: hr64X7UjPFaeFeImP4SUNld9NDXDrFHs
+
 redirects:
   # v4 -> v5 redirects
   # When we switched the default version to v5, any links to old
