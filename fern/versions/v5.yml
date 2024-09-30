@@ -26,10 +26,9 @@ navigation:
           - page: Quickstart Tutorial
             slug: tutorials/quickstart
             path: ../v5-pages/tutorials/quickstart-tutorial.mdx
-          # Has this been updated??
-          # - page: ChatGPT Clone Tutorial
-          #   slug: tutorials/chatgpt-clone
-          #   path: ../v5-pages/tutorials/chatgpt-clone.mdx
+          - page: ChatGPT Clone Tutorial
+            slug: tutorials/chatgpt-clone
+            path: ../v5-pages/tutorials/chatgpt-clone.mdx
           - section: Concepts
             contents:
               - page: Overview
