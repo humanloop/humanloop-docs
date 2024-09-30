@@ -6769,7 +6769,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: `{{input_name}}`."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
           },
           "tools": {
             "items": {
@@ -6898,7 +6898,7 @@
           "prompt_template": {
             "type": "string",
             "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: `{{input_name}}`."
+            "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           }
         },
         "additionalProperties": false,
@@ -7035,7 +7035,7 @@
           "prompt_template": {
             "type": "string",
             "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: `{{input_name}}`."
+            "description": "Prompt template that will take your specified inputs to form your final request to the model. Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "chat_template": {
             "items": {
@@ -7043,7 +7043,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: `{{input_name}}`."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
           },
           "tools": {
             "items": {
@@ -7177,7 +7177,7 @@
           "prompt_template": {
             "type": "string",
             "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the model. NB: Input variables within the prompt template should be specified with syntax: `{{input_name}}`."
+            "description": "Prompt template that will take your specified inputs to form your final request to the model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "chat_template": {
             "items": {
@@ -7185,7 +7185,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: `{{input_name}}`."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the template should be specified with syntax: {{INPUT_NAME}}."
           },
           "tool_configs": {
             "items": {
@@ -7634,7 +7634,7 @@
           "prompt_template": {
             "type": "string",
             "title": "Prompt template",
-            "description": "Prompt template that will take your specified inputs to form your final request to the provider model. NB: Input variables within the prompt template should be specified with syntax: `{{input_name}}`."
+            "description": "Prompt template that will take your specified inputs to form your final request to the provider model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "chat_template": {
             "items": {
@@ -7642,7 +7642,7 @@
             },
             "type": "array",
             "title": "Chat template",
-            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the prompt template should be specified with syntax: `{{input_name}}`."
+            "description": "Messages prepended to the list of messages sent to the provider. These messages that will take your specified inputs to form your final request to the provider model. NB: Input variables within the prompt template should be specified with syntax: {{INPUT_NAME}}."
           },
           "endpoint": {
             "allOf": [
