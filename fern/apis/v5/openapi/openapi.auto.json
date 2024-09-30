@@ -3608,6 +3608,7 @@
         "tags": ["Flows"],
         "summary": "List Flows",
         "description": "Get a list of Flows.",
+        "description": "Get a list of Flows.",
         "operationId": "list__flows_get",
         "parameters": [
           {
@@ -5469,12 +5470,18 @@
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
           "trace_parent_id": {
+          "trace_parent_id": {
             "type": "string",
+            "title": "Trace Parent ID",
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batch_id": {
+          "batch_id": {
             "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
             "title": "Batch ID",
             "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
@@ -5953,9 +5960,21 @@
             "format": "date-time",
             "title": "Added At",
             "description": "When the Evaluatee was added to the Evaluation."
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned",
+            "description": "Pinned Evaluatees are shown in Humanloop's Overview, allowing you to use them as baselines for comparison."
+          },
+          "added_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Added At",
+            "description": "When the Evaluatee was added to the Evaluation."
           }
         },
         "type": "object",
+        "required": ["version", "orchestrated", "pinned"],
         "required": ["version", "orchestrated", "pinned"],
         "title": "EvaluateeResponse",
         "description": "Version of the Evaluatee being evaluated."
@@ -5978,6 +5997,7 @@
           }
         },
         "type": "object",
+        "required": ["version", "orchestrated", "added_at"],
         "required": ["version", "orchestrated", "added_at"],
         "title": "EvaluationEvaluatorResponse"
       },
@@ -6354,8 +6374,10 @@
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
           "trace_parent_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
@@ -6364,6 +6386,7 @@
             },
             "type": "array",
             "title": "Batch IDs",
+            "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
             "description": "Array of Batch IDs that this Log is part of. Batches are used to group Logs together for offline Evaluations"
           },
           "user": {
@@ -6784,36 +6807,16 @@
             "title": "Error",
             "description": "Error message if the log is an error."
           },
-          "provider_latency": {
-            "type": "number",
-            "title": "Log latency",
-            "description": "Duration of the logged event in seconds."
-          },
           "stdout": {
             "type": "string",
             "title": "Standard Output",
             "description": "Captured log and debug statements."
-          },
-          "provider_request": {
-            "type": "object",
-            "title": "Provider request",
-            "description": "Raw request sent to provider."
-          },
-          "provider_response": {
-            "type": "object",
-            "title": "Provider response",
-            "description": "Raw response received the provider."
           },
           "inputs": {
             "type": "object",
             "title": "Inputs",
             "description": "The inputs passed to the prompt template.",
             "default": {}
-          },
-          "source": {
-            "type": "string",
-            "title": "Source",
-            "description": "Identifies where the model was called from."
           },
           "metadata": {
             "type": "object",
@@ -6826,12 +6829,18 @@
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
           "trace_parent_id": {
+          "trace_parent_id": {
             "type": "string",
+            "title": "Trace Parent ID",
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
             "title": "Trace Parent ID",
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batch_id": {
+          "batch_id": {
             "type": "string",
+            "title": "Batch ID",
+            "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
             "title": "Batch ID",
             "description": "Unique identifier for the Batch to add this Batch to. Batches are used to group Logs together for Evaluations. A Batch will be created if one with the given ID does not exist."
           },
@@ -6850,6 +6859,11 @@
             "title": "Save",
             "description": "Whether the request/response payloads will be stored on Humanloop.",
             "default": true
+          },
+          "log_id": {
+            "type": "string",
+            "title": "Log ID",
+            "description": "The identifier for the Log. If not specified, a default ID will be generated. This allows additional Logs to be appended to the trace without waiting for Humanloop to return an ID."
           },
           "log_id": {
             "type": "string",
@@ -6876,10 +6890,8 @@
             "default": "incomplete"
           }
         },
-        "additionalProperties": false,
         "type": "object",
-        "title": "FlowLogRequest",
-        "description": "Request to create a Trace on a Flow."
+        "title": "FlowLogRequest"
       },
       "FlowLogResponse": {
         "properties": {
@@ -6935,6 +6947,7 @@
             "type": "object",
             "title": "Inputs",
             "description": "The inputs passed to the Flow Log.",
+            "description": "The inputs passed to the Flow Log.",
             "default": {}
           },
           "source": {
@@ -6953,8 +6966,10 @@
             "description": "Unique identifier for the Datapoint that this Log is derived from. This can be used by Humanloop to associate Logs to Evaluations. If provided, Humanloop will automatically associate this Log to Evaluations that require a Log for this Datapoint-Version pair."
           },
           "trace_parent_id": {
+          "trace_parent_id": {
             "type": "string",
             "title": "Trace Parent ID",
+            "description": "The ID of the parent Log to nest this Log under in a Trace."
             "description": "The ID of the parent Log to nest this Log under in a Trace."
           },
           "batches": {
@@ -6999,6 +7014,10 @@
             "title": "Trace Flow ID",
             "description": "Identifier for the Flow that the Trace belongs to."
           },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace ID",
+            "description": "Identifier for the Trace that the Log belongs to."
           "trace_id": {
             "type": "string",
             "title": "Trace ID",
