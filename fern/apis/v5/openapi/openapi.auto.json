@@ -8472,7 +8472,7 @@
               }
             ],
             "title": "Template",
-            "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \n\nInput variables should be specified with double curly bracket syntax: `{{input_name}}`."
           },
           "provider": {
             "allOf": [
@@ -8585,7 +8585,7 @@
           "path": {
             "type": "string",
             "title": "Prompt path",
-            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -9115,7 +9115,7 @@
           "path": {
             "type": "string",
             "title": "Prompt path",
-            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -9150,7 +9150,7 @@
               }
             ],
             "title": "Template",
-            "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \n\nInput variables should be specified with double curly bracket syntax: `{{input_name}}`."
           },
           "provider": {
             "allOf": [
@@ -9304,7 +9304,7 @@
               }
             ],
             "title": "Template",
-            "description": "For chat endpoint, provide a Chat template. For completion endpoint, provide a Prompt template. Input variables within the template should be specified with double curly bracket syntax: {{INPUT_NAME}}."
+            "description": "The template contains the main structure and instructions for the model, including input variables for dynamic values. \n\nFor chat models, provide the template as a ChatTemplate (a list of messages), e.g. a system message, followed by a user message with an input variable.\nFor completion models, provide a prompt template as a string. \n\nInput variables should be specified with double curly bracket syntax: `{{input_name}}`."
           },
           "provider": {
             "allOf": [
@@ -9792,7 +9792,7 @@
           "path": {
             "type": "string",
             "title": "Tool path",
-            "description": "Path of the Tool, including the name. This locates the Tool in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Tool, including the name. This locates the Tool in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -10133,7 +10133,7 @@
           "path": {
             "type": "string",
             "title": "Tool path",
-            "description": "Path of the Tool, including the name. This locates the Tool in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Tool, including the name. This locates the Tool in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -10756,7 +10756,7 @@
           "path": {
             "type": "string",
             "title": "Dataset path",
-            "description": "Path of the Dataset, including the name. This locates the Dataset in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Dataset, including the name. This locates the Dataset in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -10861,7 +10861,7 @@
           "path": {
             "type": "string",
             "title": "Evaluator path",
-            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
