@@ -21,7 +21,7 @@
     "tool": {
       "name": "retrieval_tool_v3",
       "description": "Retrieval tool for MedQA.",
-      "source_code": "\ndef retrieval_tool(question: str) -> str:\n    \"\"\"Retrieve most relevant document from the vector db (Chroma) for the question.\"\"\"\n    response = collection.query(query_texts=[question], n_results=1)\n    retrieved_doc = response[\"documents\"][0][0]\n    return retrieved_doc\n"
+      "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
     }
   },
   "created_at": "2024-07-08T22:40:35.656915",
