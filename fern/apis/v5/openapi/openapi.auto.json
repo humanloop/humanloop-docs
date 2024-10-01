@@ -225,8 +225,6 @@
             "APIKeyHeader": []
           }
         ],
-        "x-fern-sdk-group-name": "prompts",
-        "x-fern-sdk-method-name": "call",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -236,7 +234,9 @@
           "response-stream": {
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
-        }
+        },
+        "x-fern-sdk-method-name": "call",
+        "x-fern-sdk-group-name": "prompts"
       }
     },
     "/prompts": {
@@ -829,7 +829,7 @@
     "/prompts/{id}/environments": {
       "get": {
         "tags": ["Prompts"],
-        "summary": "List Deployed Versions of a Prompt",
+        "summary": "List a Prompt's Environments",
         "description": "List all Environments and their deployed versions for the Prompt.",
         "operationId": "list_environments_prompts__id__environments_get",
         "parameters": [
@@ -1661,7 +1661,7 @@
     "/tools/{id}/environments": {
       "get": {
         "tags": ["Tools"],
-        "summary": "List Deployed Versions of a Tool",
+        "summary": "List a Tool's Environments",
         "description": "List all Environments and their deployed versions for the Tool.",
         "operationId": "list_environments_tools__id__environments_get",
         "parameters": [
@@ -2557,7 +2557,7 @@
     "/datasets/{id}/environments": {
       "get": {
         "tags": ["Datasets"],
-        "summary": "List Deployed Versions of a Dataset",
+        "summary": "List a Dataset's Environments",
         "description": "List all Environments and their deployed versions for the Dataset.",
         "operationId": "list_environments_datasets__id__environments_get",
         "parameters": [
@@ -3264,7 +3264,7 @@
     "/evaluators/{id}/environments": {
       "get": {
         "tags": ["Evaluators"],
-        "summary": "List Deployed Versions of an Evaluator",
+        "summary": "List an Evaluator's Environments",
         "description": "List all Environments and their deployed versions for the Evaluator.",
         "operationId": "list_environments_evaluators__id__environments_get",
         "parameters": [
@@ -4086,7 +4086,7 @@
     "/flows/{id}/environments": {
       "get": {
         "tags": ["Flows"],
-        "summary": "List Deployed Versions of a Flow",
+        "summary": "List a Flow's Environments",
         "description": "List all Environments and their deployed versions for the Flow.",
         "operationId": "list_environments_flows__id__environments_get",
         "parameters": [
