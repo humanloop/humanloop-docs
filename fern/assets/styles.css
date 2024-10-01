@@ -134,18 +134,19 @@ nav.fern-header-content > div:first-of-type {
   /* border: 1px solid red; */
 }
 
-@media screen and (min-width: 768px) {
+nav.fern-header-content > div:first-of-type > div {
+  /* border: 1px solid red; */
+  width: 210px !important;
+  width: 100%;
+  flex: none;
+  height: 1.6rem;
+}
+
+@media screen and (min-width: 1024px) {
   nav.fern-header-content > div:first-of-type > div {
     width: 316px !important; /* sidebar-width - padding (bit of a fudge) */
     justify-content: space-between;
   }
-}
-
-nav.fern-header-content > div:first-of-type > div {
-  /* border: 1px solid red; */
-  width: 100%;
-  flex: none;
-  height: 1.6rem;
 }
 
 /* Make the version dropdown less ugly */
