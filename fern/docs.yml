@@ -63,7 +63,7 @@ footer-links:
 layout:
   content-width: 704px
   page-width: full
-  sidebar-width: 320px
+  sidebar-width: 364px
   searchbar-placement: header
   tabs-placement: header
 typography:
