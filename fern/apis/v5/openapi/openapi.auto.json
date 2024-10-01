@@ -15,7 +15,7 @@
     "/prompts/log": {
       "post": {
         "tags": ["Prompts"],
-        "summary": "Log to Prompt",
+        "summary": "Log to a Prompt",
         "description": "Log to a Prompt.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Prompt. Otherwise, the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt. If they do not, we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
         "operationId": "log_prompts_log_post",
         "parameters": [
@@ -225,6 +225,8 @@
             "APIKeyHeader": []
           }
         ],
+        "x-fern-sdk-group-name": "prompts",
+        "x-fern-sdk-method-name": "call",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -234,9 +236,7 @@
           "response-stream": {
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
-        },
-        "x-fern-sdk-method-name": "call",
-        "x-fern-sdk-group-name": "prompts"
+        }
       }
     },
     "/prompts": {
@@ -1661,7 +1661,7 @@
     "/tools/{id}/environments": {
       "get": {
         "tags": ["Tools"],
-        "summary": "List Environments",
+        "summary": "List Deployed Versions of a Tool",
         "description": "List all Environments and their deployed versions for the Tool.",
         "operationId": "list_environments_tools__id__environments_get",
         "parameters": [
@@ -3372,7 +3372,7 @@
     "/flows/log": {
       "post": {
         "tags": ["Flows"],
-        "summary": "Log to Flow",
+        "summary": "Log to a Flow",
         "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
         "operationId": "log_flows_log_post",
         "parameters": [
