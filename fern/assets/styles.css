@@ -11,6 +11,29 @@
   border-radius: 5px !important;
 }
 
+/* Force the sidebar links to be 32px not 36px */
+.fern-sidebar-link-container {
+  min-height: 32px !important;
+}
+.fern-sidebar-link-content {
+  padding-top: 0.38rem !important;
+  padding-bottom: 0.38rem !important;
+  height: 32px !important;
+}
+.fern-sidebar-link-content:has(.fern-sidebar-icon > .fern-tag) {
+  align-items: center;
+}
+
+/* Force the sidebar chevron's to be more opaque */
+.fern-sidebar-link-expand {
+  opacity: 0.7 !important;
+}
+
+.fern-sidebar-link:hover .fern-sidebar-link-expand {
+  opacity: 0.9 !important;
+}
+
+/* Make the buttons instant, not some slow fade in */
 .fern-button {
   transition-duration: 0s !important;
 }
@@ -111,13 +134,18 @@ nav.fern-header-content > div:first-of-type {
   /* border: 1px solid red; */
 }
 
+@media screen and (min-width: 768px) {
+  nav.fern-header-content > div:first-of-type > div {
+    width: 316px !important; /* sidebar-width - padding (bit of a fudge) */
+    justify-content: space-between;
+  }
+}
+
 nav.fern-header-content > div:first-of-type > div {
   /* border: 1px solid red; */
-  width: 272px !important; /* sidebar-width - padding (bit of a fudge) */
   width: 100%;
   flex: none;
   height: 1.6rem;
-  justify-content: space-between;
 }
 
 /* Make the version dropdown less ugly */
