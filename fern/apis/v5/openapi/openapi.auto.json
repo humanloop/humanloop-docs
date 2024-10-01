@@ -3373,7 +3373,7 @@
       "post": {
         "tags": ["Flows"],
         "summary": "Log to a Flow",
-        "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
+        "description": "Log to a Flow.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
         "operationId": "log_flows_log_post",
         "parameters": [
           {
@@ -5387,7 +5387,7 @@
           "path": {
             "type": "string",
             "title": "Evaluator path",
-            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
+            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -6715,7 +6715,7 @@
           "path": {
             "type": "string",
             "title": "File path",
-            "description": "Path of the File, including the name. This locates the File in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
+            "description": "Path of the File, including the name. This locates the File in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
           }
         },
         "type": "object",
@@ -6749,7 +6749,7 @@
           "path": {
             "type": "string",
             "title": "Flow path",
-            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -7043,7 +7043,7 @@
           "path": {
             "type": "string",
             "title": "Flow path",
-            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -8083,7 +8083,7 @@
           "path": {
             "type": "string",
             "title": "Prompt path",
-            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
+            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
