@@ -84,9 +84,9 @@
     "/prompts/{id}/log/{log_id}": {
       "patch": {
         "tags": ["Prompts"],
-        "summary": "Update Log",
+        "summary": "Update Prompt Log",
         "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
-        "operationId": "Prompts_update",
+        "operationId": "update_log_prompts__id__log__log_id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -1006,7 +1006,7 @@
     "/tools/{id}/log/{log_id}": {
       "patch": {
         "tags": ["Tools"],
-        "summary": "Update a Tool Log",
+        "summary": "Update Tool Log",
         "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
         "operationId": "Tools_update",
         "parameters": [
@@ -4194,7 +4194,7 @@
     "/files": {
       "get": {
         "tags": ["Files"],
-        "summary": "List",
+        "summary": "List Files",
         "description": "Get a paginated list of files.",
         "operationId": "Files_list",
         "parameters": [
@@ -4823,7 +4823,7 @@
     "/logs": {
       "get": {
         "tags": ["Logs"],
-        "summary": "List ",
+        "summary": "List Logs",
         "description": "List all Logs for the given filter criteria.",
         "operationId": "list__logs_get",
         "parameters": [
@@ -4993,7 +4993,7 @@
       },
       "delete": {
         "tags": ["Logs"],
-        "summary": "Delete",
+        "summary": "Delete Logs",
         "description": "Delete Logs with the given IDs.",
         "operationId": "Logs_delete",
         "parameters": [
