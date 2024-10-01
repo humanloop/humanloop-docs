@@ -70,8 +70,10 @@ navigation:
       - section: Prompt Management + AI Engineering
         slug: development
         contents:
-          - page: Overview
-            path: ../v5-pages/development/overview.mdx
+          - page: Prompt Management
+            path: ../v5-pages/development/prompt-management.mdx
+          - page: Prompt Engineering
+            path: ../v5-pages/development/prompt-engineering.mdx
           # - page: Managing releases
           #   path: ../v5-pages/development/managing-releases.mdx
           # - page: Prompt Engineering
