@@ -213,3 +213,6 @@ redirects:
     destination: "/docs/v4/api-reference/logs/log"
   - source: "/docs/api-reference/logs/update-by-ref"
     destination: "/docs/v4/api-reference/logs/update-by-ref"
+
+  - source: "/docs/development/overview"
+    destination: "/docs/prompt-management"

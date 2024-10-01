@@ -68,18 +68,20 @@ navigation:
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
       - section: Prompt Management + AI Engineering
-        slug: development
+        skip-slug: true
         contents:
           - page: Prompt Management
+            slug: prompt-management
             path: ../v5-pages/development/prompt-management.mdx
           - page: Prompt Engineering
+            slug: prompt-engineering
             path: ../v5-pages/development/prompt-engineering.mdx
           # - page: Managing releases
           #   path: ../v5-pages/development/managing-releases.mdx
           # - page: Prompt Engineering
           #   path: ../v5-pages/development/prompt-engineering.mdx'
           - section: How-To Guides
-            slug: guides
+            slug: development/guides
             contents:
               - page: Create a Prompt
                 slug: create-prompt
