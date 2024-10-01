@@ -144,7 +144,7 @@ nav.fern-header-content > div:first-of-type > div {
 
 @media screen and (min-width: 1024px) {
   nav.fern-header-content > div:first-of-type > div {
-    width: 316px !important; /* sidebar-width - padding (bit of a fudge) */
+    width: 292px !important; /* sidebar-width - padding (bit of a fudge) */
     justify-content: space-between;
   }
 }
