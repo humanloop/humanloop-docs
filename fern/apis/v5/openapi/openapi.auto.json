@@ -225,6 +225,8 @@
             "APIKeyHeader": []
           }
         ],
+        "x-fern-sdk-method-name": "call",
+        "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
           "stream-condition": "$request.stream",
@@ -234,9 +236,7 @@
           "response-stream": {
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
-        },
-        "x-fern-sdk-method-name": "call",
-        "x-fern-sdk-group-name": "prompts"
+        }
       }
     },
     "/prompts": {
@@ -3373,7 +3373,7 @@
       "post": {
         "tags": ["Flows"],
         "summary": "Log to a Flow",
-        "description": "Log to a Flow.\n\nYou can use query parameters version_id, or environment, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
+        "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
         "operationId": "log_flows_log_post",
         "parameters": [
           {
@@ -4169,6 +4169,231 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FlowResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/directories": {
+      "get": {
+        "tags": ["Directories"],
+        "summary": "List ",
+        "description": "Retrieve a list of all Directories.",
+        "operationId": "list__directories_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DirectoryResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List  Directories Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Directories"],
+        "summary": "Create",
+        "description": "Creates a Directory.",
+        "operationId": "create_directories_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDirectoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/directories/{id}": {
+      "get": {
+        "tags": ["Directories"],
+        "summary": "Get",
+        "description": "Fetches a directory by ID.",
+        "operationId": "Directories_get",
+        "parameters": [
+          {
+            "description": "String ID of directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "String ID of directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryWithParentsAndChildrenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Directories"],
+        "summary": "Delete",
+        "description": "Delete the Directory with the given ID.\n\nThe Directory must be empty (i.e. contain no Directories or Files).",
+        "operationId": "Directories_delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "Unique identifier for Directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Directories"],
+        "summary": "Update",
+        "description": "Update the Directory with the given ID.",
+        "operationId": "Directories_update",
+        "parameters": [
+          {
+            "description": "Unique identifier for Directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "Unique identifier for Directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDirectoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryResponse"
                 }
               }
             }
@@ -5335,6 +5560,27 @@
         "type": "object",
         "title": "CreateDatapointRequest"
       },
+      "CreateDirectoryRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory to create."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Starts with `dir_`."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to create the directory in, relative to the root directory. If the path does not exist, it will be created. Includes name, e.g. `path/to/directory`."
+          }
+        },
+        "type": "object",
+        "title": "CreateDirectoryRequest"
+      },
       "CreateEvaluationRequest": {
         "properties": {
           "dataset": {
@@ -5387,7 +5633,7 @@
           "path": {
             "type": "string",
             "title": "Evaluator path",
-            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Evaluator, including the name. This locates the Evaluator in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -5843,6 +6089,129 @@
         ],
         "title": "DatasetResponse",
         "description": "Base type that all File Responses should inherit from.\n\nAttributes defined here are common to all File Responses and should be overridden\nin the inheriting classes with documentation and appropriate Field definitions."
+      },
+      "DirectoryResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "String ID of directory. Starts with `dir_`."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
+          },
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to the directory, relative to the root directory. Includes name, e.g. `path/to/directory`."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": ["id", "name", "path", "created_at", "updated_at"],
+        "title": "DirectoryResponse"
+      },
+      "DirectoryWithParentsAndChildrenResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "String ID of directory. Starts with `dir_`."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
+          },
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to the directory, relative to the root directory. Includes name, e.g. `path/to/directory`."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "subdirectories": {
+            "items": {
+              "$ref": "#/components/schemas/DirectoryResponse"
+            },
+            "type": "array",
+            "title": "Subdirectories",
+            "description": "List of subdirectories in the directory."
+          },
+          "files": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PromptResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/ToolResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Files",
+            "description": "List of files in the directory."
+          },
+          "parents": {
+            "items": {
+              "$ref": "#/components/schemas/DirectoryResponse"
+            },
+            "type": "array",
+            "title": "Parent directories",
+            "description": "List of parent directories of the directory."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "path",
+          "created_at",
+          "updated_at",
+          "subdirectories",
+          "files",
+          "parents"
+        ],
+        "title": "DirectoryWithParentsAndChildrenResponse"
       },
       "EnvironmentResponse": {
         "properties": {
@@ -6715,7 +7084,7 @@
           "path": {
             "type": "string",
             "title": "File path",
-            "description": "Path of the File, including the name. This locates the File in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the File, including the name. This locates the File in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           }
         },
         "type": "object",
@@ -6749,7 +7118,7 @@
           "path": {
             "type": "string",
             "title": "Flow path",
-            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -7043,7 +7412,7 @@
           "path": {
             "type": "string",
             "title": "Flow path",
-            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Flow, including the name. This locates the Flow in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -8083,7 +8452,7 @@
           "path": {
             "type": "string",
             "title": "Prompt path",
-            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. Example: `folder/name` or just `name`."
+            "description": "Path of the Prompt, including the name. This locates the Prompt in the Humanloop filesystem and is used as as a unique identifier. For example: `folder/name` or just `name`."
           },
           "id": {
             "type": "string",
@@ -10381,6 +10750,27 @@
         "enum": ["set", "add", "remove"],
         "title": "UpdateDatesetAction",
         "description": "An enumeration."
+      },
+      "UpdateDirectoryRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name to set for the directory."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Specify this to move directories. Starts with `dir_`."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to move the directory to, relative to the root directory. Specify this to move directories. Includes name, e.g. `path/to/directory`."
+          }
+        },
+        "type": "object",
+        "title": "UpdateDirectoryRequest"
       },
       "UpdateEvaluationRequest": {
         "properties": {
