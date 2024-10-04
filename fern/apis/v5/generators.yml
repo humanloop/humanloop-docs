@@ -16,10 +16,14 @@ groups:
         github:
           repository: humanloop/humanloop-python
         config:
-          client_class_name: Humanloop
           use_typeddict_requests: true
           pydantic_config:
             skip_validation: true
+          client:
+            class_name: BaseHumanloop
+            filename: base_client.py
+            exported_class_name: Humanloop
+            exported_filename: client.py
 
   ts-sdk:
     generators:
