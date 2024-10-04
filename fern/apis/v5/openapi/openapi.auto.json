@@ -15,7 +15,7 @@
     "/prompts/log": {
       "post": {
         "tags": ["Prompts"],
-        "summary": "Log",
+        "summary": "Log to a Prompt",
         "description": "Log to a Prompt.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Prompt. Otherwise, the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt. If they do not, we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
         "operationId": "log_prompts_log_post",
         "parameters": [
@@ -84,9 +84,9 @@
     "/prompts/{id}/log/{log_id}": {
       "patch": {
         "tags": ["Prompts"],
-        "summary": "Update Log",
+        "summary": "Update Prompt Log",
         "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
-        "operationId": "Prompts_update",
+        "operationId": "update_log_prompts__id__log__log_id__patch",
         "parameters": [
           {
             "description": "Unique identifier for Prompt.",
@@ -153,7 +153,7 @@
     "/prompts/call": {
       "post": {
         "tags": ["Prompts"],
-        "summary": "Call",
+        "summary": "Call Prompt",
         "description": "Call a Prompt.\n\nCalling a Prompt calls the model provider before logging\nthe request, responses and metadata to Humanloop.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Prompt. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nPrompt details in the request body. In this case, we will check if the details correspond\nto an existing version of the Prompt. If they do not, we will create a new version. This is helpful\nin the case where you are storing or deriving your Prompt details in code.",
         "operationId": "call_prompts_call_post",
         "parameters": [
@@ -225,6 +225,7 @@
             "APIKeyHeader": []
           }
         ],
+        "x-fern-sdk-method-name": "call",
         "x-fern-sdk-group-name": "prompts",
         "x-fern-streaming": {
           "format": "sse",
@@ -235,14 +236,13 @@
           "response-stream": {
             "$ref": "#/components/schemas/PromptCallStreamResponse"
           }
-        },
-        "x-fern-sdk-method-name": "call"
+        }
       }
     },
     "/prompts": {
       "get": {
         "tags": ["Prompts"],
-        "summary": "List ",
+        "summary": "List Prompts",
         "description": "Get a list of all Prompts.",
         "operationId": "list__prompts_get",
         "parameters": [
@@ -357,7 +357,7 @@
       },
       "post": {
         "tags": ["Prompts"],
-        "summary": "Upsert",
+        "summary": "Upsert Prompt",
         "description": "Create a Prompt or update it with a new version if it already exists.\n\nPrompts are identified by the `ID` or their `path`. The parameters (i.e. the prompt template, temperature, model etc.) determine the versions of the Prompt.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "upsert_prompts_post",
         "requestBody": {
@@ -402,7 +402,7 @@
     "/prompts/{id}": {
       "get": {
         "tags": ["Prompts"],
-        "summary": "Get",
+        "summary": "Get Prompt",
         "description": "Retrieve the Prompt with the given ID.\n\nBy default, the deployed version of the Prompt is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Prompt.",
         "operationId": "get_prompts__id__get",
         "parameters": [
@@ -470,7 +470,7 @@
       },
       "delete": {
         "tags": ["Prompts"],
-        "summary": "Delete",
+        "summary": "Delete Prompt",
         "description": "Delete the Prompt with the given ID.",
         "operationId": "delete_prompts__id__delete",
         "parameters": [
@@ -509,7 +509,7 @@
       },
       "patch": {
         "tags": ["Prompts"],
-        "summary": "Move",
+        "summary": "Move Prompt",
         "description": "Move the Prompt to a different path or change the name.",
         "operationId": "move_prompts__id__patch",
         "parameters": [
@@ -567,7 +567,7 @@
     "/prompts/{id}/versions": {
       "get": {
         "tags": ["Prompts"],
-        "summary": "List Versions",
+        "summary": "List Versions of a Prompt",
         "description": "Get a list of all the versions of a Prompt.",
         "operationId": "list_versions_prompts__id__versions_get",
         "parameters": [
@@ -640,7 +640,7 @@
     "/prompts/{id}/versions/{version_id}/commit": {
       "post": {
         "tags": ["Prompts"],
-        "summary": "Commit",
+        "summary": "Commit a Prompt Version",
         "description": "Commit a version of the Prompt with a commit message.\n\nIf the version is already committed, an exception will be raised.",
         "operationId": "commit_prompts__id__versions__version_id__commit_post",
         "parameters": [
@@ -706,66 +706,10 @@
         ]
       }
     },
-    "/prompts/{id}/evaluators": {
-      "post": {
-        "tags": ["Prompts"],
-        "summary": "Update Monitoring",
-        "description": "Activate and deactivate Evaluators for monitoring the Prompt.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Prompt for monitoring purposes.",
-        "operationId": "update_monitoring_prompts__id__evaluators_post",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PromptResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/prompts/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Prompts"],
-        "summary": "Set Deployment",
+        "summary": "Deploy Prompt",
         "description": "Deploy Prompt to an Environment.\n\nSet the deployed version for the specified Environment. This Prompt\nwill be used for calls made to the Prompt in this Environment.",
         "operationId": "set_deployment_prompts__id__environments__environment_id__post",
         "parameters": [
@@ -885,7 +829,7 @@
     "/prompts/{id}/environments": {
       "get": {
         "tags": ["Prompts"],
-        "summary": "List Environments",
+        "summary": "List a Prompt's Environments",
         "description": "List all Environments and their deployed versions for the Prompt.",
         "operationId": "list_environments_prompts__id__environments_get",
         "parameters": [
@@ -934,10 +878,66 @@
         ]
       }
     },
+    "/prompts/{id}/evaluators": {
+      "post": {
+        "tags": ["Prompts"],
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Prompt.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Prompt for monitoring purposes.",
+        "operationId": "update_monitoring_prompts__id__evaluators_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromptResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/tools/log": {
       "post": {
         "tags": ["Tools"],
-        "summary": "Log",
+        "summary": "Log to a Tool",
         "description": "Log to a Tool.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Tool. Otherwise the default deployed version will be chosen.\n\nInstead of targeting an existing version explicitly, you can instead pass in\nTool details in the request body. In this case, we will check if the details correspond\nto an existing version of the Tool, if not we will create a new version. This is helpful\nin the case where you are storing or deriving your Tool details in code.",
         "operationId": "log_tools_log_post",
         "parameters": [
@@ -1006,7 +1006,7 @@
     "/tools/{id}/log/{log_id}": {
       "patch": {
         "tags": ["Tools"],
-        "summary": "Update Log",
+        "summary": "Update Tool Log",
         "description": "Update a Log.\n\nUpdate the details of a Log with the given ID.",
         "operationId": "Tools_update",
         "parameters": [
@@ -1075,7 +1075,7 @@
     "/tools": {
       "get": {
         "tags": ["Tools"],
-        "summary": "List ",
+        "summary": "List Tools",
         "description": "Get a list of all Tools.",
         "operationId": "list__tools_get",
         "parameters": [
@@ -1189,7 +1189,7 @@
       },
       "post": {
         "tags": ["Tools"],
-        "summary": "Upsert",
+        "summary": "Upsert Tool",
         "description": "Create a Tool or update it with a new version if it already exists.\n\nTools are identified by the `ID` or their `path`. The name, description and parameters determine the versions of the Tool.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "upsert_tools_post",
         "requestBody": {
@@ -1234,7 +1234,7 @@
     "/tools/{id}": {
       "get": {
         "tags": ["Tools"],
-        "summary": "Get",
+        "summary": "Get Tool",
         "description": "Retrieve the Tool with the given ID.\n\nBy default, the deployed version of the Tool is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Tool.",
         "operationId": "get_tools__id__get",
         "parameters": [
@@ -1302,7 +1302,7 @@
       },
       "delete": {
         "tags": ["Tools"],
-        "summary": "Delete",
+        "summary": "Delete Tool",
         "description": "Delete the Tool with the given ID.",
         "operationId": "delete_tools__id__delete",
         "parameters": [
@@ -1341,7 +1341,7 @@
       },
       "patch": {
         "tags": ["Tools"],
-        "summary": "Move",
+        "summary": "Move Tool",
         "description": "Move the Tool to a different path or change the name.",
         "operationId": "move_tools__id__patch",
         "parameters": [
@@ -1399,7 +1399,7 @@
     "/tools/{id}/versions": {
       "get": {
         "tags": ["Tools"],
-        "summary": "List Versions",
+        "summary": "List Versions of a Tool",
         "description": "Get a list of all the versions of a Tool.",
         "operationId": "list_versions_tools__id__versions_get",
         "parameters": [
@@ -1538,66 +1538,10 @@
         ]
       }
     },
-    "/tools/{id}/evaluators": {
-      "post": {
-        "tags": ["Tools"],
-        "summary": "Update Monitoring",
-        "description": "Activate and deactivate Evaluators for monitoring the Tool.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Tool for monitoring purposes.",
-        "operationId": "update_monitoring_tools__id__evaluators_post",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ToolResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/tools/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Tools"],
-        "summary": "Set Deployment",
+        "summary": "Deploy Tool",
         "description": "Deploy Tool to an Environment.\n\nSet the deployed version for the specified Environment. This Prompt\nwill be used for calls made to the Tool in this Environment.",
         "operationId": "set_deployment_tools__id__environments__environment_id__post",
         "parameters": [
@@ -1717,7 +1661,7 @@
     "/tools/{id}/environments": {
       "get": {
         "tags": ["Tools"],
-        "summary": "List Environments",
+        "summary": "List a Tool's Environments",
         "description": "List all Environments and their deployed versions for the Tool.",
         "operationId": "list_environments_tools__id__environments_get",
         "parameters": [
@@ -1766,10 +1710,66 @@
         ]
       }
     },
+    "/tools/{id}/evaluators": {
+      "post": {
+        "tags": ["Tools"],
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Tool.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Tool for monitoring purposes.",
+        "operationId": "update_monitoring_tools__id__evaluators_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/datasets": {
       "get": {
         "tags": ["Datasets"],
-        "summary": "List ",
+        "summary": "List Datasets",
         "description": "List all Datasets.",
         "operationId": "list__datasets_get",
         "parameters": [
@@ -1884,7 +1884,7 @@
       },
       "post": {
         "tags": ["Datasets"],
-        "summary": "Upsert",
+        "summary": "Upsert Dataset",
         "description": "Create a Dataset or update it with a new version if it already exists.\n\nDatasets are identified by the `ID` or their `path`. The datapoints determine the versions of the Dataset.\n\nBy default, the new Dataset version will be set to the list of Datapoints provided in\nthe request. You can also create a new version by adding or removing Datapoints from an existing version\nby specifying `action` as `add` or `remove` respectively. In this case, you may specify\nthe `version_id` or `environment` query parameters to identify the existing version to base\nthe new version on. If neither is provided, the default deployed version will be used.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.\n\nHumanloop also deduplicates Datapoints. If you try to add a Datapoint that already\nexists, it will be ignored. If you intentionally want to add a duplicate Datapoint,\nyou can add a unique identifier to the Datapoint's inputs such as `{_dedupe_id: <unique ID>}`.",
         "operationId": "upsert_datasets_post",
         "parameters": [
@@ -1953,7 +1953,7 @@
     "/datasets/{id}": {
       "get": {
         "tags": ["Datasets"],
-        "summary": "Get",
+        "summary": "Get Dataset",
         "description": "Retrieve the Dataset with the given ID.\n\nUnless `include_datapoints` is set to `true`, the response will not include\nthe Datapoints.\nUse the List Datapoints endpoint (`GET /{id}/datapoints`) to efficiently\nretrieve Datapoints for a large Dataset.\n\nBy default, the deployed version of the Dataset is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Dataset.",
         "operationId": "get_datasets__id__get",
         "parameters": [
@@ -2033,7 +2033,7 @@
       },
       "delete": {
         "tags": ["Datasets"],
-        "summary": "Delete",
+        "summary": "Delete Dataset",
         "description": "Delete the Dataset with the given ID.",
         "operationId": "delete_datasets__id__delete",
         "parameters": [
@@ -2072,7 +2072,7 @@
       },
       "patch": {
         "tags": ["Datasets"],
-        "summary": "Move",
+        "summary": "Move Dataset",
         "description": "Move the Dataset to a different path or change the name.",
         "operationId": "move_datasets__id__patch",
         "parameters": [
@@ -2226,7 +2226,7 @@
     "/datasets/{id}/versions": {
       "get": {
         "tags": ["Datasets"],
-        "summary": "List Versions",
+        "summary": "List Versions of a Dataset",
         "description": "Get a list of the versions for a Dataset.",
         "operationId": "list_versions_datasets__id__versions_get",
         "parameters": [
@@ -2288,7 +2288,7 @@
     "/datasets/{id}/versions/{version_id}/commit": {
       "post": {
         "tags": ["Datasets"],
-        "summary": "Commit",
+        "summary": "Commit a Dataset Version",
         "description": "Commit a version of the Dataset with a commit message.\n\nIf the version is already committed, an exception will be raised.",
         "operationId": "commit_datasets__id__versions__version_id__commit_post",
         "parameters": [
@@ -2357,7 +2357,7 @@
     "/datasets/{id}/datapoints/csv": {
       "post": {
         "tags": ["Datasets"],
-        "summary": "Upload Csv",
+        "summary": "Upload CSV",
         "description": "Add Datapoints from a CSV file to a Dataset.\n\nThis will create a new committed version of the Dataset with the Datapoints from the CSV file.\n\nIf either `version_id` or `environment` is provided, the new version will be based on the specified version,\nwith the Datapoints from the CSV file added to the existing Datapoints in the version.\nIf neither `version_id` nor `environment` is provided, the new version will be based on the version\nof the Dataset that is deployed to the default Environment.",
         "operationId": "upload_csv_datasets__id__datapoints_csv_post",
         "parameters": [
@@ -2437,7 +2437,7 @@
     "/datasets/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Datasets"],
-        "summary": "Set Deployment",
+        "summary": "Deploy Dataset",
         "description": "Deploy Dataset to Environment.\n\nSet the deployed version for the specified Environment.",
         "operationId": "set_deployment_datasets__id__environments__environment_id__post",
         "parameters": [
@@ -2557,7 +2557,7 @@
     "/datasets/{id}/environments": {
       "get": {
         "tags": ["Datasets"],
-        "summary": "List Environments",
+        "summary": "List a Dataset's Environments",
         "description": "List all Environments and their deployed versions for the Dataset.",
         "operationId": "list_environments_datasets__id__environments_get",
         "parameters": [
@@ -2606,10 +2606,79 @@
         ]
       }
     },
+    "/evaluators/log": {
+      "post": {
+        "tags": ["Evaluators"],
+        "summary": "Submit Evaluator Judgment",
+        "description": "Submit Evaluator judgment for an existing Log.\n\nCreates a new Log. The evaluated Log will be set as the parent of the created Log.",
+        "operationId": "log_evaluators_log_post",
+        "parameters": [
+          {
+            "description": "ID of the Evaluator version to log against.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Version ID.",
+              "description": "ID of the Evaluator version to log against."
+            },
+            "name": "version_id",
+            "in": "query"
+          },
+          {
+            "description": "Name of the Environment identifying a deployed version to log to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Environment",
+              "description": "Name of the Environment identifying a deployed version to log to."
+            },
+            "name": "environment",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvaluatorLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEvaluatorLogResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/evaluators": {
       "get": {
         "tags": ["Evaluators"],
-        "summary": "List ",
+        "summary": "List Evaluators",
         "description": "Get a list of all Evaluators.",
         "operationId": "list__evaluators_get",
         "parameters": [
@@ -2723,7 +2792,7 @@
       },
       "post": {
         "tags": ["Evaluators"],
-        "summary": "Upsert",
+        "summary": "Upsert Evaluator",
         "description": "Create an Evaluator or update it with a new version if it already exists.\n\nEvaluators are identified by the `ID` or their `path`. The spec provided determines the version of the Evaluator.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "upsert_evaluators_post",
         "requestBody": {
@@ -2768,7 +2837,7 @@
     "/evaluators/{id}": {
       "get": {
         "tags": ["Evaluators"],
-        "summary": "Get",
+        "summary": "Get Evaluator",
         "description": "Retrieve the Evaluator with the given ID.\n\nBy default, the deployed version of the Evaluator is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Evaluator.",
         "operationId": "get_evaluators__id__get",
         "parameters": [
@@ -2836,7 +2905,7 @@
       },
       "delete": {
         "tags": ["Evaluators"],
-        "summary": "Delete",
+        "summary": "Delete Evaluator",
         "description": "Delete the Evaluator with the given ID.",
         "operationId": "delete_evaluators__id__delete",
         "parameters": [
@@ -2875,7 +2944,7 @@
       },
       "patch": {
         "tags": ["Evaluators"],
-        "summary": "Move",
+        "summary": "Move Evaluator",
         "description": "Move the Evaluator to a different path or change the name.",
         "operationId": "move_evaluators__id__patch",
         "parameters": [
@@ -2933,7 +3002,7 @@
     "/evaluators/{id}/versions": {
       "get": {
         "tags": ["Evaluators"],
-        "summary": "List Versions",
+        "summary": "List Versions of an Evaluator",
         "description": "Get a list of all the versions of an Evaluator.",
         "operationId": "list_versions_evaluators__id__versions_get",
         "parameters": [
@@ -3006,7 +3075,7 @@
     "/evaluators/{id}/versions/{version_id}/commit": {
       "post": {
         "tags": ["Evaluators"],
-        "summary": "Commit",
+        "summary": "Commit an Evaluator Version",
         "description": "Commit a version of the Evaluator with a commit message.\n\nIf the version is already committed, an exception will be raised.",
         "operationId": "commit_evaluators__id__versions__version_id__commit_post",
         "parameters": [
@@ -3072,66 +3141,10 @@
         ]
       }
     },
-    "/evaluators/{id}/evaluators": {
-      "post": {
-        "tags": ["Evaluators"],
-        "summary": "Update Monitoring",
-        "description": "Activate and deactivate Evaluators for monitoring the Evaluator.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Evaluator for monitoring purposes.",
-        "operationId": "update_monitoring_evaluators__id__evaluators_post",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvaluatorResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/evaluators/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Evaluators"],
-        "summary": "Set Deployment",
+        "summary": "Deploy Evaluator",
         "description": "Deploy Evaluator to an Environment.\n\nSet the deployed version for the specified Environment. This Evaluator\nwill be used for calls made to the Evaluator in this Environment.",
         "operationId": "set_deployment_evaluators__id__environments__environment_id__post",
         "parameters": [
@@ -3251,7 +3264,7 @@
     "/evaluators/{id}/environments": {
       "get": {
         "tags": ["Evaluators"],
-        "summary": "List Environments",
+        "summary": "List an Evaluator's Environments",
         "description": "List all Environments and their deployed versions for the Evaluator.",
         "operationId": "list_environments_evaluators__id__environments_get",
         "parameters": [
@@ -3300,20 +3313,76 @@
         ]
       }
     },
-    "/evaluators/log": {
+    "/evaluators/{id}/evaluators": {
       "post": {
         "tags": ["Evaluators"],
-        "summary": "Log",
-        "description": "Submit Evaluator judgment for an existing Log.\n\nCreates a new Log. The evaluated Log will be set as the parent of the created Log.",
-        "operationId": "log_evaluators_log_post",
+        "summary": "Update Monitoring",
+        "description": "Activate and deactivate Evaluators for monitoring the Evaluator.\n\nAn activated Evaluator will automatically be run on all new Logs\nwithin the Evaluator for monitoring purposes.",
+        "operationId": "update_monitoring_evaluators__id__evaluators_post",
         "parameters": [
           {
-            "description": "ID of the Evaluator version to log against.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluatorActivationDeactivationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/flows/log": {
+      "post": {
+        "tags": ["Flows"],
+        "summary": "Log to a Flow",
+        "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
+        "operationId": "log_flows_log_post",
+        "parameters": [
+          {
+            "description": "A specific Version ID of the Flow to log to.",
             "required": false,
             "schema": {
               "type": "string",
-              "title": "Version ID.",
-              "description": "ID of the Evaluator version to log against."
+              "title": "Version ID",
+              "description": "A specific Version ID of the Flow to log to."
             },
             "name": "version_id",
             "in": "query"
@@ -3334,7 +3403,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateEvaluatorLogRequest"
+                "$ref": "#/components/schemas/FlowLogRequest"
               }
             }
           },
@@ -3346,7 +3415,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateEvaluatorLogResponse"
+                  "$ref": "#/components/schemas/CreateFlowLogResponse"
                 }
               }
             }
@@ -3372,7 +3441,7 @@
     "/flows/{id}": {
       "get": {
         "tags": ["Flows"],
-        "summary": "Get",
+        "summary": "Get Flow",
         "description": "Retrieve the Flow with the given ID.\n\nBy default, the deployed version of the Flow is returned. Use the query parameters\n`version_id` or `environment` to target a specific version of the Flow.",
         "operationId": "get_flows__id__get",
         "parameters": [
@@ -3440,7 +3509,7 @@
       },
       "delete": {
         "tags": ["Flows"],
-        "summary": "Delete",
+        "summary": "Delete Flow",
         "description": "Delete the Flow with the given ID.",
         "operationId": "delete_flows__id__delete",
         "parameters": [
@@ -3479,7 +3548,7 @@
       },
       "patch": {
         "tags": ["Flows"],
-        "summary": "Move",
+        "summary": "Move Flow",
         "description": "Move the Flow to a different path or change the name.",
         "operationId": "move_flows__id__patch",
         "parameters": [
@@ -3537,7 +3606,7 @@
     "/flows": {
       "get": {
         "tags": ["Flows"],
-        "summary": "List ",
+        "summary": "List Flows",
         "description": "Get a list of Flows.",
         "operationId": "list__flows_get",
         "parameters": [
@@ -3652,7 +3721,7 @@
       },
       "post": {
         "tags": ["Flows"],
-        "summary": "Upsert",
+        "summary": "Upsert Flow",
         "description": "Create or update a Flow.\n\nFlows can also be identified by the `ID` or their `path`.\n\nIf you provide a commit message, then the new version will be committed;\notherwise it will be uncommitted. If you try to commit an already committed version,\nan exception will be raised.",
         "operationId": "upsert_flows_post",
         "requestBody": {
@@ -3694,79 +3763,10 @@
         ]
       }
     },
-    "/flows/log": {
-      "post": {
-        "tags": ["Flows"],
-        "summary": "Log",
-        "description": "Log to a Flow.\n\nYou can use query parameters `version_id`, or `environment`, to target\nan existing version of the Flow. Otherwise, the default deployed version will be chosen.",
-        "operationId": "log_flows_log_post",
-        "parameters": [
-          {
-            "description": "A specific Version ID of the Flow to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Version ID",
-              "description": "A specific Version ID of the Flow to log to."
-            },
-            "name": "version_id",
-            "in": "query"
-          },
-          {
-            "description": "Name of the Environment identifying a deployed version to log to.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "Environment",
-              "description": "Name of the Environment identifying a deployed version to log to."
-            },
-            "name": "environment",
-            "in": "query"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FlowLogRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateFlowLogResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/flows/logs/{log_id}": {
       "patch": {
         "tags": ["Flows"],
-        "summary": "Update Log",
+        "summary": "Update Flow Log",
         "description": "Update the status, inputs, output of a Flow Log.\n\nMarking a Flow Log as complete will trigger any monitoring Evaluators to run.\nInputs and output (or error) must be provided in order to mark it as complete.",
         "operationId": "update_log_flows_logs__log_id__patch",
         "parameters": [
@@ -3824,7 +3824,7 @@
     "/flows/{id}/versions": {
       "get": {
         "tags": ["Flows"],
-        "summary": "List Versions",
+        "summary": "List Versions of a Flow",
         "description": "Get a list of all the versions of a Flow.",
         "operationId": "list_versions_flows__id__versions_get",
         "parameters": [
@@ -3897,7 +3897,7 @@
     "/flows/{id}/versions/{version_id}/commit": {
       "post": {
         "tags": ["Flows"],
-        "summary": "Commit",
+        "summary": "Commit a Flow Version",
         "description": "Commit a version of the Flow with a commit message.\n\nIf the version is already committed, an exception will be raised.",
         "operationId": "commit_flows__id__versions__version_id__commit_post",
         "parameters": [
@@ -3966,7 +3966,7 @@
     "/flows/{id}/environments/{environment_id}": {
       "post": {
         "tags": ["Flows"],
-        "summary": "Set Deployment",
+        "summary": "Deploy Flow",
         "description": "Deploy Flow to an Environment.\n\nSet the deployed version for the specified Environment. This Flow\nwill be used for calls made to the Flow in this Environment.",
         "operationId": "set_deployment_flows__id__environments__environment_id__post",
         "parameters": [
@@ -4086,7 +4086,7 @@
     "/flows/{id}/environments": {
       "get": {
         "tags": ["Flows"],
-        "summary": "List Environments",
+        "summary": "List a Flow's Environments",
         "description": "List all Environments and their deployed versions for the Flow.",
         "operationId": "list_environments_flows__id__environments_get",
         "parameters": [
@@ -4191,10 +4191,235 @@
         ]
       }
     },
+    "/directories": {
+      "get": {
+        "tags": ["Directories"],
+        "summary": "List ",
+        "description": "Retrieve a list of all Directories.",
+        "operationId": "list__directories_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DirectoryResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List  Directories Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Directories"],
+        "summary": "Create",
+        "description": "Creates a Directory.",
+        "operationId": "create_directories_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDirectoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/directories/{id}": {
+      "get": {
+        "tags": ["Directories"],
+        "summary": "Get",
+        "description": "Fetches a directory by ID.",
+        "operationId": "Directories_get",
+        "parameters": [
+          {
+            "description": "String ID of directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "String ID of directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryWithParentsAndChildrenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Directories"],
+        "summary": "Delete",
+        "description": "Delete the Directory with the given ID.\n\nThe Directory must be empty (i.e. contain no Directories or Files).",
+        "operationId": "Directories_delete",
+        "parameters": [
+          {
+            "description": "Unique identifier for Directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "Unique identifier for Directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Directories"],
+        "summary": "Update",
+        "description": "Update the Directory with the given ID.",
+        "operationId": "Directories_update",
+        "parameters": [
+          {
+            "description": "Unique identifier for Directory. Starts with `dir_`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Directory ID",
+              "description": "Unique identifier for Directory. Starts with `dir_`."
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDirectoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/files": {
       "get": {
         "tags": ["Files"],
-        "summary": "List",
+        "summary": "List Files",
         "description": "Get a paginated list of files.",
         "operationId": "Files_list",
         "parameters": [
@@ -4325,7 +4550,7 @@
     "/evaluations": {
       "get": {
         "tags": ["Evaluations"],
-        "summary": "List ",
+        "summary": "List Evaluations for a File",
         "description": "List all Evaluations for the specified `file_id`.\n\nRetrieve a list of Evaluations that evaluate versions of the specified File.",
         "operationId": "list__evaluations_get",
         "parameters": [
@@ -4397,7 +4622,7 @@
       },
       "post": {
         "tags": ["Evaluations"],
-        "summary": "Create",
+        "summary": "Create Evaluation",
         "description": "Create an Evaluation.\n\nCreate a new Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.\n\nHumanloop will automatically start generating Logs and running Evaluators where\n`orchestrated=true`. If you own the runtime for the Evaluatee or Evaluator, you\ncan set `orchestrated=false` and then generate and submit the required logs using\nyour runtime.\n\nTo keep updated on the progress of the Evaluation, you can poll the Evaluation using\nthe `GET /evaluations/:id` endpoint and check its status.",
         "operationId": "create_evaluations_post",
         "requestBody": {
@@ -4442,7 +4667,7 @@
     "/evaluations/{id}": {
       "get": {
         "tags": ["Evaluations"],
-        "summary": "Get",
+        "summary": "Get Evaluation",
         "description": "Get an Evaluation.",
         "operationId": "get_evaluations__id__get",
         "parameters": [
@@ -4488,7 +4713,7 @@
       },
       "delete": {
         "tags": ["Evaluations"],
-        "summary": "Delete",
+        "summary": "Delete Evaluation",
         "description": "Delete an Evaluation.\n\nRemove an Evaluation from Humanloop. The Logs and Versions used in the Evaluation\nwill not be deleted.",
         "operationId": "delete_evaluations__id__delete",
         "parameters": [
@@ -4527,7 +4752,7 @@
       },
       "patch": {
         "tags": ["Evaluations"],
-        "summary": "Update Setup",
+        "summary": "Update Evaluation",
         "description": "Update an Evaluation.\n\nUpdate the setup of an Evaluation by specifying the Dataset, versions to be\nevaluated (Evaluatees), and which Evaluators to provide judgments.",
         "operationId": "update_setup_evaluations__id__patch",
         "parameters": [
@@ -4585,7 +4810,7 @@
     "/evaluations/{id}/status": {
       "patch": {
         "tags": ["Evaluations"],
-        "summary": "Update Status",
+        "summary": "Update Evaluation Status",
         "description": "Update the status of an Evaluation.\n\nCan be used to cancel a running Evaluation, or mark an Evaluation that uses\nexternal or human evaluators as completed.",
         "operationId": "update_status_evaluations__id__status_patch",
         "parameters": [
@@ -4643,7 +4868,7 @@
     "/evaluations/{id}/stats": {
       "get": {
         "tags": ["Evaluations"],
-        "summary": "Get Stats",
+        "summary": "Get Evaluation Stats",
         "description": "Get Evaluation Stats.\n\nRetrieve aggregate stats for the specified Evaluation.\nThis includes the number of generated Logs for each evaluated version and the\ncorresponding Evaluator statistics (such as the mean and percentiles).",
         "operationId": "get_stats_evaluations__id__stats_get",
         "parameters": [
@@ -4691,7 +4916,7 @@
     "/evaluations/{id}/logs": {
       "get": {
         "tags": ["Evaluations"],
-        "summary": "Get Logs",
+        "summary": "Get Logs for an Evaluation",
         "description": "Get the Logs associated to a specific Evaluation.\n\nEach Datapoint in your Dataset will have a corresponding Log for each File version evaluated.\ne.g. If you have 50 Datapoints and are evaluating 2 Prompts, there will be 100 Logs associated with the Evaluation.",
         "operationId": "get_logs_evaluations__id__logs_get",
         "parameters": [
@@ -4823,7 +5048,7 @@
     "/logs": {
       "get": {
         "tags": ["Logs"],
-        "summary": "List ",
+        "summary": "List Logs",
         "description": "List all Logs for the given filter criteria.",
         "operationId": "list__logs_get",
         "parameters": [
@@ -4993,7 +5218,7 @@
       },
       "delete": {
         "tags": ["Logs"],
-        "summary": "Delete",
+        "summary": "Delete Logs",
         "description": "Delete Logs with the given IDs.",
         "operationId": "Logs_delete",
         "parameters": [
@@ -5334,6 +5559,27 @@
         },
         "type": "object",
         "title": "CreateDatapointRequest"
+      },
+      "CreateDirectoryRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory to create."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Starts with `dir_`."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to create the directory in, relative to the root directory. If the path does not exist, it will be created. Includes name, e.g. `path/to/directory`."
+          }
+        },
+        "type": "object",
+        "title": "CreateDirectoryRequest"
       },
       "CreateEvaluationRequest": {
         "properties": {
@@ -5843,6 +6089,129 @@
         ],
         "title": "DatasetResponse",
         "description": "Base type that all File Responses should inherit from.\n\nAttributes defined here are common to all File Responses and should be overridden\nin the inheriting classes with documentation and appropriate Field definitions."
+      },
+      "DirectoryResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "String ID of directory. Starts with `dir_`."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
+          },
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to the directory, relative to the root directory. Includes name, e.g. `path/to/directory`."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": ["id", "name", "path", "created_at", "updated_at"],
+        "title": "DirectoryResponse"
+      },
+      "DirectoryWithParentsAndChildrenResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Directory ID",
+            "description": "String ID of directory. Starts with `dir_`."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Will be `None` if the directory is the root directory. Starts with `dir_`."
+          },
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name of the directory."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to the directory, relative to the root directory. Includes name, e.g. `path/to/directory`."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "subdirectories": {
+            "items": {
+              "$ref": "#/components/schemas/DirectoryResponse"
+            },
+            "type": "array",
+            "title": "Subdirectories",
+            "description": "List of subdirectories in the directory."
+          },
+          "files": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PromptResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/ToolResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/EvaluatorResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/FlowResponse"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Files",
+            "description": "List of files in the directory."
+          },
+          "parents": {
+            "items": {
+              "$ref": "#/components/schemas/DirectoryResponse"
+            },
+            "type": "array",
+            "title": "Parent directories",
+            "description": "List of parent directories of the directory."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "path",
+          "created_at",
+          "updated_at",
+          "subdirectories",
+          "files",
+          "parents"
+        ],
+        "title": "DirectoryWithParentsAndChildrenResponse"
       },
       "EnvironmentResponse": {
         "properties": {
@@ -8447,7 +8816,7 @@
           "model": {
             "type": "string",
             "title": "Model instance used",
-            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/supported-models)"
+            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/reference/supported-models)"
           },
           "endpoint": {
             "allOf": [
@@ -9125,7 +9494,7 @@
           "model": {
             "type": "string",
             "title": "Model instance used",
-            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/supported-models)"
+            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/reference/supported-models)"
           },
           "endpoint": {
             "allOf": [
@@ -9279,7 +9648,7 @@
           "model": {
             "type": "string",
             "title": "Model instance used",
-            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/supported-models)"
+            "description": "The model instance used, e.g. `gpt-4`. See [supported models](https://humanloop.com/docs/reference/supported-models)"
           },
           "endpoint": {
             "allOf": [
@@ -10381,6 +10750,27 @@
         "enum": ["set", "add", "remove"],
         "title": "UpdateDatesetAction",
         "description": "An enumeration."
+      },
+      "UpdateDirectoryRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Directory name",
+            "description": "Name to set for the directory."
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent directory ID",
+            "description": "ID of the parent directory. Specify this to move directories. Starts with `dir_`."
+          },
+          "path": {
+            "type": "string",
+            "title": "Directory path",
+            "description": "Path to move the directory to, relative to the root directory. Specify this to move directories. Includes name, e.g. `path/to/directory`."
+          }
+        },
+        "type": "object",
+        "title": "UpdateDirectoryRequest"
       },
       "UpdateEvaluationRequest": {
         "properties": {

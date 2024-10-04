@@ -5,3 +5,5 @@ generated/
 node_modules/
 .env
 **/.preview/**
+
+.vscode

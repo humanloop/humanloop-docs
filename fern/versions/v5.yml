@@ -23,13 +23,6 @@ navigation:
           - page: Why Humanloop?
             slug: getting-started/why-humanloop
             path: ../v5-pages/getting-started/why-humanloop.mdx
-          - page: Quickstart Tutorial
-            slug: tutorials/quickstart
-            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
-          # Has this been updated??
-          # - page: ChatGPT Clone Tutorial
-          #   slug: tutorials/chatgpt-clone
-          #   path: ../v5-pages/tutorials/chatgpt-clone.mdx
           - section: Concepts
             contents:
               - page: Overview
@@ -56,9 +49,15 @@ navigation:
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
               #   path: ../v5-pages/getting-started/architecture.mdx
-      # - section: Tutorials
-      # contents:
-
+      - section: Tutorials
+        slug: tutorials
+        contents:
+          - page: Quickstart Tutorial
+            slug: quickstart
+            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
+          - page: ChatGPT Clone Tutorial
+            slug: chatgpt-clone
+            path: ../v5-pages/tutorials/chatgpt-clone.mdx
       #   contents:
       # - page: Tracing and versioning your LLM calls
       #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
@@ -69,16 +68,20 @@ navigation:
       # - page: Observability
       #   path: ../v5-pages/tutorials/observability.mdx
       - section: Prompt Management + AI Engineering
-        slug: development
+        skip-slug: true
         contents:
-          - page: Overview
-            path: ../v5-pages/development/overview.mdx
+          - page: Prompt Management
+            slug: prompt-management
+            path: ../v5-pages/development/prompt-management.mdx
+          - page: Prompt Engineering
+            slug: prompt-engineering
+            path: ../v5-pages/development/prompt-engineering.mdx
           # - page: Managing releases
           #   path: ../v5-pages/development/managing-releases.mdx
           # - page: Prompt Engineering
           #   path: ../v5-pages/development/prompt-engineering.mdx'
           - section: How-To Guides
-            slug: guides
+            slug: development/guides
             contents:
               - page: Create a Prompt
                 slug: create-prompt
