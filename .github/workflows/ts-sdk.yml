@@ -36,3 +36,8 @@ jobs:
           else
             fern generate --api v5 --group ts-sdk --version ${{ inputs.version }} --log-level debug
           fi
+          
+      - name: Publish Docs
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: fern generate --docs
