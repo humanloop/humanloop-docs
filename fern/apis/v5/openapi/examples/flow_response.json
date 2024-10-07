@@ -1,0 +1,42 @@
+{
+  "path": "Personal Projects/MedQA",
+  "id": "fl_6o701g4jmcanPVHxdqD0O",
+  "name": "MedQA Flow",
+  "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+  "type": "flow",
+  "environments": [
+    {
+      "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+      "created_at": "2023-06-27T23:16:07.992339",
+      "name": "development",
+      "tag": "default"
+    }
+  ],
+  "attributes": {
+    "prompt": {
+      "template": "You are a helpful assistant helping with medical anamnesis",
+      "model": "gpt-4o",
+      "temperature": 0.8
+    },
+    "tool": {
+      "name": "retrieval_tool_v3",
+      "description": "Retrieval tool for MedQA.",
+      "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+    }
+  },
+  "created_at": "2024-07-08T22:40:35.656915",
+  "updated_at": "2024-07-08T22:40:35.656915",
+  "created_by": {
+    "id": "usr_01RJO1k2spBVqNUt1ASef",
+    "email_address": "raza@humanloop.com",
+    "full_name": "Raza Habib"
+  },
+  "status": "committed",
+  "last_used_at": "2024-07-08T22:40:35.656915",
+  "stop": null,
+  "seed": null,
+  "response_format": null,
+  "version_logs_count": 0,
+  "evaluator_aggregates": null,
+  "commit_message": "Initial commit"
+}

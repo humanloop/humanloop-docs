@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.dirname(__dirname);
 const TEMPLATE_DIR = path.join(ROOT_DIR, "fern", "apis", "v5", "openapi");
 const EXAMPLES_DIR = path.join(TEMPLATE_DIR, "examples");
-const TEMPLATE_FILE = "template.yml";
+const TEMPLATE_FILE = "overrides-template.yml";
 
 function log(message, color = "white") {
   console.log(chalk[color](message));

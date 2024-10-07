@@ -1852,7 +1852,9 @@
                           "inputs": [{ "name": "messages" }],
                           "evaluator_aggregates": null
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "pinned": true,
+                        "added_at": "2024-10-12T12:00:00Z"
                       }
                     ],
                     "evaluators": [
@@ -1877,7 +1879,8 @@
                           "total_logs_count": 1,
                           "inputs": [{ "name": "answer" }]
                         },
-                        "orchestrated": false
+                        "orchestrated": false,
+                        "added_at": "2024-10-12T12:00:00Z"
                       }
                     ]
                   }
@@ -1978,7 +1981,8 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": false
                   }
                 ],
                 "evaluators": [
@@ -2003,7 +2007,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-05-01T12:00:00Z"
                   }
                 ]
               }
@@ -2093,7 +2098,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2118,7 +2125,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ]
               }
@@ -2226,7 +2234,9 @@
                       "inputs": [{ "name": "messages" }],
                       "evaluator_aggregates": null
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "pinned": true,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ],
                 "evaluators": [
@@ -2251,7 +2261,8 @@
                       "total_logs_count": 1,
                       "inputs": [{ "name": "answer" }]
                     },
-                    "orchestrated": false
+                    "orchestrated": false,
+                    "added_at": "2024-10-12T12:00:00Z"
                   }
                 ]
               }
@@ -2341,7 +2352,8 @@
                         "inputs": [{ "name": "messages" }],
                         "evaluator_aggregates": null
                       },
-                      "orchestrated": false
+                      "orchestrated": false,
+                      "pinned": true
                     }
                   ],
                   "evaluators": [
@@ -2366,7 +2378,8 @@
                         "total_logs_count": 1,
                         "inputs": [{ "name": "answer" }]
                       },
-                      "orchestrated": false
+                      "orchestrated": false,
+                      "added_at": "2024-05-01T12:00:00Z"
                     }
                   ]
                 }
@@ -2448,50 +2461,127 @@
         ]
       }
     },
-    "/sessions": {
+    "/flows": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Upsert flow",
+            "request": {
+              "path": "Personal Projects/MedQA Flow",
+              "attributes": {
+                "prompt": {
+                  "template": "You are a helpful medical assistant helping with medical anamnesis. Answer {{question}}",
+                  "model": "gpt-4o",
+                  "temperature": 0.8
+                },
+                "tool": {
+                  "name": "retrieval_tool_v3",
+                  "description": "Retrieval tool for MedQA.",
+                  "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                },
+                "commit_message": "Initial commit"
+              }
+            },
+            "response": {
+              "body": {
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
+                  {
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
+                  }
+                ],
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
+              }
+            }
+          }
+        ]
+      },
       "get": {
         "x-fern-pagination": true,
         "x-fern-examples": [
           {
-            "name": "List sessions",
-            "query-parameters": { "size": 1, "file_id": "pr_123abc" },
+            "query-parameters": { "size": 1 },
             "response": {
               "body": {
                 "records": [
                   {
-                    "id": "sesh_456hij",
-                    "created_at": "2024-05-01T12:00:00Z",
-                    "updated_at": "2024-05-01T12:00:00Z",
-                    "events": [
+                    "path": "Personal Projects/MedQA",
+                    "id": "fl_6o701g4jmcanPVHxdqD0O",
+                    "name": "MedQA Flow",
+                    "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                    "type": "flow",
+                    "environments": [
                       {
-                        "log": {
-                          "id": "log_123efg",
-                          "created_at": "2024-05-01T12:00:00Z",
-                          "output": "This is a sample output.",
-                          "prompt": {
-                            "id": "pr_123abc",
-                            "name": "Test Prompt",
-                            "path": "test-prompt",
-                            "version_id": "pv_456def",
-                            "created_at": "2024-05-01T12:00:00Z",
-                            "updated_at": "2024-05-01T12:00:00Z",
-                            "status": "committed",
-                            "last_used_at": "2024-05-01T12:00:00Z",
-                            "model": "gpt-4",
-                            "version_logs_count": 1,
-                            "total_logs_count": 1,
-                            "inputs": [{ "name": "question" }]
-                          },
-                          "evaluator_logs": []
-                        },
-                        "children": []
+                        "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                        "created_at": "2023-06-27T23:16:07.992339",
+                        "name": "development",
+                        "tag": "default"
                       }
                     ],
-                    "logs_count": 1
+                    "attributes": {
+                      "prompt": {
+                        "template": "You are a helpful assistant helping with medical anamnesis",
+                        "model": "gpt-4o",
+                        "temperature": 0.8
+                      },
+                      "tool": {
+                        "name": "retrieval_tool_v3",
+                        "description": "Retrieval tool for MedQA.",
+                        "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                      }
+                    },
+                    "created_at": "2024-07-08T22:40:35.656915",
+                    "updated_at": "2024-07-08T22:40:35.656915",
+                    "created_by": {
+                      "id": "usr_01RJO1k2spBVqNUt1ASef",
+                      "email_address": "raza@humanloop.com",
+                      "full_name": "Raza Habib"
+                    },
+                    "status": "committed",
+                    "last_used_at": "2024-07-08T22:40:35.656915",
+                    "stop": null,
+                    "seed": null,
+                    "response_format": null,
+                    "version_logs_count": 0,
+                    "evaluator_aggregates": null,
+                    "commit_message": "Initial commit"
                   }
                 ],
-                "page": 1,
-                "size": 11,
+                "page": 0,
+                "size": 1,
                 "total": 1
               }
             }
@@ -2499,52 +2589,516 @@
         ]
       }
     },
-    "/sessions/{id}": {
-      "delete": {
+    "/flows/log": {
+      "post": {
         "x-fern-examples": [
           {
-            "name": "Delete session",
-            "path-parameters": { "id": "sesh_123abc" }
+            "name": "Log flow",
+            "request": {
+              "log_id": "medqa_experiment_0001",
+              "id": "fl_6o701g4jmcanPVHxdqD0O",
+              "flow": {
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                }
+              },
+              "inputs": {
+                "question": "Patient with a history of diabetes and hypertension presents with chest pain and shortness of breath."
+              },
+              "output": "The patient is likely experiencing a myocardial infarction. Immediate medical attention is required.",
+              "trace_status": "incomplete",
+              "start_time": "2024-07-08T22:40:35",
+              "end_time": "2024-07-08T22:40:39"
+            },
+            "response": {
+              "body": {
+                "id": "medqa_experiment_0001",
+                "flow_id": "fl_6o701g4jmcanPVHxdqD0O",
+                "trace_status": "incomplete",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN"
+              }
+            }
           }
         ]
-      },
+      }
+    },
+    "/flows/{id}": {
       "get": {
         "x-fern-examples": [
           {
-            "name": "Get session",
-            "path-parameters": { "id": "sesh_123abc" },
+            "name": "Get specific flow",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" },
             "response": {
               "body": {
-                "id": "sesh_456hij",
-                "created_at": "2024-05-01T12:00:00Z",
-                "updated_at": "2024-05-01T12:00:00Z",
-                "events": [
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
                   {
-                    "log": {
-                      "id": "log_123efg",
-                      "created_at": "2024-05-01T12:00:00Z",
-                      "output": "This is a sample output.",
-                      "prompt": {
-                        "id": "pr_123abc",
-                        "name": "Test Prompt",
-                        "path": "test-prompt",
-                        "version_id": "pv_456def",
-                        "created_at": "2024-05-01T12:00:00Z",
-                        "updated_at": "2024-05-01T12:00:00Z",
-                        "status": "committed",
-                        "last_used_at": "2024-05-01T12:00:00Z",
-                        "model": "gpt-4",
-                        "version_logs_count": 1,
-                        "total_logs_count": 1,
-                        "inputs": [{ "name": "question" }]
-                      },
-                      "evaluator_logs": []
-                    },
-                    "children": []
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
                   }
                 ],
-                "logs_count": 1
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
               }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "x-fern-examples": [
+          {
+            "name": "Delete flow",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" }
+          }
+        ]
+      },
+      "patch": {
+        "x-fern-examples": [
+          {
+            "name": "Move flow",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" },
+            "request": { "path": "new directory/new name" },
+            "response": {
+              "body": {
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
+                  {
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
+                  }
+                ],
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/flows/{id}/versions": {
+      "get": {
+        "x-fern-examples": [
+          {
+            "name": "List versions",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" },
+            "query-parameters": { "status": "committed" },
+            "response": {
+              "body": {
+                "records": [
+                  {
+                    "path": "Personal Projects/MedQA",
+                    "id": "fl_6o701g4jmcanPVHxdqD0O",
+                    "name": "MedQA Flow",
+                    "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                    "type": "flow",
+                    "environments": [
+                      {
+                        "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                        "created_at": "2023-06-27T23:16:07.992339",
+                        "name": "development",
+                        "tag": "default"
+                      }
+                    ],
+                    "attributes": {
+                      "prompt": {
+                        "template": "You are a helpful assistant helping with medical anamnesis",
+                        "model": "gpt-4o",
+                        "temperature": 0.8
+                      },
+                      "tool": {
+                        "name": "retrieval_tool_v3",
+                        "description": "Retrieval tool for MedQA.",
+                        "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                      }
+                    },
+                    "created_at": "2024-07-08T22:40:35.656915",
+                    "updated_at": "2024-07-08T22:40:35.656915",
+                    "created_by": {
+                      "id": "usr_01RJO1k2spBVqNUt1ASef",
+                      "email_address": "raza@humanloop.com",
+                      "full_name": "Raza Habib"
+                    },
+                    "status": "committed",
+                    "last_used_at": "2024-07-08T22:40:35.656915",
+                    "stop": null,
+                    "seed": null,
+                    "response_format": null,
+                    "version_logs_count": 0,
+                    "evaluator_aggregates": null,
+                    "commit_message": "Initial commit"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/flows/logs/{log_id}": {
+      "patch": {
+        "x-fern-examples": [
+          {
+            "name": "Update log",
+            "path-parameters": { "log_id": "medqa_experiment_0001" },
+            "request": {
+              "inputs": {
+                "question": "Patient with a history of diabetes and normal tension presents with chest pain and shortness of breath."
+              },
+              "output": "The patient is likely experiencing a myocardial infarction. Immediate medical attention is required.",
+              "trace_status": "complete",
+              "error": null
+            },
+            "response": {
+              "body": {
+                "id": "medqa_experiment_0001",
+                "trace_status": "complete",
+                "inputs": {
+                  "question": "Patient with a history of diabetes and normal tension presents with chest pain and shortness of breath."
+                },
+                "output": "The patient is likely experiencing a myocardial infarction. Immediate medical attention is required.",
+                "error": null,
+                "evaluator_logs": [],
+                "flow": {
+                  "attributes": {
+                    "prompt": {
+                      "template": "You are a helpful assistant helping with medical anamnesis",
+                      "model": "gpt-4o",
+                      "temperature": 0.8
+                    },
+                    "tool": {
+                      "name": "retrieval_tool_v3",
+                      "description": "Retrieval tool for MedQA.",
+                      "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                    }
+                  },
+                  "last_used_at": "2024-07-08T22:40:35",
+                  "created_at": "2024-07-08T22:40:39",
+                  "updated_at": "2024-07-08T22:40:39",
+                  "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                  "id": "fl_6o701g4jmcanPVHxdqD0O",
+                  "name": "MedQA Flow",
+                  "path": "Personal Projects/MedQA",
+                  "version_logs_count": 10,
+                  "status": "committed"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/flows/{id}/versions/{version_id}/commit": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Commit version",
+            "path-parameters": {
+              "id": "fl_6o701g4jmcanPVHxdqD0O",
+              "version_id": "flv_6o701g4jmcanPVHxdqD0O"
+            },
+            "request": { "commit_message": "RAG lookup tool bug fixing" },
+            "response": {
+              "body": {
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
+                  {
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
+                  }
+                ],
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/flows/{id}/evaluators": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Add evaluator",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" },
+            "request": {
+              "activate": [{ "evaluator_version_id": "evv_1abc4308abd" }]
+            },
+            "response": {
+              "body": {
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
+                  {
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
+                  }
+                ],
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/flows/{id}/environments": {
+      "get": {
+        "x-fern-examples": [
+          {
+            "name": "List environments",
+            "path-parameters": { "id": "fl_6o701g4jmcanPVHxdqD0O" },
+            "response": {
+              "body": [
+                {
+                  "id": "fl_6o701g4jmcanPVHxdqD0O",
+                  "created_at": "2024-05-01T12:00:00Z",
+                  "name": "production",
+                  "tag": "default",
+                  "file": {
+                    "path": "Personal Projects/MedQA",
+                    "id": "fl_6o701g4jmcanPVHxdqD0O",
+                    "name": "MedQA Flow",
+                    "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                    "type": "flow",
+                    "environments": [
+                      {
+                        "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                        "created_at": "2023-06-27T23:16:07.992339",
+                        "name": "development",
+                        "tag": "default"
+                      }
+                    ],
+                    "attributes": {
+                      "prompt": {
+                        "template": "You are a helpful assistant helping with medical anamnesis",
+                        "model": "gpt-4o",
+                        "temperature": 0.8
+                      },
+                      "tool": {
+                        "name": "retrieval_tool_v3",
+                        "description": "Retrieval tool for MedQA.",
+                        "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                      }
+                    },
+                    "created_at": "2024-07-08T22:40:35.656915",
+                    "updated_at": "2024-07-08T22:40:35.656915",
+                    "created_by": {
+                      "id": "usr_01RJO1k2spBVqNUt1ASef",
+                      "email_address": "raza@humanloop.com",
+                      "full_name": "Raza Habib"
+                    },
+                    "status": "committed",
+                    "last_used_at": "2024-07-08T22:40:35.656915",
+                    "stop": null,
+                    "seed": null,
+                    "response_format": null,
+                    "version_logs_count": 0,
+                    "evaluator_aggregates": null,
+                    "commit_message": "Initial commit"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/flows/{id}/environments/{environment_id}": {
+      "post": {
+        "x-fern-examples": [
+          {
+            "name": "Deploy",
+            "path-parameters": {
+              "id": "fl_6o701g4jmcanPVHxdqD0O",
+              "environment_id": "staging"
+            },
+            "query-parameters": { "version_id": "flv_6o701g4jmcanPVHxdqD0O" },
+            "response": {
+              "body": {
+                "path": "Personal Projects/MedQA",
+                "id": "fl_6o701g4jmcanPVHxdqD0O",
+                "name": "MedQA Flow",
+                "version_id": "flv_7ZNQREaScH0JkhUwtXrLN",
+                "type": "flow",
+                "environments": [
+                  {
+                    "id": "env_ffSVxEBzJcBZ1H5jcNMVj",
+                    "created_at": "2023-06-27T23:16:07.992339",
+                    "name": "development",
+                    "tag": "default"
+                  }
+                ],
+                "attributes": {
+                  "prompt": {
+                    "template": "You are a helpful assistant helping with medical anamnesis",
+                    "model": "gpt-4o",
+                    "temperature": 0.8
+                  },
+                  "tool": {
+                    "name": "retrieval_tool_v3",
+                    "description": "Retrieval tool for MedQA.",
+                    "source_code": "def retrieval_tool(question: str) -> str:\n    pass\n"
+                  }
+                },
+                "created_at": "2024-07-08T22:40:35.656915",
+                "updated_at": "2024-07-08T22:40:35.656915",
+                "created_by": {
+                  "id": "usr_01RJO1k2spBVqNUt1ASef",
+                  "email_address": "raza@humanloop.com",
+                  "full_name": "Raza Habib"
+                },
+                "status": "committed",
+                "last_used_at": "2024-07-08T22:40:35.656915",
+                "stop": null,
+                "seed": null,
+                "response_format": null,
+                "version_logs_count": 0,
+                "evaluator_aggregates": null,
+                "commit_message": "Initial commit"
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "x-fern-examples": [
+          {
+            "name": "Delete environment",
+            "path-parameters": {
+              "id": "fl_6o701g4jmcanPVHxdqD0O",
+              "environment_id": "staging"
             }
           }
         ]
@@ -2602,9 +3156,6 @@
       },
       "src__external__app__models__v5__feedback__FeedbackType": {
         "x-fern-type-name": "FeedbackType"
-      },
-      "src__external__app__models__v5__tools__ToolResponse": {
-        "x-fern-type-name": "ToolResponse"
       },
       "src__external__app__models__v5__users__UserResponse": {
         "x-fern-type-name": "UserResponse"

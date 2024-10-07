@@ -488,9 +488,12 @@ paths:
                   evaluatees:
                     - version: <<prompt_response>>
                       orchestrated: false
+                      pinned: true
+                      added_at: "2024-10-12T12:00:00Z"
                   evaluators:
                     - version: <<evaluator_response>>
                       orchestrated: false
+                      added_at: "2024-10-12T12:00:00Z"
     post:
       x-fern-examples:
         - name: Create evaluation
@@ -513,9 +516,11 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: false
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-05-01T12:00:00Z"
 
   /evaluations/{id}:
     get:
@@ -533,10 +538,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-10-12T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
-
+                  added_at: "2024-10-12T12:00:00Z"
     delete:
       x-fern-examples:
         - name: Delete evaluation
@@ -567,9 +574,12 @@ paths:
               evaluatees:
                 - version: <<prompt_response>>
                   orchestrated: false
+                  pinned: true
+                  added_at: "2024-10-12T12:00:00Z"
               evaluators:
                 - version: <<evaluator_response>>
                   orchestrated: false
+                  added_at: "2024-10-12T12:00:00Z"
 
     /evaluations/{id}/status:
       patch:
@@ -589,9 +599,11 @@ paths:
                 evaluatees:
                   - version: <<prompt_response>>
                     orchestrated: false
+                    pinned: true
                 evaluators:
                   - version: <<evaluator_response>>
                     orchestrated: false
+                    added_at: "2024-05-01T12:00:00Z"
 
   # Default example response seems to handle this quite well. Won't hardcode a specific example.
   # /evaluationrs/{id}/stats:
@@ -647,49 +659,147 @@ paths:
           response:
             body: << prompt_log_object >>
 
-  # SESSIONS
+  # FLOWS
 
-  /sessions:
+  /flows:
+    post:
+      x-fern-examples:
+        - name: Upsert flow
+          request: << flow_request >>
+          response:
+            body: << flow_response >>
     get:
       x-fern-pagination: true
       x-fern-examples:
-        - name: List sessions
-          query-parameters:
+        - query-parameters:
             size: 1
-            file_id: "pr_123abc"
+          response:
+            body:
+              {
+                "records": [<< flow_response >>],
+                "page": 0,
+                "size": 1,
+                "total": 1,
+              }
+
+  /flows/log:
+    post:
+      x-fern-examples:
+        - name: Log flow
+          request: << flow_log_request >>
+          response:
+            body: << create_flow_log_response >>
+
+  /flows/{id}:
+    get:
+      x-fern-examples:
+        - name: Get specific flow
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+          response:
+            body: << flow_response >>
+    delete:
+      x-fern-examples:
+        - name: Delete flow
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+    patch:
+      x-fern-examples:
+        - name: Move flow
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+          request:
+            path: "new directory/new name"
+          response:
+            body: << flow_response >>
+
+  /flows/{id}/versions:
+    get:
+      x-fern-examples:
+        - name: List versions
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+          query-parameters:
+            status: "committed"
           response:
             body:
               records:
-                - id: "sesh_456hij"
-                  created_at: "2024-05-01T12:00:00Z"
-                  updated_at: "2024-05-01T12:00:00Z"
-                  events: [<< session_event_response >>]
-                  logs_count: 1
-              page: 1
-              size: 11
-              total: 1
+                - << flow_response >>
 
-  /sessions/{id}:
-    delete:
+  /flows/logs/{log_id}:
+    patch:
       x-fern-examples:
-        - name: Delete session
+        - name: Update log
           path-parameters:
-            id: "sesh_123abc"
+            log_id: "medqa_experiment_0001"
+          request:
+            inputs:
+              question: "Patient with a history of diabetes and normal tension presents with chest pain and shortness of breath."
+            output: "The patient is likely experiencing a myocardial infarction. Immediate medical attention is required."
+            trace_status: "complete"
+            error: null
+          response:
+            body: << updated_flow_log_response >>
+
+  /flows/{id}/versions/{version_id}/commit:
+    post:
+      x-fern-examples:
+        - name: Commit version
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+            version_id: "flv_6o701g4jmcanPVHxdqD0O"
+          request:
+            commit_message: "RAG lookup tool bug fixing"
+          response:
+            body: << flow_response >>
+
+  /flows/{id}/evaluators:
+    post:
+      x-fern-examples:
+        - name: Add evaluator
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+          request:
+            activate:
+              - evaluator_version_id: "evv_1abc4308abd"
+          response:
+            body: << flow_response >>
+
+  /flows/{id}/environments:
     get:
       x-fern-examples:
-        - name: Get session
+        - name: List environments
           path-parameters:
-            id: "sesh_123abc"
+            id: "fl_6o701g4jmcanPVHxdqD0O"
           response:
             body:
-              id: "sesh_456hij"
-              created_at: "2024-05-01T12:00:00Z"
-              updated_at: "2024-05-01T12:00:00Z"
-              events: [<< session_event_response >>]
-              logs_count: 1
+              - id: "fl_6o701g4jmcanPVHxdqD0O"
+                created_at: "2024-05-01T12:00:00Z"
+                name: "production"
+                tag: "default"
+                file: << flow_response >>
+
+  /flows/{id}/environments/{environment_id}:
+    post:
+      x-fern-examples:
+        - name: Deploy
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+            environment_id: "staging"
+          query-parameters:
+            version_id: "flv_6o701g4jmcanPVHxdqD0O"
+          response:
+            body: << flow_response >>
+
+    delete:
+      x-fern-examples:
+        - name: Delete environment
+          path-parameters:
+            id: "fl_6o701g4jmcanPVHxdqD0O"
+            environment_id: "staging"
 
   # DIRECTORIES
-# TODO: Endpoint needs to be cleaned up before exposing publically
+# TODO: Endpoint needs to be cleaned up before exposing publicly
 #
 #  /directories:
 #    get:
@@ -789,8 +899,6 @@ components:
       x-fern-type-name: EvaluatorsRequest
     src__external__app__models__v5__feedback__FeedbackType:
       x-fern-type-name: FeedbackType
-    src__external__app__models__v5__tools__ToolResponse:
-      x-fern-type-name: ToolResponse
     src__external__app__models__v5__users__UserResponse:
       x-fern-type-name: UserResponse
   securitySchemes:

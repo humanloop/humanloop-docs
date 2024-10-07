@@ -29,14 +29,16 @@ We want to get the model to classify the customer support query into the appropr
 
 We've used the following prompt:
 
-_You are a customer support classifier for Humanloop, a platform for building applications with LLMs._
+```
+You are a customer support classifier for Humanloop, a platform for building applications with LLMs.
 
-_Please classify the following customer support query into one of these categories:
-[datasets, docs, evaluators, feedback, fine-tuning, model configs, model providers]_
+Please classify the following customer support query into one of these categories:
+[datasets, docs, evaluators, feedback, fine-tuning, model configs, model providers]
 
-_{{user_query}}_
+{{user_query}}
 
 The most important thing here is that we have included a **prompt variable** - `{{ user_query }}` which corresponds to the input key on all the datapoints in our dataset. This was the first column header in the CSV file we used to upload the dataset.
+```
 
 ### Save the model config by clicking the **Save** button. Call the config `support_classifier`.
 
@@ -59,7 +61,11 @@ The most important thing here is that we have included a **prompt variable** - `
 
 ### Follow the link in the pop-up to the batch generation run which is under the **Evaluations** tab.
 
-<img src="../../../assets/images/8e9bc5c-image.png" alt="The batch generate output view, including an **exact match** evaluator." />
+<img
+  src="../../../assets/images/8e9bc5c-image.png"
+  alt="The batch generate output view, including an **exact match** evaluator."
+/>
+
 </Steps>
 
 The output the model produced is shown in the **output** column, and the exact match column shows that the model produced the expected (target) output in most cases. From here, we could inspect the failing cases and iterate on our model config before testing again to see if the accuracy across the whole dataset has improved.

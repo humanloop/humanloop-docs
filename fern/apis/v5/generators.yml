@@ -8,29 +8,33 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 3.10.6
+        version: 4.2.7
         output:
           location: pypi
           package-name: "humanloop"
           token: ${PYPI_TOKEN}
         github:
-          repository: humanloop/humanloop-python-beta
+          repository: humanloop/humanloop-python
         config:
-          client_class_name: Humanloop
           use_typeddict_requests: true
           pydantic_config:
             skip_validation: true
+          client:
+            class_name: BaseHumanloop
+            filename: base_client.py
+            exported_class_name: Humanloop
+            exported_filename: client.py
 
   ts-sdk:
     generators:
       - name: fernapi/fern-typescript-node-sdk
-        version: 0.39.6
+        version: 0.40.7
         output:
           location: npm
           package-name: "humanloop"
           token: ${NPM_TOKEN}
         github:
-          repository: humanloop/humanloop-node-beta
+          repository: humanloop/humanloop-node
         smart-casing: true
         config:
           namespaceExport: Humanloop
