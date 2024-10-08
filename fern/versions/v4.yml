@@ -7,10 +7,9 @@ tabs:
     display-name: API Reference
     slug: api-reference
     icon: light code
-  changelog:
+  change-log:
     display-name: Changelog
     icon: light clock
-    changelog: ../changelog
 navigation:
   - tab: docs
     layout:
@@ -203,4 +202,72 @@ navigation:
         display-errors: true
         summary: ../apis/v4/summary.md
 
-  - tab: changelog
+  - tab: change-log
+    layout:
+      - section: "2024"
+        contents:
+          - page: October
+            path: ../change-log/2024/2024-10.mdx
+            slug: 2024-10
+          - page: September
+            path: ../change-log/2024/2024-09.mdx
+            slug: 2024-09
+          - page: August
+            path: ../change-log/2024/2024-08.mdx
+            slug: 2024-08
+          - page: July
+            path: ../change-log/2024/2024-07.mdx
+            slug: 2024-07
+          - page: June
+            path: ../change-log/2024/2024-06.mdx
+            slug: 2024-06
+          - page: May
+            path: ../change-log/2024/2024-05.mdx
+            slug: 2024-05
+          - page: April
+            path: ../change-log/2024/2024-04.mdx
+            slug: 2024-04
+          - page: March
+            path: ../change-log/2024/2024-03.mdx
+            slug: 2024-03
+          - page: February
+            path: ../change-log/2024/2024-02.mdx
+            slug: 2024-02
+          - page: January
+            path: ../change-log/2024/2024-01.mdx
+            slug: 2024-01
+      - section: "2023"
+        contents:
+          - page: December
+            path: ../change-log/2023/2023-12.mdx
+            slug: 2023-12
+          - page: November
+            path: ../change-log/2023/2023-11.mdx
+            slug: 2023-11
+          - page: October
+            path: ../change-log/2023/2023-10.mdx
+            slug: 2023-10
+          - page: September
+            path: ../change-log/2023/2023-09.mdx
+            slug: 2023-09
+          - page: August
+            path: ../change-log/2023/2023-08.mdx
+            slug: 2023-08
+          - page: July
+            path: ../change-log/2023/2023-07.mdx
+            slug: 2023-07
+          - page: June
+            path: ../change-log/2023/2023-06.mdx
+            slug: 2023-06
+          - page: May
+            path: ../change-log/2023/2023-05.mdx
+            slug: 2023-05
+          - page: April
+            path: ../change-log/2023/2023-04.mdx
+            slug: 2023-04
+          - page: March
+            path: ../change-log/2023/2023-03.mdx
+            slug: 2023-03
+          - page: February
+            path: ../change-log/2023/2023-02.mdx
+            slug: 2023-02
