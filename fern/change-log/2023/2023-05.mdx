@@ -1,0 +1,115 @@
+---
+title: Changelog | May 2023
+---
+
+## Cohere
+
+_ May 23rd, 2023_
+
+We've just added support for Cohere to Humanloop!
+
+<img src="../../assets/images/200aec1-Screenshot_2023-05-24_at_08.16.32.png" />
+
+This update adds Cohere models to the playground and your projects - just add your Cohere API key in your [organization's settings](https://app.humanloop.com/account/api-keys). As with other providers, each user in your organization can also set a personal override API key, stored locally in the browser, for use in Cohere requests from the Playground.
+
+### Enabling Cohere for your organization
+
+<img src="../../assets/images/d831ba3-image.png" alt="Add your Cohere API key to your organization settings to start using Cohere models with Humanloop." />
+
+### Working with Cohere models
+
+Once you've successfully enabled Cohere for your organization, you'll be able to access it through the [playground](https://app.humanloop.com/playground) and in your projects, in exactly the same way as your existing OpenAI and/or Anthropic models.
+
+<img src="../../assets/images/0c55331-image.png" />
+
+### REST API and Python / TypeScript support
+
+As with other model providers, once you've set up a Cohere-backed model config, you can call it with the Humanloop [REST API or our SDKs](/docs/api-reference/sdks).
+
+```typescript
+import { Humanloop } from "humanloop";
+
+const humanloop = new Humanloop({
+  apiKey: "API_KEY",
+});
+
+const chatResponse = await humanloop.chat({
+  project: "project_example",
+  messages: [
+    {
+      role: "user",
+      content: "Write me a song",
+    },
+  ],
+  provider_api_keys: {
+    cohere: COHERE_API_KEY,
+  },
+  model_config: {
+    model: "command",
+    temperature: 1,
+  },
+});
+
+console.log(chatResponse);
+```
+
+If you don't provide a Cohere API key under the `provider_api_keys` field, the request will fall back on the stored organization level key you configured above.
+
+---
+
+## Improved Python SDK
+
+_May 17th, 2023_
+
+We've just released a new version of our Python SDK supporting our v4 API!
+
+This brings support for:
+
+- 💬 Chat mode `humanloop.chat(...)`
+- 📥 Streaming support `humanloop.chat_stream(...)`
+- 🕟 Async methods `humanloop.acomplete(...)`
+
+[https://pypi.org/project/humanloop/](https://pypi.org/project/humanloop/)
+
+### Installation
+
+`pip install --upgrade humanloop`
+
+### Example usage
+
+```python
+complete_response = humanloop.complete(
+  project="sdk-example",
+  inputs={
+    "text": "Llamas that are well-socialized and trained to halter and lead after weaning and are very friendly and pleasant to be around. They are extremely curious and most will approach people easily. However, llamas that are bottle-fed or over-socialized and over-handled as youth will become extremely difficult to handle when mature, when they will begin to treat humans as they treat each other, which is characterized by bouts of spitting, kicking and neck wrestling.[33]",
+  },
+  model_config={
+    "model": "gpt-3.5-turbo",
+    "max_tokens": -1,
+    "temperature": 0.7,
+    "prompt_template": "Summarize this for a second-grade student:\n\nText:\n{{text}}\n\nSummary:\n",
+  },
+  stream=False,
+)
+pprint(complete_response)
+pprint(complete_response.project_id)
+pprint(complete_response.data[0])
+pprint(complete_response.provider_responses)
+```
+
+### Migration from `0.3.x`
+
+For those coming from an older SDK version, this introduces some breaking changes. A brief highlight of the changes:
+
+- The client initialization step of `hl.init(...)` is now `humanloop = Humanloop(...)`.
+  - Previously `provider_api_keys` could be provided in `hl.init(...)`. They should now be provided when constructing `Humanloop(...)` client.
+  - ```python
+    humanloop = Humanloop(
+        api_key="YOUR_API_KEY",
+        openai_api_key="YOUR_OPENAI_API_KEY",
+        anthropic_api_key="YOUR_ANTHROPIC_API_KEY",
+    )
+    ```
+- `hl.generate(...)`'s various call signatures have now been split into individual methods for clarity. The main ones are:
+  - `humanloop.complete(project, model_config={...}, ...)` for a completion with the specified model config parameters.
+  - `humanloop.complete_deployed(project, ...)` for a completion with the project's active deployment.
