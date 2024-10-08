@@ -20,31 +20,39 @@ navigation:
           - page: Overview
             slug: getting-started/overview
             path: ../v5-pages/getting-started/overview.mdx
-          - page: Why Humanloop?
-            slug: getting-started/why-humanloop
-            path: ../v5-pages/getting-started/why-humanloop.mdx
-          - section: Concepts
+          - section: Quickstart
             contents:
-              - page: Overview
-                path: ../v5-pages/concepts/overview.mdx
-              - page: Prompts
-                path: ../v5-pages/concepts/prompts.mdx
-              - page: Tools
-                path: ../v5-pages/concepts/tools.mdx
-              - page: Datasets
-                path: ../v5-pages/concepts/datasets.mdx
-              - page: Evaluators
-                path: ../v5-pages/concepts/evaluators.mdx
-              - page: Logs
-                path: ../v5-pages/concepts/logs.mdx
-              #              - page: Flows
-              #                path: ../v5-pages/concepts/flows.mdx
-              # - page: Sessions
-              #   path: ../v5-pages/concepts/sessions.mdx
-              - page: Environments
-                path: ../v5-pages/concepts/environments.mdx
-              - page: Directories
-                path: ../v5-pages/concepts/directories.mdx
+              - page: Start in Code
+                slug: start-in-code
+                path: ../v5-pages/getting-started/start-in-code.mdx
+              - page: Start in the UI
+                slug: start-in-ui
+                path: ../v5-pages/getting-started/start-in-the-ui.mdx
+          # - page: Why Humanloop?
+          #   slug: getting-started/why-humanloop
+          #   path: ../v5-pages/getting-started/why-humanloop.mdx
+          # - section: Concepts
+            # contents:
+            #   - page: Overview
+            #     path: ../v5-pages/concepts/overview.mdx
+            #   - page: Prompts
+            #     path: ../v5-pages/concepts/prompts.mdx
+            #   - page: Tools
+            #     path: ../v5-pages/concepts/tools.mdx
+            #   - page: Datasets
+            #     path: ../v5-pages/concepts/datasets.mdx
+            #   - page: Evaluators
+            #     path: ../v5-pages/concepts/evaluators.mdx
+            #   - page: Logs
+            #     path: ../v5-pages/concepts/logs.mdx
+            #   #              - page: Flows
+            #   #                path: ../v5-pages/concepts/flows.mdx
+            #   # - page: Sessions
+            #   #   path: ../v5-pages/concepts/sessions.mdx
+            #   - page: Environments
+            #     path: ../v5-pages/concepts/environments.mdx
+            #   - page: Directories
+            #     path: ../v5-pages/concepts/directories.mdx
               # - page: Architecture
               #   path: ../v5-pages/getting-started/architecture.mdx
               # - page: Security
@@ -52,12 +60,47 @@ navigation:
       - section: Tutorials
         slug: tutorials
         contents:
-          - page: Quickstart Tutorial
-            slug: quickstart
-            path: ../v5-pages/tutorials/quickstart-tutorial.mdx
           - page: ChatGPT Clone Tutorial
             slug: chatgpt-clone
             path: ../v5-pages/tutorials/chatgpt-clone.mdx
+      - section: Evaluation
+        contents:
+          - page: Overview
+            path: ../v5-pages/evaluation/overview.mdx
+          #          - page: Collecting Feedback
+          #            path: ../v5-pages/evaluation/collecting-feedback.mdx
+          #          - page: Dataset management
+          #            path: ../v5-pages/evaluation/dataset-management.mdx
+          - section: How-To Guides
+            slug: guides
+            contents:
+              - page: Compare and Debug Prompts
+                slug: comparing-prompt-editor
+                path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
+              - page: Create a Dataset
+                slug: create-dataset
+                path: ../v5-pages/evaluation/guides/create-dataset.mdx
+              - page: Set up a code Evaluator
+                slug: code-based-evaluator
+                path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
+              - page: Set up LLM as a Judge
+                slug: llm-as-a-judge
+                path: ../v5-pages/evaluation/guides/llm-as-a-judge.mdx
+              - page: Set up a Human Evaluator
+                slug: human-evaluators
+                path: ../v5-pages/evaluation/guides/human-evaluators.mdx
+              - page: Run an Evaluation
+                slug: run-evaluation
+                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
+              - page: Run a Human Evaluation
+                slug: run-human-evaluation
+                path: ../v5-pages/evaluation/guides/run-human-evaluation.mdx
+                # TODO: correct this guide before publishing
+              #              - page: Generating synthetic data
+              #                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
+              - page: Set up CI/CD Evaluations
+                slug: cicd-integration
+                path: ../v5-pages/evaluation/guides/cicd-integration.mdx
       #   contents:
       # - page: Tracing and versioning your LLM calls
       #   path: ../v5-pages/tutorials/tracing-versioning-llm-application.mdx
@@ -128,45 +171,6 @@ navigation:
               - page: Link JSON Schema Tool
                 slug: link-json-schema-tool
                 path: ../v5-pages/development/guides/link-json-schema-tool.mdx
-      - section: Evaluation
-        contents:
-          - page: Overview
-            path: ../v5-pages/evaluation/overview.mdx
-          #          - page: Collecting Feedback
-          #            path: ../v5-pages/evaluation/collecting-feedback.mdx
-          #          - page: Dataset management
-          #            path: ../v5-pages/evaluation/dataset-management.mdx
-          - section: How-To Guides
-            slug: guides
-            contents:
-              - page: Compare and Debug Prompts
-                slug: comparing-prompt-editor
-                path: ../v5-pages/evaluation/guides/comparing-prompt-editor.mdx
-              - page: Create a Dataset
-                slug: create-dataset
-                path: ../v5-pages/evaluation/guides/create-dataset.mdx
-              - page: Set up a code Evaluator
-                slug: code-based-evaluator
-                path: ../v5-pages/evaluation/guides/code-based-evaluator.mdx
-              - page: Set up LLM as a Judge
-                slug: llm-as-a-judge
-                path: ../v5-pages/evaluation/guides/llm-as-a-judge.mdx
-              - page: Set up a Human Evaluator
-                slug: human-evaluators
-                path: ../v5-pages/evaluation/guides/human-evaluators.mdx
-              - page: Run an Evaluation
-                slug: run-evaluation
-                path: ../v5-pages/evaluation/guides/run-evaluation.mdx
-              - page: Run a Human Evaluation
-                slug: run-human-evaluation
-                path: ../v5-pages/evaluation/guides/run-human-evaluation.mdx
-                # TODO: correct this guide before publishing
-              #              - page: Generating synthetic data
-              #                path: ../v5-pages/evaluation/guides/generate-synthetic-data.mdx
-              - page: Set up CI/CD Evaluations
-                slug: cicd-integration
-                path: ../v5-pages/evaluation/guides/cicd-integration.mdx
-
       - section: Observability
         contents:
           - page: Overview
