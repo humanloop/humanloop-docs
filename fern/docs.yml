@@ -173,8 +173,6 @@ redirects:
   - source: /docs/why-humanloop
     destination: /docs/getting-started/why-humanloop
 
-  - source: /docs/quickstart
-    destination: /docs/tutorials/quickstart
   - source: /docs/changelog/multiple-tool-calls
     destination: /docs/changelog/2023/11/20
   - source: /docs/guides/set-up-semantic-search
